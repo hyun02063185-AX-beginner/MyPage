@@ -1,0 +1,108 @@
+/*
+  디자인 토큰. 다크 테마를 기준으로 팔레트를 먼저 잡고 라이트 테마를 파생시켰다.
+  :root = 라이트(기본), [data-theme="dark"] = 다크(토글 시 적용).
+  브레이크포인트는 CSS 변수로 쓸 수 없어(미디어쿼리 제약) layout.css/sections.css에
+  768px / 1024px 리터럴로 직접 쓴다.
+*/
+
+:root {
+  color-scheme: light;
+
+  /* 색 — 라이트 */
+  --color-bg: #f7f8fb;
+  --color-bg-elevated: #ffffff;
+  --color-bg-muted: #eef0f6;
+  --color-text: #12151c;
+  --color-text-muted: #545e6e;
+  --color-text-faint: #7a8494;
+  --color-border: #dde1ea;
+  --color-accent: #4c50d6;
+  --color-accent-strong: #3538b0;
+  --color-accent-contrast: #ffffff;
+  --color-accent-secondary: #0f9c8c;
+  --color-success: #0e9f6e;
+  --color-error: #dc2626;
+  --color-warning: #b45309;
+  --color-overlay: rgba(18, 21, 28, 0.55);
+
+  /* 그림자 — 라이트 */
+  --shadow-sm: 0 1px 2px rgba(18, 21, 28, 0.06);
+  --shadow-md: 0 8px 24px rgba(18, 21, 28, 0.08);
+  --shadow-lg: 0 20px 48px rgba(18, 21, 28, 0.12);
+
+  /* 타이포 */
+  --font-sans: "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.375rem;
+  --fs-xl: 1.75rem;
+  --fs-2xl: 2.25rem;
+  --fs-3xl: 3rem;
+  --lh-base: 1.7;
+  --lh-heading: 1.3;
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+  --fw-black: 900;
+
+  /* 간격 */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  /* 형태 */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  /* 애니메이션 */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.25s ease;
+  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* 레이아웃 */
+  --container-max: 1200px;
+  --container-padding: 1.25rem;
+  --header-height: 64px;
+
+  /* z-index */
+  --z-nav: 100;
+  --z-float: 150;
+  --z-toast: 300;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* 색 — 다크 */
+  --color-bg: #0a0e14;
+  --color-bg-elevated: #121826;
+  --color-bg-muted: #1b2333;
+  --color-text: #eef1f6;
+  --color-text-muted: #9aa5b4;
+  --color-text-faint: #6b7686;
+  --color-border: #262f40;
+  --color-accent: #7c83f2;
+  --color-accent-strong: #9ba0ff;
+  --color-accent-contrast: #0a0e14;
+  --color-accent-secondary: #38d9c9;
+  --color-success: #34d399;
+  --color-error: #f87171;
+  --color-warning: #fbbf24;
+  --color-overlay: rgba(10, 14, 20, 0.72);
+
+  /* 그림자 — 다크 */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.55);
+}

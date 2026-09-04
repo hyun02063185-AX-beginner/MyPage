@@ -1,0 +1,200 @@
+/* 전역 레이아웃: 컨테이너, 헤더/네비, 섹션 공통 여백, 반응형 */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* 섹션 공통 여백 (모바일 퍼스트) */
+section {
+  padding-block: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  section {
+    padding-block: var(--space-9);
+  }
+}
+
+@media (min-width: 1024px) {
+  section {
+    padding-block: var(--space-10);
+  }
+}
+
+/* 헤더 / 네비 — Flexbox: 로고 왼쪽, 메뉴+액션 오른쪽 */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+  height: var(--header-height);
+  background-color: transparent;
+  transition: background-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.site-header.is-scrolled {
+  background-color: var(--color-bg-elevated);
+  box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.logo {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-black);
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.site-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* 모바일: 메뉴 숨김, 햄버거로 전환 */
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.nav-menu.is-open {
+  display: flex;
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  background-color: var(--color-bg-elevated);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-5) var(--container-padding);
+}
+
+.nav-link {
+  display: block;
+  padding: var(--space-2) 0;
+  color: var(--color-text-muted);
+  font-weight: var(--fw-medium);
+  transition: color var(--transition-fast);
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--color-accent);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hamburger-btn {
+  display: inline-flex;
+}
+
+@media (min-width: 768px) {
+  .nav-menu {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-6);
+  }
+
+  .nav-menu.is-open {
+    position: static;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .hamburger-btn {
+    display: none;
+  }
+}
+
+/* 아이콘 버튼 (다크모드 토글, 햄버거, 스크롤탑) */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  color: var(--color-text);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.icon-btn:hover,
+.icon-btn:focus-visible {
+  background-color: var(--color-bg-muted);
+}
+
+/* 스크롤탑 버튼 — 300px 이상 스크롤 시 노출 (토글은 인터랙션 에이전트) */
+.scroll-top-btn {
+  position: fixed;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  z-index: var(--z-float);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.scroll-top-btn.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 푸터 */
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  padding-block: var(--space-6);
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+  color: var(--color-text-faint);
+  font-size: var(--fs-sm);
+}
+
+.footer-github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.footer-github-link:hover,
+.footer-github-link:focus-visible {
+  color: var(--color-accent);
+}
+
+@media (min-width: 768px) {
+  .footer-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
