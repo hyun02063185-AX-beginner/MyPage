@@ -7,6 +7,9 @@
   - .credential-item / .credential-item__name / .credential-item__meta / .credential-item__link
   - .card (work·github 공용) / .card__image / .card__eyebrow / .card__title /
     .card__meta / .card__body / .card__footer / .card__link
+  - .explain-statement (관점 문장 li) /
+    .card.explain-case-card + .explain-case-card__image (사례 카드 —
+    .card__eyebrow/.card__title/.card__text 재사용, 이미지만 정사각 전용 클래스로 교체)
 */
 
 /* hero */
@@ -97,6 +100,65 @@
 
 .story-scene__text {
   color: var(--color-text-muted);
+}
+
+/* explain — 관점(대표 이미지+캡션+인용 문장) + 설명 사례 카드 */
+.explain-perspective {
+  display: grid;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.explain-perspective__image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-muted);
+}
+
+.explain-perspective__caption {
+  margin-top: var(--space-3);
+  font-size: var(--fs-sm);
+  font-style: italic;
+  color: var(--color-text-faint);
+}
+
+.explain-statements {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  justify-content: center;
+}
+
+.explain-statement {
+  padding-left: var(--space-5);
+  border-left: 3px solid var(--color-accent);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-heading);
+  color: var(--color-text);
+}
+
+@media (min-width: 1024px) {
+  .explain-perspective {
+    grid-template-columns: minmax(320px, 460px) 1fr;
+    align-items: center;
+    gap: var(--space-8);
+  }
+}
+
+/* explain 사례 카드 — 웹툰이 정사각이라 .card__image(16:9 cover)를 쓰면 잘린다.
+   전용 이미지 클래스로 원본 비율을 그대로 보여준다. */
+.card-grid.explain-case-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+}
+
+.explain-case-card__image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  background-color: var(--color-bg-muted);
 }
 
 /* teaching */

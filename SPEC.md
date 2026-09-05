@@ -41,12 +41,13 @@
 |---|---|---|
 | 1 | hero | 한 문장 자기 정의 + 자격 요약 한 줄 |
 | 2 | story | 5장면. 이 사이트의 중심 |
-| 3 | teaching | 강의 주제 목록 (분류 3개) |
-| 4 | credentials | 자격·수료 (텍스트만, 작게) |
-| 5 | work | 프로젝트 카드 + 필터 |
-| 6 | github | GitHub API 저장소 목록 |
-| 7 | contact | 강의 문의 폼 |
-| 8 | footer | 저작권, GitHub 링크 |
+| 3 | explain | 이렇게 설명합니다. AI를 대하는 관점 + 설명 사례 카드 |
+| 4 | teaching | 강의 주제 목록 (분류 3개) |
+| 5 | credentials | 자격·수료 (텍스트만, 작게) |
+| 6 | work | 프로젝트 카드 + 필터 |
+| 7 | github | GitHub API 저장소 목록 |
+| 8 | contact | 강의 문의 폼 |
+| 9 | footer | 저작권, GitHub 링크 |
 
 ### hero
 ```
@@ -64,6 +65,26 @@ AX 전문강사 · AICE Future 1급 · CISA
 3. 지키는 사람 — 삼성화재 9년, 개발과 운영의 차이
 4. 가르치는 사람 — 신입 기획자, 신입 개발자 온보딩
 5. 다시, 그때 그 느낌 — 바이브코딩, 지금
+
+### explain
+2단 구성. 상단은 관점, 하단은 설명 사례 카드. 원고는 `js/data/explain.js`.
+
+**상단 — 관점 + 대표 이미지**
+- 이미지: `kyulshimhandang.webp`
+- 캡션: "이 그림도 AI로 만들었습니다. 자세히 보면 한글이 네 군데 틀려 있습니다. 그래서 결과물은 제가 이해하고 있어야 합니다."
+- 관점 문장 3개:
+  1. "AI를 대하는 태도는 주도적이어야 합니다. 구조는 제가 먼저 잡고, 결과물은 제가 이해합니다."
+  2. "이해가 안 되면 될 때까지 다시 물어봅니다."
+  3. "부장이 실무자에게 일을 맡기듯 대합니다."
+
+**하단 — 설명 사례 카드**
+웹툰 이미지 + 제목 + 개념 + 해설 문단으로 구성한 카드 목록.
+- 대표 사례: 제주 동문시장 API 비유. 원고는 콘텐츠 에이전트가 별도로 받아 작성한다.
+- 나머지 사례는 `public/comics/`의 md·json 원본에서 가져온다.
+
+**이미지 정책**
+- 웹툰 이미지는 정사각형이라 카드 썸네일에서 잘리면 안 된다. work 섹션 프로젝트 카드의 16:9 비율과는 분리해서 처리한다 (별도 비율/클래스).
+- 한글 오타가 있는 이미지(`kyulshimhandang.webp` 등)는 오타를 다루는 맥락에서만 사용한다. 다른 곳의 대표 이미지로 재사용하지 않는다.
 
 ### teaching
 학교명·횟수 없이 주제만.
@@ -131,6 +152,12 @@ AICE Junior는 "AI 출강 자격 요건으로 취득" 맥락을 한 줄 붙여 �
 콘텐츠와 코드를 완전히 분리한다. 내용 수정은 `js/data/`만 건드린다.
 
 ```js
+// js/data/hero.js
+export const hero = {
+  heading: "IT 현장에서 20년을 보냈습니다. 웹 서비스를 만들고, 운영했습니다. 지금은 그 경험으로 AI 활용을 가르칩니다.",
+  sub: "AX 전문강사 · AICE Future 1급 · CISA"
+};
+
 // js/data/story.js
 export const story = [
   {
@@ -140,6 +167,29 @@ export const story = [
     paragraphs: ["...", "..."]
   }
 ];
+
+// js/data/explain.js
+export const explain = {
+  perspective: {
+    image: "images/kyulshimhandang.webp",
+    imageAlt: "...",
+    caption: "이 그림도 AI로 만들었습니다. 자세히 보면 한글이 네 군데 틀려 있습니다. 그래서 결과물은 제가 이해하고 있어야 합니다.",
+    statements: [
+      "AI를 대하는 태도는 주도적이어야 합니다. 구조는 제가 먼저 잡고, 결과물은 제가 이해합니다.",
+      "이해가 안 되면 될 때까지 다시 물어봅니다.",
+      "부장이 실무자에게 일을 맡기듯 대합니다."
+    ]
+  },
+  cases: [
+    {
+      title: "...",
+      concept: "...",
+      image: "images/....webp",
+      imageAlt: "...",
+      paragraphs: ["...", "..."]
+    }
+  ]
+};
 
 // js/data/teaching.js
 export const teaching = [
