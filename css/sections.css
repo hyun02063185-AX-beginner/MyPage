@@ -329,7 +329,7 @@
    explain-case-grid는 이 규칙의 영향을 받지 않는다. */
 .card-grid.work-grid {
   align-items: start;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
 }
 
 /* work 필터 */

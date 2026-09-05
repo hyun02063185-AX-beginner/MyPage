@@ -2,6 +2,7 @@ import { buildCardHTML } from './cardTemplate.js';
 import { setPanelState, PANEL_STATE } from './statePanel.js';
 
 const GITHUB_API_URL = 'https://api.github.com/users/hyun02063185-AX-beginner/repos?sort=updated';
+const FETCH_TIMEOUT_MS = 10000;
 
 const toRepoCard = ({ name, description, html_url: htmlUrl, language, updated_at: updatedAt }) => ({
   tag: 'li',
@@ -30,8 +31,11 @@ const loadRepos = async (elements) => {
   setPanelState(elements, PANEL_STATE.LOADING);
   if (loadingText) loadingText.textContent = '저장소를 불러오는 중입니다...';
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
   try {
-    const response = await fetch(GITHUB_API_URL);
+    const response = await fetch(GITHUB_API_URL, { signal: controller.signal });
 
     if (!response.ok) {
       const message =
@@ -51,10 +55,14 @@ const loadRepos = async (elements) => {
 
     list.innerHTML = repos.map((repo) => buildCardHTML(toRepoCard(repo))).join('');
     setPanelState(elements, PANEL_STATE.SUCCESS);
-  } catch {
-    setPanelState(elements, PANEL_STATE.ERROR, {
-      message: '네트워크 오류로 저장소 목록을 불러오지 못했습니다.',
-    });
+  } catch (err) {
+    const message =
+      err instanceof DOMException && err.name === 'AbortError'
+        ? '요청 시간이 초과되었습니다. 잠시 후 다시 시도해 주세요.'
+        : '네트워크 오류로 저장소 목록을 불러오지 못했습니다.';
+    setPanelState(elements, PANEL_STATE.ERROR, { message });
+  } finally {
+    clearTimeout(timeoutId);
   }
 };
 
