@@ -200,7 +200,9 @@ export const teaching = [
 
 // js/data/credentials.js
 export const credentials = [
-  { name: "AICE Future 1급", issuer: "KT", date: "2024-11", verifyUrl: null }
+  { name: "AICE Future 1급", issuer: "KT", date: "2024-11", verifyUrl: null, note: "" },
+  { name: "AICE Junior", issuer: "KT", date: "2025-08", verifyUrl: null,
+    note: "AI 출강 자격 요건으로 취득" }
 ];
 
 // js/data/projects.js
