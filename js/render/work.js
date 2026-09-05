@@ -6,12 +6,12 @@ const state = {
   filter: 'all',
 };
 
-const toWorkCard = ({ title, category, period, role, result, image, demoUrl }) => ({
+const toWorkCard = ({ title, category, period, role, problem, work, result, image, demoUrl }) => ({
   tag: 'article',
   eyebrow: category,
   title,
   meta: `${period} · ${role}`,
-  text: result,
+  text: [problem, work, result],
   image,
   imageAlt: `${title} 스크린샷`,
   linkHref: demoUrl ?? '',

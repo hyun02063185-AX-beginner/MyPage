@@ -26,6 +26,13 @@ export const buildCardHTML = ({
       </div>`
     : '';
 
+  // text는 문자열 하나(github) 또는 문자열 배열(work: problem/work/result)을 모두 받는다.
+  const textParagraphs = Array.isArray(text) ? text : [text];
+  const textBlock = textParagraphs
+    .filter((paragraph) => Boolean(paragraph))
+    .map((paragraph) => `<p class="card__text">${escapeHtml(paragraph)}</p>`)
+    .join('');
+
   return `
     <${tag} class="card">
       ${imageBlock}
@@ -33,7 +40,7 @@ export const buildCardHTML = ({
         ${eyebrow ? `<span class="card__eyebrow">${escapeHtml(eyebrow)}</span>` : ''}
         <h3 class="card__title">${escapeHtml(title)}</h3>
         ${meta ? `<p class="card__meta">${escapeHtml(meta)}</p>` : ''}
-        ${text ? `<p class="card__text">${escapeHtml(text)}</p>` : ''}
+        ${textBlock}
       </div>
       ${linkBlock}
     </${tag}>
