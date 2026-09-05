@@ -28,7 +28,7 @@ export const projects = [
       "가상의 강의 요청을 입력해 강의안 문서와 발표자료(PPTX)까지 뽑아내는 전체 흐름이 동작하는 것을 확인하는 단계까지 진행했습니다. 다만 실제 강의를 준비하는 데는 아직 사용하지 않았습니다.",
     category: "실무 도구",
     demoUrl: null,
-    image: null, // TODO: 캡처 준비되면 "images/ax-lecture-studio.webp"로 채우기
+    image: "images/ax-lecture-studio.webp",
   },
   {
     slug: "webtoon-generator-v2",
