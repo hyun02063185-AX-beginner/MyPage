@@ -1,6 +1,6 @@
 // 강의 주제 데이터. 학교명·출강 횟수는 표기하지 않는다.
 export const teachingIntro =
-  "생소한 분야도 빠르게 파악해 강의로 만들어 왔습니다.";
+  "처음 접하는 분야도 빠르게 익혀 강의로 만들어 왔습니다.";
 
 export const teaching = [
   {

@@ -4,7 +4,7 @@ export const projects = [
     slug: "ax-lecture",
     title: "사유의 방",
     period: "2026-07",
-    role: "1인 개발(Claude Code·claude.ai와 협업하는 바이브코딩 방식)",
+    role: "1인 개발",
     problem:
       "AX 전문강사로 데모데이 발표를 준비하면서, 사내 비개발 직군 실무자에게 AI 입문 내용을 강의안으로 설명하는 대신 직접 진행해보며 체감하게 만들고 싶었습니다.",
     work:
@@ -19,7 +19,7 @@ export const projects = [
     slug: "ax-lecture-studio",
     title: "AX강의안생성기",
     period: "2026-06",
-    role: "1인 개발(바이브 코딩)",
+    role: "1인 개발",
     problem:
       "강의를 준비할 때마다 주제를 구체화하고 설명·사례를 채운 뒤 슬라이드로 다시 옮기는 과정이 매번 오래 걸려서, 강의 요청 하나만 입력하면 그 뒤 과정을 도와주는 개인용 도구가 있으면 좋겠다고 생각했습니다.",
     work:
@@ -34,7 +34,7 @@ export const projects = [
     slug: "webtoon-generator-v2",
     title: "AI·AX 용어 4컷 만화 사전",
     period: "2026-06",
-    role: "1인 개발(바이브 코딩)",
+    role: "1인 개발",
     problem:
       "개발 경험이 없는 일반 직장인도 AI·AX 용어를 부담 없이 익힐 방법이 필요했고, 결과를 바로 보여주기보다 검색으로 시작해서 이미 있는 용어는 찾아보고 없는 용어는 그 자리에서 만화로 만들어 보여주는 방식을 구상했습니다.",
     work:

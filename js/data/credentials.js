@@ -33,7 +33,7 @@ export const credentials = [
   {
     name: "AICE Junior",
     issuer: "KT",
-    date: "",
+    date: "2025-08",
     verifyUrl: null,
     note: "AI 출강 자격 요건으로 취득",
   },
