@@ -28,7 +28,7 @@ export const projects = [
       "PROGRESS.md 기준 Phase 1~8을 완료했습니다(로컬 저장, PPTX/ZIP 내보내기, 스타일 3종 프리셋, 참고자료 검수 단계 구현). 샘플 프로젝트에 강의안 8종 Markdown, lecture_slides.pptx, project_bundle.zip 파일이 실제로 존재함을 확인했습니다.",
     category: "실무 도구",
     demoUrl: null,
-    image: null, // TODO: 캡처 준비되면 "images/ax-lecture-studio.webp"로 채우기
+    image: "images/ax-lecture-studio.webp",
   },
   {
     slug: "webtoon-generator-v2",
