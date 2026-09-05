@@ -125,7 +125,7 @@ export const projects = [
       "설계 문서·개발 규칙 문서 16종 작성을 완료했음을 확인했습니다. package.json 등 Next.js 프로젝트 골격이 존재함을 확인했습니다.",
     category: "개인 프로젝트",
     demoUrl: null,
-    image: "images/webtoon-generator-v2.png",
+    image: "images/webtoon-generator-v2-algorithm.webp",
     featured: false,
   },
   {
