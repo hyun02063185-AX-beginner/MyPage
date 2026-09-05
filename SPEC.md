@@ -51,7 +51,7 @@
 
 ### hero
 ```
-웹 서비스를 19년 만들고 운영했습니다. 지금은 그 경험으로 AI 활용을 가르칩니다.
+IT 현장에서 20년을 보냈습니다. 웹 서비스를 만들고, 운영했습니다. 지금은 그 경험으로 AI 활용을 가르칩니다.
 AX 전문강사 · AICE Future 1급 · CISA
 ```
 
@@ -108,8 +108,9 @@ AICE 하위 급수(2급·3급)는 표기하지 않는다.
 AICE Junior는 "AI 출강 자격 요건으로 취득" 맥락을 한 줄 붙여 별도 표기.
 
 ### work
-`content/*.md` 15장을 `js/data/projects.js`로 변환해 사용.
-- 기본 4개만 노출, 나머지는 더보기
+`content/*.md` 15장 중 4개(ax-lecture, ax-lecture-studio, webtoon-generator-v2,
+science-qbank-v2)를 골라 `js/data/projects.js`로 변환해 사용.
+- 카드 4개를 모두 노출한다. 더보기 기능은 없다.
 - 카테고리 필터 버튼 (강의 콘텐츠 / 실무 도구 / 개인 프로젝트)
 - 링크는 열리는 데모만. 없으면 링크 없이 스크린샷.
 
@@ -214,8 +215,7 @@ export const projects = [
     result: "...",
     category: "강의 콘텐츠",
     demoUrl: null,
-    image: "images/ax-lecture.png",
-    featured: true
+    image: "images/ax-lecture.png"
   }
 ];
 ```

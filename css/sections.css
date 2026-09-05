@@ -322,6 +322,16 @@
   color: var(--color-accent);
 }
 
+/* work 카드 전용 — 4개 중 3개가 당분간 이미지 없이 노출된다.
+   기본 grid의 align-items: stretch를 그대로 두면 이미지 없는 카드까지
+   같은 행의 이미지 카드 높이로 늘어나 본문 아래 빈 공백이 생기고,
+   행에 혼자 남는 카드는 반대로 뚝 떨어져 보인다. github-repo-list,
+   explain-case-grid는 이 규칙의 영향을 받지 않는다. */
+.card-grid.work-grid {
+  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+}
+
 /* work 필터 */
 .work-filters {
   display: flex;
@@ -382,10 +392,6 @@
 .btn-ghost:focus-visible {
   border-color: var(--color-accent);
   color: var(--color-accent);
-}
-
-.btn-more {
-  margin-top: var(--space-6);
 }
 
 /* github 상태 패널 */
