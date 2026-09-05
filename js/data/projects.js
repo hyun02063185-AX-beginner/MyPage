@@ -13,7 +13,7 @@ export const projects = [
       "20강 전체를 완료했으며, 기본판 총 268장 슬라이드와 도식 22종을 구성했습니다. npm test 96/96을 통과했고, jsdom으로 전체 동선을 시뮬레이션한 결과 런타임 오류가 0건이었습니다.",
     category: "강의 콘텐츠",
     demoUrl: null,
-    image: null, // TODO: 캡처 준비되면 "images/ax-lecture.webp"로 채우기
+    image: "images/ax-lecture.webp",
   },
   {
     slug: "ax-lecture-studio",
