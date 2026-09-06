@@ -1,0 +1,211 @@
+/*
+  커리어 페이지(career.html) 전용 스타일. tokens.css의 변수만 재사용하고
+  sections.css/tokens.css는 건드리지 않는다. 헤더/네비/푸터는 layout.css를
+  그대로 쓴다 (career.css는 .nav-link.is-current만 이 페이지 한정으로 얹는다).
+
+  아래 클래스는 js/render/career.js가 각 마운트 지점 안에 생성하는
+  마크업과 맞물리는 계약이다:
+
+  - 관 공통 인트로: .career-hall__period(p) / .career-hall__title(h2, 이미
+    HTML에 있음) / .career-hall__org(p) — 텍스트만 채우면 된다.
+
+  - 관 1 (#career-hall-1-items, format: timeline): 아이템마다
+    .career-timeline__item(article) 하나씩 생성.
+      <article class="career-timeline__item">
+        <div class="career-timeline__year">2008</div>
+        <div class="career-timeline__content">
+          <h3 class="career-timeline__title">...</h3>
+          <p class="career-timeline__body">...</p>          (body가 빈 문자열이면 이 태그 자체를 생성하지 않는다)
+          <blockquote class="career-timeline__caption">...</blockquote>  (caption이 null이면 생성하지 않는다)
+        </div>
+      </article>
+
+  - 관 2 (#career-hall-2-items, format: cards): 아이템마다
+    .career-card(article) 하나씩 생성.
+      <article class="career-card">
+        <h3 class="career-card__title">...</h3>
+        <p class="career-card__meta">period · role</p>
+        <p class="career-card__body">...</p>
+        <blockquote class="career-card__caption">...</blockquote>  (caption이 null이면 생성하지 않는다)
+      </article>
+
+  - 관 3 (#career-hall-3-body, format: block): 마운트 엘리먼트 자체가
+    이미 <article class="career-block">다. 안에 .career-block__body(p) 하나만
+    채운다. 캡션 없음.
+
+  body/caption을 빈 문자열/null일 때 태그를 아예 생성하지 않는 것이 원칙이지만,
+  혹시 빈 태그가 그려지더라도 :empty로 여백이 남지 않게 막아둔다.
+*/
+
+/* 관 공통 — 관 사이 전환은 여백으로만 처리한다 (layout.css의 section
+   padding-block이 그 여백을 준다). 구분선·전환 효과는 넣지 않는다. */
+.career-hall__intro {
+  margin-bottom: var(--space-6);
+}
+
+.career-hall__period {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--color-accent);
+  letter-spacing: 0.02em;
+}
+
+.career-hall__title {
+  margin-top: var(--space-2);
+  font-size: var(--fs-xl);
+}
+
+.career-hall__org {
+  margin-top: var(--space-1);
+  font-size: var(--fs-sm);
+  color: var(--color-text-faint);
+}
+
+@media (min-width: 1024px) {
+  .career-hall__title {
+    font-size: var(--fs-2xl);
+  }
+}
+
+/* 캡션 공통 — 본문과 시각적으로 구분 (인용 형태 + 다른 서체) */
+.career-timeline__caption,
+.career-card__caption {
+  margin: 0;
+  margin-top: var(--space-3);
+  padding-left: var(--space-4);
+  border-left: 3px solid var(--color-accent);
+  font-family: Georgia, "Noto Serif KR", serif;
+  font-style: italic;
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.career-timeline__body:empty,
+.career-timeline__caption:empty,
+.career-card__body:empty,
+.career-card__caption:empty {
+  display: none;
+}
+
+/* 관 1 — 연도 레일. 각 item이 자기 높이만큼만 sticky 컨테이너 역할을 해서
+   스크롤에 따라 붙었다가 다음 연도 item이 밀어 올리게 한다. */
+.career-timeline__item {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: var(--space-4);
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.career-timeline__item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.career-timeline__year {
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-4));
+  align-self: start;
+  white-space: nowrap;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-black);
+  color: var(--color-accent);
+}
+
+.career-timeline__title {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+}
+
+.career-timeline__body {
+  margin-top: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 768px) {
+  .career-timeline__item {
+    grid-template-columns: 120px 1fr;
+    gap: var(--space-6);
+  }
+
+  .career-timeline__year {
+    font-size: var(--fs-md);
+  }
+
+  .career-timeline__title {
+    font-size: var(--fs-md);
+  }
+}
+
+@media (min-width: 1024px) {
+  .career-timeline__item {
+    grid-template-columns: 140px 1fr;
+  }
+
+  .career-timeline__year {
+    font-size: var(--fs-lg);
+  }
+}
+
+/* 관 2 — 프로젝트 카드. 홈의 .card 톤(배경/테두리/그림자)을 참고해
+   이 파일 안에서 독립적으로 정의한다. */
+.career-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: var(--space-5);
+}
+
+.career-card {
+  padding: var(--space-5);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.career-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.career-card__title {
+  font-size: var(--fs-md);
+}
+
+.career-card__meta {
+  margin-top: var(--space-1);
+  font-size: var(--fs-xs);
+  color: var(--color-text-faint);
+}
+
+.career-card__body {
+  margin-top: var(--space-3);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 1024px) {
+  .career-card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+  }
+}
+
+/* 관 3 — 카드도 타임라인도 아닌 단순 블록. 캡션 없음, 짧게 끝난다. */
+.career-block {
+  max-width: 640px;
+  padding: var(--space-5);
+  background-color: var(--color-bg-muted);
+  border-radius: var(--radius-md);
+}
+
+.career-block__body {
+  font-size: var(--fs-base);
+  color: var(--color-text);
+}
+
+/* 네비 현재 페이지 표시 — layout.css의 .nav-link를 이 페이지에서만 보강 */
+.nav-link.is-current {
+  color: var(--color-accent);
+  font-weight: var(--fw-bold);
+}

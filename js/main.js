@@ -12,11 +12,7 @@ import { renderCredentials } from './render/credentials.js';
 import { initWorkSection } from './render/work.js';
 import { initGithubSection } from './render/github.js';
 import { initContactForm } from './render/contactForm.js';
-
-const renderFooterYear = () => {
-  const footerYear = document.getElementById('footer-year');
-  if (footerYear) footerYear.textContent = String(new Date().getFullYear());
-};
+import { renderFooterYear } from './render/footer.js';
 
 initThemeToggle();
 initHamburgerMenu();
