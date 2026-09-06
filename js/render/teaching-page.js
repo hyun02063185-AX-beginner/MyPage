@@ -141,13 +141,42 @@ const renderTeachingTopics = () => {
   if (groups) groups.innerHTML = items.map(topicGroupTemplate).join('');
 };
 
-// contact는 스키마가 확정되기 전까지 null이다 (SPEC_teaching.md 11항).
-// null인 동안은 섹션 자체를 hidden 처리한다. 확정되면 본문 템플릿을 추가한다.
+const contactFactTemplate = ({ label, value }) => `
+  <li class="teaching-contact-fact">
+    <span class="teaching-contact-fact__label">${escapeHtml(label)}</span>
+    <span class="teaching-contact-fact__value">${escapeHtml(value)}</span>
+  </li>
+`;
+
+// contact는 스키마가 확정되기 전까지 null일 수 있다 (SPEC_teaching.md 11항).
+// null인 동안은 섹션 자체를 hidden 처리하고 본문을 비운다. 데이터가 채워지면
+// intro 문장과 audience/format/region 사실 정보만 렌더링한다 — "문의하기" 같은
+// CTA 문구는 teaching.html에 이미 있는 정적 링크와 겹치므로 여기서 만들지 않는다.
 const renderTeachingContact = () => {
   const section = document.getElementById('teaching-contact');
-  const hasData = teachingPage.contact !== null && teachingPage.contact !== undefined;
+  const body = document.getElementById('teaching-contact-body');
+  const { contact } = teachingPage;
+  const hasData = contact !== null && contact !== undefined;
 
   if (section) section.hidden = !hasData;
+  if (!hasData) {
+    if (body) body.innerHTML = '';
+    return;
+  }
+
+  const { intro, audience, format, region } = contact;
+  const facts = [
+    { label: '대상', value: audience },
+    { label: '형식', value: format },
+    { label: '지역', value: region },
+  ].filter(({ value }) => Boolean(value));
+
+  if (body) {
+    body.innerHTML = `
+      ${intro ? `<p class="teaching-contact-intro">${escapeHtml(intro)}</p>` : ''}
+      ${facts.length ? `<ul class="teaching-contact-facts">${facts.map(contactFactTemplate).join('')}</ul>` : ''}
+    `;
+  }
 };
 
 export const renderTeachingPage = () => {

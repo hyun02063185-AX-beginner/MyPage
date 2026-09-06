@@ -56,19 +56,23 @@ section {
 
 .site-nav {
   flex: 1;
+  min-width: 0;
   display: flex;
   justify-content: center;
 }
 
-/* 모바일: 메뉴 숨김, 햄버거로 전환 */
+/* 네비 메뉴 — 2단 클러스터.
+   왼쪽(.nav-menu__secondary): 홈 안 주요 섹션 앵커. 부가 정보라 작고 옅게.
+   오른쪽(.nav-menu__primary): 자기 URL을 가진 하위 페이지. 주 동선이라 지금 크기 그대로.
+   모바일: 햄버거로 열리기 전까지 통째로 숨긴다. */
 .nav-menu {
   display: none;
-  flex-direction: column;
-  gap: var(--space-4);
 }
 
 .nav-menu.is-open {
   display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-5);
   position: absolute;
   top: var(--header-height);
   left: 0;
@@ -76,6 +80,20 @@ section {
   background-color: var(--color-bg-elevated);
   box-shadow: var(--shadow-md);
   padding: var(--space-5) var(--container-padding);
+}
+
+.nav-menu__secondary,
+.nav-menu__primary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* 모바일 열린 상태: column-reverse라 오른쪽(주 동선) 클러스터가 위에,
+   왼쪽(부가 정보) 클러스터가 아래에 온다. 구분선은 아래 블록 위쪽에 긋는다. */
+.nav-menu.is-open .nav-menu__secondary {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
 }
 
 .nav-link {
@@ -89,6 +107,24 @@ section {
 .nav-link:hover,
 .nav-link:focus-visible {
   color: var(--color-accent);
+}
+
+/* 하위 페이지 네비에서만 쓰는 현재 페이지 표시 (다른 문서로 가는 앵커에는 붙이지 않는다) */
+.nav-link.is-current {
+  color: var(--color-accent);
+  font-weight: var(--fw-bold);
+}
+
+/* 왼쪽 클러스터 전용 — 스크롤하면 어차피 보이는 지름길이라 본문 링크보다 눈에 덜 띄어야 한다 */
+.nav-link--secondary {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-normal);
+  color: var(--color-text-faint);
+}
+
+.nav-link--secondary:hover,
+.nav-link--secondary:focus-visible {
+  color: var(--color-text-muted);
 }
 
 .header-actions {
@@ -105,7 +141,10 @@ section {
   .nav-menu {
     display: flex;
     flex-direction: row;
-    gap: var(--space-7);
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: var(--space-2);
+    column-gap: var(--space-6);
   }
 
   .nav-menu.is-open {
@@ -113,6 +152,28 @@ section {
     background-color: transparent;
     box-shadow: none;
     padding: 0;
+  }
+
+  .nav-menu__secondary,
+  .nav-menu__primary {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .nav-menu__secondary {
+    gap: var(--space-4);
+  }
+
+  .nav-menu__primary {
+    gap: var(--space-6);
+    padding-left: var(--space-6);
+    border-left: 1px solid var(--color-border);
+  }
+
+  .nav-menu.is-open .nav-menu__secondary {
+    padding-top: 0;
+    border-top: none;
   }
 
   .hamburger-btn {

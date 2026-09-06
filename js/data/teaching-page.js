@@ -1,5 +1,10 @@
 // 강사 페이지(teaching.html) 데이터. 홈의 js/data/teaching.js(강의 주제)와는 다른 파일이다.
 // SPEC_teaching.md 3~8항 원고를 11항 스키마대로 옮긴 것이며, 새로 쓴 문장은 없다.
+// credentials·teachingTopics는 홈의 원본 파일을 import해 그대로 재사용한다 —
+// 두 파일을 복사하지 않고 참조만 해서, 홈 데이터가 바뀌어도 자동으로 맞는다.
+import { credentials } from './credentials.js';
+import { teaching } from './teaching.js';
+
 export const teachingPage = {
   statements: [
     "최신 기술이라서가 아니라, 방향이 맞아서 씁니다.",
@@ -108,6 +113,13 @@ export const teachingPage = {
     "내 업무 워크플로우를 단계로 쪼개고 AI 적합 지점 표시하기",
     "우리 조직 AX 실패 시나리오 상상하기",
   ],
+  credentials,
   teachingHistoryIntro: "중·고등학생을 대상으로 AI 활용 코딩과 진로 특강을 해왔고, 지금은 성인 대상 AX 교육으로 옮겨가고 있습니다.",
-  contact: null,
+  teachingTopics: teaching,
+  contact: {
+    intro: "강의 문의를 받고 있습니다.",
+    audience: "대학생 이상 성인",
+    format: "대면",
+    region: "전국",
+  },
 };
