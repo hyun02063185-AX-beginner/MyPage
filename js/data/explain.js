@@ -1,3 +1,5 @@
+import { importedWebtoonCases } from './webtoon-imports.js';
+
 export const explain = {
   perspective: {
     image: "images/kyulshimhandang.webp",
@@ -31,6 +33,7 @@ export const explain = {
         "보고서 작성에도 이런 알고리즘을 적용할 수 있습니다. 목적 파악, 자료 수집, 내용 작성, 검토 및 완료 네 단계로 나누면, 매번 같은 순서로 쉽고 정확하게 일할 수 있습니다.",
         "순서가 분명하면 실수가 줄고 결과도 일관됩니다. 알고리즘은 결국 일을 더 쉽고 빠르고 일관되게 만들어 주는 단계입니다."
       ]
-    }
+    },
+    ...importedWebtoonCases
   ]
 };
