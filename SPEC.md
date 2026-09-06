@@ -5,6 +5,7 @@
 
 - 저장소: https://github.com/hyun02063185-AX-beginner/MyPage
 - 배포: GitHub Pages
+- 하위 페이지: `career.html`(1호), `teaching.html`(2호 — 강사 페이지. 스펙은 `SPEC_teaching.md`)
 
 ---
 

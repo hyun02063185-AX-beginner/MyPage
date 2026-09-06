@@ -1,0 +1,496 @@
+/*
+  강사 페이지(teaching.html) 전용 스타일. tokens.css 변수만 재사용하고
+  base.css / layout.css / sections.css는 건드리지 않는다. 헤더·네비·푸터는
+  layout.css를 그대로 쓴다 (이 파일은 .nav-link.is-current만 이 페이지
+  한정으로 얹는다 — career.css와 같은 패턴).
+
+  이 페이지는 sections.css를 로드하지 않으므로 .section-heading, .card,
+  .teaching-tag, .credential-item 같은 홈/커리어 전용 클래스는 여기서 쓸 수
+  없다. 같은 시각적 결을 내되 전부 이 파일 안에서 독립적으로 새로 정의한다.
+
+  아래 클래스는 데이터·API 에이전트(js/render/teaching-page.js)가 각 마운트
+  지점 안에 생성하는 마크업과 맞물리는 계약이다:
+
+  - 관점 (ul#perspective-list, [data-mount="statements"]): 문장마다
+      <li class="perspective-statement">...</li>
+    [data-mount="statementNote"]는 이미 있는 <a id="perspective-note-link">
+    안의 텍스트만 채운다. href는 index.html#explain로 이미 고정돼 있다.
+
+  - 커리큘럼 도입부 (p#curriculum-intro, [data-mount="journeyIntro"]):
+    텍스트만 채운다.
+    ⚠ journeyIntro는 js/data/teaching-page.js의 teachingPage 스키마에 아직
+    없는 필드다. 콘텐츠 에이전트가 SPEC_teaching.md 4항의 도입부 한 문장을
+    스키마에 추가해야 채울 수 있다.
+
+  - 커리큘럼 여정 (ol#journey-track, [data-mount="journey"]): stage마다
+      <li class="journey-stage">
+        <h3 class="journey-stage__label">왜</h3>
+        <div class="journey-stage__modules">
+          <article class="journey-module">
+            <span class="journey-module__no">①</span>
+            <h4 class="journey-module__title">AX란 무엇인가</h4>
+            <p class="journey-module__question">AX는 왜 지금 필요한가</p>
+            <p class="journey-module__goal">AX의 정의를 명확히 하고...</p>
+          </article>
+          (모듈마다 반복)
+        </div>
+      </li>
+    평평한 8개 목록이 아니라 stage 단위로 묶어야 "여정"으로 읽힌다.
+
+  - 조직 유형 (ul#org-type-list, [data-mount="orgTypes"]): 유형마다
+      <li class="org-type-item">
+        <span class="org-type-item__type">중소기업</span>
+        <span class="org-type-item__motive">적은 인력으로...</span>
+      </li>
+
+  - 운영 구성 (tbody#formats-table-body, [data-mount="formats"]): 행마다
+      <tr><td>특강</td><td>2~3시간</td><td>AX가 무엇인지...</td></tr>
+    이름이 이어지는 행("단기 과정"이 3번 반복)도 매 행에 그대로 채운다.
+    rowspan 병합은 하지 않는다.
+
+  - 선택 가이드 (tbody#guide-table-body, [data-mount="guide"]): 행마다
+      <tr><td>AX를 처음 소개, 인식 제고</td><td>특강</td></tr>
+
+  - 실습 (ul#exercise-list, [data-mount="exercises"]): 문장마다
+      <li class="exercise-item">...</li>
+
+  - 자격·수료 (ul#teaching-credentials-list, [data-mount="credentials"]):
+    항목마다
+      <li class="teaching-credential-item">
+        <span class="teaching-credential-item__name">...</span>
+        <span class="teaching-credential-item__meta">기관 · 시기</span>
+        <a class="teaching-credential-item__link" href="...">확인</a>
+      </li>
+    (verifyUrl 없으면 link 자체를 생성하지 않는다.) SPEC_teaching.md는
+    이 섹션을 "홈에서 이관"이라 부르지만 그 이관은 별도 작업이다. 이번에는
+    마운트 지점만 존재하면 된다.
+
+  - 지금까지 해온 강의 도입부 (p#teaching-topics-intro,
+    [data-mount="teachingHistoryIntro"]): 텍스트만 채운다.
+    ⚠ 이 필드도 teachingPage 스키마에 아직 없다. SPEC_teaching.md 8-1항의
+    "중·고등학생을 대상으로..." 문장을 콘텐츠 에이전트가 스키마에 추가해야
+    한다.
+
+  - 지금까지 해온 강의 목록 (div#teaching-topics-groups,
+    [data-mount="teachingTopics"]): 그룹마다
+      <div class="teaching-topic-group">
+        <h4 class="teaching-topic-group__title">AI 활용 코딩</h4>
+        <p class="teaching-topic-group__note">KT 코디니 블록코딩 기반</p>
+        <div class="teaching-topic-tags">
+          <span class="teaching-topic-tag">드론 코딩</span>
+        </div>
+      </div>
+    (note 없으면 그 태그 자체를 생성하지 않는다.) 이 목록도 마운트 지점만—
+    실제 데이터 연결(js/data/teaching.js 이관)은 별도 작업이다.
+
+  - 문의 (div#teaching-contact-body, [data-mount="contact"]):
+    teachingPage.contact가 null인 동안은 비워 둔다(:empty로 여백 처리는
+    이 파일에서 해뒀다). null이면 섹션 자체를 그리지 않아야 한다면
+    #teaching-contact에 hidden을 다는 것도 데이터·API 에이전트 몫이다.
+*/
+
+/* 페이지 공통 헤딩 — sections.css의 .section-heading을 로드하지 않으므로
+   동일한 크기감으로 이 파일 안에서 독립 정의 */
+.teaching-heading {
+  font-size: var(--fs-xl);
+  margin-bottom: var(--space-5);
+}
+
+.teaching-section-intro {
+  font-size: var(--fs-md);
+  color: var(--color-text-muted);
+  max-width: 640px;
+  margin-bottom: var(--space-6);
+}
+
+@media (min-width: 1024px) {
+  .teaching-heading {
+    font-size: var(--fs-2xl);
+    margin-bottom: var(--space-6);
+  }
+}
+
+/* 네비 현재 페이지 표시 — layout.css의 .nav-link를 이 페이지에서만 보강 */
+.nav-link.is-current {
+  color: var(--color-accent);
+  font-weight: var(--fw-bold);
+}
+
+/* 관점 — 홈 explain 인용 문장(.explain-statement)과 같은 결. 이 페이지는
+   sections.css를 로드하지 않으므로 독립적으로 새로 정의한다. */
+.perspective-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.perspective-statement {
+  padding-left: var(--space-5);
+  border-left: 3px solid var(--color-accent);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-heading);
+  color: var(--color-text);
+}
+
+.perspective-note {
+  font-size: var(--fs-sm);
+  color: var(--color-text-faint);
+}
+
+.perspective-note__link {
+  font-style: italic;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+
+.perspective-note__link:hover,
+.perspective-note__link:focus-visible {
+  color: var(--color-accent);
+}
+
+@media (min-width: 768px) {
+  .perspective-statement {
+    font-size: var(--fs-xl);
+  }
+}
+
+/* 커리큘럼 — 6단계 여정. 세로선 하나로 전체 흐름을 잇고, 단계마다 마커를
+   찍는다. 커리어 페이지의 sticky 레일(연도가 스크롤에 붙는 방식)은 시간순
+   서사에 맞는 장치라 여기서는 쓰지 않는다 — 이 페이지는 구조를 보여준다. */
+.journey {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.journey::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background-color: var(--color-border);
+}
+
+.journey-stage {
+  position: relative;
+  padding-left: var(--space-6);
+}
+
+.journey-stage::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-bg);
+}
+
+.journey-stage__label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  color: var(--color-accent);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-4);
+}
+
+.journey-stage__modules {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.journey-module {
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.journey-module__no {
+  display: block;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-black);
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
+}
+
+.journey-module__title {
+  font-size: var(--fs-md);
+  margin-bottom: var(--space-2);
+}
+
+.journey-module__question {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.journey-module__goal {
+  font-size: var(--fs-sm);
+  color: var(--color-text-faint);
+  padding-top: var(--space-2);
+  border-top: 1px dashed var(--color-border);
+}
+
+@media (min-width: 768px) {
+  .journey::before {
+    left: 11px;
+  }
+
+  .journey-stage {
+    padding-left: var(--space-8);
+  }
+
+  .journey-stage::before {
+    left: 3px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .journey-stage__modules {
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  }
+}
+
+/* 조직 유형 — 동기만 뽑은 간결한 3줄 목록 */
+.org-type-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 720px;
+}
+
+.org-type-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-4);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.org-type-item__type {
+  flex: 0 0 auto;
+  min-width: 88px;
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+}
+
+.org-type-item__motive {
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+/* 운영 구성 + 선택 가이드 — 이 페이지에서 가장 눈에 띄어야 하는 패널.
+   표는 가로 스크롤 컨테이너에 담아 모바일에서 레이아웃이 깨지지 않게 한다. */
+.formats-panel {
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-5);
+}
+
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.formats-table,
+.guide-table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+
+.formats-table th,
+.formats-table td,
+.guide-table th,
+.guide-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+
+.formats-table th,
+.guide-table th {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.formats-guide-heading {
+  font-size: var(--fs-md);
+  margin-top: var(--space-7);
+  margin-bottom: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .formats-panel {
+    padding: var(--space-7);
+  }
+
+  .formats-table,
+  .guide-table {
+    font-size: var(--fs-base);
+  }
+}
+
+/* 실습 — 설명 없이 짧게 끝나는 목록 */
+.exercise-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.exercise-item {
+  position: relative;
+  padding-left: var(--space-5);
+  color: var(--color-text-muted);
+}
+
+.exercise-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-secondary);
+}
+
+@media (min-width: 768px) {
+  .exercise-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4) var(--space-6);
+  }
+}
+
+/* 자격·수료 — 홈 .credential-item과 같은 결(텍스트 위주, 작게)을
+   이 파일 안에서 독립적으로 재정의 */
+.teaching-credentials-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 720px;
+}
+
+.teaching-credential-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--fs-sm);
+}
+
+.teaching-credential-item__name {
+  color: var(--color-text);
+  font-weight: var(--fw-medium);
+}
+
+.teaching-credential-item__meta {
+  color: var(--color-text-faint);
+}
+
+.teaching-credential-item__link {
+  color: var(--color-accent);
+}
+
+/* 지금까지 해온 강의 — 홈 .teaching-group/.teaching-tag와 같은 결을
+   이 파일 안에서 독립적으로 재정의 */
+.teaching-topics-groups {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.teaching-topic-group {
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.teaching-topic-group__title {
+  font-size: var(--fs-md);
+  margin-bottom: var(--space-1);
+}
+
+.teaching-topic-group__note {
+  font-size: var(--fs-sm);
+  color: var(--color-text-faint);
+  margin-bottom: var(--space-3);
+}
+
+.teaching-topic-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.teaching-topic-tag {
+  display: inline-block;
+  font-size: var(--fs-sm);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background-color: var(--color-bg-muted);
+  color: var(--color-text);
+}
+
+.teaching-topic-tag--highlight {
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+@media (min-width: 768px) {
+  .teaching-topics-groups {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 문의 — contact가 null인 동안은 빈 컨테이너라 여백이 남지 않게 막는다 */
+.teaching-contact-body {
+  color: var(--color-text-muted);
+  max-width: 640px;
+}
+
+.teaching-contact-body:empty {
+  display: none;
+}
+
+.teaching-contact-cta {
+  margin-top: var(--space-5);
+}
+
+.teaching-contact-cta__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  transition: background-color var(--transition-fast);
+}
+
+.teaching-contact-cta__link:hover,
+.teaching-contact-cta__link:focus-visible {
+  background-color: var(--color-accent-strong);
+}

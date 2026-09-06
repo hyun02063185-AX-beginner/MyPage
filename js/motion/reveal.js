@@ -18,10 +18,19 @@ const REVEAL_SELECTORS = [
   '.career-card',
   '.career-block',
   '.career-hall__title',
+  '.teaching-heading',
+  '.perspective-statement',
+  '.journey-stage',
+  '.journey-module',
+  '.org-type-item',
+  '.formats-panel',
+  '.exercise-item',
+  '.teaching-credential-item',
+  '.teaching-topic-group',
 ];
 
-// story-scene / teaching-tag는 형제 순서대로 시차를 두고 등장시킨다.
-const STAGGERED_CLASSES = ['story-scene', 'teaching-tag'];
+// story-scene / teaching-tag / journey-module은 형제 순서대로 시차를 두고 등장시킨다.
+const STAGGERED_CLASSES = ['story-scene', 'teaching-tag', 'journey-module'];
 
 let observer = null;
 
