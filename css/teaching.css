@@ -290,7 +290,26 @@
 }
 
 /* 운영 구성 + 선택 가이드 — 이 페이지에서 가장 눈에 띄어야 하는 패널.
-   표는 가로 스크롤 컨테이너에 담아 모바일에서 레이아웃이 깨지지 않게 한다. */
+
+   768px 미만(모바일 기본값)에서는 표를 카드 목록으로 재구성한다.
+   HTML은 <table><thead><tr><th>…</th></tr></thead><tbody><tr><td>…</td>
+   </tr></tbody></table> 그대로 두고, 오직 display 전환과 :nth-child()
+   선택자만으로 재배치한다(렌더 코드 변경 없음이 전제):
+     - thead → display:none으로 숨긴다.
+     - tbody → flex column으로 각 tr을 카드처럼 세로로 쌓는다.
+     - tr → flex(wrap)로 만들어 카드 자체에 배경·테두리·둥근 모서리를 준다.
+     - formats-table: td(1)=이름·td(2)=시간을 flex-wrap 한 줄에 놓고,
+       td(3)=끝난 뒤는 flex-basis:100% 트릭으로 강제 줄바꿈시켜 아랫줄에
+       강조 배치한다.
+     - guide-table: tr을 flex column으로 바꿔 td(1)=상황을 윗줄,
+       td(2)=추천을 강조된 아랫줄로 배치한다.
+   가로 스크롤(.table-scroll)과 min-width:480px는 카드 모드에서 필요
+   없으므로 모바일 기본값에는 두지 않고, 768px 이상 미디어쿼리 안에서만
+   되살린다 — 이 프로젝트는 min-width 미디어쿼리만 쓰는 모바일 퍼스트
+   컨벤션이라, "무효화"는 기본값에서 아예 선언하지 않는 방식으로 처리했다.
+   768px 이상에서는 모든 display 값을 표 기본값(table/table-row-group/
+   table-row/table-cell)으로 되돌리고 카드용 nth-child 스타일도 원래
+   표 스타일로 리셋해 기존 레이아웃을 그대로 복원한다. */
 .formats-panel {
   background-color: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
@@ -300,30 +319,97 @@
 }
 
 .table-scroll {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: visible;
 }
 
 .formats-table,
 .guide-table {
   width: 100%;
-  min-width: 480px;
   border-collapse: collapse;
   font-size: var(--fs-sm);
 }
 
-.formats-table th,
+/* 모바일 기본값: 헤더 숨김 */
+.formats-table thead,
+.guide-table thead {
+  display: none;
+}
+
+/* 모바일 기본값: tbody는 카드 목록 컨테이너 */
+.formats-table tbody,
+.guide-table tbody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* 모바일 기본값: tr 하나 = 카드 하나 */
+.formats-table tr,
+.guide-table tr {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
 .formats-table td,
-.guide-table th,
 .guide-table td {
-  padding: var(--space-3) var(--space-4);
+  padding: 0;
   text-align: left;
-  border-bottom: 1px solid var(--color-border);
-  vertical-align: top;
+  border-bottom: none;
+  vertical-align: baseline;
+}
+
+/* formats-table 카드: 이름(1)·시간(2)은 한 줄, 끝난 뒤(3)는 강조된
+   아랫줄. flex-basis:100%가 걸린 td(3)은 flex-wrap 줄에서 남은 공간에
+   들어가지 못해 항상 새 줄로 밀려난다. */
+.formats-table td:nth-child(1) {
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+}
+
+.formats-table td:nth-child(2) {
+  color: var(--color-text-faint);
+  font-size: var(--fs-xs);
+}
+
+.formats-table td:nth-child(3) {
+  flex-basis: 100%;
+  margin-top: var(--space-2);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--color-border);
+  color: var(--color-text);
+  font-weight: var(--fw-medium);
+}
+
+/* guide-table 카드: tr을 세로 방향으로 바꿔 상황(1)을 윗줄,
+   추천(2)을 강조된 아랫줄로 배치 */
+.guide-table tr {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.guide-table td:nth-child(1) {
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.guide-table td:nth-child(2) {
+  color: var(--color-accent);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-md);
 }
 
 .formats-table th,
 .guide-table th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
   font-size: var(--fs-xs);
   font-weight: var(--fw-bold);
   color: var(--color-text-faint);
@@ -343,9 +429,62 @@
     padding: var(--space-7);
   }
 
+  /* 768px 이상: 카드 모드를 무효화하고 원래 표 레이아웃을 복원 */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .formats-table,
   .guide-table {
+    min-width: 480px;
     font-size: var(--fs-base);
+  }
+
+  .formats-table thead,
+  .guide-table thead {
+    display: table-header-group;
+  }
+
+  .formats-table tbody,
+  .guide-table tbody {
+    display: table-row-group;
+    gap: 0;
+  }
+
+  .formats-table tr,
+  .guide-table tr {
+    display: table-row;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: initial;
+    gap: 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+  }
+
+  .formats-table td,
+  .guide-table td {
+    display: table-cell;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+  }
+
+  .formats-table td:nth-child(1),
+  .formats-table td:nth-child(2),
+  .formats-table td:nth-child(3),
+  .guide-table td:nth-child(1),
+  .guide-table td:nth-child(2) {
+    flex-basis: auto;
+    margin-top: 0;
+    padding-top: var(--space-3);
+    border-top: none;
+    color: inherit;
+    font-weight: var(--fw-normal);
+    font-size: inherit;
   }
 }
 
