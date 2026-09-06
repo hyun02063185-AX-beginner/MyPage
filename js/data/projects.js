@@ -14,6 +14,8 @@ export const projects = [
     category: "강의 콘텐츠",
     demoUrl: null,
     image: "images/ax-lecture.webp",
+    imageAlt:
+      "다크 테마의 '사유의 방' 강의 페이지에서 상자 1 '왜' 챕터의 강의 카드 다섯 개가 부채꼴로 펼쳐져 있고 우측 상단에 진행 상태가 0/20으로 표시된 화면",
   },
   {
     slug: "ax-lecture-studio",
@@ -29,6 +31,8 @@ export const projects = [
     category: "실무 도구",
     demoUrl: null,
     image: "images/ax-lecture-studio.webp",
+    imageAlt:
+      "AX Lecture Studio의 상세 강의안 편집 화면으로, 차시별 핵심 주장·쉬운 설명·비유·사례 입력란과 우측의 미리보기·참고 자료 패널이 함께 보이는 화면",
   },
   {
     slug: "webtoon-generator-v2",
@@ -44,6 +48,8 @@ export const projects = [
     category: "개인 프로젝트",
     demoUrl: null,
     image: "images/webtoon-generator-v2-algorithm.webp",
+    imageAlt:
+      "보고서 작성 순서를 소재로 알고리즘의 뜻과 활용법을 설명하는 4컷 만화로, 이 프로젝트에서 생성한 용어 사전 콘텐츠의 예시 화면",
   },
   {
     slug: "science-qbank-v2",
@@ -58,6 +64,8 @@ export const projects = [
       "친구가 운영하는 과학 공부방에서 일부 문제로 실제 사용 중이며, 지금은 문제 수를 계속 보강하고 있습니다.",
     category: "개인 프로젝트",
     demoUrl: null,
-    image: null, // TODO: 캡처 준비되면 "images/science-qbank-v2.webp"로 채우기
+    image: "images/science-qbank-v2.webp",
+    imageAlt:
+      "디스코드에서 문제은행 봇에게 통합과학 문제 수와 특정 주제의 문제 생성을 요청하고 답변을 받은 대화 화면",
   },
 ];

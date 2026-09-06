@@ -102,6 +102,27 @@
   color: var(--color-text-muted);
 }
 
+/* story — 마지막 장면 다음, career.html로 이어지는 조용한 링크.
+   진행선(4px) + gap(var(--space-5))만큼 들여써서 장면 본문과 정렬한다. */
+.story-outro {
+  margin-top: var(--space-6);
+  padding-left: calc(4px + var(--space-5));
+}
+
+.story-outro-link {
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 0.2em;
+  transition: color var(--transition-fast), text-decoration-color var(--transition-fast);
+}
+
+.story-outro-link:hover,
+.story-outro-link:focus-visible {
+  color: var(--color-text);
+  text-decoration-color: currentColor;
+}
+
 /* explain — 관점(대표 이미지+캡션+인용 문장) + 설명 사례 카드 */
 .explain-perspective {
   display: grid;

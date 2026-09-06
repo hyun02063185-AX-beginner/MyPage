@@ -1,3 +1,6 @@
 # 원본 PNG/JPG는 커밋하지 않는다. 웹용 WebP만 배포한다.
 images/*.png
 images/*.jpg
+
+# Claude Code 세션 락 파일
+.claude/*.lock
