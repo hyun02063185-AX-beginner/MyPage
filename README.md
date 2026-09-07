@@ -32,12 +32,11 @@ Modules)만으로 구현했습니다.
 
 ## 스크린샷
 
-제출용 스크린샷 파일은 아래 경로에 넣으면 표시됩니다(현재는 자리만 잡아둔
-상태입니다).
+제출용 스크린샷입니다.
 
-| 데스크톱 | 모바일 | 다크모드 |
+| 데스크톱 | 모바일 | 라이트 모드 |
 |---|---|---|
-| ![데스크톱 스크린샷](docs/screenshots/desktop.png) | ![모바일 스크린샷](docs/screenshots/mobile.png) | ![다크모드 스크린샷](docs/screenshots/dark-mode.png) |
+| ![데스크톱 스크린샷](docs/screenshots/desktop.png) | ![모바일 스크린샷](docs/screenshots/mobile.png) | ![라이트 모드 스크린샷](docs/screenshots/dark-mode.png) |
 
 ## 인터랙션 임계값
 
@@ -56,7 +55,7 @@ Modules)만으로 구현했습니다.
 MyPage/
 ├─ index.html          # 시맨틱 마크업. 콘텐츠는 없고 각 섹션의 마운트 지점만 정의
 ├─ css/
-│  ├─ tokens.css        # 디자인 토큰 — :root(라이트) / [data-theme="dark"](다크)
+│  ├─ tokens.css        # 디자인 토큰 — :root(다크) / [data-theme="light"](라이트)
 │  ├─ base.css          # 리셋, 접근성 유틸리티, 등장 애니메이션 초기 상태(.reveal)
 │  ├─ layout.css        # 헤더·네비·컨테이너 등 전역 레이아웃, 반응형 브레이크포인트
 │  └─ sections.css      # 섹션별 컴포넌트 스타일(카드, 폼, 상태 패널 등)
