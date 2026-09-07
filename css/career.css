@@ -23,40 +23,36 @@
   - 관 2 (#career-hall-2-items, format: cards): 아이템마다
     .career-card(article) 하나씩 생성.
       <article class="career-card">
-        <h3 class="career-card__title">...</h3>
-        <p class="career-card__meta">period · role</p>
-        <p class="career-card__body">...</p>
-        <blockquote class="career-card__caption">...</blockquote>  (caption이 null이면 생성하지 않는다)
+        <div class="career-card__content">
+          <h3 class="career-card__title">...</h3>
+          <p class="career-card__meta">period · role</p>
+          <p class="career-card__body">...</p>
+          <blockquote class="career-card__caption">...</blockquote>  (caption이 null이면 생성하지 않는다)
+        </div>
       </article>
 
   - 관 3 (#career-hall-3-body, format: block): 마운트 엘리먼트 자체가
     이미 <article class="career-block">다. 안에 .career-block__body(p) 하나만
     채운다. 캡션 없음.
 
+  - 관 사이 .career-transition: 제목(h2)과 기간·소속(p) 텍스트만 렌더한다.
+
   body/caption을 빈 문자열/null일 때 태그를 아예 생성하지 않는 것이 원칙이지만,
   혹시 빈 태그가 그려지더라도 :empty로 여백이 남지 않게 막아둔다.
 */
 
-/* 관 공통 — 관 사이 전환은 여백으로만 처리한다. 구분선·전환 효과는 넣지 않는다. */
+/* 관 공통 */
 .career-hall__intro {
   margin-bottom: var(--space-6);
 }
 
 @media (min-width: 768px) {
-  .career-hall + .career-hall {
-    margin-top: var(--space-7);
-  }
-
   .career-hall .container {
     max-width: 960px;
   }
 }
 
 @media (min-width: 1024px) {
-  .career-hall + .career-hall {
-    margin-top: var(--space-8);
-  }
-
   .career-hall .container {
     max-width: 900px;
   }
@@ -78,6 +74,56 @@
   margin-top: var(--space-1);
   font-size: var(--fs-sm);
   color: var(--color-text-faint);
+}
+
+/* 관 사이 전이 — 다음 관의 이름과 소속만 남긴 어두운 복도다. */
+.career-transition {
+  display: grid;
+  min-height: 60vh;
+  min-height: 60svh;
+  place-items: center;
+  background-color: var(--color-bg);
+}
+
+.career-transition__inner {
+  max-width: min(100%, 42rem);
+  padding-inline: var(--container-padding);
+  text-align: center;
+}
+
+.career-transition__title {
+  font-size: var(--fs-2xl);
+  color: var(--color-text);
+}
+
+.career-transition__meta {
+  margin-top: var(--space-3);
+  font-size: var(--fs-sm);
+  color: var(--color-text-faint);
+}
+
+@media (min-width: 768px) {
+  .career-transition {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  .career-transition__title {
+    font-size: var(--fs-3xl);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .career-transition__inner {
+    opacity: 0;
+    transform: translateY(var(--space-5));
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+
+  .career-transition.is-visible .career-transition__inner {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -221,7 +267,7 @@
 }
 
 /* 사유의 방 스포트라이트 — reveal의 opacity와 경쟁하지 않도록 항목 위의
-   따뜻한 어둠 레이어로 실질 투명도 0.32를 만든다. 모바일과 reduced motion에서는 적용하지 않는다. */
+   따뜻한 어둠 레이어로 실질 가시도를 0.18로 낮춘다. 모바일과 reduced motion에서는 적용하지 않는다. */
 @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
   .career-spotlight-active .career-timeline__item.reveal.is-visible,
   .career-spotlight-active .career-card.reveal.is-visible {
@@ -235,14 +281,29 @@
     inset: 0;
     z-index: 1;
     background-color: var(--color-bg);
-    opacity: 0.68;
+    opacity: 0.82;
     pointer-events: none;
     transition: opacity 0.55s ease;
+  }
+
+  .career-spotlight-active .career-timeline__item.reveal.is-visible .career-timeline__year,
+  .career-spotlight-active .career-timeline__item.reveal.is-visible .career-timeline__content,
+  .career-spotlight-active .career-card.reveal.is-visible .career-card__content {
+    filter: blur(2px);
+    transform: scale(0.97);
+    transition: filter 0.55s ease, transform 0.55s ease;
   }
 
   .career-spotlight-active .career-timeline__item.reveal.is-visible.is-spotlit::after,
   .career-spotlight-active .career-card.reveal.is-visible.is-spotlit::after {
     opacity: 0;
+  }
+
+  .career-spotlight-active .career-timeline__item.reveal.is-visible.is-spotlit .career-timeline__year,
+  .career-spotlight-active .career-timeline__item.reveal.is-visible.is-spotlit .career-timeline__content,
+  .career-spotlight-active .career-card.reveal.is-visible.is-spotlit .career-card__content {
+    filter: blur(0);
+    transform: scale(1);
   }
 }
 

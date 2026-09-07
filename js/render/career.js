@@ -14,10 +14,12 @@ const timelineItemTemplate = ({ year, title, body, caption }) => `
 
 const cardItemTemplate = ({ title, period, role, body, caption }) => `
   <article class="career-card">
-    <h3 class="career-card__title">${escapeHtml(title)}</h3>
-    <p class="career-card__meta">${escapeHtml(period)} · ${escapeHtml(role)}</p>
-    ${body ? `<p class="career-card__body">${escapeHtml(body)}</p>` : ''}
-    ${caption ? `<blockquote class="career-card__caption">${escapeHtml(caption)}</blockquote>` : ''}
+    <div class="career-card__content">
+      <h3 class="career-card__title">${escapeHtml(title)}</h3>
+      <p class="career-card__meta">${escapeHtml(period)} · ${escapeHtml(role)}</p>
+      ${body ? `<p class="career-card__body">${escapeHtml(body)}</p>` : ''}
+      ${caption ? `<blockquote class="career-card__caption">${escapeHtml(caption)}</blockquote>` : ''}
+    </div>
   </article>
 `;
 
@@ -29,6 +31,14 @@ const renderHallIntro = (hallNumber, { period, title, org }) => {
   if (periodEl) periodEl.textContent = period;
   if (headingEl) headingEl.textContent = title;
   if (orgEl) orgEl.textContent = org;
+};
+
+const renderHallTransition = (hallNumber, { period, title, org }) => {
+  const headingEl = document.getElementById(`career-transition-${hallNumber}-heading`);
+  const metaEl = document.getElementById(`career-transition-${hallNumber}-meta`);
+
+  if (headingEl) headingEl.textContent = title;
+  if (metaEl) metaEl.textContent = `${period} · ${org}`;
 };
 
 export const renderCareer = () => {
@@ -44,12 +54,14 @@ export const renderCareer = () => {
 
   if (hall2) {
     renderHallIntro(2, hall2);
+    renderHallTransition(2, hall2);
     const items = document.getElementById('career-hall-2-items');
     if (items) items.innerHTML = hall2.items.map(cardItemTemplate).join('');
   }
 
   if (hall3) {
     renderHallIntro(3, hall3);
+    renderHallTransition(3, hall3);
     const block = document.getElementById('career-hall-3-body');
     if (block) block.innerHTML = hall3.body ? `<p class="career-block__body">${escapeHtml(hall3.body)}</p>` : '';
   }

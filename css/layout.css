@@ -61,10 +61,8 @@ section {
   justify-content: center;
 }
 
-/* 네비 메뉴 — 2단 클러스터.
-   왼쪽(.nav-menu__secondary): 홈 안 주요 섹션 앵커. 부가 정보라 작고 옅게.
-   오른쪽(.nav-menu__primary): 자기 URL을 가진 하위 페이지. 주 동선이라 지금 크기 그대로.
-   모바일: 햄버거로 열리기 전까지 통째로 숨긴다. */
+/* 네비 메뉴 — 홈 섹션 앵커는 마크업과 키보드 접근을 유지하되 평소에는
+   화면 밖에 둔다. 포커스가 들어오면 고정 위치로 나타나므로 레이아웃을 밀지 않는다. */
 .nav-menu {
   display: none;
 }
@@ -89,11 +87,23 @@ section {
   gap: var(--space-4);
 }
 
-/* 모바일 열린 상태: column-reverse라 오른쪽(주 동선) 클러스터가 위에,
-   왼쪽(부가 정보) 클러스터가 아래에 온다. 구분선은 아래 블록 위쪽에 긋는다. */
-.nav-menu.is-open .nav-menu__secondary {
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--color-border);
+.nav-menu__secondary {
+  position: fixed;
+  top: -100vh;
+  left: var(--space-4);
+  z-index: var(--z-toast);
+  width: max-content;
+  max-width: calc(100vw - var(--space-8));
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  transition: top var(--transition-fast);
+}
+
+.nav-menu__secondary:focus-within {
+  top: calc(var(--header-height) + var(--space-2));
 }
 
 .nav-link {
@@ -115,7 +125,7 @@ section {
   font-weight: var(--fw-bold);
 }
 
-/* 왼쪽 클러스터 전용 — 스크롤하면 어차피 보이는 지름길이라 본문 링크보다 눈에 덜 띄어야 한다 */
+/* 홈 섹션 앵커 — 포커스 패널 안에서는 보조 동선으로 유지한다. */
 .nav-link--secondary {
   font-size: var(--fs-xs);
   font-weight: var(--fw-normal);
@@ -174,11 +184,6 @@ section {
   .nav-menu__primary {
     gap: var(--space-6);
     margin-left: auto;
-  }
-
-  .nav-menu.is-open .nav-menu__secondary {
-    padding-top: 0;
-    border-top: none;
   }
 
   /* .icon-btn의 공통 display 선언보다 우선해 데스크톱에서는 숨긴다. */

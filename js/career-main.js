@@ -3,6 +3,7 @@ import { initHamburgerMenu, initSmoothScroll } from './motion/navigation.js';
 import { initHeaderScroll, initScrollTopButton } from './motion/scrollState.js';
 import { initScrollReveal } from './motion/reveal.js';
 import { initCareerSpotlight } from './motion/careerSpotlight.js';
+import { initCareerTransitions } from './motion/careerTransitions.js';
 
 import { renderCareer } from './render/career.js';
 import { renderFooterYear } from './render/footer.js';
@@ -18,3 +19,4 @@ renderFooterYear();
 
 initScrollReveal();
 initCareerSpotlight();
+initCareerTransitions();
