@@ -18,14 +18,21 @@ const writeStoredTheme = (theme) => {
   }
 };
 
+const getSystemTheme = () =>
+  window.matchMedia?.('(prefers-color-scheme: light)').matches ? LIGHT_THEME : DARK_THEME;
+
+const getInitialTheme = () => {
+  const storedTheme = readStoredTheme();
+  if (storedTheme === DARK_THEME || storedTheme === LIGHT_THEME) return storedTheme;
+
+  return getSystemTheme();
+};
+
 const applyThemeToUI = (theme, toggleBtn) => {
   const isDark = theme === DARK_THEME;
 
-  if (isDark) {
-    root.setAttribute('data-theme', DARK_THEME);
-  } else {
-    root.removeAttribute('data-theme');
-  }
+  if (isDark) root.removeAttribute('data-theme');
+  else root.setAttribute('data-theme', LIGHT_THEME);
 
   if (!toggleBtn) return;
 
@@ -39,21 +46,14 @@ const applyThemeToUI = (theme, toggleBtn) => {
   }
 };
 
-// 모듈이 로드되는 즉시(초기화 함수 호출 전) 저장된 테마를 먼저 적용해
-// 화면 깜빡임을 최소화한다. main.js에서 이 모듈을 가장 먼저 import할 것.
-const storedTheme = readStoredTheme() === DARK_THEME ? DARK_THEME : LIGHT_THEME;
-if (storedTheme === DARK_THEME) {
-  root.setAttribute('data-theme', DARK_THEME);
-}
-
 export const initThemeToggle = () => {
   const toggleBtn = document.getElementById('theme-toggle');
-  applyThemeToUI(storedTheme, toggleBtn);
+  applyThemeToUI(getInitialTheme(), toggleBtn);
 
   if (!toggleBtn) return;
 
   toggleBtn.addEventListener('click', () => {
-    const nextTheme = root.getAttribute('data-theme') === DARK_THEME ? LIGHT_THEME : DARK_THEME;
+    const nextTheme = root.getAttribute('data-theme') === LIGHT_THEME ? DARK_THEME : LIGHT_THEME;
     applyThemeToUI(nextTheme, toggleBtn);
     writeStoredTheme(nextTheme);
   });

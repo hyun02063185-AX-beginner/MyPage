@@ -7,6 +7,21 @@
   <meta name="description" content="김현래의 개인 홈페이지 겸 AX 전문강사 포트폴리오입니다.">
   <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="16x16">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>
+    (() => {
+      try {
+        const storedTheme = localStorage.getItem('mypage-theme');
+        const systemPrefersLight = window.matchMedia?.('(prefers-color-scheme: light)').matches;
+        if (storedTheme === 'light' || (storedTheme !== 'dark' && systemPrefersLight)) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch {
+        if (window.matchMedia?.('(prefers-color-scheme: light)').matches) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      }
+    })();
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
