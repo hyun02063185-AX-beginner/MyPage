@@ -37,10 +37,29 @@
   혹시 빈 태그가 그려지더라도 :empty로 여백이 남지 않게 막아둔다.
 */
 
-/* 관 공통 — 관 사이 전환은 여백으로만 처리한다 (layout.css의 section
-   padding-block이 그 여백을 준다). 구분선·전환 효과는 넣지 않는다. */
+/* 관 공통 — 관 사이 전환은 여백으로만 처리한다. 구분선·전환 효과는 넣지 않는다. */
 .career-hall__intro {
   margin-bottom: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .career-hall + .career-hall {
+    margin-top: var(--space-7);
+  }
+
+  .career-hall .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .career-hall + .career-hall {
+    margin-top: var(--space-8);
+  }
+
+  .career-hall .container {
+    max-width: 900px;
+  }
 }
 
 .career-hall__period {
@@ -127,6 +146,7 @@
   .career-timeline__item {
     grid-template-columns: 120px 1fr;
     gap: var(--space-6);
+    padding-block: var(--space-7);
   }
 
   .career-timeline__year {
@@ -141,6 +161,7 @@
 @media (min-width: 1024px) {
   .career-timeline__item {
     grid-template-columns: 140px 1fr;
+    padding-block: var(--space-8);
   }
 
   .career-timeline__year {
@@ -157,6 +178,7 @@
 }
 
 .career-card {
+  position: relative;
   padding: var(--space-5);
   background-color: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
@@ -185,9 +207,42 @@
   color: var(--color-text-muted);
 }
 
+@media (min-width: 768px) {
+  .career-card-grid {
+    gap: var(--space-6);
+  }
+}
+
 @media (min-width: 1024px) {
   .career-card-grid {
     grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+    gap: var(--space-7);
+  }
+}
+
+/* 사유의 방 스포트라이트 — reveal의 opacity와 경쟁하지 않도록 항목 위의
+   따뜻한 어둠 레이어로 실질 투명도 0.32를 만든다. 모바일과 reduced motion에서는 적용하지 않는다. */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .career-spotlight-active .career-timeline__item.reveal.is-visible,
+  .career-spotlight-active .career-card.reveal.is-visible {
+    position: relative;
+  }
+
+  .career-spotlight-active .career-timeline__item.reveal.is-visible::after,
+  .career-spotlight-active .career-card.reveal.is-visible::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: var(--color-bg);
+    opacity: 0.68;
+    pointer-events: none;
+    transition: opacity 0.55s ease;
+  }
+
+  .career-spotlight-active .career-timeline__item.reveal.is-visible.is-spotlit::after,
+  .career-spotlight-active .career-card.reveal.is-visible.is-spotlit::after {
+    opacity: 0;
   }
 }
 

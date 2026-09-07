@@ -9,21 +9,21 @@
   color-scheme: dark;
 
   /* 색 — 다크 */
-  --color-bg: #0a0e14;
-  --color-bg-elevated: #121826;
-  --color-bg-muted: #1b2333;
-  --color-text: #eef1f6;
-  --color-text-muted: #9aa5b4;
-  --color-text-faint: #6b7686;
-  --color-border: #262f40;
-  --color-accent: #7c83f2;
-  --color-accent-strong: #9ba0ff;
-  --color-accent-contrast: #0a0e14;
-  --color-accent-secondary: #38d9c9;
-  --color-success: #34d399;
-  --color-error: #f87171;
-  --color-warning: #fbbf24;
-  --color-overlay: rgba(10, 14, 20, 0.72);
+  --color-bg: #12100e;
+  --color-bg-elevated: #1c1813;
+  --color-bg-muted: #2a241d;
+  --color-text: #f2ede3;
+  --color-text-muted: #c3bbae;
+  --color-text-faint: #a49a8b;
+  --color-border: #40382e;
+  --color-accent: #c9a227;
+  --color-accent-strong: #d9a441;
+  --color-accent-contrast: #12100e;
+  --color-accent-secondary: #d4b46a;
+  --color-success: #86b68e;
+  --color-error: #df8b78;
+  --color-warning: #d9a441;
+  --color-overlay: rgba(18, 16, 14, 0.76);
 
   /* 그림자 — 다크 */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
@@ -85,21 +85,21 @@
   color-scheme: light;
 
   /* 색 — 라이트 */
-  --color-bg: #f7f8fb;
-  --color-bg-elevated: #ffffff;
-  --color-bg-muted: #eef0f6;
-  --color-text: #12151c;
-  --color-text-muted: #545e6e;
-  --color-text-faint: #7a8494;
-  --color-border: #dde1ea;
-  --color-accent: #4c50d6;
-  --color-accent-strong: #3538b0;
+  --color-bg: #f5f0e6;
+  --color-bg-elevated: #fffcf5;
+  --color-bg-muted: #eae1d1;
+  --color-text: #2a241d;
+  --color-text-muted: #5e5549;
+  --color-text-faint: #746a5c;
+  --color-border: #d8ccb9;
+  --color-accent: #8a6412;
+  --color-accent-strong: #6f4f08;
   --color-accent-contrast: #ffffff;
-  --color-accent-secondary: #0f9c8c;
-  --color-success: #0e9f6e;
-  --color-error: #dc2626;
-  --color-warning: #b45309;
-  --color-overlay: rgba(18, 21, 28, 0.55);
+  --color-accent-secondary: #806e38;
+  --color-success: #477a52;
+  --color-error: #a54b3c;
+  --color-warning: #8a6412;
+  --color-overlay: rgba(42, 36, 29, 0.55);
 
   /* 그림자 — 라이트 */
   --shadow-sm: 0 1px 2px rgba(18, 21, 28, 0.06);
