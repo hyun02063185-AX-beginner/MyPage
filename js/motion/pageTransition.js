@@ -1,8 +1,8 @@
 import { prefersReducedMotion } from './reducedMotion.js';
 
-const TRANSITION_DURATION_MS = 600;
+const TRANSITION_DURATION_MS = 1160;
 const TRANSITION_FALLBACK_MS = TRANSITION_DURATION_MS + 160;
-const NAVIGATION_RECOVERY_MS = 1800;
+const NAVIGATION_RECOVERY_MS = 2200;
 const INTERNAL_DOCUMENTS = new Set(['index.html', 'career.html', 'teaching.html']);
 
 let overlay = null;

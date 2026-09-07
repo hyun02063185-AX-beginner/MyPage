@@ -220,15 +220,15 @@ textarea:focus {
 }
 
 .page-transition.is-active::before {
-  animation: page-transition-bloom 600ms cubic-bezier(0.55, 0, 0.24, 1) forwards;
+  animation: page-transition-bloom 1160ms cubic-bezier(0.2, 0.68, 0.3, 1) forwards;
 }
 
 .page-transition.is-active::after {
-  animation: page-transition-darken 600ms ease-in forwards;
+  animation: page-transition-darken 1160ms ease-in forwards;
 }
 
 .page-transition.is-active .page-transition__core {
-  animation: page-transition-core 600ms ease-in-out forwards;
+  animation: page-transition-core 1160ms ease-in-out forwards;
 }
 
 @keyframes page-transition-bloom {
@@ -236,8 +236,9 @@ textarea:focus {
     opacity: 0.25;
     transform: translate(-50%, -50%) scale(0.08);
   }
-  48% {
+  62% {
     opacity: 0.92;
+    transform: translate(-50%, -50%) scale(2.9);
   }
   100% {
     opacity: 0;
@@ -247,7 +248,7 @@ textarea:focus {
 
 @keyframes page-transition-darken {
   0%,
-  62% {
+  72% {
     opacity: 0;
   }
   100% {
@@ -260,8 +261,8 @@ textarea:focus {
     opacity: 0;
     transform: scale(0.55);
   }
-  22%,
-  58% {
+  20%,
+  64% {
     opacity: 1;
     transform: scale(1);
   }
