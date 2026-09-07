@@ -3,6 +3,7 @@ import { initHamburgerMenu, initSmoothScroll } from './motion/navigation.js';
 import { initHeaderScroll, initScrollTopButton } from './motion/scrollState.js';
 import { initStoryProgress } from './motion/story.js';
 import { initScrollReveal } from './motion/reveal.js';
+import { initPageTransition } from './motion/pageTransition.js';
 
 import { renderHero } from './render/hero.js';
 import { renderStory } from './render/story.js';
@@ -16,6 +17,7 @@ import { initContactForm } from './render/contactForm.js';
 import { renderFooterYear } from './render/footer.js';
 
 initThemeToggle();
+initPageTransition();
 initHamburgerMenu();
 initSmoothScroll();
 initHeaderScroll();

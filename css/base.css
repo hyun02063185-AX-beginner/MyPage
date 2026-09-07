@@ -137,6 +137,140 @@ textarea:focus {
   transform: translateY(0);
 }
 
+/* 내부 문서 이동 — 작은 앰버 빛이 검은 전환막을 가로지른다. 크기는 고정하고
+   transform/opacity만 움직여 반복 이동에서도 부담을 낮춘다. */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-toast) + 1);
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+  isolation: isolate;
+  pointer-events: all;
+  background-color: var(--color-bg);
+  opacity: 0;
+}
+
+.page-transition.is-active {
+  opacity: 1;
+  transition: opacity 80ms ease-out;
+}
+
+.page-transition::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(38rem, 120vmax);
+  height: min(38rem, 120vmax);
+  border-radius: var(--radius-full);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-text) 96%, transparent) 0 9%,
+    color-mix(in srgb, var(--color-accent-strong) 56%, transparent) 25%,
+    color-mix(in srgb, var(--color-accent-secondary) 20%, transparent) 46%,
+    transparent 70%
+  );
+  filter: blur(9px);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.08);
+}
+
+.page-transition::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-bg);
+  opacity: 0;
+}
+
+.page-transition__core {
+  position: relative;
+  z-index: 1;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-strong);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--color-accent-strong) 64%, transparent);
+  opacity: 0;
+  transform: scale(0.55);
+}
+
+.page-transition__core::before,
+.page-transition__core::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-accent-secondary) 34%, transparent);
+  border-radius: var(--radius-full);
+  transform: translate(-50%, -50%);
+}
+
+.page-transition__core::before {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.page-transition__core::after {
+  width: 7rem;
+  height: 7rem;
+  border-color: color-mix(in srgb, var(--color-text-muted) 18%, transparent);
+}
+
+.page-transition.is-active::before {
+  animation: page-transition-bloom 600ms cubic-bezier(0.55, 0, 0.24, 1) forwards;
+}
+
+.page-transition.is-active::after {
+  animation: page-transition-darken 600ms ease-in forwards;
+}
+
+.page-transition.is-active .page-transition__core {
+  animation: page-transition-core 600ms ease-in-out forwards;
+}
+
+@keyframes page-transition-bloom {
+  0% {
+    opacity: 0.25;
+    transform: translate(-50%, -50%) scale(0.08);
+  }
+  48% {
+    opacity: 0.92;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(4.5);
+  }
+}
+
+@keyframes page-transition-darken {
+  0%,
+  62% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.96;
+  }
+}
+
+@keyframes page-transition-core {
+  0% {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  22%,
+  58% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

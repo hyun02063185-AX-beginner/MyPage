@@ -4,11 +4,13 @@ import { initHeaderScroll, initScrollTopButton } from './motion/scrollState.js';
 import { initScrollReveal } from './motion/reveal.js';
 import { initCareerSpotlight } from './motion/careerSpotlight.js';
 import { initCareerTransitions } from './motion/careerTransitions.js';
+import { initPageTransition } from './motion/pageTransition.js';
 
 import { renderCareer } from './render/career.js';
 import { renderFooterYear } from './render/footer.js';
 
 initThemeToggle();
+initPageTransition();
 initHamburgerMenu();
 initSmoothScroll();
 initHeaderScroll();
