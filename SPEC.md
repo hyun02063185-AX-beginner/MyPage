@@ -32,6 +32,12 @@
 - 저장소 링크 (개발자 포트폴리오가 아님). 링크는 열리는 데모만.
 - 인라인 `style="..."`, HTML `onclick` 속성, `var`
 
+**디자인 토큰과 테마**
+- `:root`는 다크 테마의 기본값이며, `[data-theme="light"]`가 라이트 테마를
+  덮어쓴다. 토글 선택값은 `localStorage`에 저장한다.
+- 팔레트의 강조색은 인디고가 아니라 앰버 계열이다. 기본 강조색은 `#c9a227`,
+  강한 강조색과 파비콘은 `#d9a441`을 사용한다.
+
 ---
 
 ## 2. 섹션 구성
@@ -127,12 +133,13 @@ science-qbank-v2)를 골라 `js/data/projects.js`로 변환해 사용.
 ### 전역
 | 기능 | 사양 |
 |---|---|
-| 다크모드 토글 | `[data-theme="dark"]`, localStorage 저장 |
+| 테마 토글 | `:root` 다크 / `[data-theme="light"]` 라이트, localStorage 저장 |
 | 햄버거 메뉴 | 768px 미만에서 노출, `classList.toggle` |
 | 부드러운 스크롤 | 네비 클릭 시 해당 섹션으로 |
 | 스크롤탑 버튼 | 300px 이상에서 노출 (README에 명시) |
 | 네비 배경 변경 | 60px 이상에서 전환 (README에 명시) |
 | 등장 애니메이션 | IntersectionObserver, threshold 0.2 (README에 명시) |
+| 홈 섹션 앵커 | 마크업에는 유지하되 평소 화면 밖에 배치하고, 키보드 포커스에서만 고정 패널로 표시. `display: none`/`visibility: hidden`은 사용하지 않으며 레이아웃을 밀지 않는다. 모바일 햄버거 메뉴도 동일하다. |
 
 ### 섹션별
 - hero: 문장 페이드업. (보너스로 타이핑 효과 검토)
@@ -262,7 +269,7 @@ README.md           ← 오케스트레이터
 - [ ] 시맨틱 태그: header, nav, main, section, article, footer
 - [ ] 모든 img에 의미 있는 alt
 - [ ] label과 input이 for-id로 연결
-- [ ] CSS 변수(:root) + 다크모드 변수 별도 정의
+- [ ] CSS 변수(`:root` 다크 기본값 + `[data-theme="light"]` 라이트 덮어쓰기) 정의
 - [ ] 네비 Flexbox, work 카드 Grid (auto-fit, minmax)
 - [ ] 모바일 퍼스트, 브레이크포인트 768 / 1024
 - [ ] JS는 defer로 연결, const/let만 사용
@@ -275,4 +282,4 @@ README.md           ← 오케스트레이터
 - [ ] 폼 필수값·이메일 형식 검증, preventDefault, 성공 메시지
 - [ ] GitHub Pages 배포, 배포 URL에서 전 기능 동작
 - [ ] README: 프로젝트 설명, 사용 기술, 배포 URL, 스크린샷, 임계값 3종 명시
-- [ ] 제출용 스크린샷 3종 (데스크톱 / 모바일 / 다크모드)
+- [ ] 제출용 스크린샷 3종 (데스크톱 다크 / 모바일 다크 / 라이트 모드)

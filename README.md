@@ -55,7 +55,7 @@ Modules)만으로 구현했습니다.
 MyPage/
 ├─ index.html          # 시맨틱 마크업. 콘텐츠는 없고 각 섹션의 마운트 지점만 정의
 ├─ css/
-│  ├─ tokens.css        # 디자인 토큰 — :root(다크) / [data-theme="light"](라이트)
+│  ├─ tokens.css        # 디자인 토큰 — :root(다크 기본) / [data-theme="light"](라이트), 앰버 강조색
 │  ├─ base.css          # 리셋, 접근성 유틸리티, 등장 애니메이션 초기 상태(.reveal)
 │  ├─ layout.css        # 헤더·네비·컨테이너 등 전역 레이아웃, 반응형 브레이크포인트
 │  └─ sections.css      # 섹션별 컴포넌트 스타일(카드, 폼, 상태 패널 등)
