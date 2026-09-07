@@ -88,8 +88,28 @@ const showNext = () => {
   showItem((currentIndex + 1) % items.length);
 };
 
+// 닫힘 전환 시간. css/gallery.css의 .gallery-modal transition(240ms)과 맞춘다.
+const CLOSE_FADE_MS = 240;
+
+let closeTimerId = null;
+
+const finishClose = () => {
+  closeTimerId = null;
+  if (modal.hidden) return;
+  modal.hidden = true;
+  triggerElement = null;
+  currentIndex = -1;
+};
+
 const openModal = (index, trigger) => {
   if (index < 0 || index >= items.length) return;
+
+  // 닫힘 전환이 끝나기 전에 다시 열리면, 예정된 닫힘을 먼저 확정해
+  // 새로 열린 모달이 뒤늦게 숨겨지는 것을 막는다.
+  if (closeTimerId !== null) {
+    clearTimeout(closeTimerId);
+    finishClose();
+  }
 
   triggerElement = trigger ?? null;
   showItem(index);
@@ -105,6 +125,7 @@ const openModal = (index, trigger) => {
   }
 
   requestAnimationFrame(() => {
+    if (modal.hidden) return;
     modal.classList.add('is-open');
     dialog.focus();
   });
@@ -114,15 +135,20 @@ const closeModal = () => {
   if (modal.hidden) return;
 
   modal.classList.remove('is-open');
-  modal.hidden = true;
   document.body.classList.remove('gallery-modal-open');
   document.removeEventListener('keydown', handleKeydown);
 
   if (triggerElement && document.contains(triggerElement)) {
     triggerElement.focus();
   }
-  triggerElement = null;
-  currentIndex = -1;
+
+  if (prefersReducedMotion()) {
+    finishClose();
+    return;
+  }
+
+  // 닫힘 전환이 재생된 뒤에 hidden을 붙인다.
+  closeTimerId = setTimeout(finishClose, CLOSE_FADE_MS);
 };
 
 const handleTouchStart = (event) => {

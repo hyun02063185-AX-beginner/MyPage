@@ -5,7 +5,7 @@
 
 방문자가 "이 사람은 뭐 하는 사람인가"를 알아가다가 자연스럽게 "강의를 맡겨도
 되겠다"고 느끼도록, 개인 홈페이지를 먼저 두고 그 안에 포트폴리오를 담는
-구조로 만들었습니다. hero → story(경력 5장면) → explain(설명 방식) →
+구조로 만들었습니다. hero → story(About, 경력 5장면) → explain(설명 방식) →
 teaching → credentials → work(프로젝트) → github → contact 순으로 이어지는
 한 장짜리 스크롤 페이지입니다.
 
