@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>갤러리 | 김현래</title>
+  <meta name="description" content="김현래가 어려운 개발 용어를 그림으로 설명하기 위해 만든 자료 모음입니다.">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>
+    (() => {
+      try {
+        const storedTheme = localStorage.getItem('mypage-theme');
+        const systemPrefersLight = window.matchMedia?.('(prefers-color-scheme: light)').matches;
+        if (storedTheme === 'light' || (storedTheme !== 'dark' && systemPrefersLight)) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch {
+        if (window.matchMedia?.('(prefers-color-scheme: light)').matches) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/gallery.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">본문 바로가기</a>
+
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">김현래</a>
+
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <div class="nav-menu" id="nav-menu">
+          <ul class="nav-menu__secondary">
+            <li><a href="index.html#story" class="nav-link nav-link--secondary">이야기</a></li>
+            <li><a href="index.html#explain" class="nav-link nav-link--secondary">설명</a></li>
+            <li><a href="index.html#work" class="nav-link nav-link--secondary">프로젝트</a></li>
+            <li><a href="index.html#contact" class="nav-link nav-link--secondary">문의</a></li>
+          </ul>
+          <ul class="nav-menu__primary">
+            <li><a href="career.html" class="nav-link">커리어</a></li>
+            <li><a href="gallery.html" class="nav-link is-current" aria-current="page">갤러리</a></li>
+            <li><a href="teaching.html" class="nav-link">강사</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="다크모드 전환" aria-pressed="false">
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="icon-btn hamburger-btn" id="hamburger-btn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="gallery-section" aria-labelledby="gallery-heading">
+      <div class="container">
+        <header class="gallery-intro">
+          <h1 class="gallery-heading" id="gallery-heading">갤러리</h1>
+          <p class="gallery-intro__body" id="gallery-intro" data-mount="gallery-intro"></p>
+        </header>
+
+        <div class="gallery-groups" id="gallery-groups" data-mount="gallery-groups">
+          <section class="gallery-group" id="gallery-group-1" data-mount="gallery-group-1" aria-labelledby="gallery-group-1-title">
+            <header class="gallery-group__header">
+              <h2 class="gallery-group__title" id="gallery-group-1-title" data-mount="gallery-group-1-title"></h2>
+              <p class="gallery-group__description" id="gallery-group-1-description" data-mount="gallery-group-1-description"></p>
+            </header>
+            <div class="gallery-grid" id="gallery-group-1-items" data-mount="gallery-group-1-items"></div>
+          </section>
+
+          <section class="gallery-group" id="gallery-group-2" data-mount="gallery-group-2" aria-labelledby="gallery-group-2-title">
+            <header class="gallery-group__header">
+              <h2 class="gallery-group__title" id="gallery-group-2-title" data-mount="gallery-group-2-title"></h2>
+              <p class="gallery-group__description" id="gallery-group-2-description" data-mount="gallery-group-2-description"></p>
+            </header>
+            <div class="gallery-grid" id="gallery-group-2-items" data-mount="gallery-group-2-items"></div>
+          </section>
+
+          <section class="gallery-group" id="gallery-group-3" data-mount="gallery-group-3" aria-labelledby="gallery-group-3-title">
+            <header class="gallery-group__header">
+              <h2 class="gallery-group__title" id="gallery-group-3-title" data-mount="gallery-group-3-title"></h2>
+              <p class="gallery-group__description" id="gallery-group-3-description" data-mount="gallery-group-3-description"></p>
+            </header>
+            <div class="gallery-grid" id="gallery-group-3-items" data-mount="gallery-group-3-items"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="gallery-modal" id="gallery-modal" data-mount="gallery-modal" hidden>
+    <div class="gallery-modal__backdrop" data-gallery-action="close"></div>
+    <section class="gallery-modal__dialog" id="gallery-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="gallery-modal-title" tabindex="-1">
+      <div class="gallery-modal__controls">
+        <button type="button" class="gallery-modal__control" id="gallery-modal-previous" data-gallery-action="previous" aria-label="이전 자료">
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="gallery-modal__control" id="gallery-modal-close" data-gallery-action="close" aria-label="닫기">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="gallery-modal__control" id="gallery-modal-next" data-gallery-action="next" aria-label="다음 자료">
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <figure class="gallery-modal__figure">
+        <img class="gallery-modal__image" id="gallery-modal-image" data-mount="gallery-modal-image" src="" alt="">
+        <figcaption class="gallery-modal__caption">
+          <h2 class="gallery-modal__title" id="gallery-modal-title" data-mount="gallery-modal-title"></h2>
+          <div class="gallery-modal__paragraphs" id="gallery-modal-paragraphs" data-mount="gallery-modal-paragraphs"></div>
+        </figcaption>
+      </figure>
+    </section>
+  </div>
+
+  <button type="button" class="scroll-top-btn" id="scroll-top-btn" aria-label="맨 위로 이동" hidden>
+    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copyright">&copy; <span id="footer-year"></span> 김현래. All rights reserved.</p>
+      <a href="https://github.com/hyun02063185-AX-beginner" class="footer-github-link" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-github" aria-hidden="true"></i>
+        <span>GitHub</span>
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>
