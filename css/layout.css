@@ -61,23 +61,26 @@ section {
   justify-content: center;
 }
 
-/* 네비 메뉴 — 홈 섹션 앵커는 마크업과 키보드 접근을 유지하되 평소에는
-   화면 밖에 둔다. 포커스가 들어오면 고정 위치로 나타나므로 레이아웃을 밀지 않는다. */
+/* 네비 메뉴 — 모바일에서도 display:none으로 링크를 접근성 트리에서 빼지
+   않는다. 닫힌 메뉴는 화면 밖에 고정하고, 햄버거 또는 키보드 포커스로만
+   제자리로 온다. 따라서 포커스가 이동해도 헤더 레이아웃은 밀리지 않는다. */
 .nav-menu {
-  display: none;
-}
-
-.nav-menu.is-open {
   display: flex;
   flex-direction: column-reverse;
   gap: var(--space-5);
   position: absolute;
-  top: var(--header-height);
+  top: -100vh;
   left: 0;
   right: 0;
   background-color: var(--color-bg-elevated);
   box-shadow: var(--shadow-md);
   padding: var(--space-5) var(--container-padding);
+  transition: top var(--transition-fast);
+}
+
+.nav-menu.is-open,
+.nav-menu:focus-within {
+  top: var(--header-height);
 }
 
 .nav-menu__secondary,
@@ -161,13 +164,14 @@ section {
     flex-wrap: wrap;
     row-gap: var(--space-2);
     column-gap: var(--space-6);
-  }
-
-  .nav-menu.is-open {
     position: static;
+    top: auto;
+    left: auto;
+    right: auto;
     background-color: transparent;
     box-shadow: none;
     padding: 0;
+    transition: none;
   }
 
   .nav-menu__secondary,
