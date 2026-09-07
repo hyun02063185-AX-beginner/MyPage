@@ -10,6 +10,7 @@ const REVEAL_SELECTORS = [
   '.section-heading',
   '.story-scene',
   '.teaching-tag',
+  '.skills-tag',
   '.credential-item',
   '.card',
   '.explain-perspective__image',
@@ -29,8 +30,8 @@ const REVEAL_SELECTORS = [
   '.teaching-topic-group',
 ];
 
-// story-scene / teaching-tag / journey-module은 형제 순서대로 시차를 두고 등장시킨다.
-const STAGGERED_CLASSES = ['story-scene', 'teaching-tag', 'journey-module'];
+// story-scene / teaching-tag / skills-tag / journey-module은 형제 순서대로 시차를 두고 등장시킨다.
+const STAGGERED_CLASSES = ['story-scene', 'teaching-tag', 'skills-tag', 'journey-module'];
 
 let observer = null;
 

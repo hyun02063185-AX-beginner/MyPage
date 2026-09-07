@@ -177,7 +177,8 @@ section {
     border-top: none;
   }
 
-  .hamburger-btn {
+  /* .icon-btn의 공통 display 선언보다 우선해 데스크톱에서는 숨긴다. */
+  .header-actions .hamburger-btn {
     display: none;
   }
 }

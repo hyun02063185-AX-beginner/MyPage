@@ -271,6 +271,51 @@
   color: var(--color-accent);
 }
 
+/* skills — 만드는 일, 서비스 운영, AI 활용 경험을 세 그룹의 태그로 나눈다. */
+.skills-groups {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.skills-group {
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.skills-group__title {
+  font-size: var(--fs-md);
+  margin-bottom: var(--space-3);
+}
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.skills-tag {
+  display: inline-block;
+  font-size: var(--fs-sm);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background-color: var(--color-bg-muted);
+  color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+  .skills-groups {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .skills-groups {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 /* work / github 공용 카드 그리드 */
 .card-grid {
   display: grid;
