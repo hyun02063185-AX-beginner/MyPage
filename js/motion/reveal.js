@@ -13,6 +13,7 @@ const REVEAL_SELECTORS = [
   '.skills-tag',
   '.credential-item',
   '.card',
+  '.gallery-card',
   '.explain-perspective__image',
   '.explain-statement',
   '.career-timeline__item',
