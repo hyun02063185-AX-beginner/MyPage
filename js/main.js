@@ -1,5 +1,5 @@
 import { initThemeToggle } from './motion/theme.js';
-import { initHamburgerMenu, initSmoothScroll } from './motion/navigation.js';
+import { initHamburgerMenu, initSmoothScroll, initHashTarget } from './motion/navigation.js';
 import { initHeaderScroll, initScrollTopButton } from './motion/scrollState.js';
 import { initStoryProgress } from './motion/story.js';
 import { initScrollReveal } from './motion/reveal.js';
@@ -20,6 +20,7 @@ initThemeToggle();
 initPageTransition();
 initHamburgerMenu();
 initSmoothScroll();
+initHashTarget();
 initHeaderScroll();
 initScrollTopButton();
 
