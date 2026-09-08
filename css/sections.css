@@ -530,3 +530,17 @@
   color: var(--color-success);
   font-size: var(--fs-sm);
 }
+
+.contact-privacy-note,
+.form-status {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.form-submit-error {
+  min-height: 0;
+}
+
+.contact-honeypot {
+  display: none;
+}
