@@ -90,23 +90,10 @@ section {
   gap: var(--space-4);
 }
 
+/* 홈 섹션 앵커 그룹 — 페이지 그룹 아래 보조 동선으로 두고 구분선만 긋는다. */
 .nav-menu__secondary {
-  position: fixed;
-  top: -100vh;
-  left: var(--space-4);
-  z-index: var(--z-toast);
-  width: max-content;
-  max-width: calc(100vw - var(--space-8));
-  padding: var(--space-3) var(--space-4);
-  background-color: var(--color-bg-elevated);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-md);
-  transition: top var(--transition-fast);
-}
-
-.nav-menu__secondary:focus-within {
-  top: calc(var(--header-height) + var(--space-2));
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-3);
 }
 
 .nav-link {
@@ -128,9 +115,11 @@ section {
   font-weight: var(--fw-bold);
 }
 
-/* 홈 섹션 앵커 — 포커스 패널 안에서는 보조 동선으로 유지한다. */
+/* 홈 섹션 앵커 — GNB 안에서 작고 옅은 보조 동선으로 유지한다.
+   가독성 한 단계: 12px(0.75rem)에서 13px로만 올린다. primary(16px)와의
+   위계는 크기·굵기·색 3중으로 계속 구분된다. */
 .nav-link--secondary {
-  font-size: var(--fs-xs);
+  font-size: 0.8125rem;
   font-weight: var(--fw-normal);
   color: var(--color-text-faint);
 }
@@ -183,6 +172,8 @@ section {
 
   .nav-menu__secondary {
     gap: var(--space-4);
+    border-top: none;
+    padding-top: 0;
   }
 
   .nav-menu__primary {
