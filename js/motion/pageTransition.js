@@ -4,7 +4,7 @@ import { prefersReducedMotion } from './reducedMotion.js';
 // 다음 문서로 이동해, 페이지 교체가 장면 전환처럼 느껴지게 한다.
 const NAVIGATION_DELAY_MS = 820;
 const NAVIGATION_RECOVERY_MS = 2200;
-const INTERNAL_DOCUMENTS = new Set(['index.html', 'career.html', 'teaching.html', 'gallery.html']);
+const INTERNAL_DOCUMENTS = new Set(['index.html', 'career.html', 'teaching.html', 'gallery.html', 'making.html']);
 
 let overlay = null;
 let navigationTimer = null;

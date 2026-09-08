@@ -1,0 +1,173 @@
+/* 제작기 페이지 — 기존 토큰을 재사용하는 전시형 기록. */
+.making-hero,
+.making-section,
+.making-closing {
+  padding-block: var(--space-9);
+}
+
+.making-hero {
+  min-height: calc(100vh - var(--header-height));
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 85% 20%, color-mix(in srgb, var(--color-accent) 16%, transparent), transparent 34rem),
+    radial-gradient(circle at 18% 75%, var(--color-bg-muted), transparent 37rem),
+    var(--color-bg);
+}
+
+.making-hero__inner { max-width: 850px; }
+
+.making-kicker,
+.evidence-card__eyebrow,
+.result-card > p {
+  color: var(--color-accent);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.08em;
+}
+
+.making-hero h1,
+.making-closing h2 {
+  margin-top: var(--space-4);
+  font-size: clamp(2.5rem, 7vw, 5.25rem);
+  font-weight: var(--fw-black);
+  letter-spacing: -0.055em;
+}
+
+.making-hero__lead {
+  max-width: 720px;
+  margin-top: var(--space-6);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-heading);
+}
+
+.making-hero__body,
+.making-section__intro > p:last-child,
+.case-step p,
+.quality-gates p,
+.result-card > span,
+.making-closing p {
+  color: var(--color-text-muted);
+}
+
+.making-hero__body { max-width: 640px; margin-top: var(--space-4); }
+.making-section { border-top: 1px solid var(--color-border); }
+.making-section__intro { max-width: 760px; }
+.making-section__intro h2 { margin-top: var(--space-3); font-size: var(--fs-xl); }
+.making-section__intro > p:last-child { margin-top: var(--space-4); }
+
+.team-era__rail {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
+}
+
+.team-plaque {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 4.5rem;
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  background: linear-gradient(100deg, var(--color-bg-elevated), transparent);
+}
+
+.team-plaque span,
+.case-step__number,
+.quality-gates span {
+  color: var(--color-accent);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.08em;
+}
+
+.operations-stage { display: grid; gap: var(--space-5); margin-top: var(--space-7); }
+.role-list { display: grid; gap: var(--space-3); }
+.role-card,
+.operations-hub,
+.responsibility-grid article,
+.evidence-card,
+.result-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-elevated);
+}
+
+.role-card { padding: var(--space-4) var(--space-5); }
+.role-card span { display: block; color: var(--color-accent); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.06em; }
+.role-card strong { display: block; margin-top: var(--space-1); }
+
+.operations-hub {
+  padding: var(--space-6);
+  border-color: var(--color-accent-secondary);
+  background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--color-accent) 16%, transparent), var(--color-bg-elevated) 65%);
+}
+.operations-hub h3 { margin-top: var(--space-2); font-size: var(--fs-lg); }
+.operations-hub ul { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-5); }
+.operations-hub li { padding: var(--space-1) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-full); font-size: var(--fs-sm); }
+
+.responsibility-grid,
+.evidence-grid,
+.public-results { display: grid; gap: var(--space-4); margin-top: var(--space-6); }
+.responsibility-grid article,
+.evidence-card,
+.result-card { padding: var(--space-5); }
+.responsibility-grid h3,
+.evidence-card h3,
+.result-card h3 { font-size: var(--fs-md); }
+.responsibility-grid ul,
+.evidence-card ul { display: grid; gap: var(--space-2); margin-top: var(--space-4); color: var(--color-text-muted); font-size: var(--fs-sm); }
+.responsibility-grid li::before,
+.evidence-card li::before { content: '—'; margin-right: var(--space-2); color: var(--color-accent); }
+
+.case-journey { display: grid; gap: var(--space-4); margin-top: var(--space-7); }
+.case-step { position: relative; padding: var(--space-5); border-left: 1px solid var(--color-border); }
+.case-step::before { content: ''; position: absolute; top: 1.85rem; left: -0.3rem; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--color-accent); }
+.case-step h3 { margin-top: var(--space-2); font-size: var(--fs-md); }
+.case-step p { margin-top: var(--space-2); font-size: var(--fs-sm); }
+
+.quality-gates { display: grid; gap: var(--space-4); margin-top: var(--space-7); }
+.quality-gates li { display: grid; grid-template-columns: 3rem 1fr; column-gap: var(--space-3); padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border); }
+.quality-gates span { grid-row: span 2; padding-top: var(--space-1); }
+.quality-gates h3 { font-size: var(--fs-md); }
+.quality-gates p { margin-top: var(--space-1); font-size: var(--fs-sm); }
+
+.result-card { display: flex; flex-direction: column; align-items: flex-start; min-height: 14rem; }
+.result-card h3 { margin-top: var(--space-2); }
+.result-card > span { margin-top: var(--space-2); font-size: var(--fs-sm); }
+.result-card a { margin-top: auto; padding-top: var(--space-5); color: var(--color-accent); font-size: var(--fs-sm); font-weight: var(--fw-bold); }
+
+.making-closing { border-top: 1px solid var(--color-border); text-align: center; background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--color-accent) 14%, transparent), transparent 36rem); }
+.making-closing h2 { font-size: clamp(2rem, 5vw, 4rem); }
+.making-closing p { margin: var(--space-5) auto 0; max-width: 480px; }
+
+@media (min-width: 768px) {
+  .team-era__rail { grid-template-columns: repeat(5, 1fr); gap: var(--space-2); }
+  .team-plaque { display: block; min-height: 8rem; padding: var(--space-4); }
+  .team-plaque strong { display: block; margin-top: var(--space-3); }
+  .operations-stage { grid-template-columns: minmax(0, 1.5fr) minmax(17rem, 1fr); align-items: stretch; }
+  .role-list { grid-template-columns: repeat(2, 1fr); }
+  .role-card:last-child { grid-column: span 2; }
+  .responsibility-grid,
+  .evidence-grid { grid-template-columns: repeat(2, 1fr); }
+  .public-results { grid-template-columns: repeat(3, 1fr); }
+  .case-journey { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .making-section,
+  .making-closing { padding-block: var(--space-10); }
+  .making-section__intro h2 { font-size: var(--fs-2xl); }
+  .operations-stage { grid-template-columns: 2fr minmax(20rem, 1fr); }
+  .case-journey { grid-template-columns: repeat(5, 1fr); gap: 0; }
+  .case-step { min-height: 13rem; padding: var(--space-5) var(--space-4); border-left: 0; border-top: 1px solid var(--color-border); }
+  .case-step::before { top: -0.3rem; left: var(--space-4); }
+  .quality-gates { grid-template-columns: repeat(5, 1fr); gap: var(--space-3); }
+  .quality-gates li { display: block; min-height: 10rem; padding: var(--space-4) 0 0; border-bottom: 0; border-top: 1px solid var(--color-border); }
+  .quality-gates span { display: block; }
+  .quality-gates h3 { margin-top: var(--space-3); }
+}

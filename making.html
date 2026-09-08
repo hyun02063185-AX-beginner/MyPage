@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>팀을 운영하듯 AI를 운영합니다 | 김현래</title>
+  <meta name="description" content="사람이 목적과 기준을 정하고, 역할이 다른 AI와 협업하며 결과를 검토하는 실제 작업 방식을 소개합니다.">
+  <link rel="canonical" href="https://hyun02063185-ax-beginner.github.io/MyPage/making.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="김현래 AX 전문강사 포트폴리오">
+  <meta property="og:title" content="팀을 운영하듯 AI를 운영합니다 | 김현래">
+  <meta property="og:description" content="사람이 목적과 기준을 정하고, 역할이 다른 AI와 협업하며 결과를 검토하는 실제 작업 방식을 소개합니다.">
+  <meta property="og:url" content="https://hyun02063185-ax-beginner.github.io/MyPage/making.html">
+  <meta property="og:image" content="https://hyun02063185-ax-beginner.github.io/MyPage/images/ax-lecture.webp">
+  <meta property="og:image:alt" content="AX의 시작과 마인드셋을 다루는 강의 카드가 펼쳐진 화면">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="팀을 운영하듯 AI를 운영합니다 | 김현래">
+  <meta name="twitter:description" content="사람이 목적과 기준을 정하고, 역할이 다른 AI와 협업하며 결과를 검토하는 실제 작업 방식을 소개합니다.">
+  <meta name="twitter:image" content="https://hyun02063185-ax-beginner.github.io/MyPage/images/ax-lecture.webp">
+  <meta name="twitter:image:alt" content="AX의 시작과 마인드셋을 다루는 강의 카드가 펼쳐진 화면">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>
+    (() => {
+      try {
+        const storedTheme = localStorage.getItem('mypage-theme');
+        const systemPrefersLight = window.matchMedia?.('(prefers-color-scheme: light)').matches;
+        if (storedTheme === 'light' || (storedTheme !== 'dark' && systemPrefersLight)) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch {
+        if (window.matchMedia?.('(prefers-color-scheme: light)').matches) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/making.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">본문 바로가기</a>
+
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">김현래</a>
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <div class="nav-menu" id="nav-menu">
+          <ul class="nav-menu__secondary">
+            <li><a href="index.html#about" class="nav-link nav-link--secondary">About</a></li>
+            <li><a href="index.html#explain" class="nav-link nav-link--secondary">설명</a></li>
+            <li><a href="index.html#work" class="nav-link nav-link--secondary">프로젝트</a></li>
+            <li><a href="index.html#contact" class="nav-link nav-link--secondary">문의</a></li>
+          </ul>
+          <ul class="nav-menu__primary">
+            <li><a href="career.html" class="nav-link">커리어</a></li>
+            <li><a href="gallery.html" class="nav-link">갤러리</a></li>
+            <li><a href="teaching.html" class="nav-link">강사</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="다크모드 전환" aria-pressed="false"><i class="fa-solid fa-moon" aria-hidden="true"></i></button>
+        <button type="button" class="icon-btn hamburger-btn" id="hamburger-btn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="making-hero" aria-labelledby="making-title">
+      <div class="container making-hero__inner">
+        <p class="making-kicker">MAKING NOTE · PEOPLE WITH AI</p>
+        <h1 id="making-title">팀을 운영하듯<br>AI를 운영합니다</h1>
+        <p class="making-hero__lead">기준은 사람이 세우고, 역할은 AI와 나누고, 결과는 다시 사람이 검토합니다.</p>
+        <p class="making-hero__body">AI 한 명에게 모든 일을 맡기지 않고, 조사·분석·구현·검토·시각화 역할을 나눠 하나의 결과로 통합하는 방식으로 일합니다.</p>
+      </div>
+    </section>
+
+    <section class="making-section team-era" aria-labelledby="team-era-heading">
+      <div class="container">
+        <div class="making-section__intro">
+          <p class="making-kicker">THEN · A HUMAN TEAM</p>
+          <h2 id="team-era-heading">좋은 결과는 한 사람의 역할만으로 만들어지지 않았습니다</h2>
+          <p>각 역할이 잘한다고 좋은 결과가 자동으로 만들어지는 것은 아닙니다. 전체 목적과 기준을 연결하는 역할이 필요합니다.</p>
+        </div>
+        <ol class="team-era__rail" aria-label="기존 팀의 역할">
+          <li class="team-plaque"><span>01</span><strong>기획</strong></li>
+          <li class="team-plaque"><span>02</span><strong>디자인</strong></li>
+          <li class="team-plaque"><span>03</span><strong>퍼블리싱</strong></li>
+          <li class="team-plaque"><span>04</span><strong>개발</strong></li>
+          <li class="team-plaque"><span>05</span><strong>QA</strong></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="making-section operations-section" aria-labelledby="operations-heading">
+      <div class="container">
+        <div class="making-section__intro">
+          <p class="making-kicker">NOW · AN AI TEAM</p>
+          <h2 id="operations-heading">역할은 바뀌어도 운영 원리는 같습니다</h2>
+          <p>AI 수가 중요한 것이 아니라 역할 분리와 검토 구조가 중요합니다.</p>
+        </div>
+        <div class="operations-stage">
+          <ul class="role-list" aria-label="AI와 나누는 역할">
+            <li class="role-card"><span>RESEARCH</span><strong>자료 탐색과 비교</strong></li>
+            <li class="role-card"><span>DIRECTION</span><strong>방향 초안과 대안</strong></li>
+            <li class="role-card"><span>ENGINEERING</span><strong>구현과 반복 작업</strong></li>
+            <li class="role-card"><span>REVIEW</span><strong>검증 보조와 점검</strong></li>
+            <li class="role-card"><span>VISUAL</span><strong>시각 요소 제작 보조</strong></li>
+          </ul>
+          <aside class="operations-hub" aria-labelledby="human-role-heading">
+            <p class="making-kicker">HUMAN DECISION</p>
+            <h3 id="human-role-heading">사람이 맡는 일</h3>
+            <ul>
+              <li>목적</li><li>우선순위</li><li>공개 기준</li><li>품질 기준</li><li>최종 승인</li>
+            </ul>
+          </aside>
+        </div>
+        <div class="responsibility-grid">
+          <article>
+            <h3>AI가 잘하는 것</h3>
+            <ul><li>자료 탐색과 비교</li><li>구현 초안</li><li>반복 작업</li><li>검증 보조</li><li>시각 요소 제작 보조</li></ul>
+          </article>
+          <article>
+            <h3>사람이 반드시 하는 것</h3>
+            <ul><li>왜 만드는가</li><li>무엇이 중요한가</li><li>무엇을 공개하지 않을 것인가</li><li>어느 수준이면 충분한가</li><li>무엇을 최종 선택하고 언제 멈출 것인가</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="making-section case-section" aria-labelledby="case-heading">
+      <div class="container">
+        <div class="making-section__intro">
+          <p class="making-kicker">REPRESENTATIVE CASE</p>
+          <h2 id="case-heading">페이지 전환 하나를 바꾸는 과정</h2>
+          <p>특정 도구의 역할보다 문제를 발견하고, 비교하고, 판단하고, 구현하고, 검증하는 운영 구조를 남깁니다.</p>
+        </div>
+        <ol class="case-journey">
+          <li class="case-step"><span class="case-step__number">01</span><h3>문제 발견</h3><p>MyPage 내부 페이지마다 전환 경험이 달랐습니다.</p></li>
+          <li class="case-step"><span class="case-step__number">02</span><h3>비교</h3><p>기존 MyPage 효과와 AX Lecture의 전환 방식을 비교했습니다.</p></li>
+          <li class="case-step"><span class="case-step__number">03</span><h3>판단</h3><p>그대로 복사하지 않고 더 적합한 공간 전환 원리를 선택했습니다.</p></li>
+          <li class="case-step"><span class="case-step__number">04</span><h3>구현</h3><p>내부 페이지에 공통 transition engine을 적용했습니다.</p></li>
+          <li class="case-step"><span class="case-step__number">05</span><h3>검증</h3><p>Career, Teaching, Gallery를 desktop·mobile·keyboard·reduced-motion 환경에서 확인했습니다.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="making-section evidence-section" aria-labelledby="evidence-heading">
+      <div class="container">
+        <div class="making-section__intro">
+          <p class="making-kicker">SMALL, CONCRETE EVIDENCE</p>
+          <h2 id="evidence-heading">작은 구조에도 기준을 남깁니다</h2>
+        </div>
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <p class="evidence-card__eyebrow">CONTACT</p>
+            <h3>실제 문의 전송 구조</h3>
+            <ul><li>입력 검증</li><li>개인정보 안내</li><li>성공·실패 상태</li><li>허니팟</li></ul>
+          </article>
+          <article class="evidence-card">
+            <p class="evidence-card__eyebrow">PUBLIC CONTENT</p>
+            <h3>공개 콘텐츠 연결</h3>
+            <ul><li>AI를 대하는 태도</li><li>AX Lecture 6·7·8강</li><li>외부 링크와 내부 이동 구분</li><li>안전한 외부 링크 처리</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="making-section quality-section" aria-labelledby="quality-heading">
+      <div class="container">
+        <div class="making-section__intro">
+          <p class="making-kicker">QUALITY GATE</p>
+          <h2 id="quality-heading">AI가 만들었다면, 더 많이 확인합니다</h2>
+        </div>
+        <ol class="quality-gates">
+          <li><span>01</span><h3>이동</h3><p>route, Back, page transition</p></li>
+          <li><span>02</span><h3>화면</h3><p>desktop, tablet, mobile, 가로 넘침</p></li>
+          <li><span>03</span><h3>접근성</h3><p>keyboard, focus, reduced-motion</p></li>
+          <li><span>04</span><h3>링크</h3><p>external/public URL, broken link</p></li>
+          <li><span>05</span><h3>최종 확인</h3><p>console, 문법, diff, 작업 트리 보호</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="making-section results-section" aria-labelledby="results-heading">
+      <div class="container">
+        <div class="making-section__intro">
+          <p class="making-kicker">PUBLIC RESULTS</p>
+          <h2 id="results-heading">작업 방식은 실제 결과물로 확인할 수 있습니다</h2>
+        </div>
+        <div class="public-results">
+          <article class="result-card"><p>PORTFOLIO</p><h3>MyPage</h3><span>현재 포트폴리오</span><a href="index.html">포트폴리오 보기 <span aria-hidden="true">→</span></a></article>
+          <article class="result-card"><p>MICRO-LESSON</p><h3>AI를 대하는 태도</h3><span>대표 공개 콘텐츠</span><a href="https://hyun02063185-ax-beginner.github.io/AI_Attitude/" target="_blank" rel="noopener noreferrer">웹 콘텐츠 보기 <span aria-hidden="true">↗</span></a></article>
+          <article class="result-card"><p>AX LECTURE</p><h3>AX Lecture</h3><span>실제 강의 공개 샘플</span><a href="https://hyun02063185-ax-beginner.github.io/AX_Lecture/" target="_blank" rel="noopener noreferrer">강의 샘플 보기 <span aria-hidden="true">↗</span></a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="making-closing" aria-labelledby="closing-heading">
+      <div class="container">
+        <p class="making-kicker">CLOSING</p>
+        <h2 id="closing-heading">결심은 내가, 실행은 AI가.<br>그리고 검토도 내가.</h2>
+        <p>AI 시대에도 결과의 방향과 책임까지 도구에 넘기지는 않습니다.</p>
+      </div>
+    </section>
+  </main>
+
+  <button type="button" class="scroll-top-btn" id="scroll-top-btn" aria-label="맨 위로 이동" hidden><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
+  <footer class="site-footer"><div class="container footer-inner"><p class="footer-copyright">&copy; <span id="footer-year"></span> 김현래. All rights reserved.</p><a href="https://github.com/hyun02063185-AX-beginner" class="footer-github-link" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i><span>GitHub</span></a></div></footer>
+  <script type="module" src="js/making-main.js" defer></script>
+</body>
+</html>

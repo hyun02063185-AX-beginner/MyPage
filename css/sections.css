@@ -434,6 +434,31 @@
   align-items: start;
 }
 
+/* Work의 결과물 뒤에 놓이는 조용한 보조 출구. 프로젝트 카드와 경쟁하지 않도록
+   링크만 남기고, 내부 문서 전환은 공통 pageTransition이 맡는다. */
+.work-making-cta {
+  margin-top: var(--space-6);
+  text-align: center;
+}
+
+.work-making-cta__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-bottom: var(--space-1);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.work-making-cta__link:hover,
+.work-making-cta__link:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
 /* work 필터 */
 .work-filters {
   display: flex;
