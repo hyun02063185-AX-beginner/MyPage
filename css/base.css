@@ -137,138 +137,51 @@ textarea:focus {
   transform: translateY(0);
 }
 
-/* 내부 문서 이동 — 작은 앰버 빛이 검은 전환막을 가로지른다. 크기는 고정하고
-   transform/opacity만 움직여 반복 이동에서도 부담을 낮춘다. */
+/* 내부 문서 이동 — AX_Lecture의 입장 워프 문법을 MyPage 팔레트로 이식한다.
+   중앙의 빛이 원형으로 공간을 덮고, 충분히 덮인 시점에 다음 문서로 이동한다. */
 .page-transition {
   position: fixed;
-  inset: 0;
+  top: 50%;
+  left: 50%;
+  width: 220vmax;
+  height: 220vmax;
+  margin: -110vmax 0 0 -110vmax;
   z-index: calc(var(--z-toast) + 1);
-  display: grid;
-  overflow: hidden;
-  place-items: center;
-  isolation: isolate;
+  border-radius: 50%;
   pointer-events: all;
-  background-color: var(--color-bg);
+  background: radial-gradient(
+    circle,
+    var(--color-text) 0%,
+    var(--color-text) 40%,
+    var(--color-accent-strong) 66%,
+    var(--color-accent-secondary) 84%,
+    transparent 100%
+  );
   opacity: 0;
+  transform: scale(0);
+  transform-origin: 50% 50%;
 }
 
 .page-transition.is-active {
-  opacity: 1;
-  transition: opacity 80ms ease-out;
+  animation: page-transition-warp 1600ms cubic-bezier(0.45, 0, 0.2, 1) forwards;
 }
 
-.page-transition::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: min(38rem, 120vmax);
-  height: min(38rem, 120vmax);
-  border-radius: var(--radius-full);
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--color-text) 96%, transparent) 0 9%,
-    color-mix(in srgb, var(--color-accent-strong) 56%, transparent) 25%,
-    color-mix(in srgb, var(--color-accent-secondary) 20%, transparent) 46%,
-    transparent 70%
-  );
-  filter: blur(9px);
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.08);
-}
-
-.page-transition::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-color: var(--color-bg);
-  opacity: 0;
-}
-
-.page-transition__core {
-  position: relative;
-  z-index: 1;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: var(--radius-full);
-  background-color: var(--color-accent-strong);
-  box-shadow: 0 0 22px color-mix(in srgb, var(--color-accent-strong) 64%, transparent);
-  opacity: 0;
-  transform: scale(0.55);
-}
-
-.page-transition__core::before,
-.page-transition__core::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  border: 1px solid color-mix(in srgb, var(--color-accent-secondary) 34%, transparent);
-  border-radius: var(--radius-full);
-  transform: translate(-50%, -50%);
-}
-
-.page-transition__core::before {
-  width: 3.5rem;
-  height: 3.5rem;
-}
-
-.page-transition__core::after {
-  width: 7rem;
-  height: 7rem;
-  border-color: color-mix(in srgb, var(--color-text-muted) 18%, transparent);
-}
-
-.page-transition.is-active::before {
-  animation: page-transition-bloom 1160ms cubic-bezier(0.2, 0.68, 0.3, 1) forwards;
-}
-
-.page-transition.is-active::after {
-  animation: page-transition-darken 1160ms ease-in forwards;
-}
-
-.page-transition.is-active .page-transition__core {
-  animation: page-transition-core 1160ms ease-in-out forwards;
-}
-
-@keyframes page-transition-bloom {
-  0% {
-    opacity: 0.25;
-    transform: translate(-50%, -50%) scale(0.08);
-  }
-  62% {
-    opacity: 0.92;
-    transform: translate(-50%, -50%) scale(2.9);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(4.5);
-  }
-}
-
-@keyframes page-transition-darken {
-  0%,
-  72% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0.96;
-  }
-}
-
-@keyframes page-transition-core {
+@keyframes page-transition-warp {
   0% {
     opacity: 0;
-    transform: scale(0.55);
+    transform: scale(0);
   }
-  20%,
-  64% {
+  28% {
     opacity: 1;
     transform: scale(1);
   }
+  55% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
   100% {
     opacity: 0;
-    transform: scale(1.5);
+    transform: scale(1.12);
   }
 }
 

@@ -1,19 +1,20 @@
 import { prefersReducedMotion } from './reducedMotion.js';
 
-const TRANSITION_DURATION_MS = 1160;
-const TRANSITION_FALLBACK_MS = TRANSITION_DURATION_MS + 160;
+// AX_Lecture의 입장 워프와 같은 리듬이다. 빛이 화면을 덮는 지점에서
+// 다음 문서로 이동해, 페이지 교체가 장면 전환처럼 느껴지게 한다.
+const NAVIGATION_DELAY_MS = 820;
 const NAVIGATION_RECOVERY_MS = 2200;
-const INTERNAL_DOCUMENTS = new Set(['index.html', 'career.html', 'teaching.html']);
+const INTERNAL_DOCUMENTS = new Set(['index.html', 'career.html', 'teaching.html', 'gallery.html']);
 
 let overlay = null;
-let fallbackTimer = null;
+let navigationTimer = null;
 let recoveryTimer = null;
 let destination = null;
 
 const clearTimers = () => {
-  window.clearTimeout(fallbackTimer);
+  window.clearTimeout(navigationTimer);
   window.clearTimeout(recoveryTimer);
-  fallbackTimer = null;
+  navigationTimer = null;
   recoveryTimer = null;
 };
 
@@ -44,7 +45,7 @@ const navigate = () => {
 
   const nextPage = destination;
   destination = null;
-  window.clearTimeout(fallbackTimer);
+  window.clearTimeout(navigationTimer);
 
   try {
     window.location.assign(nextPage);
@@ -58,13 +59,6 @@ const createOverlay = () => {
   const element = document.createElement('div');
   element.className = 'page-transition';
   element.setAttribute('aria-hidden', 'true');
-  element.innerHTML = '<span class="page-transition__core"></span>';
-
-  element.addEventListener('animationend', (event) => {
-    if (event.animationName === 'page-transition-bloom' && event.pseudoElement === '::before') {
-      navigate();
-    }
-  });
 
   return element;
 };
@@ -79,7 +73,8 @@ const startTransition = (url) => {
   // 오버레이의 초기 프레임을 먼저 그려야 bloom 키프레임이 매번 재생된다.
   void overlay.offsetWidth;
   requestAnimationFrame(() => overlay?.classList.add('is-active'));
-  fallbackTimer = window.setTimeout(navigate, TRANSITION_FALLBACK_MS);
+  // AX_Lecture도 워프가 화면을 덮은 뒤(820ms)에 route를 전환한다.
+  navigationTimer = window.setTimeout(navigate, NAVIGATION_DELAY_MS);
 };
 
 export const initPageTransition = () => {

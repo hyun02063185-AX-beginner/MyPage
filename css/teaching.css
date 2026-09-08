@@ -633,3 +633,105 @@
 .teaching-contact-cta__link:focus-visible {
   background-color: var(--color-accent-strong);
 }
+
+/* 대표 공개 콘텐츠 — 기존 카드와 앰버 강조를 따라가되, 외부 공개 자산임을
+   작은 eyebrow와 외부 링크 기호로 분명히 한다. */
+.public-samples-section {
+  padding-block: var(--space-9);
+}
+
+.public-samples-grid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.public-sample-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-elevated);
+  box-shadow: var(--shadow-sm);
+}
+
+.public-sample-card--lecture {
+  border-color: color-mix(in srgb, var(--color-accent) 52%, var(--color-border));
+}
+
+.public-sample-card__eyebrow {
+  color: var(--color-accent);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.05em;
+}
+
+.public-sample-card__title {
+  margin-top: var(--space-2);
+  font-size: var(--fs-lg);
+}
+
+.public-sample-card__meta {
+  margin-top: var(--space-2);
+  color: var(--color-text-faint);
+  font-size: var(--fs-sm);
+}
+
+.public-sample-card__body {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.public-sample-card__link {
+  display: inline-flex;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  color: var(--color-accent);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+}
+
+.lecture-sample-list {
+  display: grid;
+  width: 100%;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.lecture-sample-list a {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: var(--fs-sm);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.lecture-sample-list a span:first-child {
+  flex: 0 0 auto;
+  color: var(--color-accent);
+  font-weight: var(--fw-bold);
+}
+
+.lecture-sample-list a span:last-child {
+  margin-left: auto;
+  color: var(--color-accent);
+}
+
+.lecture-sample-list a:hover,
+.lecture-sample-list a:focus-visible {
+  border-color: var(--color-accent);
+  background-color: var(--color-bg-muted);
+  color: var(--color-accent);
+}
+
+@media (min-width: 768px) {
+  .public-samples-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

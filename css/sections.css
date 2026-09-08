@@ -388,6 +388,45 @@
   color: var(--color-accent);
 }
 
+/* Explain 안에서 공개 콘텐츠로 이어지는 작은 출구. 새 섹션을 만들지 않고
+   기존 카드·토큰의 결을 이어 간다. */
+.public-content-cta {
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-bg-elevated), var(--color-bg-muted));
+}
+
+.public-content-cta__eyebrow {
+  color: var(--color-accent);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.04em;
+}
+
+.public-content-cta__title {
+  margin-top: var(--space-2);
+  font-size: var(--fs-md);
+}
+
+.public-content-cta__body {
+  max-width: 640px;
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.public-content-cta__link {
+  display: inline-flex;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  color: var(--color-accent);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+}
+
 /* work 카드 전용 — 기본 카드 그리드보다 열 기준 폭을 넓게 잡는다.
    align-items: start로 짧은 카드가 행 트랙 높이만큼 늘어나지 않게 한다. */
 .card-grid.work-grid {
