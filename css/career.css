@@ -95,8 +95,8 @@
 /* 관 사이 전이 — 다음 관의 이름과 소속만 남긴 어두운 복도다. */
 .career-transition {
   display: grid;
-  min-height: 60vh;
-  min-height: 60svh;
+  min-height: 48vh;
+  min-height: 48svh;
   place-items: center;
   background-color: var(--color-bg);
 }
@@ -120,8 +120,8 @@
 
 @media (min-width: 768px) {
   .career-transition {
-    min-height: 68vh;
-    min-height: 68svh;
+    min-height: 55vh;
+    min-height: 55svh;
   }
 
   .career-transition__title {
