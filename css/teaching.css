@@ -89,11 +89,11 @@
     #teaching-contact에 hidden을 다는 것도 데이터·API 에이전트 몫이다.
 */
 
-/* 페이지 공통 헤딩 — sections.css의 .section-heading을 로드하지 않으므로
-   동일한 크기감으로 이 파일 안에서 독립 정의 */
+/* 페이지 공통 헤딩 — sections.css의 .section-heading과 같은 28px 기준을
+   공유한다(데스크톱에서도 크기를 올리지 않는다). */
 .teaching-heading {
   font-size: var(--fs-xl);
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
 }
 
 .teaching-section-intro {
@@ -101,13 +101,6 @@
   color: var(--color-text-muted);
   max-width: 640px;
   margin-bottom: var(--space-6);
-}
-
-@media (min-width: 1024px) {
-  .teaching-heading {
-    font-size: var(--fs-2xl);
-    margin-bottom: var(--space-6);
-  }
 }
 
 /* 네비 현재 페이지 표시 — layout.css의 .nav-link를 이 페이지에서만 보강 */
@@ -635,11 +628,8 @@
 }
 
 /* 대표 공개 콘텐츠 — 기존 카드와 앰버 강조를 따라가되, 외부 공개 자산임을
-   작은 eyebrow와 외부 링크 기호로 분명히 한다. */
-.public-samples-section {
-  padding-block: var(--space-9);
-}
-
+   작은 eyebrow와 외부 링크 기호로 분명히 한다. 섹션 패딩은 전역 기준(128/96/64)을
+   그대로 쓴다. */
 .public-samples-grid {
   display: grid;
   gap: var(--space-5);

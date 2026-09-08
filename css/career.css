@@ -41,7 +41,23 @@
   혹시 빈 태그가 그려지더라도 :empty로 여백이 남지 않게 막아둔다.
 */
 
-/* 관 공통 */
+/* 관 공통 — 전역 섹션 패딩(64/96/128)보다 한 단계 낮춰 전시 밀도를 높인다. */
+.career-hall {
+  padding-block: var(--space-7);
+}
+
+@media (min-width: 768px) {
+  .career-hall {
+    padding-block: var(--space-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .career-hall {
+    padding-block: var(--space-9);
+  }
+}
+
 .career-hall__intro {
   margin-bottom: var(--space-6);
 }
@@ -104,8 +120,8 @@
 
 @media (min-width: 768px) {
   .career-transition {
-    min-height: 100vh;
-    min-height: 100svh;
+    min-height: 68vh;
+    min-height: 68svh;
   }
 
   .career-transition__title {

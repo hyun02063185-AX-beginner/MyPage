@@ -1,19 +1,5 @@
-/* 갤러리 목록과 모달. 항목 텍스트·이미지·해설은 렌더러가 마운트 지점에 넣는다. */
-.gallery-intro {
-  max-width: 44rem;
-  margin-bottom: var(--space-8);
-}
-
-.gallery-heading {
-  font-size: var(--fs-2xl);
-}
-
-.gallery-intro__body {
-  margin-top: var(--space-4);
-  font-size: var(--fs-md);
-  color: var(--color-text-muted);
-}
-
+/* 갤러리 목록과 모달. 항목 텍스트·이미지·해설은 렌더러가 마운트 지점에 넣는다.
+   페이지 제목·리드는 layout.css의 공통 .page-title 블록을 쓴다. */
 .gallery-group + .gallery-group {
   margin-top: var(--space-10);
 }
@@ -177,10 +163,6 @@ body.gallery-modal-open {
 }
 
 @media (min-width: 768px) {
-  .gallery-heading {
-    font-size: var(--fs-3xl);
-  }
-
   .gallery-grid {
     grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
     gap: var(--space-6);

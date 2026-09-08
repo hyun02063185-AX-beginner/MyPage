@@ -229,6 +229,53 @@ section {
   transform: translateY(0);
 }
 
+/* 하위 페이지 공통 제목 블록 — kicker + H1 + lead 1줄.
+   세 페이지가 같은 위치·크기·여백으로 시작해 페이지 정체성이 즉시 읽히게 한다.
+   making의 display hero는 의도적 예외라 이 블록을 쓰지 않는다. */
+.page-title {
+  padding-block: var(--space-8) 0;
+}
+
+.page-title__kicker {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  color: var(--color-accent);
+  letter-spacing: 0.08em;
+}
+
+.page-title__heading {
+  margin-top: var(--space-2);
+  font-size: 2rem; /* 32px — 토큰 사이의 하위 페이지 제목 계단 */
+  font-weight: var(--fw-bold);
+}
+
+.page-title__lead {
+  margin-top: var(--space-3);
+  max-width: 640px;
+  font-size: var(--fs-md);
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 768px) {
+  .page-title {
+    padding-block: var(--space-9) 0;
+  }
+
+  .page-title__heading {
+    font-size: var(--fs-3xl); /* 48px */
+  }
+
+  .page-title__lead {
+    margin-top: var(--space-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-title {
+    padding-block: var(--space-10) 0;
+  }
+}
+
 /* 푸터 */
 .site-footer {
   border-top: 1px solid var(--color-border);
