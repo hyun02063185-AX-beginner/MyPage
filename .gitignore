@@ -4,3 +4,10 @@ images/*.jpg
 
 # Claude Code 세션 락 파일
 .claude/*.lock
+
+# Portfolio World local runtime files
+portfolio-world/node_modules/
+portfolio-world/dist/
+portfolio-world/.vite/
+.portfolio-work-context.local.json
+.DS_Store

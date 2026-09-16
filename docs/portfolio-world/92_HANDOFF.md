@@ -3,23 +3,31 @@
 Updated: 2026-09-16
 
 ## State
-Foundation v1.2 documentation integration complete.
-Runtime code not started.
+Sprint 0B runtime foundation implemented.
+Independent review pending; final acceptance has not been granted.
+
+## Work Context Metadata
+
+Environment: CODYSSEY_SHARED_MAC
+MachineContextId: 3c5410ed-2e15-4583-abb7-9de45a28bbe5
+Agent: Codex
+Model: GPT-5.6 Terra High
 
 ## Environment
 CODYSSEY_SHARED_MAC
 
 ## Current Agent
-Claude Code
+Codex
 
 ## Model
-Sonnet 5
+GPT-5.6 Terra High
 
-## Sprint 0A Status
-DOCUMENTATION INTEGRATION COMPLETE
+## Sprint 0B Status
+RUNTIME FOUNDATION IMPLEMENTED
+REVIEW PENDING
 
 ## Runtime code
-NOT STARTED
+RUNTIME FOUNDATION IMPLEMENTED
 
 ## v1.1 Re-review Disposition
 - M01 scope separation: PASS
@@ -28,9 +36,8 @@ NOT STARTED
 - `Sol` role/model ambiguity: FIXED in v1.2
 
 ## Next
-Director Foundation Gate PASS 후
-Sprint 0B — Runtime Foundation & Work Context
+Independent review and Director acceptance gate.
 
 ## Next Recommended Agent
 Claude Code / Sonnet 5
-Task: Sprint 0B — Runtime Foundation & Work Context
+Task: Review Sprint 0B runtime foundation and Work Context v0.
