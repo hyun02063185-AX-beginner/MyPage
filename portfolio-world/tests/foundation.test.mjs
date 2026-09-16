@@ -21,6 +21,7 @@ test("runtime foundation build contracts are present", () => {
     true,
   );
   assert.match(builtHtml, /\/MyPage\/world\/assets\//);
+  assert.match(packageJson.scripts.preview, /\/MyPage\/world\//);
 
   assert.equal(packageJson.dependencies.phaser, "4.2.1");
   assert.equal(packageJson.devDependencies.vite, "8.3.0");

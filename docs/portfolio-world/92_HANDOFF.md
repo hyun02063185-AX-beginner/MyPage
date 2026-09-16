@@ -3,10 +3,12 @@
 Updated: 2026-09-16
 
 ## State
-Sprint 0B runtime foundation implemented.
-Independent review pending; final acceptance has not been granted.
+Sprint 0B runtime foundation fix pass complete.
+Independent re-review pending; final acceptance has not been granted.
 
 ## Work Context Metadata
+
+This is the canonical machine-readable metadata section parsed by `work-context.mjs`.
 
 Environment: CODYSSEY_SHARED_MAC
 MachineContextId: 3c5410ed-2e15-4583-abb7-9de45a28bbe5
@@ -24,7 +26,8 @@ GPT-5.6 Terra High
 
 ## Sprint 0B Status
 RUNTIME FOUNDATION IMPLEMENTED
-REVIEW PENDING
+FIX PASS COMPLETE
+INDEPENDENT RE-REVIEW PENDING
 
 ## Runtime code
 RUNTIME FOUNDATION IMPLEMENTED

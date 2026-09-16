@@ -18,25 +18,58 @@ const repositoryRoot = path.resolve(scriptDirectory, "../..");
 const configPath = path.join(repositoryRoot, ".portfolio-work-context.local.json");
 const handoffPath = path.join(repositoryRoot, "docs/portfolio-world/92_HANDOFF.md");
 
+function isMachineContextId(value) {
+  return (
+    typeof value === "string" &&
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)
+  );
+}
+
+function validateConfig(value) {
+  if (
+    value?.version !== 1 ||
+    !allowedProfiles.has(value.profile) ||
+    !isMachineContextId(value.machineContextId)
+  ) {
+    throw new Error("invalid schema");
+  }
+  return value;
+}
+
 function readConfig() {
   if (!existsSync(configPath)) {
     return null;
   }
 
   try {
-    const value = JSON.parse(readFileSync(configPath, "utf8"));
-    if (
-      value.version !== 1 ||
-      !allowedProfiles.has(value.profile) ||
-      typeof value.machineContextId !== "string" ||
-      value.machineContextId.length === 0
-    ) {
-      throw new Error("invalid schema");
-    }
-    return value;
+    return validateConfig(JSON.parse(readFileSync(configPath, "utf8")));
   } catch (error) {
     console.error(`Invalid work-context config: ${error.message}`);
     process.exit(1);
+  }
+}
+
+function readConfigForRepair() {
+  if (!existsSync(configPath)) {
+    return { machineContextId: null, replacedInvalidConfig: false };
+  }
+
+  try {
+    const value = JSON.parse(readFileSync(configPath, "utf8"));
+    validateConfig(value);
+    return { machineContextId: value.machineContextId, replacedInvalidConfig: false };
+  } catch {
+    try {
+      const value = JSON.parse(readFileSync(configPath, "utf8"));
+      return {
+        machineContextId: isMachineContextId(value?.machineContextId)
+          ? value.machineContextId
+          : null,
+        replacedInvalidConfig: true,
+      };
+    } catch {
+      return { machineContextId: null, replacedInvalidConfig: true };
+    }
   }
 }
 
@@ -46,9 +79,18 @@ function readHandoffMetadata() {
   }
 
   const handoff = readFileSync(handoffPath, "utf8");
-  const environment = handoff.match(/^Environment:\s*(\S+)\s*$/m)?.[1] ?? "UNKNOWN";
+  const sectionHeading = /^## Work Context Metadata\s*$/m.exec(handoff);
+  if (sectionHeading === null) {
+    return { environment: "UNKNOWN", machineContextId: "UNKNOWN" };
+  }
+
+  const sectionStart = sectionHeading.index + sectionHeading[0].length;
+  const followingHandoff = handoff.slice(sectionStart);
+  const nextHeading = followingHandoff.search(/^##\s/m);
+  const metadata = nextHeading === -1 ? followingHandoff : followingHandoff.slice(0, nextHeading);
+  const environment = metadata.match(/^Environment:\s*(\S+)\s*$/m)?.[1] ?? "UNKNOWN";
   const machineContextId =
-    handoff.match(/^MachineContextId:\s*(\S+)\s*$/m)?.[1] ?? "UNKNOWN";
+    metadata.match(/^MachineContextId:\s*(\S+)\s*$/m)?.[1] ?? "UNKNOWN";
   return { environment, machineContextId };
 }
 
@@ -92,20 +134,27 @@ if (args.length > 0 && (args.length !== 2 || args[0] !== "--set-profile")) {
   process.exit(1);
 }
 
-let config = readConfig();
-if (args.length === 2) {
-  const profile = args[1];
-  if (!allowedProfiles.has(profile)) {
-    console.error(`Invalid profile: ${profile}`);
-    process.exit(1);
-  }
+const requestedProfile = args[1];
+if (requestedProfile !== undefined && !allowedProfiles.has(requestedProfile)) {
+  console.error(`Invalid profile: ${requestedProfile}`);
+  process.exit(1);
+}
+
+let config;
+if (requestedProfile !== undefined) {
+  const recovery = readConfigForRepair();
   config = {
     version: 1,
-    profile,
-    machineContextId: config?.machineContextId ?? randomUUID(),
+    profile: requestedProfile,
+    machineContextId: recovery.machineContextId ?? randomUUID(),
   };
   writeFileSync(configPath, `${JSON.stringify(config, null, 2)}\n`, "utf8");
-  console.log(`Profile saved: ${profile}`);
+  if (recovery.replacedInvalidConfig) {
+    console.warn("Warning: prior work-context config was invalid and was replaced.");
+  }
+  console.log(`Profile saved: ${requestedProfile}`);
+} else {
+  config = readConfig();
 }
 
 const profile = config?.profile ?? "UNKNOWN";
