@@ -3,10 +3,10 @@
 Updated: 2026-09-16
 
 ## Phase
-FOUNDATION / DOCUMENTATION INTEGRATION
+FOUNDATION / SPRINT 0B ACCEPTED / MAIN MERGE PENDING
 
 ## Current Work Unit
-Sprint 0A — Documentation Integration
+Sprint 0B — Merge and Verification Closeout
 
 ## Confirmed
 - MyPage repo 유지
@@ -17,10 +17,21 @@ Sprint 0A — Documentation Integration
 - Library v1 Deferred
 - role = Director
 - v1 scope canonical = `03_REQUIREMENTS.md`
+- Phaser 4.2.1 + Vite 8.3.0 + TypeScript 7.0.2 runtime foundation implemented
+- `world/` production build path configured for `/MyPage/world/`
+- Work Context v0 implemented with distinct profile and machine-context detection
+- Sprint 0B F1/F2/F3 remediation implemented and validated
+- Sprint 0B — ACCEPTED
+- Runtime Foundation — COMPLETE
+- Work Context v0 — COMPLETE
+- Main merge — PENDING CLOSEOUT
+
+## Known Technical Follow-ups
+
+- Phaser bundle size exceeds Vite's 500 kB warning threshold; track a performance budget in a later Sprint.
+- `skipLibCheck` remains enabled for Phaser 4.2.1 / TypeScript 7 declaration compatibility; `src/**` remains strict.
 
 ## Next
-1. v1.2 docs 실제 repo 반영
-2. root CLAUDE.md / HANDOFF.md scope correction
-3. diff / validation
-4. Director Foundation Gate
-5. Sprint 0B runtime foundation
+1. Merge Sprint 0B into `main`
+2. Verify main and GitHub Pages deployment source state
+3. Begin Sprint 1 planning only after closeout completes

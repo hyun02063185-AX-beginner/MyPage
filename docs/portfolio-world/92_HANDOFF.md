@@ -3,23 +3,35 @@
 Updated: 2026-09-16
 
 ## State
-Foundation v1.2 documentation integration complete.
-Runtime code not started.
+Sprint 0B accepted.
+Next: merge to main, verify deployment source state, then begin Sprint 1 planning.
+
+## Work Context Metadata
+
+This is the canonical machine-readable metadata section parsed by `work-context.mjs`.
+
+Environment: CODYSSEY_SHARED_MAC
+MachineContextId: 3c5410ed-2e15-4583-abb7-9de45a28bbe5
+Agent: Codex
+Model: GPT-5.6 Terra High
 
 ## Environment
 CODYSSEY_SHARED_MAC
 
 ## Current Agent
-Claude Code
+Codex
 
 ## Model
-Sonnet 5
+GPT-5.6 Terra High
 
-## Sprint 0A Status
-DOCUMENTATION INTEGRATION COMPLETE
+## Sprint 0B Status
+RUNTIME FOUNDATION IMPLEMENTED
+FIX PASS COMPLETE
+SPRINT 0B ACCEPTED
+MAIN MERGE PENDING
 
 ## Runtime code
-NOT STARTED
+RUNTIME FOUNDATION IMPLEMENTED
 
 ## v1.1 Re-review Disposition
 - M01 scope separation: PASS
@@ -28,9 +40,8 @@ NOT STARTED
 - `Sol` role/model ambiguity: FIXED in v1.2
 
 ## Next
-Director Foundation Gate PASS 후
-Sprint 0B — Runtime Foundation & Work Context
+Merge to main, verify deployment source state, then begin Sprint 1 planning.
 
 ## Next Recommended Agent
-Claude Code / Sonnet 5
-Task: Sprint 0B — Runtime Foundation & Work Context
+Codex / GPT-5.6 Terra High
+Task: Merge accepted Sprint 0B, verify main and deployment source state, then close out.
