@@ -79,3 +79,19 @@ README나 문서에 명시된 사실이 없으면 반드시 "작성자 확인 �
 - `content/<항목slug>.md` — 항목당 파일 1개, 위 7칸 형식
 - 마지막에 **"결과·증거 = 작성자 확인 필요"인 항목 목록**을 따로 출력
 - 읽지 못한 항목이 있으면 어떤 항목인지 보고
+
+---
+
+## Portfolio tracks
+
+### Codyssey M01
+Status: COMPLETE
+
+### Portfolio World
+Status: FOUNDATION
+
+Canonical status:
+- `docs/portfolio-world/91_STATUS.md`
+
+Current handoff:
+- `docs/portfolio-world/92_HANDOFF.md`
