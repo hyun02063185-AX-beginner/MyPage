@@ -3,8 +3,8 @@
 Updated: 2026-09-16
 
 ## State
-Sprint 0B runtime foundation fix pass complete.
-Independent re-review pending; final acceptance has not been granted.
+Sprint 0B accepted.
+Next: merge to main, verify deployment source state, then begin Sprint 1 planning.
 
 ## Work Context Metadata
 
@@ -27,7 +27,8 @@ GPT-5.6 Terra High
 ## Sprint 0B Status
 RUNTIME FOUNDATION IMPLEMENTED
 FIX PASS COMPLETE
-INDEPENDENT RE-REVIEW PENDING
+SPRINT 0B ACCEPTED
+MAIN MERGE PENDING
 
 ## Runtime code
 RUNTIME FOUNDATION IMPLEMENTED
@@ -39,8 +40,8 @@ RUNTIME FOUNDATION IMPLEMENTED
 - `Sol` role/model ambiguity: FIXED in v1.2
 
 ## Next
-Independent review and Director acceptance gate.
+Merge to main, verify deployment source state, then begin Sprint 1 planning.
 
 ## Next Recommended Agent
-Claude Code / Sonnet 5
-Task: Review Sprint 0B runtime foundation and Work Context v0.
+Codex / GPT-5.6 Terra High
+Task: Merge accepted Sprint 0B, verify main and deployment source state, then close out.
