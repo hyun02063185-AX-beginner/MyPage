@@ -1,0 +1,38 @@
+{
+  "playerSpawn": { "x": 1024, "y": 848 },
+  "zones": [
+    { "id": "plaza", "label": "Central Plaza", "x": 1024, "y": 640, "width": 448, "height": 288 },
+    { "id": "lecture", "label": "North · Lecture Studio", "x": 1024, "y": 224, "width": 256, "height": 128 },
+    { "id": "career", "label": "West · Career Archive", "x": 224, "y": 640, "width": 256, "height": 128 },
+    { "id": "ai-lab", "label": "East · AI Lab / Making", "x": 1824, "y": 640, "width": 256, "height": 128 },
+    { "id": "gallery", "label": "South · Gallery", "x": 1024, "y": 1056, "width": 256, "height": 128 }
+  ],
+  "paths": [
+    { "id": "path-north", "label": "North path", "x": 1024, "y": 392, "width": 64, "height": 208 },
+    { "id": "path-west", "label": "West path", "x": 576, "y": 640, "width": 448, "height": 64 },
+    { "id": "path-east", "label": "East path", "x": 1472, "y": 640, "width": 448, "height": 64 },
+    { "id": "path-south", "label": "South path", "x": 1024, "y": 888, "width": 64, "height": 208 }
+  ],
+  "forecourts": [
+    { "id": "forecourt-lecture", "label": "Lecture forecourt", "x": 1024, "y": 352, "width": 128, "height": 64 },
+    { "id": "forecourt-career", "label": "Career forecourt", "x": 416, "y": 640, "width": 64, "height": 96 },
+    { "id": "forecourt-ai-lab", "label": "AI Lab forecourt", "x": 1632, "y": 640, "width": 64, "height": 96 },
+    { "id": "forecourt-gallery", "label": "Gallery forecourt", "x": 1024, "y": 928, "width": 128, "height": 64 }
+  ],
+  "landmarks": [
+    { "id": "west-tree-grove", "type": "tree-grove", "x": 576, "y": 568, "width": 64, "height": 64, "collidable": false, "zone": "path" },
+    { "id": "west-bench-cluster", "type": "bench-cluster", "x": 576, "y": 712, "width": 64, "height": 32, "collidable": false, "zone": "path" },
+    { "id": "east-wayfinding", "type": "wayfinding-sign", "x": 1472, "y": 568, "width": 40, "height": 64, "collidable": false, "zone": "path" },
+    { "id": "east-bench-cluster", "type": "bench-cluster", "x": 1472, "y": 712, "width": 64, "height": 32, "collidable": false, "zone": "path" },
+    { "id": "north-wayfinding", "type": "wayfinding-sign", "x": 960, "y": 392, "width": 40, "height": 64, "collidable": false, "zone": "path" },
+    { "id": "north-planter", "type": "planter", "x": 1088, "y": 392, "width": 64, "height": 64, "collidable": true, "zone": "path" },
+    { "id": "south-water-feature", "type": "water-feature", "x": 1088, "y": 888, "width": 96, "height": 64, "collidable": true, "zone": "path" },
+    { "id": "plaza-portfolio-marker", "type": "plaza-marker", "x": 1024, "y": 640, "width": 64, "height": 64, "collidable": false, "zone": "plaza" }
+  ],
+  "edgeDecorations": [
+    { "id": "edge-north", "x": 1024, "y": 32, "width": 2048, "height": 64 },
+    { "id": "edge-west", "x": 32, "y": 640, "width": 64, "height": 1152 },
+    { "id": "edge-east", "x": 2016, "y": 640, "width": 64, "height": 1152 },
+    { "id": "edge-south", "x": 1024, "y": 1248, "width": 2048, "height": 64 }
+  ]
+}

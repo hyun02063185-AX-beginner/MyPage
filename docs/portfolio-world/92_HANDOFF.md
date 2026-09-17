@@ -3,26 +3,26 @@
 Updated: 2026-09-17
 
 ## State
-Sprint 1 complete and accepted.
-Next: Sprint 2 planning only. No Sprint 2 code has been approved.
+Sprint 2 implementation complete.
+Next: independent review and user Human Feel Test are pending.
 
 ## Work Context Metadata
 
 This is the canonical machine-readable metadata section parsed by `work-context.mjs`.
 
-Environment: CODYSSEY_SHARED_MAC
-MachineContextId: 3c5410ed-2e15-4583-abb7-9de45a28bbe5
+Environment: HOME_WINDOWS
+MachineContextId: 06cd98a5-32c4-40db-a628-5416e4795ed6
 Agent: Codex
-Model: GPT-5.6 Terra High
+Model: GPT-5
 
 ## Environment
-CODYSSEY_SHARED_MAC
+HOME_WINDOWS
 
 ## Current Agent
 Codex
 
 ## Model
-GPT-5.6 Terra High
+GPT-5
 
 ## Sprint 1 Status
 COMPLETE
@@ -42,10 +42,23 @@ FIRST PLAYABLE WORLD SKELETON IMPLEMENTED
 - Accessibility: `../` Portfolio return link, game ARIA region, visible focus state, coarse-pointer fallback
 - Validation: `npm ci`, typecheck, build, test, preview, Work Context, and diff check PASS
 
+## Sprint 2 Status
+
+IMPLEMENTATION COMPLETE
+INDEPENDENT REVIEW PENDING
+HUMAN FEEL TEST PENDING
+
+## Implementation
+
+- Project-owned layout data provides 64 px primary paths, 256 × 128 px destination footprints, 64 px forecourts, eight reusable-placeholder landmark placements, and non-collidable edge treatment.
+- North/South destinations now use the required `LOGICAL_UNIT * 7` offset. West/East coordinates were retained.
+- Arcade Physics has dynamic Player / static environmental collision only. The manual world-edge clamp remains authoritative.
+- No binary art assets, Tiled data, routing, or content payloads were added.
+
 ## Next
 
-Sprint 2 planning only. Address spatial density before finalizing world layout; no Sprint 2 code is approved.
+Independent review, then user Human Feel Test for density, wayfinding, and collision.
 
 ## Next Recommended Agent
 Codex / GPT-5.6 Terra High
-Task: Sprint 2 planning after a new Director design gate.
+Task: Independent review of Sprint 2 implementation.

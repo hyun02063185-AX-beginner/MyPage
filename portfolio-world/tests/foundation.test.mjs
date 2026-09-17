@@ -41,7 +41,11 @@ test("runtime foundation build contracts are present", () => {
     "src/player/movement.ts",
     "src/scenes/BootScene.ts",
     "src/scenes/WorldScene.ts",
+    "src/world/landmarkCatalog.ts",
+    "src/world/layoutValidation.mjs",
     "src/world/worldLayout.ts",
+    "src/world/worldLayoutData.json",
+    "src/world/worldTypes.ts",
     "src/world.css",
   ]) {
     assert.equal(existsSync(path.join(projectDirectory, sourceFile)), true);

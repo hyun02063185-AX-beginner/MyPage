@@ -1,45 +1,61 @@
 import Phaser from "phaser";
 import { PLAYER_SPEED, WORLD_HEIGHT, WORLD_WIDTH } from "../config/gameConfig";
-import { getMovementDelta, type MovementInput } from "./movement";
+import { getMovementDirection, type MovementInput } from "./movement";
 
 export const PLAYER_WIDTH = 24;
 export const PLAYER_HEIGHT = 32;
 
-/** Programmatic placeholder player with manual world-boundary clamping. */
+type RectangleWithArcadeBody = Phaser.GameObjects.Rectangle & {
+  body: Phaser.Physics.Arcade.Body;
+};
+
+/** Programmatic player with Arcade object collision and manual world-edge clamping. */
 export class Player {
-  public readonly gameObject: Phaser.GameObjects.Container;
+  public readonly gameObject: Phaser.GameObjects.Rectangle;
+  private readonly body: Phaser.Physics.Arcade.Body;
+  private readonly face: Phaser.GameObjects.Rectangle;
 
   public constructor(scene: Phaser.Scene, x: number, y: number) {
-    const body = scene.add
-      .rectangle(0, 0, PLAYER_WIDTH, PLAYER_HEIGHT, 0xf5c96a)
-      .setStrokeStyle(2, 0x28384d);
-    const face = scene.add.rectangle(
-      0,
-      -PLAYER_HEIGHT / 4,
+    this.gameObject = scene.add
+      .rectangle(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, 0xf5c96a)
+      .setStrokeStyle(2, 0x28384d)
+      .setDepth(11);
+    this.face = scene.add
+      .rectangle(
+      x,
+      y - PLAYER_HEIGHT / 4,
       PLAYER_WIDTH / 3,
       PLAYER_HEIGHT / 6,
       0x28384d,
-    );
+      )
+      .setDepth(12);
 
-    this.gameObject = scene.add
-      .container(x, y, [body, face])
-      .setDepth(11);
+    scene.physics.add.existing(this.gameObject);
+    this.body = (this.gameObject as RectangleWithArcadeBody).body;
+    this.body.setAllowGravity(false).setSize(PLAYER_WIDTH, PLAYER_HEIGHT);
   }
 
-  public update(deltaMs: number, input: MovementInput): void {
-    const delta = getMovementDelta(input, PLAYER_SPEED, deltaMs);
+  /** Arcade integrates this fixed velocity with Phaser's frame delta. */
+  public update(input: MovementInput): void {
+    const direction = getMovementDirection(input);
+    this.body.setVelocity(direction.x * PLAYER_SPEED, direction.y * PLAYER_SPEED);
+  }
+
+  public stop(): void {
+    this.body.setVelocity(0, 0);
+  }
+
+  /** World bounds deliberately remain outside Arcade Physics authority. */
+  public constrainToWorldBounds(): void {
     const halfWidth = PLAYER_WIDTH / 2;
     const halfHeight = PLAYER_HEIGHT / 2;
+    const x = Phaser.Math.Clamp(this.gameObject.x, halfWidth, WORLD_WIDTH - halfWidth);
+    const y = Phaser.Math.Clamp(this.gameObject.y, halfHeight, WORLD_HEIGHT - halfHeight);
 
-    this.gameObject.x = Phaser.Math.Clamp(
-      this.gameObject.x + delta.x,
-      halfWidth,
-      WORLD_WIDTH - halfWidth,
-    );
-    this.gameObject.y = Phaser.Math.Clamp(
-      this.gameObject.y + delta.y,
-      halfHeight,
-      WORLD_HEIGHT - halfHeight,
-    );
+    if (x !== this.gameObject.x || y !== this.gameObject.y) {
+      this.gameObject.setPosition(x, y);
+      this.body.updateFromGameObject();
+    }
+    this.face.setPosition(this.gameObject.x, this.gameObject.y - PLAYER_HEIGHT / 4);
   }
 }

@@ -148,3 +148,9 @@ Optional note:
 ```text
 가장 먼저 조정하고 싶은 점:
 ```
+
+## Result
+
+```text
+PENDING_USER_FEEL_TEST
+```

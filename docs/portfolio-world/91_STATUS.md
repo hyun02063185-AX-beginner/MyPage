@@ -3,10 +3,10 @@
 Updated: 2026-09-17
 
 ## Phase
-SPRINT 1 COMPLETE / ACCEPTED
+SPRINT 2 IMPLEMENTATION COMPLETE / INDEPENDENT REVIEW PENDING
 
 ## Current Work Unit
-Sprint 1 Closeout — First Playable World Skeleton
+Sprint 2 — Spatial IA + Environmental Density + Collision Foundation
 
 ## Confirmed
 - MyPage repo 유지
@@ -34,6 +34,11 @@ Sprint 1 Closeout — First Playable World Skeleton
 - Movement baseline — 200 px/sec; Player size — ACCEPTED
 - Camera baseline — 0.15 ACCEPTED FOR CURRENT STAGE
 - Human Feel Test — PASS
+- Sprint 2 implementation complete: project-owned layout data, placeholder environmental density, and Arcade environmental collision foundation added
+- North/South destination offset updated to `LOGICAL_UNIT * 7`; West/East coordinates retained
+- Sprint 2 automated validation PASS: duplicate IDs, geometry bounds, positive dimensions, and collision configuration
+- Sprint 2 independent review — PENDING
+- Sprint 2 Human Feel Test — PENDING
 
 ## Known Technical Follow-ups
 
@@ -42,5 +47,5 @@ Sprint 1 Closeout — First Playable World Skeleton
 - Sprint 2: Spatial density / environmental landmark design required. Current world bounds are provisional but retained; current empty-map density is not final design approval.
 
 ## Next
-1. Sprint 2 planning only: Spatial IA, environmental density, and Tiled/collision decision
-2. Do not begin Sprint 2 implementation until its design gate
+1. Independent review of Sprint 2 implementation
+2. User Human Feel Test for density, wayfinding, and collision
