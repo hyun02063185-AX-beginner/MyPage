@@ -5,7 +5,7 @@ export const GAME_HEIGHT = 576;
 export const LOGICAL_UNIT = 32;
 export const WORLD_WIDTH = 2048;
 export const WORLD_HEIGHT = 1280;
-export const PLAYER_SPEED = 160;
+export const PLAYER_SPEED = 200;
 export const CAMERA_LERP_X = 0.15;
 export const CAMERA_LERP_Y = 0.15;
 
