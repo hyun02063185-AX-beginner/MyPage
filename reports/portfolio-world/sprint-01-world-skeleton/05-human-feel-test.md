@@ -207,3 +207,47 @@ Retained without change:
 - Central Plaza and future-zone structure
 
 No new gameplay feature was added as part of this tuning pass.
+
+## Retest After Speed Tuning
+
+```text
+PLAYER_SPEED: 200 px/sec
+```
+
+Movement speed:
+
+```text
+ACCEPTED
+```
+
+Player size:
+
+```text
+ACCEPTED
+```
+
+Camera 0.15:
+
+```text
+ACCEPTED FOR CURRENT STAGE
+```
+
+World bounds:
+
+```text
+KEEP 2048 × 1280 FOR NOW
+```
+
+Spatial density:
+
+```text
+DEFER TO SPRINT 2 DESIGN
+```
+
+Final Human Feel verdict:
+
+```text
+ACCEPT_MOVEMENT_AND_SCALE
+```
+
+The current speed is accepted as the baseline. It may be tuned again later after real assets and environmental density are added.
