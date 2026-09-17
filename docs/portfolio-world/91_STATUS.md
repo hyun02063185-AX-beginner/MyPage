@@ -1,12 +1,12 @@
 # 91. Portfolio World — Project Status
 
-Updated: 2026-09-16
+Updated: 2026-09-17
 
 ## Phase
-FOUNDATION / SPRINT 0B ACCEPTED / MAIN MERGE PENDING
+SPRINT 1 IMPLEMENTATION COMPLETE / INDEPENDENT REVIEW PENDING
 
 ## Current Work Unit
-Sprint 0B — Merge and Verification Closeout
+Sprint 1 — World Skeleton & First Playable Space
 
 ## Confirmed
 - MyPage repo 유지
@@ -24,7 +24,12 @@ Sprint 0B — Merge and Verification Closeout
 - Sprint 0B — ACCEPTED
 - Runtime Foundation — COMPLETE
 - Work Context v0 — COMPLETE
-- Main merge — PENDING CLOSEOUT
+- Sprint 0B main merge — COMPLETE
+- Sprint 1 first playable world skeleton implemented on `feature/portfolio-world-sprint-01` at `fea4828`
+- Fixed 1024 × 576 logical game surface, 2048 × 1280 World, data-oriented future-zone markers, and placeholder player movement implemented
+- Phaser keyboard capture, blur reset, bounded follow camera, HTML exit/accessibility shell, and coarse-pointer fallback implemented
+- Sprint 1 automated validation PASS: `npm ci`, typecheck, production build, test, preview, Work Context, and diff check
+- Public `/MyPage/world/` pre-branch probe returned HTTP 404; Pages settings were not modified
 
 ## Known Technical Follow-ups
 
@@ -32,6 +37,6 @@ Sprint 0B — Merge and Verification Closeout
 - `skipLibCheck` remains enabled for Phaser 4.2.1 / TypeScript 7 declaration compatibility; `src/**` remains strict.
 
 ## Next
-1. Merge Sprint 0B into `main`
-2. Verify main and GitHub Pages deployment source state
-3. Begin Sprint 1 planning only after closeout completes
+1. Independent review of Sprint 1 implementation
+2. Human Feel Test
+3. Director release gate; do not begin Sprint 2
