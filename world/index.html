@@ -1,13 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Portfolio World runtime foundation" />
+    <meta name="description" content="Portfolio World first playable prototype" />
+    <link rel="icon" href="data:," />
     <title>Portfolio World</title>
-    <script type="module" crossorigin src="/MyPage/world/assets/index-HdLt0CJv.js"></script>
+    <script type="module" crossorigin src="/MyPage/world/assets/index-zJLbimYO.js"></script>
+    <link rel="stylesheet" crossorigin href="/MyPage/world/assets/index-Bj8HxtR8.css">
   </head>
   <body>
-    <main id="portfolio-world-root" aria-label="Portfolio World runtime"></main>
+    <div class="world-shell">
+      <header class="world-header">
+        <h1 class="world-title">Portfolio World</h1>
+        <a class="portfolio-link" href="../">포트폴리오로 돌아가기</a>
+      </header>
+      <main
+        id="portfolio-world-root"
+        aria-label="Portfolio World game area. Use W A S D or arrow keys to move."
+        role="region"
+      ></main>
+      <footer class="world-footer">
+        <span>이동: W A S D 또는 방향키 · 8방향 이동</span>
+        <span class="touch-fallback">현재 2D World는 키보드 이동에 최적화되어 있습니다.</span>
+      </footer>
+    </div>
   </body>
 </html>

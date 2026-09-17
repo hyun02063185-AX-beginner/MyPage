@@ -1,12 +1,12 @@
 # 91. Portfolio World — Project Status
 
-Updated: 2026-09-16
+Updated: 2026-09-17
 
 ## Phase
-FOUNDATION / SPRINT 0B ACCEPTED / MAIN MERGE PENDING
+SPRINT 1 COMPLETE / ACCEPTED
 
 ## Current Work Unit
-Sprint 0B — Merge and Verification Closeout
+Sprint 1 Closeout — First Playable World Skeleton
 
 ## Confirmed
 - MyPage repo 유지
@@ -24,14 +24,23 @@ Sprint 0B — Merge and Verification Closeout
 - Sprint 0B — ACCEPTED
 - Runtime Foundation — COMPLETE
 - Work Context v0 — COMPLETE
-- Main merge — PENDING CLOSEOUT
+- Sprint 0B main merge — COMPLETE
+- Sprint 1 first playable world skeleton implemented on `feature/portfolio-world-sprint-01` at `fea4828`
+- Fixed 1024 × 576 logical game surface, 2048 × 1280 World, data-oriented future-zone markers, and placeholder player movement implemented
+- Phaser keyboard capture, blur reset, bounded follow camera, HTML exit/accessibility shell, and coarse-pointer fallback implemented
+- Sprint 1 automated validation PASS: `npm ci`, typecheck, production build, test, preview, Work Context, and diff check
+- Sprint 1 — COMPLETE
+- First Playable World Skeleton — COMPLETE
+- Movement baseline — 200 px/sec; Player size — ACCEPTED
+- Camera baseline — 0.15 ACCEPTED FOR CURRENT STAGE
+- Human Feel Test — PASS
 
 ## Known Technical Follow-ups
 
 - Phaser bundle size exceeds Vite's 500 kB warning threshold; track a performance budget in a later Sprint.
 - `skipLibCheck` remains enabled for Phaser 4.2.1 / TypeScript 7 declaration compatibility; `src/**` remains strict.
+- Sprint 2: Spatial density / environmental landmark design required. Current world bounds are provisional but retained; current empty-map density is not final design approval.
 
 ## Next
-1. Merge Sprint 0B into `main`
-2. Verify main and GitHub Pages deployment source state
-3. Begin Sprint 1 planning only after closeout completes
+1. Sprint 2 planning only: Spatial IA, environmental density, and Tiled/collision decision
+2. Do not begin Sprint 2 implementation until its design gate

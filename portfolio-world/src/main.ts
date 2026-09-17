@@ -1,12 +1,10 @@
 import Phaser from "phaser";
+import { GAME_CONFIG } from "./config/gameConfig";
 import { BootScene } from "./scenes/BootScene";
 import { WorldScene } from "./scenes/WorldScene";
+import "./world.css";
 
 new Phaser.Game({
-  type: Phaser.AUTO,
-  parent: "portfolio-world-root",
-  width: 960,
-  height: 540,
-  backgroundColor: "#111827",
+  ...GAME_CONFIG,
   scene: [BootScene, WorldScene],
 });

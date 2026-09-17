@@ -1,10 +1,10 @@
 # 92. Portfolio World — Handoff
 
-Updated: 2026-09-16
+Updated: 2026-09-17
 
 ## State
-Sprint 0B accepted.
-Next: merge to main, verify deployment source state, then begin Sprint 1 planning.
+Sprint 1 complete and accepted.
+Next: Sprint 2 planning only. No Sprint 2 code has been approved.
 
 ## Work Context Metadata
 
@@ -24,24 +24,28 @@ Codex
 ## Model
 GPT-5.6 Terra High
 
-## Sprint 0B Status
-RUNTIME FOUNDATION IMPLEMENTED
-FIX PASS COMPLETE
-SPRINT 0B ACCEPTED
-MAIN MERGE PENDING
+## Sprint 1 Status
+COMPLETE
+ACCEPTED
+HUMAN FEEL TEST PASS
 
 ## Runtime code
-RUNTIME FOUNDATION IMPLEMENTED
+FIRST PLAYABLE WORLD SKELETON IMPLEMENTED
 
-## v1.1 Re-review Disposition
-- M01 scope separation: PASS
-- New conflicts: NONE FOUND
-- Out-of-scope wording mismatch: FIXED in v1.2
-- `Sol` role/model ambiguity: FIXED in v1.2
+## Implementation
+
+- Commit: `fea4828`
+- Fixed logical game: 1024 × 576; World: 2048 × 1280
+- Player: 24 × 32 px programmatic placeholder; W/A/S/D + Arrow movement, delta-time, normalized diagonal, opposing-key cancellation, manual bounds clamp
+- Movement baseline: 200 px/sec, accepted by Human Feel Test
+- Camera: bounded follow, 0.15 / 0.15 lerp, rounded pixels
+- Accessibility: `../` Portfolio return link, game ARIA region, visible focus state, coarse-pointer fallback
+- Validation: `npm ci`, typecheck, build, test, preview, Work Context, and diff check PASS
 
 ## Next
-Merge to main, verify deployment source state, then begin Sprint 1 planning.
+
+Sprint 2 planning only. Address spatial density before finalizing world layout; no Sprint 2 code is approved.
 
 ## Next Recommended Agent
 Codex / GPT-5.6 Terra High
-Task: Merge accepted Sprint 0B, verify main and deployment source state, then close out.
+Task: Sprint 2 planning after a new Director design gate.
