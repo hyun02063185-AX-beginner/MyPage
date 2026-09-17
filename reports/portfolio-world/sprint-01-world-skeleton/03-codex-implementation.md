@@ -44,8 +44,6 @@
 
 ## Known issues / pending gates
 
-- The public `/MyPage/world/` probe returned HTTP 404 before implementation. Deployment configuration was deliberately left untouched.
-- Sprint 1 Director Gate v1.1 was not included in the supplied attachments.
 - Independent review pending.
 - `PENDING_USER_FEEL_TEST`.
 

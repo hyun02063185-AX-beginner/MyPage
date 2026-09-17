@@ -29,7 +29,6 @@ Sprint 1 — World Skeleton & First Playable Space
 - Fixed 1024 × 576 logical game surface, 2048 × 1280 World, data-oriented future-zone markers, and placeholder player movement implemented
 - Phaser keyboard capture, blur reset, bounded follow camera, HTML exit/accessibility shell, and coarse-pointer fallback implemented
 - Sprint 1 automated validation PASS: `npm ci`, typecheck, production build, test, preview, Work Context, and diff check
-- Public `/MyPage/world/` pre-branch probe returned HTTP 404; Pages settings were not modified
 
 ## Known Technical Follow-ups
 

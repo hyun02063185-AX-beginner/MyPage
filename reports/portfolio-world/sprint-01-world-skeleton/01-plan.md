@@ -14,8 +14,8 @@ Deliver a keyboard-playable, data-oriented 2D World skeleton: Central Plaza, fou
 ## Context checks
 
 - Work Context: PASS; profile was known and the base worktree was clean.
-- Public deployment probe: `/MyPage/world/` returned HTTP 404 before branching. `DEPLOYMENT_CHECK_FAILED`; Pages settings were not changed.
-- The referenced Sprint 1 Director Gate v1.1 was not present in the supplied attachments. The detailed Sprint 1 implementation brief was used as the available Sprint-local authority.
+- The supplied Director Gate records the Sprint 0B public deployment check as 200 for `/MyPage/world/`; Pages settings were not changed.
+- Sprint-local design authority: `02-director-gate.md` (Sprint 1 Director Gate v1.1), status `DESIGN_READY_FOR_IMPLEMENTATION`.
 
 ## Explicit non-scope
 
