@@ -94,9 +94,9 @@ function readHandoffMetadata() {
   return { environment, machineContextId };
 }
 
-function fixedCommandVersion(command) {
+function fixedCommandVersion(command, args = ["--version"]) {
   try {
-    return execFileSync(command, ["--version"], {
+    return execFileSync(command, args, {
       cwd: repositoryRoot,
       encoding: "utf8",
       stdio: ["ignore", "pipe", "ignore"],
@@ -104,6 +104,16 @@ function fixedCommandVersion(command) {
   } catch {
     return "UNKNOWN";
   }
+}
+
+function npmVersion() {
+  const directVersion = fixedCommandVersion(process.platform === "win32" ? "npm.cmd" : "npm");
+  if (directVersion !== "UNKNOWN" || process.platform !== "win32") {
+    return directVersion;
+  }
+
+  // The command and arguments are fixed; no shell input is assembled from user data.
+  return fixedCommandVersion("cmd.exe", ["/d", "/s", "/c", "npm -v"]);
 }
 
 function gitValue(args) {
@@ -181,8 +191,7 @@ console.log(`Repository root: ${repositoryRoot}`);
 console.log(`Branch: ${gitValue(["branch", "--show-current"])}`);
 console.log(`Git: ${gitStatus === "" ? "clean" : gitStatus === "UNKNOWN" ? "UNKNOWN" : "dirty"}`);
 console.log(`Node version: ${process.version}`);
-// npm.cmd is a fixed Windows shim; no shell command or user input is invoked.
-console.log(`npm version: ${fixedCommandVersion(process.platform === "win32" ? "npm.cmd" : "npm")}`);
+console.log(`npm version: ${npmVersion()}`);
 console.log(`Handoff environment: ${handoff.environment}`);
 console.log(`Handoff machine context ID: ${handoff.machineContextId}`);
 console.log(`Environment/profile switch status: ${environmentSwitch}`);
