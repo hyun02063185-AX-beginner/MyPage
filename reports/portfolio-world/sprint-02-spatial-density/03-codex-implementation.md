@@ -39,8 +39,16 @@
 
 - Production preview rendered the data-driven scene, exit shell, player, camera, destination silhouettes, and collision convention without a runtime error.
 - Keyboard input moved the player. Repeated south input brought the player to the Gallery's north face; repeated additional input did not pass through the full rectangular footprint.
+- Repeated east input against the water feature stopped the player at its west edge; the water's solid/outlined placeholder convention matched its collision behavior.
 - Static collider construction is one body per selected placement, so no adjacent environmental-body seam is created around any building.
-- The full cardinal approach matrix, world-edge traversal, and blur/reset after a collision require independent reviewer confirmation before release. This is deliberately not called a Human Feel Test.
+- The remaining 4 buildings × 4 approach directions, planter collision, non-collidable bench/sign traversal, full world-edge clamp, camera-void, corner, seam, and blur/reset matrix was not completed before the browser-automation session time limit reset. It remains an independent-review test obligation and is deliberately not called a Human Feel Test.
+
+## Director correction — travel-time acceptance
+
+- Literal N/S-to-E/W travel-time parity is removed from Sprint 2 acceptance.
+- The implemented coordinates remain unchanged: N/S `LOGICAL_UNIT * 7` gives about 2.08 seconds center travel; E/W remains about 4.0 seconds.
+- Sprint 2 accepts N/S travel in the 2–3 second band and E/W travel in the 3.5–4.5 second band. Path, landmark, and forecourt readability—not parity—is the current spatial criterion.
+- Final distance suitability is deferred to the user Human Feel Test. No coordinate change was made for this correction.
 
 ## Accessibility regression
 
@@ -56,8 +64,7 @@
 
 ## Known issues for independent review
 
-1. The mandatory N/S `LOGICAL_UNIT * 7` position produces a 416 px center-to-center N/S separation (about 2.08 seconds at 200 px/sec), while retained E/W centers are 800 px apart (about 4.0 seconds). The required coordinate change and requested travel-time parity therefore do not numerically align without a new Director decision to adjust an axis or define a different measurement.
-2. Complete four-sided building, water/planter, world-boundary, corner, seam, and blur/reset walkthrough evidence remains pending independent review.
+1. Complete four-sided building, planter/water, non-collidable landmark, world-boundary, camera, corner, seam, and blur/reset walkthrough evidence remains pending independent review.
 
 ## Scope confirmation
 
