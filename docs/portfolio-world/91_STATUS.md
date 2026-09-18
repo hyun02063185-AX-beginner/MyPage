@@ -3,7 +3,7 @@
 Updated: 2026-09-18
 
 ## Phase
-VISUAL PASS 4 IMPLEMENTATION COMPLETE / INDEPENDENT REVIEW COMPLETE / FOCUSED VERIFICATION PENDING / USER VISUAL FEEL TEST PENDING
+VISUAL PASS 4 IMPLEMENTATION COMPLETE / INDEPENDENT REVIEW COMPLETE / FOCUSED VERIFICATION COMPLETE / USER VISUAL FEEL TEST PENDING
 
 ## Current Work Unit
 Retro Harbor Campus — Visual Pass 4: Harbor Basin Recomposition
@@ -55,7 +55,7 @@ Retro Harbor Campus — Visual Pass 4: Harbor Basin Recomposition
 - Inner harbor basins, dock peninsula, vessel recomposition, and support-structure repositioning implemented
 - Visual Pass 4 independent review — COMPLETE (`READY_WITH_MINOR_NOTES`)
 - Visual Pass 4 focused fix complete — basin land props relocated and pier collision carve implemented
-- Visual Pass 4 focused verification — PENDING
+- Visual Pass 4 focused verification — COMPLETE (`READY_FOR_USER_VISUAL_FEEL_TEST`); submerged props and pier walkability confirmed fixed with no regression
 - Visual Pass 4 User Visual Feel Test — PENDING
 
 ## Known Technical Follow-ups
@@ -65,5 +65,4 @@ Retro Harbor Campus — Visual Pass 4: Harbor Basin Recomposition
 - Sprint 2: Spatial density / environmental landmark design required. Current world bounds are provisional but retained; current empty-map density is not final design approval.
 
 ## Next
-1. Focused verification of west-basin props and west/east pier walkability
-2. User Visual Feel Test for harbor-city first impression, basin composition, and flagship prominence
+1. User Visual Feel Test for harbor-city first impression, basin composition, and flagship prominence

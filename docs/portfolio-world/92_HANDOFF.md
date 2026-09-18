@@ -3,8 +3,8 @@
 Updated: 2026-09-18
 
 ## State
-Visual Pass 3 complete; Visual Pass 4 implementation, independent review, and focused fix complete.
-Next: focused verification and user Visual Feel Test are pending.
+Visual Pass 3 complete; Visual Pass 4 implementation, independent review, focused fix, and focused verification complete.
+Next: user Visual Feel Test is pending.
 
 ## Work Context Metadata
 
@@ -60,8 +60,8 @@ HUMAN FEEL TEST PENDING
 Independent review, then user Visual Feel Test for harbor-city first impression, basin composition, and flagship prominence.
 
 ## Next Recommended Agent
-Codex / GPT-5.6 Terra High
-Task: Independent review of Visual Pass 4 Harbor Basin Recomposition.
+User
+Task: Human Visual Feel Test of Visual Pass 4 Harbor Basin Recomposition.
 
 ## Visual Pass 1 Status
 
@@ -111,7 +111,7 @@ USER VISUAL FEEL TEST NOT SEPARATELY RECORDED
 IMPLEMENTATION COMPLETE
 INDEPENDENT REVIEW COMPLETE (`READY_WITH_MINOR_NOTES`)
 FOCUSED FIX COMPLETE (`READY_FOR_FOCUSED_VERIFICATION`)
-FOCUSED VERIFICATION PENDING
+FOCUSED VERIFICATION COMPLETE (`READY_FOR_USER_VISUAL_FEEL_TEST`)
 USER VISUAL FEEL TEST PENDING
 
 ## Visual Pass 4 Implementation
@@ -121,3 +121,8 @@ USER VISUAL FEEL TEST PENDING
 - The large ship is widened and separated from four small boats; validator coverage now prevents vessel overlap.
 - Warehouse/cargo shed moved to the dry harbor edge; reserved lots and core paths remain protected.
 - Focused fix relocates the west-basin land props to dry waterfront/cargo edges and derives water-only collision carve-outs for the two widened, walkable pier arms.
+- Focused verification confirmed both fixes directly against the production
+  `createWaterCollisionRects()` geometry (no collision overlap on either pier, all six
+  relocated props clear of water) with no regression in composition, vessels, or
+  reserved lots; interactive/browser walk-testing remains unavailable in this
+  environment and was reported as such rather than claimed.
