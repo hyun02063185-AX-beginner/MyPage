@@ -3,7 +3,7 @@
 Updated: 2026-09-18
 
 ## State
-Retro Harbor Campus Visual Pass 2 implementation complete.
+Retro Harbor Campus Visual Pass 3 implementation complete.
 Next: independent review and user Visual Feel Test are pending.
 
 ## Work Context Metadata
@@ -57,11 +57,11 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Independent review, then user Visual Feel Test for streetscape quality, route identity, density, and future-lot openness.
+Independent review, then user Visual Feel Test for harbor-basin proportion, vessel composition, and waterfront support structures.
 
 ## Next Recommended Agent
 Codex / GPT-5.6 Terra High
-Task: Independent review of Retro Harbor Campus Visual Pass 2.
+Task: Independent review of Retro Harbor Campus Visual Pass 3.
 
 ## Visual Pass 1 Status
 
@@ -81,8 +81,8 @@ USER VISUAL FEEL TEST COMPLETE (`VISUAL_PASS_1_FOUNDATION_APPROVED`)
 ## Visual Pass 2 Status
 
 IMPLEMENTATION COMPLETE
-INDEPENDENT REVIEW PENDING
-USER VISUAL FEEL TEST PENDING
+INDEPENDENT REVIEW COMPLETE (`READY_WITH_MINOR_NOTES`)
+USER VISUAL FEEL TEST COMPLETE (`VISUAL_PASS_2_APPROVED_WITH_NOTES`)
 
 ## Visual Pass 2 Implementation
 
@@ -91,3 +91,17 @@ USER VISUAL FEEL TEST PENDING
 - Data-level validation rejects invalid lot geometry and permanent streetscape overlap with protected navigation, building footprints, or reserved lots.
 - Programmatic zone streetscapes establish Journey Street, Learning Walk, Maker Yard, and Waterfront Promenade while preserving the approved world structure.
 - Programmatic-only rendering; new binary assets/bytes: 0.
+
+## Visual Pass 3 Status
+
+IMPLEMENTATION COMPLETE
+INDEPENDENT REVIEW PENDING
+USER VISUAL FEEL TEST PENDING
+
+## Visual Pass 3 Implementation
+
+- Commit: `be9b621`
+- A deterministic `-96 px` town translation preserves all relative layout while deriving a 192 px south-anchored harbor basin.
+- One large ship, four small boats, a warehouse, and a cargo shed strengthen harbor composition with programmatic rendering only.
+- Vessel containment, south-edge water anchoring, translation integrity, and support-structure placement are validation requirements.
+- Status/handoff refresh is a mandatory phase-closeout step from this phase onward.
