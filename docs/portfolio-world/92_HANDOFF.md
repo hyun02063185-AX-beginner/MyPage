@@ -4,7 +4,8 @@ Updated: 2026-09-18
 
 ## State
 Visual Pass 5 is human-approved for art asset application. Art Asset Phase 01 first slice
-is implemented. Next: independent review, then human hero-ship scale decision.
+is implemented and independently reviewed (`READY_FOR_HUMAN_ASSET_SLICE_REVIEW`). Next:
+human hero-ship scale decision. Final ship scale is not selected.
 
 ## Work Context Metadata
 
@@ -57,12 +58,12 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Independent review, then human A/B/C hero-ship comparison and Exhibition Hall readability
-decision.
+Human A/B/C hero-ship comparison and Exhibition Hall readability decision.
 
 ## Next Recommended Agent
-Claude Code
-Task: Independent review of Art Asset Phase 01 first asset slice.
+User
+Task: Human visual review of Art Asset Phase 01 first asset slice (hero ship A/B/C scale,
+Exhibition Hall readability, overall style fit).
 
 ## Visual Pass 1 Status
 
@@ -163,8 +164,28 @@ HUMAN VISUAL FEEL TEST COMPLETE (`VISUAL_PASS_5_APPROVED_FOR_ASSET_APPLICATION`)
 ## Art Asset Phase 01 Status
 
 FIRST ASSET SLICE IMPLEMENTED
-INDEPENDENT REVIEW PENDING
+INDEPENDENT REVIEW COMPLETE (`READY_FOR_HUMAN_ASSET_SLICE_REVIEW`)
 HERO SHIP HUMAN SCALE DECISION PENDING
+
+## Art Asset Phase 01 Independent Review
+
+- BASE_URL/GitHub Pages asset loading independently verified two ways: live HTTP checks
+  against a locally built production preview (base-prefixed URLs 200, root-absolute 404),
+  and direct inspection of the built JS bundle, where the dev-only ship-selector function
+  is dead-code-eliminated to a hardcoded return of the default candidate — production
+  cannot be influenced by the comparison query parameters at all.
+- Layout, collision, water/dock rendering, and the existing root portfolio are confirmed
+  byte-unchanged from before this slice; 9/9 tests pass; build output matches the
+  implementation report's reported bytes exactly.
+- Opened all four PNGs directly and verified true per-pixel alpha transparency (not just
+  visual impression) by sampling raw pixel data; hero ship A/B/C are confirmed to differ
+  meaningfully in mast count, sail count, and hull mass, not just uniform scaling.
+- Three Minor, non-blocking findings recorded: the produced art style is a detailed
+  painterly illustration rather than the strategy's targeted "16-bit-inspired retro"
+  direction (a note for the human style judgment, not a defect); normal production page
+  load transfers ~4.15 MB of PNG (Hero B + Exhibition) — a concrete number for the
+  already-planned pre-rollout optimization pass; and minor alpha-edge color fringing on
+  Hero A.
 
 ## Art Asset Phase 01 Implementation
 

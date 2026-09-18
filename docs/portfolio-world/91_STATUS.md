@@ -3,7 +3,7 @@
 Updated: 2026-09-18
 
 ## Phase
-ART ASSET PHASE 01 FIRST SLICE IMPLEMENTED / INDEPENDENT REVIEW PENDING / HERO SHIP HUMAN SCALE DECISION PENDING
+ART ASSET PHASE 01 INDEPENDENT REVIEW COMPLETE / HERO SHIP HUMAN SCALE DECISION PENDING
 
 ## Current Work Unit
 Retro Harbor Campus — Art Asset Phase 01: First Asset Slice
@@ -63,8 +63,8 @@ Retro Harbor Campus — Art Asset Phase 01: First Asset Slice
 - Visual Pass 5 independent review — COMPLETE (`READY_FOR_USER_VISUAL_FEEL_TEST`); dock geometry fix, shared palette, and canonical-record reconciliation all confirmed, no regression in layout, collision, or accessibility
 - Visual Pass 5 human visual feel test — COMPLETE (`VISUAL_PASS_5_APPROVED_FOR_ASSET_APPLICATION`)
 - Art Asset Phase 01 first slice — IMPLEMENTED
-- Art Asset Phase 01 independent review — PENDING
-- Hero ship human scale decision — PENDING
+- Art Asset Phase 01 independent review — COMPLETE (`READY_FOR_HUMAN_ASSET_SLICE_REVIEW`); BASE_URL/GitHub Pages asset loading independently verified via built-bundle inspection (dev-only comparison code is dead-code-eliminated in production) and live HTTP checks; layout, collision, and existing portfolio confirmed unchanged; asset transparency verified via direct pixel alpha sampling; no Blocker/Major finding
+- Hero ship human scale decision — PENDING; final ship scale not selected
 
 ## Known Technical Follow-ups
 
@@ -73,5 +73,4 @@ Retro Harbor Campus — Art Asset Phase 01: First Asset Slice
 - Sprint 2: Spatial density / environmental landmark design required. Current world bounds are provisional but retained; current empty-map density is not final design approval.
 
 ## Next
-1. Independent review of Art Asset Phase 01 first asset slice
-2. Human A/B/C hero-ship scale and Exhibition Hall readability decision
+1. Human A/B/C hero-ship scale and Exhibition Hall readability decision
