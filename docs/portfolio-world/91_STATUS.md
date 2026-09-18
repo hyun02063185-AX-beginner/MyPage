@@ -3,10 +3,10 @@
 Updated: 2026-09-18
 
 ## Phase
-VISUAL PASS 1 IMPLEMENTATION COMPLETE / INDEPENDENT REVIEW PENDING / USER VISUAL FEEL TEST PENDING
+VISUAL PASS 2 IMPLEMENTATION COMPLETE / INDEPENDENT REVIEW PENDING / USER VISUAL FEEL TEST PENDING
 
 ## Current Work Unit
-Retro Harbor Campus — Visual Pass 1
+Retro Harbor Campus — Visual Pass 2: Streetscape & Zone Identity
 
 ## Confirmed
 - MyPage repo 유지
@@ -41,8 +41,12 @@ Retro Harbor Campus — Visual Pass 1
 - Sprint 2 Human Feel Test — PENDING
 - Retro Harbor Campus Visual Pass 1 implementation complete at `b3b2968`
 - Harbor Square, south waterfront hint, destination silhouette refinement, and programmatic harbor visual catalog implemented
-- Visual Pass 1 independent review — PENDING
-- Visual Pass 1 User Visual Feel Test — PENDING
+- Visual Pass 1 independent review — COMPLETE (`READY_WITH_MINOR_NOTES`)
+- Visual Pass 1 User Visual Feel Test — COMPLETE (`VISUAL_PASS_1_FOUNDATION_APPROVED`)
+- Retro Harbor Campus Visual Pass 2 implementation complete at `86b4614`
+- Reserved expansion lots, protected-layout constraints, and route-specific programmatic streetscapes implemented
+- Visual Pass 2 independent review — PENDING
+- Visual Pass 2 User Visual Feel Test — PENDING
 
 ## Known Technical Follow-ups
 
@@ -51,5 +55,5 @@ Retro Harbor Campus — Visual Pass 1
 - Sprint 2: Spatial density / environmental landmark design required. Current world bounds are provisional but retained; current empty-map density is not final design approval.
 
 ## Next
-1. Independent review of Retro Harbor Campus Visual Pass 1
-2. User Visual Feel Test for first impression, harbor recognition, density, waterfront balance, and destination distinction
+1. Independent review of Retro Harbor Campus Visual Pass 2
+2. User Visual Feel Test for streetscape quality, route identity, density, and future-lot openness

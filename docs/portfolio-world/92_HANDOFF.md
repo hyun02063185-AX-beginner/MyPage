@@ -3,7 +3,7 @@
 Updated: 2026-09-18
 
 ## State
-Retro Harbor Campus Visual Pass 1 implementation complete.
+Retro Harbor Campus Visual Pass 2 implementation complete.
 Next: independent review and user Visual Feel Test are pending.
 
 ## Work Context Metadata
@@ -57,17 +57,17 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Independent review, then user Visual Feel Test for first impression, harbor recognition, density, waterfront balance, and destination distinction.
+Independent review, then user Visual Feel Test for streetscape quality, route identity, density, and future-lot openness.
 
 ## Next Recommended Agent
 Codex / GPT-5.6 Terra High
-Task: Independent review of Retro Harbor Campus Visual Pass 1.
+Task: Independent review of Retro Harbor Campus Visual Pass 2.
 
 ## Visual Pass 1 Status
 
 IMPLEMENTATION COMPLETE
-INDEPENDENT REVIEW PENDING
-USER VISUAL FEEL TEST PENDING
+INDEPENDENT REVIEW COMPLETE (`READY_WITH_MINOR_NOTES`)
+USER VISUAL FEEL TEST COMPLETE (`VISUAL_PASS_1_FOUNDATION_APPROVED`)
 
 ## Visual Pass 1 Implementation
 
@@ -76,4 +76,18 @@ USER VISUAL FEEL TEST PENDING
 - Harbor Square now includes a stone plaza, navigation monument, greenery, benches, lamps, sign, and four-way readability.
 - The orphaned Sprint 2 path water feature was removed. One southern waterfront now provides water, walkable dock, integrated moorings/rope, cargo props, and a small boat; only the water edge is collidable.
 - Presentation labels now read Harbor Square, Guild Hall, Academy, Workshop, and Exhibition Hall while internal IDs remain stable.
+- Programmatic-only rendering; new binary assets/bytes: 0.
+
+## Visual Pass 2 Status
+
+IMPLEMENTATION COMPLETE
+INDEPENDENT REVIEW PENDING
+USER VISUAL FEEL TEST PENDING
+
+## Visual Pass 2 Implementation
+
+- Commit: `86b4614`
+- Three internal, low-collision reserved lots protect Guild Annex, Academy Library, and Workshop Studio expansion capacity.
+- Data-level validation rejects invalid lot geometry and permanent streetscape overlap with protected navigation, building footprints, or reserved lots.
+- Programmatic zone streetscapes establish Journey Street, Learning Walk, Maker Yard, and Waterfront Promenade while preserving the approved world structure.
 - Programmatic-only rendering; new binary assets/bytes: 0.
