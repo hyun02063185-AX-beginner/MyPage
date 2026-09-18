@@ -14,6 +14,7 @@ import {
   drawHarborPlaza,
   drawHarborVisual,
 } from "../world/harborVisualCatalog";
+import { getHeroShipAsset, WORLD_ASSETS } from "../world/worldAssetManifest";
 import { WORLD_LAYOUT } from "../world/worldLayout";
 
 type MovementKeys = Record<
@@ -116,6 +117,11 @@ export class WorldScene extends Phaser.Scene {
       .setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT)
       .startFollow(this.player.gameObject, true, CAMERA_LERP_X, CAMERA_LERP_Y);
     this.cameras.main.roundPixels = true;
+
+    // Undocumented QA framing for ship A/B/C comparison; normal play keeps camera follow.
+    if (new URLSearchParams(window.location.search).get("assetPreview") === "harbor") {
+      this.cameras.main.stopFollow().centerOn(1250, 992);
+    }
   }
 
   private renderWorld(): void {
@@ -132,10 +138,52 @@ export class WorldScene extends Phaser.Scene {
     }
     drawHarborPlaza(this, WORLD_LAYOUT.centralPlaza);
     for (const building of WORLD_LAYOUT.buildings) {
+      if (building.id === "gallery" && this.textures.exists(WORLD_ASSETS.exhibitionHall.textureKey)) {
+        continue;
+      }
       drawHarborBuilding(this, building);
     }
     for (const visual of WORLD_LAYOUT.harborVisuals.filter((item) => item.type !== "water")) {
+      if (visual.type === "large-ship" && this.textures.exists(getHeroShipAsset(window.location.search).textureKey)) {
+        continue;
+      }
       drawHarborVisual(this, visual);
+    }
+    this.drawFirstAssetSlice();
+  }
+
+  /** Asset graphics intentionally replace only their matching programmatic fallbacks. */
+  private drawFirstAssetSlice(): void {
+    const exhibition = WORLD_LAYOUT.buildings.find((building) => building.id === "gallery");
+    const ship = WORLD_LAYOUT.harborVisuals.find((visual) => visual.type === "large-ship");
+    const exhibitionAsset = WORLD_ASSETS.exhibitionHall;
+    const heroShipAsset = getHeroShipAsset(window.location.search);
+
+    if (exhibition && this.textures.exists(exhibitionAsset.textureKey)) {
+      this.add
+        .image(exhibition.x, exhibition.y + exhibition.height / 2, exhibitionAsset.textureKey)
+        .setOrigin(0.5, exhibitionAsset.originY)
+        .setDisplaySize(exhibitionAsset.displayWidth, exhibitionAsset.displayHeight)
+        .setDepth(5);
+      this.add
+        .text(exhibition.x, exhibition.y + exhibition.height / 2 - 16, exhibition.label, {
+          align: "center",
+          color: "#213840",
+          fontFamily: "monospace",
+          fontSize: "14px",
+          fontStyle: "bold",
+          wordWrap: { width: exhibition.width - 32 },
+        })
+        .setOrigin(0.5)
+        .setDepth(8);
+    }
+
+    if (ship && this.textures.exists(heroShipAsset.textureKey)) {
+      this.add
+        .image(ship.x, ship.y + 18, heroShipAsset.textureKey)
+        .setOrigin(0.5, heroShipAsset.originY)
+        .setDisplaySize(heroShipAsset.displayWidth, heroShipAsset.displayHeight)
+        .setDepth(7);
     }
   }
 }

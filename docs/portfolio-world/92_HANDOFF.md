@@ -3,8 +3,8 @@
 Updated: 2026-09-18
 
 ## State
-Visual Pass 4 is user-approved with notes. Visual Pass 5 plan, pre-review, art-style
-implementation, and independent review are complete. Next: Human Visual Feel Test.
+Visual Pass 5 is human-approved for art asset application. Art Asset Phase 01 first slice
+is implemented. Next: independent review, then human hero-ship scale decision.
 
 ## Work Context Metadata
 
@@ -57,12 +57,12 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-User Visual Feel Test for destination distinction, water/dock clarity, and flagship
-visual strength.
+Independent review, then human A/B/C hero-ship comparison and Exhibition Hall readability
+decision.
 
 ## Next Recommended Agent
-User
-Task: Human Visual Feel Test of Visual Pass 5 Art Style Application.
+Claude Code
+Task: Independent review of Art Asset Phase 01 first asset slice.
 
 ## Visual Pass 1 Status
 
@@ -134,7 +134,7 @@ PLAN COMPLETE
 PRE-REVIEW COMPLETE
 IMPLEMENTATION COMPLETE
 INDEPENDENT REVIEW COMPLETE (`READY_FOR_USER_VISUAL_FEEL_TEST`)
-HUMAN VISUAL FEEL TEST PENDING
+HUMAN VISUAL FEEL TEST COMPLETE (`VISUAL_PASS_5_APPROVED_FOR_ASSET_APPLICATION`)
 
 ## Visual Pass 5 Implementation
 
@@ -159,3 +159,20 @@ HUMAN VISUAL FEEL TEST PENDING
   keys (optional future cleanup).
 - QA reproduced independently: 8/8 tests, clean build (`1,409.93 kB` / `366.49 kB` gzip),
   HTTP 200 preview.
+
+## Art Asset Phase 01 Status
+
+FIRST ASSET SLICE IMPLEMENTED
+INDEPENDENT REVIEW PENDING
+HERO SHIP HUMAN SCALE DECISION PENDING
+
+## Art Asset Phase 01 Implementation
+
+- Added generated-original transparent PNG candidates for hero ship A/B/C and one
+  Exhibition Hall candidate under `portfolio-world/public/assets/world/harbor/`.
+- `BootScene` now preloads explicit Phaser textures through `import.meta.env.BASE_URL`;
+  `worldAssetManifest.ts` records policy-aligned provenance/status and runtime metadata.
+- Default runtime selects target ship B. Undocumented `?heroShip=a|b|c` compares a single
+  candidate at a time; `&assetPreview=harbor` provides fixed-camera QA framing only.
+- Ship/exhibition PNG visual bounds are independent of existing collision geometry; water,
+  dock, and piers retain their Pass 5 programmatic rendering and collision behavior.
