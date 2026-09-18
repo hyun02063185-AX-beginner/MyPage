@@ -9,10 +9,42 @@ const HARBOR_VISUAL_TYPES = new Set([
   "dock",
   "water",
   "small-boat",
+  "market-kiosk",
+  "notice-board",
+  "route-map",
+  "registry-stand",
+  "flag",
+  "study-garden",
+  "academic-sign",
+  "banner",
+  "tree",
+  "worktable",
+  "tool-rack",
+  "cart",
+  "timber-stack",
+  "display-board",
+  "viewing-terrace",
 ]);
 const HARBOR_VISUAL_TIERS = new Set(["primary", "secondary", "detail"]);
 const COLLIDABLE_HARBOR_VISUAL_TYPES = new Set(["water"]);
-const DENSITY_CAPS = { primary: 8, secondary: 16, detail: 20 };
+const PERMANENT_STREETSCAPE_TYPES = new Set([
+  "navigation-monument",
+  "dock",
+  "water",
+  "market-kiosk",
+  "notice-board",
+  "route-map",
+  "registry-stand",
+  "study-garden",
+  "academic-sign",
+  "worktable",
+  "tool-rack",
+  "cart",
+  "timber-stack",
+  "display-board",
+  "viewing-terrace",
+]);
+const DENSITY_CAPS = { primary: 10, secondary: 25, detail: 45 };
 
 function assertRect(rect, worldWidth, worldHeight) {
   if (
@@ -37,6 +69,21 @@ function assertRect(rect, worldWidth, worldHeight) {
   }
 }
 
+function overlaps(a, b) {
+  return (
+    a.x - a.width / 2 < b.x + b.width / 2 &&
+    a.x + a.width / 2 > b.x - b.width / 2 &&
+    a.y - a.height / 2 < b.y + b.height / 2 &&
+    a.y + a.height / 2 > b.y - b.height / 2
+  );
+}
+
+function assertDoesNotOverlap(rect, protectedRect, reason) {
+  if (overlaps(rect, protectedRect)) {
+    throw new Error(`${reason}: ${rect.id} / ${protectedRect.id}`);
+  }
+}
+
 /** Shared runtime and Node-test validation for the project-owned layout data. */
 export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
   const placementCollections = [
@@ -44,6 +91,7 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
     layout.paths,
     layout.forecourts,
     layout.harborVisuals,
+    layout.reservedLots,
     layout.edgeDecorations,
   ];
   const ids = new Set();
@@ -62,6 +110,27 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
   }
 
   const zoneIds = new Set(layout.zones.map((zone) => zone.id));
+  const buildingFootprints = layout.zones.filter((zone) => zone.id !== "plaza");
+  const protectedNavigation = [...layout.paths, ...layout.forecourts, ...buildingFootprints];
+
+  for (const lot of layout.reservedLots) {
+    if (lot.zone !== "path" && !zoneIds.has(lot.zone)) {
+      throw new Error(`Unknown reserved lot zone: ${lot.id}`);
+    }
+    for (const protectedRect of protectedNavigation) {
+      assertDoesNotOverlap(lot, protectedRect, "Reserved lot overlaps protected layout");
+    }
+  }
+  for (let index = 0; index < layout.reservedLots.length; index += 1) {
+    for (let comparison = index + 1; comparison < layout.reservedLots.length; comparison += 1) {
+      assertDoesNotOverlap(
+        layout.reservedLots[index],
+        layout.reservedLots[comparison],
+        "Reserved lots overlap",
+      );
+    }
+  }
+
   const tierCounts = { primary: 0, secondary: 0, detail: 0 };
   for (const visual of layout.harborVisuals) {
     if (!HARBOR_VISUAL_TYPES.has(visual.type)) {
@@ -81,6 +150,18 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
     }
     if (visual.zone !== "path" && !zoneIds.has(visual.zone)) {
       throw new Error(`Unknown harbor visual zone: ${visual.id}`);
+    }
+    for (const lot of layout.reservedLots) {
+      assertDoesNotOverlap(visual, lot, "Harbor visual consumes reserved lot");
+    }
+    if (PERMANENT_STREETSCAPE_TYPES.has(visual.type)) {
+      for (const protectedRect of protectedNavigation) {
+        assertDoesNotOverlap(
+          visual,
+          protectedRect,
+          "Permanent streetscape overlaps protected navigation",
+        );
+      }
     }
     tierCounts[visual.tier] += 1;
   }

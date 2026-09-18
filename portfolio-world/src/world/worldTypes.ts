@@ -10,7 +10,22 @@ export type HarborVisualType =
   | "barrel"
   | "dock"
   | "water"
-  | "small-boat";
+  | "small-boat"
+  | "market-kiosk"
+  | "notice-board"
+  | "route-map"
+  | "registry-stand"
+  | "flag"
+  | "study-garden"
+  | "academic-sign"
+  | "banner"
+  | "tree"
+  | "worktable"
+  | "tool-rack"
+  | "cart"
+  | "timber-stack"
+  | "display-board"
+  | "viewing-terrace";
 
 export type HarborVisualTier = "primary" | "secondary" | "detail";
 
@@ -38,6 +53,12 @@ export type HarborVisualPlacement = WorldRect &
     zone: PlacementZone;
   }>;
 
+/** Internal future-capacity parcel; intentionally has no end-user presentation label. */
+export type ReservedLot = WorldRect &
+  Readonly<{
+    zone: PlacementZone;
+  }>;
+
 export type BuildingFootprint = WorldZone &
   Readonly<{
     collidable: true;
@@ -56,5 +77,6 @@ export type WorldLayout = Readonly<{
   paths: readonly WorldPath[];
   forecourts: readonly WorldPath[];
   harborVisuals: readonly HarborVisualPlacement[];
+  reservedLots: readonly ReservedLot[];
   edgeDecorations: readonly WorldRect[];
 }>;

@@ -1,5 +1,22 @@
 import Phaser from "phaser";
 import { LOGICAL_UNIT, WORLD_HEIGHT, WORLD_WIDTH } from "../config/gameConfig";
+import {
+  drawAcademicSign,
+  drawBanner,
+  drawCart,
+  drawDisplayBoard,
+  drawFlag,
+  drawMarketKiosk,
+  drawNoticeBoard,
+  drawRegistryStand,
+  drawRouteMap,
+  drawStudyGarden,
+  drawTimberStack,
+  drawToolRack,
+  drawTree,
+  drawViewingTerrace,
+  drawWorktable,
+} from "./streetscapeVisuals";
 import type {
   BuildingFootprint,
   HarborVisualPlacement,
@@ -52,6 +69,21 @@ export const HARBOR_VISUAL_CATALOG: Readonly<Record<HarborVisualType, string>> =
   dock: "walkable wooden dock with moorings",
   water: "collidable waterfront water boundary",
   "small-boat": "small harbor boat silhouette",
+  "market-kiosk": "small civic market kiosk",
+  "notice-board": "guild notice board",
+  "route-map": "journey route map",
+  "registry-stand": "guild registry stand",
+  flag: "route identity flag",
+  "study-garden": "academy study garden",
+  "academic-sign": "academic wayfinding sign",
+  banner: "academic banner",
+  tree: "learning walk tree",
+  worktable: "maker-yard worktable",
+  "tool-rack": "maker-yard tool rack",
+  cart: "maker-yard cart",
+  "timber-stack": "maker-yard timber stack",
+  "display-board": "exhibition display board",
+  "viewing-terrace": "waterfront viewing terrace",
 };
 
 export function drawHarborGround(scene: Phaser.Scene): void {
@@ -230,6 +262,51 @@ export function drawHarborVisual(scene: Phaser.Scene, visual: HarborVisualPlacem
       return;
     case "small-boat":
       drawBoat(graphics, visual);
+      return;
+    case "market-kiosk":
+      drawMarketKiosk(graphics, visual);
+      return;
+    case "notice-board":
+      drawNoticeBoard(graphics, visual);
+      return;
+    case "route-map":
+      drawRouteMap(graphics, visual);
+      return;
+    case "registry-stand":
+      drawRegistryStand(graphics, visual);
+      return;
+    case "flag":
+      drawFlag(graphics, visual);
+      return;
+    case "study-garden":
+      drawStudyGarden(graphics, visual);
+      return;
+    case "academic-sign":
+      drawAcademicSign(graphics, visual);
+      return;
+    case "banner":
+      drawBanner(graphics, visual);
+      return;
+    case "tree":
+      drawTree(graphics, visual);
+      return;
+    case "worktable":
+      drawWorktable(graphics, visual);
+      return;
+    case "tool-rack":
+      drawToolRack(graphics, visual);
+      return;
+    case "cart":
+      drawCart(graphics, visual);
+      return;
+    case "timber-stack":
+      drawTimberStack(graphics, visual);
+      return;
+    case "display-board":
+      drawDisplayBoard(graphics, visual);
+      return;
+    case "viewing-terrace":
+      drawViewingTerrace(graphics, visual);
       return;
     default:
       return exhaustiveVisual(visual.type);

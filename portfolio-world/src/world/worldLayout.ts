@@ -4,6 +4,7 @@ import rawWorldLayout from "./worldLayoutData.json";
 import type {
   BuildingFootprint,
   HarborVisualPlacement,
+  ReservedLot,
   WorldLayout,
   WorldPath,
   WorldRect,
@@ -17,6 +18,7 @@ type RawLayout = Readonly<{
   paths: readonly WorldPath[];
   forecourts: readonly WorldPath[];
   harborVisuals: readonly HarborVisualPlacement[];
+  reservedLots: readonly ReservedLot[];
   edgeDecorations: readonly WorldRect[];
 }>;
 
@@ -42,4 +44,4 @@ validateWorldLayout(layoutData, { worldWidth: WORLD_WIDTH, worldHeight: WORLD_HE
 /** Project-owned spatial data; Tiled and URL/content payloads remain deferred. */
 export const WORLD_LAYOUT = layout;
 
-export type { HarborVisualPlacement, WorldZone, WorldZoneId } from "./worldTypes";
+export type { HarborVisualPlacement, ReservedLot, WorldZone, WorldZoneId } from "./worldTypes";
