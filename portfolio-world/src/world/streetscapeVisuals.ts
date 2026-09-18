@@ -1,19 +1,6 @@
 import Phaser from "phaser";
 import type { HarborVisualPlacement } from "./worldTypes";
-
-const COLORS = {
-  ink: 0x263d45,
-  stone: 0xd2c3a4,
-  stoneShade: 0xa79578,
-  wood: 0x9a663d,
-  woodDark: 0x593b2b,
-  gold: 0xe4b45f,
-  greenery: 0x3d7657,
-  greeneryLight: 0x70a856,
-  banner: 0x9e5145,
-  paper: 0xf1ead9,
-  water: 0x287f9f,
-} as const;
+import { HARBOR_PALETTE as COLORS } from "./visualPalette";
 
 const leftOf = (visual: HarborVisualPlacement): number => visual.x - visual.width / 2;
 const topOf = (visual: HarborVisualPlacement): number => visual.y - visual.height / 2;
@@ -25,7 +12,8 @@ export function drawMarketKiosk(graphics: Phaser.GameObjects.Graphics, visual: H
   graphics.fillStyle(COLORS.wood).fillRect(left + 6, top + 18, visual.width - 12, visual.height - 18);
   graphics.fillStyle(COLORS.banner).fillTriangle(left, top + 18, visual.x, top, left + visual.width, top + 18);
   graphics.lineStyle(3, COLORS.woodDark).strokeRect(left + 6, top + 18, visual.width - 12, visual.height - 18);
-  graphics.fillStyle(COLORS.gold).fillCircle(visual.x, top + 28, 5);
+  graphics.lineStyle(2, COLORS.rope).lineBetween(left + 8, top + 22, left + visual.width - 8, top + 22);
+  graphics.fillStyle(COLORS.shipTrim).fillCircle(visual.x, top + 28, 5);
 }
 
 export function drawNoticeBoard(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPlacement): void {
@@ -69,7 +57,7 @@ export function drawStudyGarden(graphics: Phaser.GameObjects.Graphics, visual: H
   graphics.fillStyle(COLORS.greenery).fillCircle(left + 18, top + 34, 16);
   graphics.fillStyle(COLORS.greeneryLight).fillCircle(left + 42, top + 28, 18);
   graphics.fillStyle(COLORS.paper).fillCircle(left + 12, top + 53, 3);
-  graphics.fillStyle(COLORS.gold).fillCircle(left + 28, top + 57, 3);
+  graphics.fillStyle(COLORS.shipTrim).fillCircle(left + 28, top + 57, 3);
 }
 
 export function drawAcademicSign(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPlacement): void {
@@ -77,16 +65,16 @@ export function drawAcademicSign(graphics: Phaser.GameObjects.Graphics, visual: 
   const top = topOf(visual);
   graphics.lineStyle(4, COLORS.ink).lineBetween(visual.x, top + 12, visual.x, top + visual.height);
   graphics.fillStyle(COLORS.paper).fillRect(left + 4, top + 4, visual.width - 8, 20);
-  graphics.lineStyle(2, COLORS.gold).strokeRect(left + 4, top + 4, visual.width - 8, 20);
+  graphics.lineStyle(2, COLORS.shipTrim).strokeRect(left + 4, top + 4, visual.width - 8, 20);
   graphics.lineStyle(2, COLORS.banner).lineBetween(left + 12, top + 14, left + visual.width - 12, top + 14);
 }
 
 export function drawBanner(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPlacement): void {
   const left = leftOf(visual);
   const top = topOf(visual);
-  graphics.lineStyle(2, COLORS.gold).lineBetween(visual.x, top, visual.x, top + visual.height);
+  graphics.lineStyle(2, COLORS.shipTrim).lineBetween(visual.x, top, visual.x, top + visual.height);
   graphics.fillStyle(COLORS.banner).fillRect(left + 2, top + 3, visual.width - 4, visual.height - 10);
-  graphics.fillStyle(COLORS.gold).fillCircle(visual.x, top + 12, 3);
+  graphics.fillStyle(COLORS.shipTrim).fillCircle(visual.x, top + 12, 3);
 }
 
 export function drawTree(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPlacement): void {
@@ -106,7 +94,7 @@ export function drawWorktable(graphics: Phaser.GameObjects.Graphics, visual: Har
   graphics.fillStyle(COLORS.wood).fillRect(left + 8, top + 22, visual.width - 16, 10);
   graphics.lineStyle(4, COLORS.woodDark).lineBetween(left + 14, top + 22, left + 14, top + visual.height);
   graphics.lineStyle(4, COLORS.woodDark).lineBetween(left + visual.width - 14, top + 22, left + visual.width - 14, top + visual.height);
-  graphics.lineStyle(2, COLORS.gold).lineBetween(left + 34, top + 8, left + 48, top + 2);
+  graphics.lineStyle(2, COLORS.shipTrim).lineBetween(left + 34, top + 8, left + 48, top + 2);
 }
 
 export function drawToolRack(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPlacement): void {
@@ -115,8 +103,8 @@ export function drawToolRack(graphics: Phaser.GameObjects.Graphics, visual: Harb
   graphics.fillStyle(COLORS.woodDark).fillRect(left + 5, top + 4, visual.width - 10, visual.height - 8);
   graphics.lineStyle(2, COLORS.wood).lineBetween(left + 12, top + 14, left + visual.width - 12, top + 14);
   graphics.lineStyle(2, COLORS.wood).lineBetween(left + 12, top + 30, left + visual.width - 12, top + 30);
-  graphics.lineStyle(3, COLORS.gold).lineBetween(left + 18, top + 12, left + 18, top + 28);
-  graphics.lineStyle(3, COLORS.gold).lineBetween(left + 38, top + 12, left + 38, top + 30);
+  graphics.lineStyle(3, COLORS.shipTrim).lineBetween(left + 18, top + 12, left + 18, top + 28);
+  graphics.lineStyle(3, COLORS.shipTrim).lineBetween(left + 38, top + 12, left + 38, top + 30);
 }
 
 export function drawCart(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPlacement): void {
@@ -134,8 +122,8 @@ export function drawTimberStack(graphics: Phaser.GameObjects.Graphics, visual: H
   graphics.fillStyle(COLORS.wood).fillRect(left, top + 7, visual.width, 8);
   graphics.fillStyle(COLORS.woodDark).fillRect(left + 6, top + 17, visual.width - 12, 8);
   graphics.fillStyle(COLORS.wood).fillRect(left + 2, top + 27, visual.width - 4, 8);
-  graphics.lineStyle(2, COLORS.gold).lineBetween(left + 12, top + 5, left + 12, top + 36);
-  graphics.lineStyle(2, COLORS.gold).lineBetween(left + visual.width - 12, top + 5, left + visual.width - 12, top + 36);
+  graphics.lineStyle(2, COLORS.rope).lineBetween(left + 12, top + 5, left + 12, top + 36);
+  graphics.lineStyle(2, COLORS.rope).lineBetween(left + visual.width - 12, top + 5, left + visual.width - 12, top + 36);
 }
 
 export function drawDisplayBoard(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPlacement): void {
@@ -168,8 +156,9 @@ export function drawWarehouse(graphics: Phaser.GameObjects.Graphics, visual: Har
   graphics.fillStyle(COLORS.woodDark).fillTriangle(left, top + 26, visual.x, top + 2, left + visual.width, top + 26);
   graphics.fillStyle(COLORS.wood).fillRect(left + visual.width * 0.36, top + 48, visual.width * 0.28, visual.height - 48);
   graphics.lineStyle(3, COLORS.ink).strokeRect(left + 8, top + 24, visual.width - 16, visual.height - 24);
-  graphics.lineStyle(2, COLORS.gold).lineBetween(left + 24, top + 44, left + 48, top + 44);
-  graphics.lineStyle(2, COLORS.gold).lineBetween(left + visual.width - 48, top + 44, left + visual.width - 24, top + 44);
+  graphics.lineStyle(2, COLORS.rope).lineBetween(left + 24, top + 44, left + 48, top + 44);
+  graphics.lineStyle(2, COLORS.rope).lineBetween(left + visual.width - 48, top + 44, left + visual.width - 24, top + 44);
+  graphics.lineStyle(2, COLORS.woodDark).lineBetween(left + visual.width * 0.5, top + 50, left + visual.width * 0.5, top + visual.height - 4);
 }
 
 export function drawCargoShed(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPlacement): void {
@@ -178,5 +167,5 @@ export function drawCargoShed(graphics: Phaser.GameObjects.Graphics, visual: Har
   graphics.fillStyle(COLORS.wood).fillRect(left + 5, top + 18, visual.width - 10, visual.height - 18);
   graphics.fillStyle(COLORS.woodDark).fillTriangle(left, top + 20, visual.x, top + 4, left + visual.width, top + 20);
   graphics.lineStyle(2, COLORS.ink).strokeRect(left + 5, top + 18, visual.width - 10, visual.height - 18);
-  graphics.lineStyle(2, COLORS.gold).lineBetween(left + 18, top + 29, left + visual.width - 18, top + 29);
+  graphics.lineStyle(2, COLORS.rope).lineBetween(left + 18, top + 29, left + visual.width - 18, top + 29);
 }

@@ -3,8 +3,8 @@
 Updated: 2026-09-18
 
 ## State
-Visual Pass 3 complete; Visual Pass 4 implementation, independent review, focused fix, and focused verification complete.
-Next: user Visual Feel Test is pending.
+Visual Pass 4 is user-approved with notes. Visual Pass 5 plan, pre-review, and art-style
+implementation are complete. Next: independent review, then Human Visual Feel Test.
 
 ## Work Context Metadata
 
@@ -57,11 +57,12 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Independent review, then user Visual Feel Test for harbor-city first impression, basin composition, and flagship prominence.
+Independent review, then user Visual Feel Test for destination distinction, water/dock
+clarity, and flagship visual strength.
 
 ## Next Recommended Agent
-User
-Task: Human Visual Feel Test of Visual Pass 4 Harbor Basin Recomposition.
+Claude Code
+Task: Independent review of Visual Pass 5 Art Style Application.
 
 ## Visual Pass 1 Status
 
@@ -112,7 +113,7 @@ IMPLEMENTATION COMPLETE
 INDEPENDENT REVIEW COMPLETE (`READY_WITH_MINOR_NOTES`)
 FOCUSED FIX COMPLETE (`READY_FOR_FOCUSED_VERIFICATION`)
 FOCUSED VERIFICATION COMPLETE (`READY_FOR_USER_VISUAL_FEEL_TEST`)
-USER VISUAL FEEL TEST PENDING
+USER VISUAL FEEL TEST COMPLETE (`VISUAL_PASS_4_APPROVED_WITH_NOTES`)
 
 ## Visual Pass 4 Implementation
 
@@ -126,3 +127,20 @@ USER VISUAL FEEL TEST PENDING
   relocated props clear of water) with no regression in composition, vessels, or
   reserved lots; interactive/browser walk-testing remains unavailable in this
   environment and was reported as such rather than claimed.
+
+## Visual Pass 5 Status
+
+PLAN COMPLETE
+PRE-REVIEW COMPLETE
+IMPLEMENTATION COMPLETE
+INDEPENDENT REVIEW PENDING
+HUMAN VISUAL FEEL TEST PENDING
+
+## Visual Pass 5 Implementation
+
+- Programmatic Retro Harbor styling now uses a focused shared palette, layered water,
+  width-aware dock decorations, refined destination silhouettes, and a more detailed
+  ship/boat/material language.
+- Dock post offsets are tested directly: the 448 px main dock keeps five inset posts;
+  160 px piers use three inset posts with all rope spans inside the visible footprint.
+- No layout, IA, collision geometry, UI shell, or binary runtime assets changed.
