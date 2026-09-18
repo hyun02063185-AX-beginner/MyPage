@@ -64,9 +64,9 @@ All are transparent PNGs under `portfolio-world/public/assets/world/harbor/`.
   assets render at `(1420, 1254)` with `originX = 0.5`, `originY = 0.84`. This holds hull
   alignment stable while sails/masts extend upward. Collision and vessel containment data
   are not derived from PNG bounds and remain unchanged.
-- Comparison URLs: `?heroShip=a`, `?heroShip=b`, and `?heroShip=c`; append
-  `&assetPreview=harbor` for the undocumented fixed-camera QA frame. There is no shipped
-  selector UI.
+- Development comparison URLs: `?heroShip=a`, `?heroShip=b`, and `?heroShip=c`; append
+  `&assetPreview=harbor` for the fixed-camera QA frame. These parameters are explicitly
+  dev-only; production always selects B and ships no selector UI.
 
 ## G. Exhibition Hall
 
@@ -108,6 +108,8 @@ deck and vertical mast/sail silhouette.
 - `npm test`: PASS — 9/9 tests, including BASE_URL/public-asset contract coverage.
 - `npm run build`: PASS.
 - `git diff --check`: PASS.
+- Development asset loading: PASS at `http://127.0.0.1:4323/` (port 5173 was unavailable
+  with an environment `EACCES`; port 4323 was used after that diagnosis).
 - Existing spatial, bounds, lots, vessel, water collision, pier, and dock regression tests
   remain in the suite and pass.
 
@@ -123,7 +125,7 @@ deck and vertical mast/sail silhouette.
 - First-slice repository asset weight: 7,549,046 bytes.
 - Normal runtime texture count: 2 (default B and Exhibition). A/C are loaded only when their
   comparison query is requested; comparison routes still use two textures each.
-- Main JS: 1,413.06 kB; gzip: 367.42 kB.
+- Main JS: 1,412.84 kB; gzip: 367.32 kB.
 - The PNG candidates are deliberately retained at source fidelity for this review slice;
   their total 7.55 MB footprint should be reassessed when the human selects a canonical
   scale before broad asset rollout.

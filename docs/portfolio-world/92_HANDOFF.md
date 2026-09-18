@@ -172,7 +172,7 @@ HERO SHIP HUMAN SCALE DECISION PENDING
   Exhibition Hall candidate under `portfolio-world/public/assets/world/harbor/`.
 - `BootScene` now preloads explicit Phaser textures through `import.meta.env.BASE_URL`;
   `worldAssetManifest.ts` records policy-aligned provenance/status and runtime metadata.
-- Default runtime selects target ship B. Undocumented `?heroShip=a|b|c` compares a single
-  candidate at a time; `&assetPreview=harbor` provides fixed-camera QA framing only.
+- Production defaults to target ship B. Development-only `?heroShip=a|b|c` compares a
+  single candidate at a time; `&assetPreview=harbor` provides fixed-camera QA framing only.
 - Ship/exhibition PNG visual bounds are independent of existing collision geometry; water,
   dock, and piers retain their Pass 5 programmatic rendering and collision behavior.

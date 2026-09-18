@@ -94,7 +94,7 @@ export function resolveWorldAssetUrl(asset: WorldAssetEntry): string {
 }
 
 export function getHeroShipAsset(search: string): WorldAssetEntry {
-  const requested = new URLSearchParams(search).get("heroShip");
+  const requested = import.meta.env.DEV ? new URLSearchParams(search).get("heroShip") : null;
   const key: HeroShipAssetKey = requested === "a" ? "heroShipA" : requested === "c" ? "heroShipC" : "heroShipB";
   return WORLD_ASSETS[key];
 }

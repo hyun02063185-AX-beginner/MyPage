@@ -119,7 +119,10 @@ export class WorldScene extends Phaser.Scene {
     this.cameras.main.roundPixels = true;
 
     // Undocumented QA framing for ship A/B/C comparison; normal play keeps camera follow.
-    if (new URLSearchParams(window.location.search).get("assetPreview") === "harbor") {
+    if (
+      import.meta.env.DEV &&
+      new URLSearchParams(window.location.search).get("assetPreview") === "harbor"
+    ) {
       this.cameras.main.stopFollow().centerOn(1250, 992);
     }
   }
