@@ -1,10 +1,10 @@
 # 92. Portfolio World — Handoff
 
-Updated: 2026-09-17
+Updated: 2026-09-18
 
 ## State
-Sprint 2 implementation complete.
-Next: independent review and user Human Feel Test are pending.
+Retro Harbor Campus Visual Pass 1 implementation complete.
+Next: independent review and user Visual Feel Test are pending.
 
 ## Work Context Metadata
 
@@ -57,8 +57,23 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Independent review, then user Human Feel Test for density, wayfinding, and collision.
+Independent review, then user Visual Feel Test for first impression, harbor recognition, density, waterfront balance, and destination distinction.
 
 ## Next Recommended Agent
 Codex / GPT-5.6 Terra High
-Task: Independent review of Sprint 2 implementation.
+Task: Independent review of Retro Harbor Campus Visual Pass 1.
+
+## Visual Pass 1 Status
+
+IMPLEMENTATION COMPLETE
+INDEPENDENT REVIEW PENDING
+USER VISUAL FEEL TEST PENDING
+
+## Visual Pass 1 Implementation
+
+- Commit: `b3b2968`
+- Programmatic `harborVisualCatalog.ts` owns Retro Harbor visual semantics; `WorldScene.ts` remains the composition layer.
+- Harbor Square now includes a stone plaza, navigation monument, greenery, benches, lamps, sign, and four-way readability.
+- The orphaned Sprint 2 path water feature was removed. One southern waterfront now provides water, walkable dock, integrated moorings/rope, cargo props, and a small boat; only the water edge is collidable.
+- Presentation labels now read Harbor Square, Guild Hall, Academy, Workshop, and Exhibition Hall while internal IDs remain stable.
+- Programmatic-only rendering; new binary assets/bytes: 0.
