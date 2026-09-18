@@ -13,6 +13,7 @@
 ## B. Git
 
 - Runtime implementation commit: `8c17eda` — `feat(portfolio-world): add first harbor art asset slice`.
+- Runtime follow-up: `2a5d923` — `fix(portfolio-world): keep ship comparison dev-only`.
 - Documentation commit: `b23fedd` — `docs(portfolio-world): record first art asset slice`.
 - `git push origin feature/portfolio-world-sprint-02`: successful (`325ffc7..8c17eda`).
 - Only intentional runtime assets, source, test, committed build output, and canonical
