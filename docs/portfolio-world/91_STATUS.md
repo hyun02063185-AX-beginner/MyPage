@@ -3,10 +3,10 @@
 Updated: 2026-09-18
 
 ## Phase
-VISUAL PASS 3 IMPLEMENTATION COMPLETE / INDEPENDENT REVIEW PENDING / USER VISUAL FEEL TEST PENDING
+VISUAL PASS 4 IMPLEMENTATION COMPLETE / INDEPENDENT REVIEW PENDING / USER VISUAL FEEL TEST PENDING
 
 ## Current Work Unit
-Retro Harbor Campus — Visual Pass 3: Harbor Composition Rebalance
+Retro Harbor Campus — Visual Pass 4: Harbor Basin Recomposition
 
 ## Confirmed
 - MyPage repo 유지
@@ -49,8 +49,12 @@ Retro Harbor Campus — Visual Pass 3: Harbor Composition Rebalance
 - Visual Pass 2 User Visual Feel Test — COMPLETE (`VISUAL_PASS_2_APPROVED_WITH_NOTES`)
 - Retro Harbor Campus Visual Pass 3 implementation complete at `be9b621`
 - Uniform town translation, enlarged harbor basin, vessels, and waterfront support structures implemented
-- Visual Pass 3 independent review — PENDING
-- Visual Pass 3 User Visual Feel Test — PENDING
+- Visual Pass 3 independent review — COMPLETE (`READY_WITH_MINOR_NOTES`; vessel note absorbed in Pass 4)
+- Visual Pass 3 implementation — COMPLETE
+- Visual Pass 4 implementation complete at `6f8892c`
+- Inner harbor basins, dock peninsula, vessel recomposition, and support-structure repositioning implemented
+- Visual Pass 4 independent review — PENDING
+- Visual Pass 4 User Visual Feel Test — PENDING
 
 ## Known Technical Follow-ups
 
@@ -59,5 +63,5 @@ Retro Harbor Campus — Visual Pass 3: Harbor Composition Rebalance
 - Sprint 2: Spatial density / environmental landmark design required. Current world bounds are provisional but retained; current empty-map density is not final design approval.
 
 ## Next
-1. Independent review of Retro Harbor Campus Visual Pass 3
-2. User Visual Feel Test for harbor-basin proportion, vessel composition, and waterfront support structures
+1. Independent review of Visual Pass 4 Harbor Basin Recomposition
+2. User Visual Feel Test for harbor-city first impression, basin composition, and flagship prominence

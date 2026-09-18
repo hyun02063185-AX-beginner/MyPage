@@ -3,7 +3,7 @@
 Updated: 2026-09-18
 
 ## State
-Retro Harbor Campus Visual Pass 3 implementation complete.
+Visual Pass 3 complete; Visual Pass 4 implementation complete.
 Next: independent review and user Visual Feel Test are pending.
 
 ## Work Context Metadata
@@ -57,11 +57,11 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Independent review, then user Visual Feel Test for harbor-basin proportion, vessel composition, and waterfront support structures.
+Independent review, then user Visual Feel Test for harbor-city first impression, basin composition, and flagship prominence.
 
 ## Next Recommended Agent
 Codex / GPT-5.6 Terra High
-Task: Independent review of Retro Harbor Campus Visual Pass 3.
+Task: Independent review of Visual Pass 4 Harbor Basin Recomposition.
 
 ## Visual Pass 1 Status
 
@@ -95,8 +95,8 @@ USER VISUAL FEEL TEST COMPLETE (`VISUAL_PASS_2_APPROVED_WITH_NOTES`)
 ## Visual Pass 3 Status
 
 IMPLEMENTATION COMPLETE
-INDEPENDENT REVIEW PENDING
-USER VISUAL FEEL TEST PENDING
+INDEPENDENT REVIEW COMPLETE (`READY_WITH_MINOR_NOTES`; vessel note absorbed in Pass 4)
+USER VISUAL FEEL TEST NOT SEPARATELY RECORDED
 
 ## Visual Pass 3 Implementation
 
@@ -105,3 +105,16 @@ USER VISUAL FEEL TEST PENDING
 - One large ship, four small boats, a warehouse, and a cargo shed strengthen harbor composition with programmatic rendering only.
 - Vessel containment, south-edge water anchoring, translation integrity, and support-structure placement are validation requirements.
 - Status/handoff refresh is a mandatory phase-closeout step from this phase onward.
+
+## Visual Pass 4 Status
+
+IMPLEMENTATION COMPLETE
+INDEPENDENT REVIEW PENDING
+USER VISUAL FEEL TEST PENDING
+
+## Visual Pass 4 Implementation
+
+- Commit: `6f8892c`
+- Two inner harbor basins and a central dock peninsula turn the waterfront into a harbor-organized composition.
+- The large ship is widened and separated from four small boats; validator coverage now prevents vessel overlap.
+- Warehouse/cargo shed moved to the dry harbor edge; reserved lots and core paths remain protected.
