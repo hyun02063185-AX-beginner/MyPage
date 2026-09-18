@@ -78,7 +78,10 @@ export class WorldScene extends Phaser.Scene {
 
     const collidablePlacements = [
       ...WORLD_LAYOUT.buildings,
-      ...WORLD_LAYOUT.harborVisuals.filter((visual) => visual.collidable),
+      ...WORLD_LAYOUT.harborVisuals.filter(
+        (visual) => visual.collidable && visual.type !== "water",
+      ),
+      ...WORLD_LAYOUT.waterCollisionRects,
     ];
     const colliderObjects = collidablePlacements.map((placement) =>
       this.add

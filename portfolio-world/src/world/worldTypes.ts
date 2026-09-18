@@ -53,6 +53,8 @@ export type HarborVisualPlacement = WorldRect &
     type: HarborVisualType;
     tier: HarborVisualTier;
     collidable: boolean;
+    /** Dock footprints that remain visually water-adjacent but are player-walkable. */
+    walkable?: boolean;
     zone: PlacementZone;
   }>;
 
@@ -80,6 +82,7 @@ export type WorldLayout = Readonly<{
   paths: readonly WorldPath[];
   forecourts: readonly WorldPath[];
   harborVisuals: readonly HarborVisualPlacement[];
+  waterCollisionRects: readonly WorldRect[];
   reservedLots: readonly ReservedLot[];
   edgeDecorations: readonly WorldRect[];
 }>;

@@ -1,6 +1,7 @@
 import { WORLD_HEIGHT, WORLD_WIDTH } from "../config/gameConfig";
 import { validateWorldLayout } from "./layoutValidation.mjs";
 import { assertTownTranslation, translateTownLayout } from "./layoutTransform.mjs";
+import { createWaterCollisionRects } from "./waterCollisionGeometry.mjs";
 import rawWorldLayout from "./worldLayoutData.json";
 import type {
   BuildingFootprint,
@@ -37,11 +38,16 @@ if (!centralPlaza) {
 const buildings = layoutData.zones
   .filter((zone): zone is Exclude<WorldZone, { id: "plaza" }> => zone.id !== "plaza")
   .map((zone) => ({ ...zone, collidable: true as const }));
+const waterCollisionRects = createWaterCollisionRects(
+  layoutData.harborVisuals.filter((visual) => visual.type === "water"),
+  layoutData.harborVisuals.filter((visual) => visual.type === "dock" && visual.walkable),
+);
 
 const layout: WorldLayout = {
   ...layoutData,
   centralPlaza,
   buildings: buildings as readonly BuildingFootprint[],
+  waterCollisionRects,
 };
 
 validateWorldLayout(layoutData, { worldWidth: WORLD_WIDTH, worldHeight: WORLD_HEIGHT });

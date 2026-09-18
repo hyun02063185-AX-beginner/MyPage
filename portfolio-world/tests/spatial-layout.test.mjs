@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import rawWorldLayout from "../src/world/worldLayoutData.json" with { type: "json" };
 import { validateWorldLayout } from "../src/world/layoutValidation.mjs";
+import { createWaterCollisionRects, rectsOverlap } from "../src/world/waterCollisionGeometry.mjs";
 import {
   assertTownTranslation,
   HARBOR_BASIN_HEIGHT,
@@ -158,4 +159,33 @@ test("Pass 3 requires all vessels to remain in water and support structures off 
   cargoShed.x = supportInLot.reservedLots[0].x;
   cargoShed.y = supportInLot.reservedLots[0].y;
   assert.throws(() => validateWorldLayout(supportInLot, WORLD_DIMENSIONS), /consumes reserved lot/);
+});
+
+test("Pass 4 keeps land-side props dry and both pier arms out of water collision", () => {
+  const translated = translatedLayout();
+  const benchInBasin = structuredClone(translated);
+  const bench = benchInBasin.harborVisuals.find((visual) => visual.id === "waterfront-viewing-bench");
+  bench.x = 672;
+  bench.y = 1032;
+  assert.throws(
+    () => validateWorldLayout(benchInBasin, WORLD_DIMENSIONS),
+    /Land-side prop overlaps harbor water/,
+  );
+
+  const walkablePiers = translated.harborVisuals.filter((visual) => visual.walkable);
+  assert.deepEqual(walkablePiers.map((pier) => pier.id), ["harbor-pier-west", "harbor-pier-east"]);
+  const collisionRects = createWaterCollisionRects(
+    translated.harborVisuals.filter((visual) => visual.type === "water"),
+    walkablePiers,
+  );
+  for (const pier of walkablePiers) {
+    assert.equal(collisionRects.some((water) => rectsOverlap(water, pier)), false);
+  }
+
+  const missingWalkability = structuredClone(translated);
+  missingWalkability.harborVisuals.find((visual) => visual.id === "harbor-pier-west").walkable = false;
+  assert.throws(
+    () => validateWorldLayout(missingWalkability, WORLD_DIMENSIONS),
+    /Required walkable harbor pier is missing/,
+  );
 });

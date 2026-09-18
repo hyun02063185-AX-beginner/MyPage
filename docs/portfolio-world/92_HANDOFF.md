@@ -3,8 +3,8 @@
 Updated: 2026-09-18
 
 ## State
-Visual Pass 3 complete; Visual Pass 4 implementation complete.
-Next: independent review and user Visual Feel Test are pending.
+Visual Pass 3 complete; Visual Pass 4 implementation, independent review, and focused fix complete.
+Next: focused verification and user Visual Feel Test are pending.
 
 ## Work Context Metadata
 
@@ -109,7 +109,9 @@ USER VISUAL FEEL TEST NOT SEPARATELY RECORDED
 ## Visual Pass 4 Status
 
 IMPLEMENTATION COMPLETE
-INDEPENDENT REVIEW PENDING
+INDEPENDENT REVIEW COMPLETE (`READY_WITH_MINOR_NOTES`)
+FOCUSED FIX COMPLETE (`READY_FOR_FOCUSED_VERIFICATION`)
+FOCUSED VERIFICATION PENDING
 USER VISUAL FEEL TEST PENDING
 
 ## Visual Pass 4 Implementation
@@ -118,3 +120,4 @@ USER VISUAL FEEL TEST PENDING
 - Two inner harbor basins and a central dock peninsula turn the waterfront into a harbor-organized composition.
 - The large ship is widened and separated from four small boats; validator coverage now prevents vessel overlap.
 - Warehouse/cargo shed moved to the dry harbor edge; reserved lots and core paths remain protected.
+- Focused fix relocates the west-basin land props to dry waterfront/cargo edges and derives water-only collision carve-outs for the two widened, walkable pier arms.

@@ -1,3 +1,5 @@
+import { createWaterCollisionRects, rectsOverlap } from "./waterCollisionGeometry.mjs";
+
 const HARBOR_VISUAL_TYPES = new Set([
   "navigation-monument",
   "planter",
@@ -32,6 +34,8 @@ const HARBOR_VISUAL_TIERS = new Set(["primary", "secondary", "detail"]);
 const COLLIDABLE_HARBOR_VISUAL_TYPES = new Set(["water", "warehouse"]);
 const FLOATING_VESSEL_TYPES = new Set(["large-ship", "small-boat"]);
 const SUPPORT_BUILDING_TYPES = new Set(["warehouse", "cargo-shed"]);
+const LAND_SIDE_PROP_TYPES = new Set(["planter", "bench", "lamp", "crate", "barrel", "viewing-terrace"]);
+const REQUIRED_WALKABLE_PIER_IDS = new Set(["harbor-pier-west", "harbor-pier-east"]);
 const PERMANENT_STREETSCAPE_TYPES = new Set([
   "navigation-monument",
   "dock",
@@ -160,6 +164,9 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
     if (typeof visual.collidable !== "boolean") {
       throw new Error(`Invalid collision config: ${visual.id}`);
     }
+    if (visual.walkable !== undefined && (visual.type !== "dock" || typeof visual.walkable !== "boolean")) {
+      throw new Error(`Invalid walkable dock config: ${visual.id}`);
+    }
     if (visual.collidable && !COLLIDABLE_HARBOR_VISUAL_TYPES.has(visual.type)) {
       throw new Error(`Unexpected collidable harbor visual: ${visual.id}`);
     }
@@ -211,6 +218,25 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
       for (const water of waterVisuals) {
         assertDoesNotOverlap(visual, water, "Support building overlaps harbor water");
       }
+    }
+    if (LAND_SIDE_PROP_TYPES.has(visual.type)) {
+      for (const water of waterVisuals) {
+        assertDoesNotOverlap(visual, water, "Land-side prop overlaps harbor water");
+      }
+    }
+  }
+  const walkablePiers = [];
+  for (const pierId of REQUIRED_WALKABLE_PIER_IDS) {
+    const pier = layout.harborVisuals.find((visual) => visual.id === pierId);
+    if (!pier || pier.type !== "dock" || !pier.walkable) {
+      throw new Error(`Required walkable harbor pier is missing: ${pierId}`);
+    }
+    walkablePiers.push(pier);
+  }
+  const waterCollisionRects = createWaterCollisionRects(waterVisuals, walkablePiers);
+  for (const pier of walkablePiers) {
+    if (waterCollisionRects.some((water) => rectsOverlap(water, pier))) {
+      throw new Error(`Walkable harbor pier is covered by water collision: ${pier.id}`);
     }
   }
   const vessels = layout.harborVisuals.filter((visual) => FLOATING_VESSEL_TYPES.has(visual.type));
