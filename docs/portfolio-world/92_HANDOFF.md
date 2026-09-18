@@ -3,8 +3,8 @@
 Updated: 2026-09-18
 
 ## State
-Visual Pass 4 is user-approved with notes. Visual Pass 5 plan, pre-review, and art-style
-implementation are complete. Next: independent review, then Human Visual Feel Test.
+Visual Pass 4 is user-approved with notes. Visual Pass 5 plan, pre-review, art-style
+implementation, and independent review are complete. Next: Human Visual Feel Test.
 
 ## Work Context Metadata
 
@@ -57,12 +57,12 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Independent review, then user Visual Feel Test for destination distinction, water/dock
-clarity, and flagship visual strength.
+User Visual Feel Test for destination distinction, water/dock clarity, and flagship
+visual strength.
 
 ## Next Recommended Agent
-Claude Code
-Task: Independent review of Visual Pass 5 Art Style Application.
+User
+Task: Human Visual Feel Test of Visual Pass 5 Art Style Application.
 
 ## Visual Pass 1 Status
 
@@ -133,7 +133,7 @@ USER VISUAL FEEL TEST COMPLETE (`VISUAL_PASS_4_APPROVED_WITH_NOTES`)
 PLAN COMPLETE
 PRE-REVIEW COMPLETE
 IMPLEMENTATION COMPLETE
-INDEPENDENT REVIEW PENDING
+INDEPENDENT REVIEW COMPLETE (`READY_FOR_USER_VISUAL_FEEL_TEST`)
 HUMAN VISUAL FEEL TEST PENDING
 
 ## Visual Pass 5 Implementation
@@ -144,3 +144,18 @@ HUMAN VISUAL FEEL TEST PENDING
 - Dock post offsets are tested directly: the 448 px main dock keeps five inset posts;
   160 px piers use three inset posts with all rope spans inside the visible footprint.
 - No layout, IA, collision geometry, UI shell, or binary runtime assets changed.
+
+## Visual Pass 5 Independent Review
+
+- Confirmed the dock geometry fix is general (fractional post offsets, not special-cased
+  widths), the shared palette removed the cross-file color duplication, and the Pass 4
+  human-feel-test record now reflects the real verdict without inventing feedback.
+- Water and the large ship — the two areas the pre-review flagged as furthest from the
+  bar — are both materially improved; layout, collision, and the World/UI boundary are
+  byte-identical to Pass 4.
+- Two Minor, non-blocking findings recorded: the implementation report's static-collider
+  count undercounts the actual pier-subtracted total (8 reported vs. 13 actual; no
+  runtime effect), and `visualPalette.ts` keeps legacy-named aliases alongside its new
+  keys (optional future cleanup).
+- QA reproduced independently: 8/8 tests, clean build (`1,409.93 kB` / `366.49 kB` gzip),
+  HTTP 200 preview.
