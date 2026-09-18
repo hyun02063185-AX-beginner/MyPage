@@ -24,9 +24,14 @@ const HARBOR_VISUAL_TYPES = new Set([
   "timber-stack",
   "display-board",
   "viewing-terrace",
+  "large-ship",
+  "warehouse",
+  "cargo-shed",
 ]);
 const HARBOR_VISUAL_TIERS = new Set(["primary", "secondary", "detail"]);
-const COLLIDABLE_HARBOR_VISUAL_TYPES = new Set(["water"]);
+const COLLIDABLE_HARBOR_VISUAL_TYPES = new Set(["water", "warehouse"]);
+const FLOATING_VESSEL_TYPES = new Set(["large-ship", "small-boat"]);
+const SUPPORT_BUILDING_TYPES = new Set(["warehouse", "cargo-shed"]);
 const PERMANENT_STREETSCAPE_TYPES = new Set([
   "navigation-monument",
   "dock",
@@ -43,8 +48,11 @@ const PERMANENT_STREETSCAPE_TYPES = new Set([
   "timber-stack",
   "display-board",
   "viewing-terrace",
+  "large-ship",
+  "warehouse",
+  "cargo-shed",
 ]);
-const DENSITY_CAPS = { primary: 10, secondary: 25, detail: 45 };
+const DENSITY_CAPS = { primary: 10, secondary: 30, detail: 45 };
 
 function assertRect(rect, worldWidth, worldHeight) {
   if (
@@ -75,6 +83,15 @@ function overlaps(a, b) {
     a.x + a.width / 2 > b.x - b.width / 2 &&
     a.y - a.height / 2 < b.y + b.height / 2 &&
     a.y + a.height / 2 > b.y - b.height / 2
+  );
+}
+
+function contains(outer, inner) {
+  return (
+    inner.x - inner.width / 2 >= outer.x - outer.width / 2 &&
+    inner.x + inner.width / 2 <= outer.x + outer.width / 2 &&
+    inner.y - inner.height / 2 >= outer.y - outer.height / 2 &&
+    inner.y + inner.height / 2 <= outer.y + outer.height / 2
   );
 }
 
@@ -112,6 +129,7 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
   const zoneIds = new Set(layout.zones.map((zone) => zone.id));
   const buildingFootprints = layout.zones.filter((zone) => zone.id !== "plaza");
   const protectedNavigation = [...layout.paths, ...layout.forecourts, ...buildingFootprints];
+  const dockVisuals = layout.harborVisuals.filter((visual) => visual.type === "dock");
 
   for (const lot of layout.reservedLots) {
     if (lot.zone !== "path" && !zoneIds.has(lot.zone)) {
@@ -163,6 +181,11 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
         );
       }
     }
+    if (SUPPORT_BUILDING_TYPES.has(visual.type)) {
+      for (const dock of dockVisuals) {
+        assertDoesNotOverlap(visual, dock, "Support building overlaps dock traversal");
+      }
+    }
     tierCounts[visual.tier] += 1;
   }
 
@@ -175,5 +198,15 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
   const waterVisuals = layout.harborVisuals.filter((visual) => visual.type === "water");
   if (waterVisuals.length !== 1) {
     throw new Error("Layout requires exactly one coherent waterfront water visual");
+  }
+
+  const [water] = waterVisuals;
+  if (water.y + water.height / 2 !== worldHeight) {
+    throw new Error("Water must be anchored to the south world edge");
+  }
+  for (const visual of layout.harborVisuals) {
+    if (FLOATING_VESSEL_TYPES.has(visual.type) && !contains(water, visual)) {
+      throw new Error(`Floating vessel must be fully contained in water: ${visual.id}`);
+    }
   }
 }

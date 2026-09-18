@@ -1,5 +1,6 @@
 import { WORLD_HEIGHT, WORLD_WIDTH } from "../config/gameConfig";
 import { validateWorldLayout } from "./layoutValidation.mjs";
+import { assertTownTranslation, translateTownLayout } from "./layoutTransform.mjs";
 import rawWorldLayout from "./worldLayoutData.json";
 import type {
   BuildingFootprint,
@@ -22,7 +23,11 @@ type RawLayout = Readonly<{
   edgeDecorations: readonly WorldRect[];
 }>;
 
-const layoutData = rawWorldLayout as unknown as RawLayout;
+const sourceLayoutData = rawWorldLayout as unknown as RawLayout;
+const layoutData = translateTownLayout(sourceLayoutData, {
+  worldHeight: WORLD_HEIGHT,
+}) as RawLayout;
+assertTownTranslation(sourceLayoutData, layoutData, { worldHeight: WORLD_HEIGHT });
 const centralPlaza = layoutData.zones.find((zone) => zone.id === "plaza");
 
 if (!centralPlaza) {

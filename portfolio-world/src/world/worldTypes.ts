@@ -25,7 +25,10 @@ export type HarborVisualType =
   | "cart"
   | "timber-stack"
   | "display-board"
-  | "viewing-terrace";
+  | "viewing-terrace"
+  | "large-ship"
+  | "warehouse"
+  | "cargo-shed";
 
 export type HarborVisualTier = "primary" | "secondary" | "detail";
 

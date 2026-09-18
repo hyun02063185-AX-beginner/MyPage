@@ -32,4 +32,7 @@ export const LANDMARK_CATALOG: Readonly<Record<HarborVisualType, LandmarkDefinit
   "timber-stack": { label: "Timber stack", category: "atmosphere" },
   "display-board": { label: "Display board", category: "portfolio-identity" },
   "viewing-terrace": { label: "Viewing terrace", category: "rest" },
+  "large-ship": { label: "Large harbor ship", category: "atmosphere" },
+  warehouse: { label: "Harbor warehouse", category: "atmosphere" },
+  "cargo-shed": { label: "Cargo shed", category: "atmosphere" },
 };

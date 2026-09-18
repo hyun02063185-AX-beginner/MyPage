@@ -4,6 +4,7 @@ import {
   drawAcademicSign,
   drawBanner,
   drawCart,
+  drawCargoShed,
   drawDisplayBoard,
   drawFlag,
   drawMarketKiosk,
@@ -15,6 +16,7 @@ import {
   drawToolRack,
   drawTree,
   drawViewingTerrace,
+  drawWarehouse,
   drawWorktable,
 } from "./streetscapeVisuals";
 import type {
@@ -84,6 +86,9 @@ export const HARBOR_VISUAL_CATALOG: Readonly<Record<HarborVisualType, string>> =
   "timber-stack": "maker-yard timber stack",
   "display-board": "exhibition display board",
   "viewing-terrace": "waterfront viewing terrace",
+  "large-ship": "large harbor ship silhouette",
+  warehouse: "harbor warehouse",
+  "cargo-shed": "harbor cargo shed",
 };
 
 export function drawHarborGround(scene: Phaser.Scene): void {
@@ -308,6 +313,15 @@ export function drawHarborVisual(scene: Phaser.Scene, visual: HarborVisualPlacem
     case "viewing-terrace":
       drawViewingTerrace(graphics, visual);
       return;
+    case "large-ship":
+      drawLargeShip(graphics, visual);
+      return;
+    case "warehouse":
+      drawWarehouse(graphics, visual);
+      return;
+    case "cargo-shed":
+      drawCargoShed(graphics, visual);
+      return;
     default:
       return exhaustiveVisual(visual.type);
   }
@@ -356,4 +370,32 @@ function drawBoat(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPla
   graphics.fillStyle(COLORS.woodDark).fillTriangle(left, top + 28, left + visual.width, top + 28, visual.x + 34, top + visual.height);
   graphics.lineStyle(3, COLORS.ink).lineBetween(visual.x, top + 2, visual.x, top + 30);
   graphics.fillStyle(0xf1ead9).fillTriangle(visual.x + 3, top + 5, visual.x + 3, top + 28, left + visual.width - 10, top + 28);
+}
+
+function drawLargeShip(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPlacement): void {
+  const left = visual.x - visual.width / 2;
+  const top = visual.y - visual.height / 2;
+  const hullTop = top + visual.height * 0.48;
+  const hullBottom = top + visual.height * 0.82;
+  const mastX = left + visual.width * 0.42;
+  graphics.fillStyle(COLORS.woodDark).fillTriangle(
+    left,
+    hullTop,
+    left + visual.width,
+    hullTop,
+    left + visual.width * 0.78,
+    hullBottom,
+  );
+  graphics.fillStyle(COLORS.wood).fillRect(left + visual.width * 0.2, hullTop - 10, visual.width * 0.46, 12);
+  graphics.lineStyle(4, COLORS.ink).lineBetween(mastX, top + visual.height * 0.1, mastX, hullTop + 4);
+  graphics.fillStyle(0xf1ead9).fillTriangle(
+    mastX + 4,
+    top + visual.height * 0.14,
+    mastX + 4,
+    hullTop - 2,
+    left + visual.width * 0.78,
+    hullTop - 2,
+  );
+  graphics.fillStyle(COLORS.gold).fillCircle(left + visual.width * 0.28, hullTop + 6, 4);
+  graphics.fillStyle(COLORS.gold).fillCircle(left + visual.width * 0.5, hullTop + 6, 4);
 }

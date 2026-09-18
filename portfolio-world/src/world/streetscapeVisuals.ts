@@ -159,3 +159,24 @@ export function drawViewingTerrace(graphics: Phaser.GameObjects.Graphics, visual
   }
   graphics.lineStyle(3, COLORS.woodDark).lineBetween(left, top + 8, left + visual.width, top + 8);
 }
+
+/** Subordinate, non-functional waterfront support structures for Pass 3 composition. */
+export function drawWarehouse(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPlacement): void {
+  const left = leftOf(visual);
+  const top = topOf(visual);
+  graphics.fillStyle(COLORS.stoneShade).fillRect(left + 8, top + 24, visual.width - 16, visual.height - 24);
+  graphics.fillStyle(COLORS.woodDark).fillTriangle(left, top + 26, visual.x, top + 2, left + visual.width, top + 26);
+  graphics.fillStyle(COLORS.wood).fillRect(left + visual.width * 0.36, top + 48, visual.width * 0.28, visual.height - 48);
+  graphics.lineStyle(3, COLORS.ink).strokeRect(left + 8, top + 24, visual.width - 16, visual.height - 24);
+  graphics.lineStyle(2, COLORS.gold).lineBetween(left + 24, top + 44, left + 48, top + 44);
+  graphics.lineStyle(2, COLORS.gold).lineBetween(left + visual.width - 48, top + 44, left + visual.width - 24, top + 44);
+}
+
+export function drawCargoShed(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPlacement): void {
+  const left = leftOf(visual);
+  const top = topOf(visual);
+  graphics.fillStyle(COLORS.wood).fillRect(left + 5, top + 18, visual.width - 10, visual.height - 18);
+  graphics.fillStyle(COLORS.woodDark).fillTriangle(left, top + 20, visual.x, top + 4, left + visual.width, top + 20);
+  graphics.lineStyle(2, COLORS.ink).strokeRect(left + 5, top + 18, visual.width - 10, visual.height - 18);
+  graphics.lineStyle(2, COLORS.gold).lineBetween(left + 18, top + 29, left + visual.width - 18, top + 29);
+}

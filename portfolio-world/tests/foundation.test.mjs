@@ -45,6 +45,8 @@ test("runtime foundation build contracts are present", () => {
     "src/world/streetscapeVisuals.ts",
     "src/world/landmarkCatalog.ts",
     "src/world/layoutValidation.mjs",
+    "src/world/layoutTransform.mjs",
+    "src/world/layoutTransform.mjs.d.ts",
     "src/world/worldLayout.ts",
     "src/world/worldLayoutData.json",
     "src/world/worldTypes.ts",
