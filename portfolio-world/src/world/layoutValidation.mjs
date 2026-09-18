@@ -196,17 +196,27 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
   }
 
   const waterVisuals = layout.harborVisuals.filter((visual) => visual.type === "water");
-  if (waterVisuals.length !== 1) {
-    throw new Error("Layout requires exactly one coherent waterfront water visual");
+  const southWater = waterVisuals.find((visual) => visual.id === "waterfront-water");
+  if (!southWater || waterVisuals.length < 3) {
+    throw new Error("Layout requires south water plus both inner harbor basins");
   }
-
-  const [water] = waterVisuals;
-  if (water.y + water.height / 2 !== worldHeight) {
+  if (southWater.y + southWater.height / 2 !== worldHeight) {
     throw new Error("Water must be anchored to the south world edge");
   }
   for (const visual of layout.harborVisuals) {
-    if (FLOATING_VESSEL_TYPES.has(visual.type) && !contains(water, visual)) {
+    if (FLOATING_VESSEL_TYPES.has(visual.type) && !waterVisuals.some((water) => contains(water, visual))) {
       throw new Error(`Floating vessel must be fully contained in water: ${visual.id}`);
+    }
+    if (SUPPORT_BUILDING_TYPES.has(visual.type)) {
+      for (const water of waterVisuals) {
+        assertDoesNotOverlap(visual, water, "Support building overlaps harbor water");
+      }
+    }
+  }
+  const vessels = layout.harborVisuals.filter((visual) => FLOATING_VESSEL_TYPES.has(visual.type));
+  for (let index = 0; index < vessels.length; index += 1) {
+    for (let comparison = index + 1; comparison < vessels.length; comparison += 1) {
+      assertDoesNotOverlap(vessels[index], vessels[comparison], "Floating vessels overlap");
     }
   }
 }

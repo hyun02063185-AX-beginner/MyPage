@@ -34,8 +34,8 @@ test("spatial validation rejects duplicate IDs, invalid harbor visual catalog en
   assert.throws(() => validateWorldLayout(unknownType, WORLD_DIMENSIONS), /Unknown harbor visual type/);
 
   const duplicateWater = structuredClone(translatedLayout());
-  duplicateWater.harborVisuals.push({ ...duplicateWater.harborVisuals[2], id: "second-water" });
-  assert.throws(() => validateWorldLayout(duplicateWater, WORLD_DIMENSIONS), /exactly one coherent waterfront/);
+  duplicateWater.harborVisuals.push({ ...duplicateWater.harborVisuals[2] });
+  assert.throws(() => validateWorldLayout(duplicateWater, WORLD_DIMENSIONS), /Duplicate placement ID/);
 });
 
 test("Pass 2 constraints protect navigation, building footprints, and expansion lots", () => {
@@ -105,7 +105,7 @@ test("Pass 3 applies the approved translation exactly once and anchors water to 
       );
     }
   }
-  const water = translated.harborVisuals.find((visual) => visual.type === "water");
+  const water = translated.harborVisuals.find((visual) => visual.id === "waterfront-water");
   assert.equal(water.height, HARBOR_BASIN_HEIGHT);
   assert.equal(water.y - water.height / 2, WORLD_DIMENSIONS.worldHeight - HARBOR_BASIN_HEIGHT);
   assert.equal(water.y + water.height / 2, WORLD_DIMENSIONS.worldHeight);
@@ -128,6 +128,23 @@ test("Pass 3 requires all vessels to remain in water and support structures off 
   const smallBoat = smallBoatBeyondWater.harborVisuals.find((visual) => visual.type === "small-boat");
   smallBoat.y = 1095;
   assert.throws(() => validateWorldLayout(smallBoatBeyondWater, WORLD_DIMENSIONS), /fully contained in water/);
+
+  const missingBasin = structuredClone(translatedLayout());
+  missingBasin.harborVisuals = missingBasin.harborVisuals.filter(
+    (visual) => visual.id !== "harbor-east-basin",
+  );
+  assert.throws(() => validateWorldLayout(missingBasin, WORLD_DIMENSIONS), /both inner harbor basins/);
+
+  const overlappingVessels = structuredClone(translatedLayout());
+  const secondBoat = overlappingVessels.harborVisuals.find(
+    (visual) => visual.id === "harbor-basin-boat",
+  );
+  const firstBoat = overlappingVessels.harborVisuals.find(
+    (visual) => visual.id === "waterfront-boat",
+  );
+  secondBoat.x = firstBoat.x;
+  secondBoat.y = firstBoat.y;
+  assert.throws(() => validateWorldLayout(overlappingVessels, WORLD_DIMENSIONS), /Floating vessels overlap/);
 
   const supportOnDock = structuredClone(translatedLayout());
   const warehouse = supportOnDock.harborVisuals.find((visual) => visual.type === "warehouse");

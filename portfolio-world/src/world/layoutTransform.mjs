@@ -22,7 +22,7 @@ export function translateTownLayout(sourceLayout, { worldHeight }) {
     forecourts: sourceLayout.forecourts.map(shiftY),
     reservedLots: sourceLayout.reservedLots.map(shiftY),
     harborVisuals: sourceLayout.harborVisuals.map((visual) =>
-      visual.type === "water"
+      visual.id === "waterfront-water"
         ? {
             ...visual,
             y: worldHeight - HARBOR_BASIN_HEIGHT / 2,
@@ -66,7 +66,7 @@ export function assertTownTranslation(sourceLayout, translatedLayout, { worldHei
     if (source.id !== translated.id || source.x !== translated.x || source.width !== translated.width) {
       throw new Error(`Town translation mismatch: harbor visual identity/${source.id}`);
     }
-    if (source.type === "water") {
+    if (source.id === "waterfront-water") {
       if (
         translated.y - translated.height / 2 !== worldHeight - HARBOR_BASIN_HEIGHT ||
         translated.height !== HARBOR_BASIN_HEIGHT ||
