@@ -13,9 +13,11 @@
 ## B. Git
 
 - Runtime implementation commit: `8c17eda` — `feat(portfolio-world): add first harbor art asset slice`.
+- Documentation commit: `b23fedd` — `docs(portfolio-world): record first art asset slice`.
 - `git push origin feature/portfolio-world-sprint-02`: successful (`325ffc7..8c17eda`).
 - Only intentional runtime assets, source, test, committed build output, and canonical
   records were staged. Supplied execution-only records remain excluded.
+- Final worktree: only the four supplied, untracked execution records remain.
 
 ## C. BASE_URL Asset Loading
 
