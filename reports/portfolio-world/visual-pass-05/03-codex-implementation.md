@@ -11,9 +11,11 @@
 
 ## B. Git
 
-- Implementation is committed on the feature branch after QA.
-- Only intentional source, generated `world/` output, test, and project-record files are staged.
-- Push result and final worktree state are recorded after commit/push in the final handoff.
+- Implementation commit: `928ba78` — `feat(portfolio-world): apply retro harbor visual style`.
+- `git push origin feature/portfolio-world-sprint-02`: successful (`650b61c..928ba78`).
+- Only intentional source, generated `world/` output, test, and project-record files were staged.
+- Final implementation worktree: only the pre-existing, intentionally excluded untracked
+  `reports/portfolio-world/visual-pass-05/02-director-gate.md` remained.
 
 ## C. VP5R-01 — Dock Geometry Fix
 
