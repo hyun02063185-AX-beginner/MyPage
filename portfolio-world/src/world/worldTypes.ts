@@ -1,12 +1,18 @@
 export type WorldZoneId = "plaza" | "lecture" | "career" | "ai-lab" | "gallery";
 
-export type LandmarkType =
-  | "tree-grove"
-  | "bench-cluster"
-  | "wayfinding-sign"
-  | "plaza-marker"
-  | "water-feature"
-  | "planter";
+export type HarborVisualType =
+  | "navigation-monument"
+  | "planter"
+  | "bench"
+  | "lamp"
+  | "harbor-sign"
+  | "crate"
+  | "barrel"
+  | "dock"
+  | "water"
+  | "small-boat";
+
+export type HarborVisualTier = "primary" | "secondary" | "detail";
 
 export type PlacementZone = WorldZoneId | "path";
 
@@ -24,9 +30,10 @@ export type WorldZone = WorldRect &
     label: string;
   }>;
 
-export type LandmarkPlacement = WorldRect &
+export type HarborVisualPlacement = WorldRect &
   Readonly<{
-    type: LandmarkType;
+    type: HarborVisualType;
+    tier: HarborVisualTier;
     collidable: boolean;
     zone: PlacementZone;
   }>;
@@ -48,6 +55,6 @@ export type WorldLayout = Readonly<{
   buildings: readonly BuildingFootprint[];
   paths: readonly WorldPath[];
   forecourts: readonly WorldPath[];
-  landmarks: readonly LandmarkPlacement[];
+  harborVisuals: readonly HarborVisualPlacement[];
   edgeDecorations: readonly WorldRect[];
 }>;

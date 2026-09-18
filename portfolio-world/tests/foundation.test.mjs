@@ -41,6 +41,7 @@ test("runtime foundation build contracts are present", () => {
     "src/player/movement.ts",
     "src/scenes/BootScene.ts",
     "src/scenes/WorldScene.ts",
+    "src/world/harborVisualCatalog.ts",
     "src/world/landmarkCatalog.ts",
     "src/world/layoutValidation.mjs",
     "src/world/worldLayout.ts",

@@ -1,4 +1,18 @@
-const COLLIDABLE_LANDMARK_TYPES = new Set(["water-feature", "planter"]);
+const HARBOR_VISUAL_TYPES = new Set([
+  "navigation-monument",
+  "planter",
+  "bench",
+  "lamp",
+  "harbor-sign",
+  "crate",
+  "barrel",
+  "dock",
+  "water",
+  "small-boat",
+]);
+const HARBOR_VISUAL_TIERS = new Set(["primary", "secondary", "detail"]);
+const COLLIDABLE_HARBOR_VISUAL_TYPES = new Set(["water"]);
+const DENSITY_CAPS = { primary: 8, secondary: 16, detail: 20 };
 
 function assertRect(rect, worldWidth, worldHeight) {
   if (
@@ -29,7 +43,7 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
     layout.zones,
     layout.paths,
     layout.forecourts,
-    layout.landmarks,
+    layout.harborVisuals,
     layout.edgeDecorations,
   ];
   const ids = new Set();
@@ -48,15 +62,37 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
   }
 
   const zoneIds = new Set(layout.zones.map((zone) => zone.id));
-  for (const landmark of layout.landmarks) {
-    if (typeof landmark.collidable !== "boolean") {
-      throw new Error(`Invalid collision config: ${landmark.id}`);
+  const tierCounts = { primary: 0, secondary: 0, detail: 0 };
+  for (const visual of layout.harborVisuals) {
+    if (!HARBOR_VISUAL_TYPES.has(visual.type)) {
+      throw new Error(`Unknown harbor visual type: ${visual.id}`);
     }
-    if (landmark.collidable && !COLLIDABLE_LANDMARK_TYPES.has(landmark.type)) {
-      throw new Error(`Unexpected collidable landmark: ${landmark.id}`);
+    if (!HARBOR_VISUAL_TIERS.has(visual.tier)) {
+      throw new Error(`Unknown harbor visual tier: ${visual.id}`);
     }
-    if (landmark.zone !== "path" && !zoneIds.has(landmark.zone)) {
-      throw new Error(`Unknown landmark zone: ${landmark.id}`);
+    if (typeof visual.collidable !== "boolean") {
+      throw new Error(`Invalid collision config: ${visual.id}`);
     }
+    if (visual.collidable && !COLLIDABLE_HARBOR_VISUAL_TYPES.has(visual.type)) {
+      throw new Error(`Unexpected collidable harbor visual: ${visual.id}`);
+    }
+    if (visual.type === "water" && !visual.collidable) {
+      throw new Error(`Water boundary must be collidable: ${visual.id}`);
+    }
+    if (visual.zone !== "path" && !zoneIds.has(visual.zone)) {
+      throw new Error(`Unknown harbor visual zone: ${visual.id}`);
+    }
+    tierCounts[visual.tier] += 1;
+  }
+
+  for (const [tier, maximum] of Object.entries(DENSITY_CAPS)) {
+    if (tierCounts[tier] > maximum) {
+      throw new Error(`Harbor visual density cap exceeded: ${tier}`);
+    }
+  }
+
+  const waterVisuals = layout.harborVisuals.filter((visual) => visual.type === "water");
+  if (waterVisuals.length !== 1) {
+    throw new Error("Layout requires exactly one coherent waterfront water visual");
   }
 }

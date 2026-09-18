@@ -3,7 +3,7 @@ import { validateWorldLayout } from "./layoutValidation.mjs";
 import rawWorldLayout from "./worldLayoutData.json";
 import type {
   BuildingFootprint,
-  LandmarkPlacement,
+  HarborVisualPlacement,
   WorldLayout,
   WorldPath,
   WorldRect,
@@ -16,7 +16,7 @@ type RawLayout = Readonly<{
   zones: readonly WorldZone[];
   paths: readonly WorldPath[];
   forecourts: readonly WorldPath[];
-  landmarks: readonly LandmarkPlacement[];
+  harborVisuals: readonly HarborVisualPlacement[];
   edgeDecorations: readonly WorldRect[];
 }>;
 
@@ -42,4 +42,4 @@ validateWorldLayout(layoutData, { worldWidth: WORLD_WIDTH, worldHeight: WORLD_HE
 /** Project-owned spatial data; Tiled and URL/content payloads remain deferred. */
 export const WORLD_LAYOUT = layout;
 
-export type { LandmarkPlacement, WorldZone, WorldZoneId } from "./worldTypes";
+export type { HarborVisualPlacement, WorldZone, WorldZoneId } from "./worldTypes";
