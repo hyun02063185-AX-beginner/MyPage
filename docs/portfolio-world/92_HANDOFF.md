@@ -10,7 +10,8 @@ Major regressions; the v1.1 patch fixed them and was independently re-checked
 Budget v1 are now locked (`READY_WITH_MINOR_NOTES`): visible-content scale bands, 1× export,
 category ceilings, practical-alpha trimming, hidden-RGB cleanup, and the hybrid runtime/audit
 metadata contract are recorded in `retro-harbor-campus-scale-bible-asset-weight-lock-v1.md`.
-Mass Asset Production Director Gate is next; mass asset production itself has not started.
+Mass Asset Production Director Gate has passed for Batch 01 only. Batch 01 is implemented and
+awaits independent review; full-world rollout remains on hold.
 
 Hero Ship D, modest Exhibition Hall visual-scale refinement, a four-vessel secondary fleet,
 and a walkable service jetty are implemented and have passed independent review
@@ -69,14 +70,15 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Mass Asset Production Director Gate. Use the locked scale/weight report and asset-audit contract;
-do not claim production assets are complete. Stop any local `vite preview` server before running
-`npm ci` on Windows.
+Independent review of Mass Asset Production Batch 01. Read
+`reports/portfolio-world/art-production/mass-asset-production-batch-01.md`, verify the eight
+integrated references, and do not authorize full-world rollout. Stop any local `vite preview`
+server before running `npm ci` on Windows.
 
 ## Next Recommended Agent
 User
-Task: Mass Asset Production Director Gate. Apply the locked content-bounds category rules and
-weight ceilings; carry the recorded depth minors forward.
+Task: Mass Asset Production Batch 01 independent review. Verify the locked content-bounds and
+weight rules, collision/IA protection, texture transfer, and the carried depth minors.
 
 ## Visual Pass 1 Status
 

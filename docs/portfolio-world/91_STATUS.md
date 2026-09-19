@@ -3,10 +3,10 @@
 Updated: 2026-09-19
 
 ## Phase
-VISUAL GRAMMAR V1 LOCKED AT 15° / DEPTH-OCCLUSION V1.1 INDEPENDENTLY VERIFIED / SCALE BIBLE + ASSET WEIGHT BUDGET LOCKED / MASS ASSET PRODUCTION GATE NEXT
+MASS ASSET PRODUCTION BATCH 01 IMPLEMENTED / INDEPENDENT REVIEW PENDING / FULL WORLD ROLLOUT HOLD
 
 ## Current Work Unit
-Mass Asset Production Director Gate next; Scale Bible + Asset Weight Budget locked; Depth / Occlusion v1.1 verified
+Mass Asset Production Batch 01 independent review; full rollout remains on hold
 
 ## Confirmed
 - MyPage repo 유지
@@ -77,7 +77,9 @@ Mass Asset Production Director Gate next; Scale Bible + Asset Weight Budget lock
 - Depth / Occlusion v1.1 regression patch — independently re-checked (`READY_FOR_SCALE_BIBLE_ASSET_WEIGHT_LOCK`); both regressions closed, Hero D / east-brig and Exhibition Hall occlusion preserved, 20/20 tests; two Minor notes and earlier deferred minors (Hall art wider than footprint, per-frame Phaser depth-sort queue) carried forward, none blocking
 - Scale Bible v1 — LOCKED: visible-content measurements, category bands, and Hero D / Exhibition Hall references recorded
 - Asset Weight Budget v1 — LOCKED: 1× standard export, category ceilings, practical-alpha trim, and hidden-RGB cleanup recorded
-- Mass asset production — NOT STARTED; Mass Asset Production Director Gate is next (`READY_WITH_MINOR_NOTES`)
+- Mass Asset Production Director Gate — PASS: Batch 01 only
+- Mass Asset Production Batch 01 — IMPLEMENTED: three destination buildings, warehouse, one medium vessel, one tree, crate, and lamp integrated; independent review pending
+- Full world asset rollout — HOLD pending Batch 01 independent and human whole-world review
 
 ## Known Technical Follow-ups
 
@@ -87,4 +89,4 @@ Mass Asset Production Director Gate next; Scale Bible + Asset Weight Budget lock
 - Normal production PNG transfer has grown to ~8.56 MB (Hero D + Exhibition + secondary fleet); the alpha/palette optimization pass flagged twice already has not yet started.
 
 ## Next
-1. Mass Asset Production Director Gate; production remains unstarted and every first PNG must pass its asset-audit acceptance record
+1. Mass Asset Production Batch 01 independent review, then human whole-world balance review; do not begin full rollout
