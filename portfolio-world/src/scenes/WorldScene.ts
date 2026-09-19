@@ -19,6 +19,7 @@ import {
   getHeroShipAsset,
   WORLD_ASSETS,
 } from "../world/worldAssetManifest";
+import type { WorldAssetEntry } from "../world/worldAssetManifest";
 import {
   getBuildingDepth,
   getHeroShipWaterlineY,
@@ -40,11 +41,31 @@ const getSecondarySailingAsset = (id: string) => {
     case "harbor-east-merchant-brig":
       return WORLD_ASSETS.secondaryBrig;
     case "harbor-west-cargo-schooner":
-      return WORLD_ASSETS.secondarySchooner;
+      return WORLD_ASSETS.mediumSailingVessel;
     case "harbor-east-harbor-cutter":
       return WORLD_ASSETS.secondaryCutter;
     default:
       return undefined;
+  }
+};
+
+const getBatch01BuildingAsset = (id: string): WorldAssetEntry | undefined => {
+  switch (id) {
+    case "career": return WORLD_ASSETS.guildHall;
+    case "lecture": return WORLD_ASSETS.academy;
+    case "ai-lab": return WORLD_ASSETS.workshop;
+    default: return undefined;
+  }
+};
+
+/** One deliberately chosen runtime reference per non-building Batch 01 category. */
+const getBatch01VisualAsset = (id: string): WorldAssetEntry | undefined => {
+  switch (id) {
+    case "harbor-warehouse": return WORLD_ASSETS.harborWarehouse;
+    case "academy-tree": return WORLD_ASSETS.harborTree;
+    case "dock-crates-west": return WORLD_ASSETS.cargoCrate;
+    case "waterfront-viewing-lamp": return WORLD_ASSETS.harborLamp;
+    default: return undefined;
   }
 };
 
@@ -163,6 +184,23 @@ export class WorldScene extends Phaser.Scene {
       // Frame all three calibration subjects in their real harbor placement.
       this.cameras.main.stopFollow().setZoom(0.6).centerOn(1024, 1050);
     }
+
+    if (
+      import.meta.env.DEV &&
+      new URLSearchParams(window.location.search).get("assetPreview") === "batch01"
+    ) {
+      const view = new URLSearchParams(window.location.search).get("batchView") ?? "harbor";
+      const framing = {
+        harbor: [1024, 1050, 0.6],
+        guild: [224, 640, 1],
+        academy: [1024, 224, 1],
+        workshop: [1824, 640, 1],
+        warehouse: [224, 976, 1],
+        props: [816, 1080, 1],
+      } as const;
+      const [x, y, zoom] = framing[view as keyof typeof framing] ?? framing.harbor;
+      this.cameras.main.stopFollow().setZoom(zoom).centerOn(x, y);
+    }
   }
 
   private renderWorld(): void {
@@ -180,6 +218,10 @@ export class WorldScene extends Phaser.Scene {
     }
     drawHarborPlaza(this, WORLD_LAYOUT.centralPlaza);
     for (const building of WORLD_LAYOUT.buildings) {
+      const batchBuildingAsset = getBatch01BuildingAsset(building.id);
+      if (batchBuildingAsset && this.textures.exists(batchBuildingAsset.textureKey)) {
+        continue;
+      }
       if (building.id === "gallery" && this.textures.exists(
         calibration?.exhibitionHall.textureKey ?? WORLD_ASSETS.exhibitionHall.textureKey,
       )) {
@@ -188,6 +230,10 @@ export class WorldScene extends Phaser.Scene {
       drawHarborBuilding(this, building);
     }
     for (const visual of WORLD_LAYOUT.harborVisuals.filter((item) => item.type !== "water")) {
+      const batchVisualAsset = getBatch01VisualAsset(visual.id);
+      if (batchVisualAsset && this.textures.exists(batchVisualAsset.textureKey)) {
+        continue;
+      }
       if (visual.type === "large-ship" && this.textures.exists(
         calibration?.heroShipD.textureKey ?? getHeroShipAsset(window.location.search).textureKey,
       )) {
@@ -204,35 +250,39 @@ export class WorldScene extends Phaser.Scene {
       }
       drawHarborVisual(this, visual);
     }
-    this.drawFirstAssetSlice();
+    this.drawAssetSlice();
     this.drawControlledCalibrationSurface();
   }
 
   /** Asset graphics intentionally replace only their matching programmatic fallbacks. */
-  private drawFirstAssetSlice(): void {
-    const exhibition = WORLD_LAYOUT.buildings.find((building) => building.id === "gallery");
+  private drawAssetSlice(): void {
     const ship = WORLD_LAYOUT.harborVisuals.find((visual) => visual.type === "large-ship");
     const calibration = getCalibrationAssets(window.location.search);
-    const exhibitionAsset = calibration?.exhibitionHall ?? WORLD_ASSETS.exhibitionHall;
     const heroShipAsset = calibration?.heroShipD ?? getHeroShipAsset(window.location.search);
 
-    if (exhibition && this.textures.exists(exhibitionAsset.textureKey)) {
+    for (const building of WORLD_LAYOUT.buildings) {
+      const asset = building.id === "gallery"
+        ? calibration?.exhibitionHall ?? WORLD_ASSETS.exhibitionHall
+        : getBatch01BuildingAsset(building.id);
+      if (!asset || !this.textures.exists(asset.textureKey)) {
+        continue;
+      }
       this.add
-        .image(exhibition.x, exhibition.y + exhibition.height / 2, exhibitionAsset.textureKey)
-        .setOrigin(0.5, exhibitionAsset.originY)
-        .setDisplaySize(exhibitionAsset.displayWidth, exhibitionAsset.displayHeight)
-        .setDepth(getBuildingDepth(exhibition));
+        .image(building.x, building.y + building.height / 2, asset.textureKey)
+        .setOrigin(0.5, asset.originY)
+        .setDisplaySize(asset.displayWidth, asset.displayHeight)
+        .setDepth(getBuildingDepth(building));
       this.add
-        .text(exhibition.x, exhibition.y + exhibition.height / 2 - 16, exhibition.label, {
+        .text(building.x, building.y + building.height / 2 - 16, building.label, {
           align: "center",
           color: "#213840",
           fontFamily: "monospace",
           fontSize: "14px",
           fontStyle: "bold",
-          wordWrap: { width: exhibition.width - 32 },
+          wordWrap: { width: building.width - 32 },
         })
         .setOrigin(0.5)
-        .setDepth(getWorldLabelDepth(exhibition.id));
+        .setDepth(getWorldLabelDepth(building.id));
     }
 
     if (ship && this.textures.exists(heroShipAsset.textureKey)) {
@@ -244,11 +294,12 @@ export class WorldScene extends Phaser.Scene {
     }
 
     const warehouse = WORLD_LAYOUT.harborVisuals.find((visual) => visual.type === "warehouse");
-    if (warehouse && calibration && this.textures.exists(calibration.warehouse.textureKey)) {
+    const warehouseAsset = calibration?.warehouse ?? WORLD_ASSETS.harborWarehouse;
+    if (warehouse && this.textures.exists(warehouseAsset.textureKey)) {
       this.add
-        .image(warehouse.x, warehouse.y + warehouse.height / 2, calibration.warehouse.textureKey)
-        .setOrigin(0.5, calibration.warehouse.originY)
-        .setDisplaySize(calibration.warehouse.displayWidth, calibration.warehouse.displayHeight)
+        .image(warehouse.x, warehouse.y + warehouse.height / 2, warehouseAsset.textureKey)
+        .setOrigin(0.5, warehouseAsset.originY)
+        .setDisplaySize(warehouseAsset.displayWidth, warehouseAsset.displayHeight)
         .setDepth(getHarborVisualDepth(warehouse));
     }
 
@@ -265,6 +316,18 @@ export class WorldScene extends Phaser.Scene {
         .setDisplaySize(asset.displayWidth, asset.displayHeight)
         .setFlipX(vessel.id === "harbor-east-merchant-brig")
         .setDepth(getVesselDepth(vessel.y + vessel.height / 2, vessel.id));
+    }
+
+    for (const visual of WORLD_LAYOUT.harborVisuals) {
+      const asset = getBatch01VisualAsset(visual.id);
+      if (!asset || !this.textures.exists(asset.textureKey)) {
+        continue;
+      }
+      this.add
+        .image(visual.x, visual.y + visual.height / 2, asset.textureKey)
+        .setOrigin(0.5, asset.originY)
+        .setDisplaySize(asset.displayWidth, asset.displayHeight)
+        .setDepth(getHarborVisualDepth(visual));
     }
   }
 

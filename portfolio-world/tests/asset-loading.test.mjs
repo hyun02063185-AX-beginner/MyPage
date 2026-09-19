@@ -24,6 +24,10 @@ test("first asset slice uses BASE_URL paths and ships every manifest PNG", () =>
     "assets/world/harbor/ship/secondary-schooner-v01.png",
     "assets/world/harbor/ship/secondary-cutter-v01.png",
     "assets/world/harbor/buildings/exhibition-hall-v01.png",
+    "assets/world/harbor/optimized/hero-ship-d-v01.png",
+    "assets/world/harbor/optimized/exhibition-hall-v01.png",
+    "assets/world/harbor/optimized/secondary-brig-v01.png",
+    "assets/world/harbor/optimized/secondary-cutter-v01.png",
   ]) {
     assert.equal(existsSync(resolve(projectRoot, "public", path)), true, `${path} must be present`);
   }
@@ -32,8 +36,8 @@ test("first asset slice uses BASE_URL paths and ships every manifest PNG", () =>
 test("harbor refinement keeps D as the temporary production default and comparison dev-only", () => {
   assert.match(manifestSource, /:\s*"heroShipD";\s*\n\s*return WORLD_ASSETS\[key\];/);
   assert.match(manifestSource, /import\.meta\.env\.DEV/);
-  assert.match(manifestSource, /displayWidth:\s*395/);
-  assert.match(manifestSource, /displayWidth:\s*340/);
+  assert.match(manifestSource, /displayWidth:\s*365/);
+  assert.match(manifestSource, /displayWidth:\s*332/);
 });
 
 test("visual grammar calibration ships every candidate and has no production query path", () => {
@@ -53,5 +57,10 @@ test("visual grammar calibration ships every candidate and has no production que
     readFileSync(resolve(buildAssets, productionScript), "utf8").includes("assetCalibration"),
     false,
     "production bundle must not expose calibration query handling",
+  );
+  assert.equal(
+    readFileSync(resolve(buildAssets, productionScript), "utf8").includes("batchView"),
+    false,
+    "production bundle must not expose Batch 01 review framing",
   );
 });
