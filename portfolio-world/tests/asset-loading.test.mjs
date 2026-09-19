@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -34,4 +34,24 @@ test("harbor refinement keeps D as the temporary production default and comparis
   assert.match(manifestSource, /import\.meta\.env\.DEV/);
   assert.match(manifestSource, /displayWidth:\s*395/);
   assert.match(manifestSource, /displayWidth:\s*340/);
+});
+
+test("visual grammar calibration ships every candidate and has no production query path", () => {
+  for (const subject of ["hero-ship-d", "exhibition-hall", "harbor-warehouse"]) {
+    for (const angle of ["15", "22-5", "30"]) {
+      const path = `assets/world/harbor/calibration/${subject}-cal-${angle}.png`;
+      assert.equal(existsSync(resolve(projectRoot, "public", path)), true, `${path} must be present`);
+    }
+  }
+  assert.match(manifestSource, /export function getCalibrationAngle/);
+  assert.match(manifestSource, /if \(!import\.meta\.env\.DEV\)/);
+
+  const buildAssets = resolve(projectRoot, "../world/assets");
+  const productionScript = readdirSync(buildAssets).find((file) => file.endsWith(".js"));
+  assert.ok(productionScript, "production bundle must exist after vite build");
+  assert.equal(
+    readFileSync(resolve(buildAssets, productionScript), "utf8").includes("assetCalibration"),
+    false,
+    "production bundle must not expose calibration query handling",
+  );
 });

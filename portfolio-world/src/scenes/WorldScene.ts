@@ -14,7 +14,11 @@ import {
   drawHarborPlaza,
   drawHarborVisual,
 } from "../world/harborVisualCatalog";
-import { getHeroShipAsset, WORLD_ASSETS } from "../world/worldAssetManifest";
+import {
+  getCalibrationAssets,
+  getHeroShipAsset,
+  WORLD_ASSETS,
+} from "../world/worldAssetManifest";
 import { WORLD_LAYOUT } from "../world/worldLayout";
 
 type MovementKeys = Record<
@@ -132,17 +136,29 @@ export class WorldScene extends Phaser.Scene {
       .startFollow(this.player.gameObject, true, CAMERA_LERP_X, CAMERA_LERP_Y);
     this.cameras.main.roundPixels = true;
 
+    // Dev-only controlled calibration surface. It is removed from production along with
+    // getCalibrationAssets' DEV branch and never changes world layout/collision data.
+    if (
+      import.meta.env.DEV &&
+      getCalibrationAssets(window.location.search) &&
+      new URLSearchParams(window.location.search).get("assetPreview") === "calibration"
+    ) {
+      this.cameras.main.stopFollow().setZoom(0.7).centerOn(1050, 576);
+      return;
+    }
+
     // Undocumented QA framing for ship A/B/C comparison; normal play keeps camera follow.
     if (
       import.meta.env.DEV &&
       new URLSearchParams(window.location.search).get("assetPreview") === "harbor"
     ) {
-      // Frame the waterfront, D, secondary fleet, and Exhibition Hall together for review.
-      this.cameras.main.stopFollow().centerOn(1250, 1088);
+      // Frame all three calibration subjects in their real harbor placement.
+      this.cameras.main.stopFollow().setZoom(0.6).centerOn(1024, 1050);
     }
   }
 
   private renderWorld(): void {
+    const calibration = getCalibrationAssets(window.location.search);
     drawHarborGround(this);
     for (const visual of WORLD_LAYOUT.harborVisuals.filter((item) => item.type === "water")) {
       drawHarborVisual(this, visual);
@@ -156,13 +172,20 @@ export class WorldScene extends Phaser.Scene {
     }
     drawHarborPlaza(this, WORLD_LAYOUT.centralPlaza);
     for (const building of WORLD_LAYOUT.buildings) {
-      if (building.id === "gallery" && this.textures.exists(WORLD_ASSETS.exhibitionHall.textureKey)) {
+      if (building.id === "gallery" && this.textures.exists(
+        calibration?.exhibitionHall.textureKey ?? WORLD_ASSETS.exhibitionHall.textureKey,
+      )) {
         continue;
       }
       drawHarborBuilding(this, building);
     }
     for (const visual of WORLD_LAYOUT.harborVisuals.filter((item) => item.type !== "water")) {
-      if (visual.type === "large-ship" && this.textures.exists(getHeroShipAsset(window.location.search).textureKey)) {
+      if (visual.type === "large-ship" && this.textures.exists(
+        calibration?.heroShipD.textureKey ?? getHeroShipAsset(window.location.search).textureKey,
+      )) {
+        continue;
+      }
+      if (visual.type === "warehouse" && calibration && this.textures.exists(calibration.warehouse.textureKey)) {
         continue;
       }
       const secondaryAsset = visual.type === "secondary-sailing-ship"
@@ -174,14 +197,16 @@ export class WorldScene extends Phaser.Scene {
       drawHarborVisual(this, visual);
     }
     this.drawFirstAssetSlice();
+    this.drawControlledCalibrationSurface();
   }
 
   /** Asset graphics intentionally replace only their matching programmatic fallbacks. */
   private drawFirstAssetSlice(): void {
     const exhibition = WORLD_LAYOUT.buildings.find((building) => building.id === "gallery");
     const ship = WORLD_LAYOUT.harborVisuals.find((visual) => visual.type === "large-ship");
-    const exhibitionAsset = WORLD_ASSETS.exhibitionHall;
-    const heroShipAsset = getHeroShipAsset(window.location.search);
+    const calibration = getCalibrationAssets(window.location.search);
+    const exhibitionAsset = calibration?.exhibitionHall ?? WORLD_ASSETS.exhibitionHall;
+    const heroShipAsset = calibration?.heroShipD ?? getHeroShipAsset(window.location.search);
 
     if (exhibition && this.textures.exists(exhibitionAsset.textureKey)) {
       this.add
@@ -207,6 +232,15 @@ export class WorldScene extends Phaser.Scene {
         .image(ship.x, ship.y + 18, heroShipAsset.textureKey)
         .setOrigin(0.5, heroShipAsset.originY)
         .setDisplaySize(heroShipAsset.displayWidth, heroShipAsset.displayHeight)
+        .setDepth(calibration ? 7.2 : 7);
+    }
+
+    const warehouse = WORLD_LAYOUT.harborVisuals.find((visual) => visual.type === "warehouse");
+    if (warehouse && calibration && this.textures.exists(calibration.warehouse.textureKey)) {
+      this.add
+        .image(warehouse.x, warehouse.y + warehouse.height / 2, calibration.warehouse.textureKey)
+        .setOrigin(0.5, calibration.warehouse.originY)
+        .setDisplaySize(calibration.warehouse.displayWidth, calibration.warehouse.displayHeight)
         .setDepth(7);
     }
 
@@ -222,7 +256,40 @@ export class WorldScene extends Phaser.Scene {
         .setOrigin(0.5, asset.originY)
         .setDisplaySize(asset.displayWidth, asset.displayHeight)
         .setFlipX(vessel.id === "harbor-east-merchant-brig")
-        .setDepth(7);
+      .setDepth(7);
     }
+  }
+
+  /** Minimal dev-only side-by-side evidence surface; no editor or persistent UI. */
+  private drawControlledCalibrationSurface(): void {
+    const calibration = getCalibrationAssets(window.location.search);
+    if (
+      !import.meta.env.DEV ||
+      !calibration ||
+      new URLSearchParams(window.location.search).get("assetPreview") !== "calibration"
+    ) {
+      return;
+    }
+
+    this.add.rectangle(1050, 576, 1440, 650, 0xd9c7a5).setDepth(20);
+    this.add.rectangle(1050, 750, 1440, 300, 0x4d9baa).setDepth(21);
+    this.add.rectangle(1050, 742, 1440, 16, 0x8d5637).setDepth(22);
+    const subjects = [
+      [650, 650, calibration.heroShipD, "Hero Ship D"],
+      [1090, 620, calibration.exhibitionHall, "Exhibition Hall"],
+      [1450, 650, calibration.warehouse, "Warehouse"],
+    ] as const;
+    for (const [x, y, asset, label] of subjects) {
+      this.add.image(x, y, asset.textureKey)
+        .setOrigin(0.5, asset.originY)
+        .setDisplaySize(asset.displayWidth, asset.displayHeight)
+        .setDepth(24);
+      this.add.text(x, 290, label, {
+        color: "#213840", fontFamily: "monospace", fontSize: "20px", fontStyle: "bold",
+      }).setOrigin(0.5).setDepth(25);
+    }
+    this.add.text(1050, 205, `Visual grammar calibration — ${calibration.angle}° above horizontal`, {
+      color: "#213840", fontFamily: "monospace", fontSize: "24px", fontStyle: "bold",
+    }).setOrigin(0.5).setDepth(25);
   }
 }

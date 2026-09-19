@@ -1,7 +1,7 @@
 /** First-slice production assets. Status terms intentionally mirror 07_ASSET_POLICY.md. */
 export type WorldAssetStatus = "CONCEPT" | "APPROVED" | "GAME_READY" | "DEPRECATED";
 
-type WorldAsset = Readonly<{
+export type WorldAsset = Readonly<{
   id: string;
   textureKey: string;
   path: string;
@@ -17,6 +17,9 @@ type WorldAsset = Readonly<{
   displayHeight: number;
   originY: number;
 }>;
+
+export type CalibrationAngle = 15 | 22.5 | 30;
+export type CalibrationSubject = "heroShipD" | "exhibitionHall" | "warehouse";
 
 export const WORLD_ASSETS = {
   heroShipA: {
@@ -152,8 +155,51 @@ export const WORLD_ASSETS = {
 export type WorldAssetEntry = (typeof WORLD_ASSETS)[keyof typeof WORLD_ASSETS];
 export type HeroShipAssetKey = "heroShipA" | "heroShipB" | "heroShipC" | "heroShipD";
 
+const calibrationAsset = (
+  id: string,
+  path: string,
+  role: string,
+  displayWidth: number,
+  displayHeight: number,
+  originY: number,
+) => ({
+  id,
+  textureKey: `harbor-${id}`,
+  path,
+  role,
+  sourceType: "generated-original" as const,
+  provenance: "generated-original" as const,
+  status: "CONCEPT" as const,
+  version: "calibration-v01",
+  notes: "Deterministic project-owned visual grammar calibration asset; only CAMERA_ELEVATION differs across this subject's variants.",
+  sourceWidth: 512,
+  sourceHeight: 320,
+  displayWidth,
+  displayHeight,
+  originY,
+});
+
+/** Dev-only candidates: camera elevation is the sole visual variable. */
+export const CALIBRATION_ASSETS = {
+  heroShipD: {
+    15: calibrationAsset("hero-ship-d-cal-15", "assets/world/harbor/calibration/hero-ship-d-cal-15.png", "Hero Ship D at 15° elevation", 395, 263, 0.9),
+    22.5: calibrationAsset("hero-ship-d-cal-22-5", "assets/world/harbor/calibration/hero-ship-d-cal-22-5.png", "Hero Ship D at 22.5° elevation", 395, 263, 0.9),
+    30: calibrationAsset("hero-ship-d-cal-30", "assets/world/harbor/calibration/hero-ship-d-cal-30.png", "Hero Ship D at 30° elevation", 395, 263, 0.9),
+  },
+  exhibitionHall: {
+    15: calibrationAsset("exhibition-hall-cal-15", "assets/world/harbor/calibration/exhibition-hall-cal-15.png", "Exhibition Hall at 15° elevation", 340, 227, 0.9),
+    22.5: calibrationAsset("exhibition-hall-cal-22-5", "assets/world/harbor/calibration/exhibition-hall-cal-22-5.png", "Exhibition Hall at 22.5° elevation", 340, 227, 0.9),
+    30: calibrationAsset("exhibition-hall-cal-30", "assets/world/harbor/calibration/exhibition-hall-cal-30.png", "Exhibition Hall at 30° elevation", 340, 227, 0.9),
+  },
+  warehouse: {
+    15: calibrationAsset("harbor-warehouse-cal-15", "assets/world/harbor/calibration/harbor-warehouse-cal-15.png", "Warehouse at 15° elevation", 240, 150, 0.9),
+    22.5: calibrationAsset("harbor-warehouse-cal-22-5", "assets/world/harbor/calibration/harbor-warehouse-cal-22-5.png", "Warehouse at 22.5° elevation", 240, 150, 0.9),
+    30: calibrationAsset("harbor-warehouse-cal-30", "assets/world/harbor/calibration/harbor-warehouse-cal-30.png", "Warehouse at 30° elevation", 240, 150, 0.9),
+  },
+} as const;
+
 /** Public assets must resolve from Vite's current base, never from root `/assets`. */
-export function resolveWorldAssetUrl(asset: WorldAssetEntry): string {
+export function resolveWorldAssetUrl(asset: WorldAsset): string {
   return `${import.meta.env.BASE_URL}${asset.path}`;
 }
 
@@ -167,4 +213,25 @@ export function getHeroShipAsset(search: string): WorldAssetEntry {
         ? "heroShipC"
         : "heroShipD";
   return WORLD_ASSETS[key];
+}
+
+/** No calibration URL is meaningful in production: Vite removes this DEV branch. */
+export function getCalibrationAngle(search: string): CalibrationAngle | undefined {
+  if (!import.meta.env.DEV) {
+    return undefined;
+  }
+  const requested = new URLSearchParams(search).get("assetCalibration");
+  return requested === "15" ? 15 : requested === "22.5" ? 22.5 : requested === "30" ? 30 : undefined;
+}
+
+export function getCalibrationAssets(search: string) {
+  const angle = getCalibrationAngle(search);
+  return angle === undefined
+    ? undefined
+    : {
+      angle,
+      heroShipD: CALIBRATION_ASSETS.heroShipD[angle],
+      exhibitionHall: CALIBRATION_ASSETS.exhibitionHall[angle],
+      warehouse: CALIBRATION_ASSETS.warehouse[angle],
+    };
 }
