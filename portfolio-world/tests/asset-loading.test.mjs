@@ -19,8 +19,19 @@ test("first asset slice uses BASE_URL paths and ships every manifest PNG", () =>
     "assets/world/harbor/ship/hero-ship-a-v01.png",
     "assets/world/harbor/ship/hero-ship-b-v01.png",
     "assets/world/harbor/ship/hero-ship-c-v01.png",
+    "assets/world/harbor/ship/hero-ship-d-v01.png",
+    "assets/world/harbor/ship/secondary-brig-v01.png",
+    "assets/world/harbor/ship/secondary-schooner-v01.png",
+    "assets/world/harbor/ship/secondary-cutter-v01.png",
     "assets/world/harbor/buildings/exhibition-hall-v01.png",
   ]) {
     assert.equal(existsSync(resolve(projectRoot, "public", path)), true, `${path} must be present`);
   }
+});
+
+test("harbor refinement keeps D as the temporary production default and comparison dev-only", () => {
+  assert.match(manifestSource, /:\s*"heroShipD";\s*\n\s*return WORLD_ASSETS\[key\];/);
+  assert.match(manifestSource, /import\.meta\.env\.DEV/);
+  assert.match(manifestSource, /displayWidth:\s*395/);
+  assert.match(manifestSource, /displayWidth:\s*340/);
 });

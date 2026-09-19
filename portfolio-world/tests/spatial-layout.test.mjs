@@ -173,7 +173,11 @@ test("Pass 4 keeps land-side props dry and both pier arms out of water collision
   );
 
   const walkablePiers = translated.harborVisuals.filter((visual) => visual.walkable);
-  assert.deepEqual(walkablePiers.map((pier) => pier.id), ["harbor-pier-west", "harbor-pier-east"]);
+  assert.deepEqual(walkablePiers.map((pier) => pier.id), [
+    "harbor-pier-west",
+    "harbor-pier-east",
+    "harbor-service-jetty",
+  ]);
   const collisionRects = createWaterCollisionRects(
     translated.harborVisuals.filter((visual) => visual.type === "water"),
     walkablePiers,
@@ -188,4 +192,34 @@ test("Pass 4 keeps land-side props dry and both pier arms out of water collision
     () => validateWorldLayout(missingWalkability, WORLD_DIMENSIONS),
     /Required walkable harbor pier is missing/,
   );
+});
+
+test("harbor refinement fits four secondary sailing vessels and keeps the service jetty walkable", () => {
+  const translated = translatedLayout();
+  const secondaryFleet = translated.harborVisuals.filter(
+    (visual) => visual.type === "secondary-sailing-ship",
+  );
+  assert.equal(secondaryFleet.length, 4);
+  assert.equal(
+    secondaryFleet.every((vessel) =>
+      translated.harborVisuals
+        .filter((visual) => visual.type === "water")
+        .some((water) =>
+          vessel.x - vessel.width / 2 >= water.x - water.width / 2 &&
+          vessel.x + vessel.width / 2 <= water.x + water.width / 2 &&
+          vessel.y - vessel.height / 2 >= water.y - water.height / 2 &&
+          vessel.y + vessel.height / 2 <= water.y + water.height / 2,
+        ),
+    ),
+    true,
+  );
+  const serviceJetty = translated.harborVisuals.find(
+    (visual) => visual.id === "harbor-service-jetty",
+  );
+  assert.equal(serviceJetty?.walkable, true);
+  const collisionRects = createWaterCollisionRects(
+    translated.harborVisuals.filter((visual) => visual.type === "water"),
+    translated.harborVisuals.filter((visual) => visual.type === "dock" && visual.walkable),
+  );
+  assert.equal(collisionRects.some((water) => rectsOverlap(water, serviceJetty)), false);
 });

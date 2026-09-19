@@ -17,6 +17,7 @@ export const LANDMARK_CATALOG: Readonly<Record<HarborVisualType, LandmarkDefinit
   dock: { label: "Dock", category: "atmosphere" },
   water: { label: "Harbor water", category: "atmosphere" },
   "small-boat": { label: "Small boat", category: "atmosphere" },
+  "secondary-sailing-ship": { label: "Secondary sailing vessel", category: "atmosphere" },
   "market-kiosk": { label: "Market kiosk", category: "portfolio-identity" },
   "notice-board": { label: "Notice board", category: "wayfinding" },
   "route-map": { label: "Route map", category: "wayfinding" },

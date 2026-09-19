@@ -79,6 +79,10 @@
     { "id": "waterfront-promenade-crate", "type": "crate", "tier": "detail", "x": 544, "y": 1016, "width": 40, "height": 40, "collidable": false, "zone": "gallery" },
     { "id": "waterfront-promenade-barrel", "type": "barrel", "tier": "detail", "x": 488, "y": 1016, "width": 28, "height": 36, "collidable": false, "zone": "gallery" },
     { "id": "harbor-large-ship", "type": "large-ship", "tier": "primary", "x": 1420, "y": 1236, "width": 280, "height": 80, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-west-merchant-brig", "type": "secondary-sailing-ship", "tier": "secondary", "x": 160, "y": 1116, "width": 188, "height": 56, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-west-cargo-schooner", "type": "secondary-sailing-ship", "tier": "secondary", "x": 500, "y": 1116, "width": 205, "height": 58, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-east-merchant-brig", "type": "secondary-sailing-ship", "tier": "secondary", "x": 1430, "y": 1116, "width": 188, "height": 56, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-east-harbor-cutter", "type": "secondary-sailing-ship", "tier": "secondary", "x": 1810, "y": 1116, "width": 145, "height": 58, "collidable": false, "zone": "gallery" },
     { "id": "harbor-basin-boat", "type": "small-boat", "tier": "detail", "x": 1720, "y": 1252, "width": 96, "height": 40, "collidable": false, "zone": "gallery" },
     { "id": "harbor-cargo-boat", "type": "small-boat", "tier": "detail", "x": 540, "y": 1244, "width": 88, "height": 36, "collidable": false, "zone": "gallery" },
     { "id": "harbor-offshore-boat", "type": "small-boat", "tier": "detail", "x": 900, "y": 1256, "width": 80, "height": 32, "collidable": false, "zone": "gallery" },
@@ -87,7 +91,8 @@
     { "id": "harbor-west-basin", "type": "water", "tier": "primary", "x": 400, "y": 1120, "width": 800, "height": 128, "collidable": true, "zone": "gallery" },
     { "id": "harbor-east-basin", "type": "water", "tier": "primary", "x": 1648, "y": 1120, "width": 800, "height": 128, "collidable": true, "zone": "gallery" },
     { "id": "harbor-pier-west", "type": "dock", "tier": "secondary", "x": 752, "y": 1176, "width": 160, "height": 32, "collidable": false, "walkable": true, "zone": "gallery" },
-    { "id": "harbor-pier-east", "type": "dock", "tier": "secondary", "x": 1296, "y": 1176, "width": 160, "height": 32, "collidable": false, "walkable": true, "zone": "gallery" }
+    { "id": "harbor-pier-east", "type": "dock", "tier": "secondary", "x": 1296, "y": 1176, "width": 160, "height": 32, "collidable": false, "walkable": true, "zone": "gallery" },
+    { "id": "harbor-service-jetty", "type": "dock", "tier": "secondary", "x": 1096, "y": 1184, "width": 144, "height": 32, "collidable": false, "walkable": true, "zone": "gallery" }
   ],
   "edgeDecorations": [
     { "id": "edge-north", "x": 1024, "y": 32, "width": 2048, "height": 64 },

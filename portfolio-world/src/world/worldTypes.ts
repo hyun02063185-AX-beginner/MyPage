@@ -11,6 +11,7 @@ export type HarborVisualType =
   | "dock"
   | "water"
   | "small-boat"
+  | "secondary-sailing-ship"
   | "market-kiosk"
   | "notice-board"
   | "route-map"

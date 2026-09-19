@@ -12,8 +12,15 @@ export class BootScene extends Phaser.Scene {
   }
 
   public preload(): void {
-    // A/B/C are separate comparison loads; normal play pays only for default B + Exhibition.
-    for (const asset of [getHeroShipAsset(window.location.search), WORLD_ASSETS.exhibitionHall]) {
+    // A/B/C/D remain explicit development comparison loads; normal play loads D, the Exhibition,
+    // and the small deliberately bounded secondary fleet only.
+    for (const asset of [
+      getHeroShipAsset(window.location.search),
+      WORLD_ASSETS.exhibitionHall,
+      WORLD_ASSETS.secondaryBrig,
+      WORLD_ASSETS.secondarySchooner,
+      WORLD_ASSETS.secondaryCutter,
+    ]) {
       this.load.image(asset.textureKey, resolveWorldAssetUrl(asset));
     }
   }

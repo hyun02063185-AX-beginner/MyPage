@@ -67,6 +67,70 @@ export const WORLD_ASSETS = {
     displayHeight: 340,
     originY: 0.84,
   },
+  heroShipD: {
+    id: "hero-ship-d-v01",
+    textureKey: "harbor-hero-ship-d-v01",
+    path: "assets/world/harbor/ship/hero-ship-d-v01.png",
+    role: "hero ship refinement candidate D — current review default",
+    sourceType: "generated-original",
+    provenance: "generated-original",
+    status: "CONCEPT",
+    version: "v01",
+    notes: "A-like display envelope with C-like three-mast character; elevated profile-biased deck view. Human approval pending.",
+    sourceWidth: 1536,
+    sourceHeight: 1024,
+    displayWidth: 395,
+    displayHeight: 263,
+    originY: 0.84,
+  },
+  secondaryBrig: {
+    id: "secondary-brig-v01",
+    textureKey: "harbor-secondary-brig-v01",
+    path: "assets/world/harbor/ship/secondary-brig-v01.png",
+    role: "secondary two-mast merchant brig",
+    sourceType: "generated-original",
+    provenance: "generated-original",
+    status: "CONCEPT",
+    version: "v01",
+    notes: "Simpler two-mast working vessel; reused once with horizontal mirroring for fleet variety.",
+    sourceWidth: 1536,
+    sourceHeight: 1024,
+    displayWidth: 188,
+    displayHeight: 125,
+    originY: 0.84,
+  },
+  secondarySchooner: {
+    id: "secondary-schooner-v01",
+    textureKey: "harbor-secondary-schooner-v01",
+    path: "assets/world/harbor/ship/secondary-schooner-v01.png",
+    role: "secondary two-mast cargo schooner",
+    sourceType: "generated-original",
+    provenance: "generated-original",
+    status: "CONCEPT",
+    version: "v01",
+    notes: "Long low cargo vessel with raked masts; lower hierarchy than Hero Ship D.",
+    sourceWidth: 1536,
+    sourceHeight: 1024,
+    displayWidth: 205,
+    displayHeight: 137,
+    originY: 0.84,
+  },
+  secondaryCutter: {
+    id: "secondary-cutter-v01",
+    textureKey: "harbor-secondary-cutter-v01",
+    path: "assets/world/harbor/ship/secondary-cutter-v01.png",
+    role: "secondary one-mast harbor cutter",
+    sourceType: "generated-original",
+    provenance: "generated-original",
+    status: "CONCEPT",
+    version: "v01",
+    notes: "Compact one-mast working craft; supports the fleet scale hierarchy.",
+    sourceWidth: 1536,
+    sourceHeight: 1024,
+    displayWidth: 145,
+    displayHeight: 97,
+    originY: 0.84,
+  },
   exhibitionHall: {
     id: "exhibition-hall-v01",
     textureKey: "harbor-exhibition-hall-v01",
@@ -79,14 +143,14 @@ export const WORLD_ASSETS = {
     notes: "Top-down footprint with frontal facade; replaces only the Gallery programmatic visual in this slice.",
     sourceWidth: 1536,
     sourceHeight: 1024,
-    displayWidth: 310,
-    displayHeight: 207,
+    displayWidth: 340,
+    displayHeight: 227,
     originY: 0.91,
   },
 } as const satisfies Readonly<Record<string, WorldAsset>>;
 
 export type WorldAssetEntry = (typeof WORLD_ASSETS)[keyof typeof WORLD_ASSETS];
-export type HeroShipAssetKey = "heroShipA" | "heroShipB" | "heroShipC";
+export type HeroShipAssetKey = "heroShipA" | "heroShipB" | "heroShipC" | "heroShipD";
 
 /** Public assets must resolve from Vite's current base, never from root `/assets`. */
 export function resolveWorldAssetUrl(asset: WorldAssetEntry): string {
@@ -95,6 +159,12 @@ export function resolveWorldAssetUrl(asset: WorldAssetEntry): string {
 
 export function getHeroShipAsset(search: string): WorldAssetEntry {
   const requested = import.meta.env.DEV ? new URLSearchParams(search).get("heroShip") : null;
-  const key: HeroShipAssetKey = requested === "a" ? "heroShipA" : requested === "c" ? "heroShipC" : "heroShipB";
+  const key: HeroShipAssetKey = requested === "a"
+    ? "heroShipA"
+    : requested === "b"
+      ? "heroShipB"
+      : requested === "c"
+        ? "heroShipC"
+        : "heroShipD";
   return WORLD_ASSETS[key];
 }

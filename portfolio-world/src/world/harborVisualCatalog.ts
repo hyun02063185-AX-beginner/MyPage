@@ -49,6 +49,7 @@ export const HARBOR_VISUAL_CATALOG: Readonly<Record<HarborVisualType, string>> =
   dock: "walkable wooden dock with moorings",
   water: "collidable waterfront water boundary",
   "small-boat": "small harbor boat silhouette",
+  "secondary-sailing-ship": "secondary sailing vessel asset anchor",
   "market-kiosk": "small civic market kiosk",
   "notice-board": "guild notice board",
   "route-map": "journey route map",
@@ -259,6 +260,11 @@ export function drawHarborVisual(scene: Phaser.Scene, visual: HarborVisualPlacem
       drawWater(graphics, visual);
       return;
     case "small-boat":
+      drawBoat(graphics, visual);
+      return;
+    case "secondary-sailing-ship":
+      // Rendered by the explicit asset layer after all geometry; keep the programmatic
+      // boat as a fallback only when its texture is unavailable.
       drawBoat(graphics, visual);
       return;
     case "market-kiosk":

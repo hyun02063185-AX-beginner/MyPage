@@ -22,6 +22,20 @@ type MovementKeys = Record<
   Phaser.Input.Keyboard.Key
 >;
 
+const getSecondarySailingAsset = (id: string) => {
+  switch (id) {
+    case "harbor-west-merchant-brig":
+    case "harbor-east-merchant-brig":
+      return WORLD_ASSETS.secondaryBrig;
+    case "harbor-west-cargo-schooner":
+      return WORLD_ASSETS.secondarySchooner;
+    case "harbor-east-harbor-cutter":
+      return WORLD_ASSETS.secondaryCutter;
+    default:
+      return undefined;
+  }
+};
+
 /** Orchestrates layout, focused harbor visuals, collision, input, and camera. */
 export class WorldScene extends Phaser.Scene {
   private player?: Player;
@@ -123,7 +137,8 @@ export class WorldScene extends Phaser.Scene {
       import.meta.env.DEV &&
       new URLSearchParams(window.location.search).get("assetPreview") === "harbor"
     ) {
-      this.cameras.main.stopFollow().centerOn(1250, 992);
+      // Frame the waterfront, D, secondary fleet, and Exhibition Hall together for review.
+      this.cameras.main.stopFollow().centerOn(1250, 1088);
     }
   }
 
@@ -148,6 +163,12 @@ export class WorldScene extends Phaser.Scene {
     }
     for (const visual of WORLD_LAYOUT.harborVisuals.filter((item) => item.type !== "water")) {
       if (visual.type === "large-ship" && this.textures.exists(getHeroShipAsset(window.location.search).textureKey)) {
+        continue;
+      }
+      const secondaryAsset = visual.type === "secondary-sailing-ship"
+        ? getSecondarySailingAsset(visual.id)
+        : undefined;
+      if (secondaryAsset && this.textures.exists(secondaryAsset.textureKey)) {
         continue;
       }
       drawHarborVisual(this, visual);
@@ -186,6 +207,21 @@ export class WorldScene extends Phaser.Scene {
         .image(ship.x, ship.y + 18, heroShipAsset.textureKey)
         .setOrigin(0.5, heroShipAsset.originY)
         .setDisplaySize(heroShipAsset.displayWidth, heroShipAsset.displayHeight)
+        .setDepth(7);
+    }
+
+    for (const vessel of WORLD_LAYOUT.harborVisuals.filter(
+      (visual) => visual.type === "secondary-sailing-ship",
+    )) {
+      const asset = getSecondarySailingAsset(vessel.id);
+      if (!asset || !this.textures.exists(asset.textureKey)) {
+        continue;
+      }
+      this.add
+        .image(vessel.x, vessel.y + vessel.height / 2, asset.textureKey)
+        .setOrigin(0.5, asset.originY)
+        .setDisplaySize(asset.displayWidth, asset.displayHeight)
+        .setFlipX(vessel.id === "harbor-east-merchant-brig")
         .setDepth(7);
     }
   }
