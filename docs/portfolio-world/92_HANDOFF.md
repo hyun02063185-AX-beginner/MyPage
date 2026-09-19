@@ -1,6 +1,6 @@
 # 92. Portfolio World — Handoff
 
-Updated: 2026-09-19
+Updated: 2026-09-20
 
 ## State
 Visual Grammar v1.0 is locked at `15°` elevation / `0°` yaw. Depth / Occlusion Runtime Fix v1
@@ -10,13 +10,13 @@ Major regressions; the v1.1 patch fixed them and was independently re-checked
 Budget v1 are now locked (`READY_WITH_MINOR_NOTES`): visible-content scale bands, 1× export,
 category ceilings, practical-alpha trimming, hidden-RGB cleanup, and the hybrid runtime/audit
 metadata contract are recorded in `retro-harbor-campus-scale-bible-asset-weight-lock-v1.md`.
-Mass Asset Production Director Gate has passed for Batch 01 only. Batch 01 has passed independent
-review and its human scale findings are applied: Academy is uniformly increased, Workshop uniformly
-reduced, Guild retained, and Exhibition uniformly increased under
-`PRIMARY_DESTINATION_PLAYER_DOOR_BUILDING_V1`. The legacy 15° audit finds the active fleet compliant
-or compliant-with-minor, so no ship correction batch is required. Normal production preload transfer
-is now 744,949 bytes (~0.71 MiB). Recalibration human review is next; full-world rollout remains on
-hold and is not authorized.
+Mass Asset Production Director Gate has passed for Batch 01 only. The focused human correction is
+implemented: Guild Hall v01 remains the canonical `42×52 px` usable entrance; Academy, Workshop, and
+Exhibition Hall are targeted v03 door regenerations rather than whole-building scale changes. Visual-only
+offsets, asymmetric Harbor Square detail, and path shoulders soften the cardinal layout while collision,
+routes, IA, water, player behavior, and ships remain unchanged. The legacy 15° audit remains valid and no
+ship correction batch is required. Door/layout human review is next; full-world rollout remains on hold
+and is not authorized.
 
 Hero Ship D, modest Exhibition Hall visual-scale refinement, a four-vessel secondary fleet,
 and a walkable service jetty are implemented and have passed independent review
@@ -75,16 +75,16 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Human review of the player/door major-building recalibration. Read
-`reports/portfolio-world/art-production/legacy-15deg-audit-major-building-scale-recalibration.md`
-(gate `READY_FOR_RECALIBRATION_HUMAN_REVIEW`), judge the Academy increase and Workshop reduction in
-the prepared DEV views, and confirm the four destinations feel like one class without being identical.
+Human review of the canonical door and naturalized-layout pass. Read
+`reports/portfolio-world/art-production/major-building-door-canonicalization-layout-naturalization.md`
+(gate `READY_FOR_DOOR_LAYOUT_HUMAN_REVIEW`), compare the prepared DEV door views and whole-world frame,
+then confirm that the four destinations read as one human-scale class without equalizing their masses.
 Do not authorize full-world rollout. Stop any local `vite preview` server before running `npm ci` on Windows.
 
 ## Next Recommended Agent
 User
-Task: Human visual review of the major-building player/door recalibration (aesthetic acceptance only;
-technical, collision, legacy-15°, and asset-budget checks are complete).
+Task: Human visual review of Guild-canonical doors and the less-cardinal harbor layout (aesthetic acceptance
+only; technical, collision, IA, legacy-15°, and asset-budget checks are complete).
 
 ## Visual Pass 1 Status
 

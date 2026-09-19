@@ -1,12 +1,12 @@
 # 91. Portfolio World — Project Status
 
-Updated: 2026-09-19
+Updated: 2026-09-20
 
 ## Phase
-MAJOR BUILDING SCALE RECALIBRATION + LEGACY 15° AUDIT IMPLEMENTED / HUMAN REVIEW PENDING / FULL WORLD ROLLOUT HOLD
+DOOR CANONICALIZATION + HARBOR LAYOUT NATURALIZATION IMPLEMENTED / HUMAN REVIEW PENDING / FULL WORLD ROLLOUT HOLD
 
 ## Current Work Unit
-Major-building player/door recalibration review; full rollout remains on hold
+Guild Hall-door canonicalization and visual-only harbor-layout naturalization review; full rollout remains on hold
 
 ## Confirmed
 - MyPage repo 유지
@@ -82,15 +82,17 @@ Major-building player/door recalibration review; full rollout remains on hold
 - Mass Asset Production Batch 01 independent review — COMPLETE (`READY_FOR_BATCH_01_HUMAN_REVIEW`); all eight assets independently re-measured against the locked Scale Bible bands (zero hidden RGB, 4 px padding on all sides, true 1× export, all within category weight ceilings), depth/collision/IA confirmed byte-unchanged, BASE_URL loading verified live, normal production preload transfer recomputed at exactly 743,144 bytes; no Blocker/Major finding; five Minor findings recorded (a unit-rounding note, an orphaned manifest entry, the Hall's known footprint/art-width limitation now expanded to all four destination buildings, an audit-test coverage gap, and this status document's now-stale asset-weight note)
 - Batch 01 human scale review — COMPLETE: `SAME_CLASS_SCALE_CONSISTENCY = REQUIRED`; Player → Door → Building Mass is now the primary-destination calibration rule; Workshop reduced, Academy increased, Guild retained, and Exhibition uniformly increased without collision/layout changes
 - Legacy 15° compliance audit — COMPLETE: active Hero D, Brig, Cutter, and Medium Vessel are all compliant or compliant-with-minor; no targeted ship correction is required; retired Schooner is explicitly `DEPRECATED`
-- Full world asset rollout — HOLD pending recalibration human review
+- Major Building Door Canonicalization + Harbor Layout Naturalization — IMPLEMENTED: Guild Hall v01 retained as the usable `42×52 px` door-opening reference; Academy, Workshop, and Exhibition Hall v03 regenerate internally mismatched door geometry at the same visible human scale
+- Harbor layout naturalization — IMPLEMENTED: render-only destination offsets, asymmetric Harbor Square furniture, and visual path shoulders reduce cardinal rigidity; destination footprints, collision, routes, IA, water, and ship state are unchanged
+- Full world asset rollout — HOLD pending door/layout human review
 
 ## Known Technical Follow-ups
 
 - Phaser bundle size exceeds Vite's 500 kB warning threshold; track a performance budget in a later Sprint.
 - `skipLibCheck` remains enabled for Phaser 4.2.1 / TypeScript 7 declaration compatibility; `src/**` remains strict.
 - Sprint 2: Spatial density / environmental landmark design required. Current world bounds are provisional but retained; current empty-map density is not final design approval.
-- Normal production PNG transfer is now 744,949 bytes (~0.71 MiB) after the destination-scale recalibration; all active v02 building exports retain 1×, 4 px padding, zero hidden RGB, and destination weight ceilings.
+- Active Academy/Workshop v03 exports retain 1×, 4 px practical-alpha padding, hidden-RGB cleanup, and destination weight ceilings; Exhibition Hall v03 follows the same locked export policy.
 - Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Human review of the major-building player/door recalibration; do not begin full rollout
+1. Human review of canonical Guild-versus-Academy/Workshop/Exhibition door views and naturalized world view; do not begin full rollout
