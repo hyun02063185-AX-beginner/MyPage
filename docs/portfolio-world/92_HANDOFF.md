@@ -1,11 +1,11 @@
 # 92. Portfolio World — Handoff
 
-Updated: 2026-09-18
+Updated: 2026-09-19
 
 ## State
-Visual Pass 5 is human-approved for art asset application. Art Asset Phase 01 first slice
-is implemented and independently reviewed (`READY_FOR_HUMAN_ASSET_SLICE_REVIEW`). Next:
-human hero-ship scale decision. Final ship scale is not selected.
+Hero Ship D, modest Exhibition Hall visual-scale refinement, a four-vessel secondary fleet,
+and a walkable service jetty are implemented. D is the temporary production review default;
+independent review and human final scale/fleet approval are pending. Final scale/fleet is not selected.
 
 ## Work Context Metadata
 
@@ -58,12 +58,13 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Human A/B/C hero-ship comparison and Exhibition Hall readability decision.
+Independent review of the harbor refinement, followed by human D scale, Exhibition Hall scale,
+and fleet-density decision.
 
 ## Next Recommended Agent
 User
-Task: Human visual review of Art Asset Phase 01 first asset slice (hero ship A/B/C scale,
-Exhibition Hall readability, overall style fit).
+Task: Independent review of Art Asset Phase 01 harbor refinement (Hero Ship D, Exhibition Hall
+visual scale, secondary fleet, dock/berthing walkability, and asset weight).
 
 ## Visual Pass 1 Status
 
@@ -165,7 +166,22 @@ HUMAN VISUAL FEEL TEST COMPLETE (`VISUAL_PASS_5_APPROVED_FOR_ASSET_APPLICATION`)
 
 FIRST ASSET SLICE IMPLEMENTED
 INDEPENDENT REVIEW COMPLETE (`READY_FOR_HUMAN_ASSET_SLICE_REVIEW`)
-HERO SHIP HUMAN SCALE DECISION PENDING
+HARBOR SCALE / FLEET REFINEMENT IMPLEMENTED
+INDEPENDENT REVIEW PENDING (`READY_FOR_HARBOR_REFINEMENT_INDEPENDENT_REVIEW`)
+HUMAN FINAL D SCALE / FLEET DECISION PENDING
+
+## Harbor Refinement Implementation
+
+- Hero Ship D is a new generated-original, C-like three-mast vessel rendered at an A-like `395 × 263`
+  review footprint. It is the temporary production default; A/B/C remain retained comparison evidence.
+- Exhibition Hall's visual display increased modestly from `310 × 207` to `340 × 227`; its IA, location,
+  entrance/forecourt, and collision remain unchanged.
+- Four secondary sailing vessels (three unique generated-original PNGs with one mirrored brig reuse) and the
+  existing four working boats create a three-tier fleet under D.
+- `harbor-service-jetty` is an explicit `144 × 32` walkable berth. Water collision is carved from its
+  declared geometry; no visual art bounds influence collision.
+- New refinement asset bytes: `6,491,797`; normal production image transfer is `8,557,016` bytes. Asset
+  weight optimization remains pending human direction.
 
 ## Art Asset Phase 01 Independent Review
 

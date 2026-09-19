@@ -1,9 +1,9 @@
 # 91. Portfolio World — Project Status
 
-Updated: 2026-09-18
+Updated: 2026-09-19
 
 ## Phase
-ART ASSET PHASE 01 INDEPENDENT REVIEW COMPLETE / HERO SHIP HUMAN SCALE DECISION PENDING
+ART ASSET PHASE 01 HARBOR REFINEMENT IMPLEMENTED / INDEPENDENT REVIEW PENDING
 
 ## Current Work Unit
 Retro Harbor Campus — Art Asset Phase 01: First Asset Slice
@@ -65,6 +65,8 @@ Retro Harbor Campus — Art Asset Phase 01: First Asset Slice
 - Art Asset Phase 01 first slice — IMPLEMENTED
 - Art Asset Phase 01 independent review — COMPLETE (`READY_FOR_HUMAN_ASSET_SLICE_REVIEW`); BASE_URL/GitHub Pages asset loading independently verified via built-bundle inspection (dev-only comparison code is dead-code-eliminated in production) and live HTTP checks; layout, collision, and existing portfolio confirmed unchanged; asset transparency verified via direct pixel alpha sampling; no Blocker/Major finding
 - Hero ship human scale decision — PENDING; final ship scale not selected
+- Hero Ship D harbor-scale refinement — IMPLEMENTED; D is the temporary review default, not human-approved
+- Harbor fleet / service-jetty refinement — IMPLEMENTED; independent review and human final scale/fleet approval pending
 
 ## Known Technical Follow-ups
 
@@ -73,4 +75,5 @@ Retro Harbor Campus — Art Asset Phase 01: First Asset Slice
 - Sprint 2: Spatial density / environmental landmark design required. Current world bounds are provisional but retained; current empty-map density is not final design approval.
 
 ## Next
-1. Human A/B/C hero-ship scale and Exhibition Hall readability decision
+1. Independent review of Hero Ship D, Exhibition Hall visual scale, secondary fleet, and service jetty
+2. Human final scale/fleet approval decision
