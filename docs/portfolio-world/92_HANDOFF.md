@@ -3,10 +3,9 @@
 Updated: 2026-09-19
 
 ## State
-Visual Grammar calibration is implemented: Hero Ship D, Exhibition Hall, and Warehouse can be
-compared under fixed conditions at `15°`, `22.5°`, and `30°` through dev-only controlled and
-actual-harbor URLs. The human camera-elevation decision is pending; final visual grammar is not
-locked and mass asset production remains on hold.
+Visual Grammar v1.0 is locked at `15°` elevation / `0°` yaw. Depth / Occlusion Runtime Fix v1
+is implemented with semantic depth bands and logical contact-Y ordering; independent review is
+pending. Mass asset production remains on hold pending Scale Bible and asset-weight-budget locks.
 
 Hero Ship D, modest Exhibition Hall visual-scale refinement, a four-vessel secondary fleet,
 and a walkable service jetty are implemented and have passed independent review
@@ -65,16 +64,13 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Human decision on the common camera elevation (`15°` / `22.5°` / `30°`) using the implementation
-record's deterministic comparison URLs. Then resolve the existing Hero Ship D scale, Exhibition
-Hall visual scale, fleet density, and berthing-layout decisions. Do not begin mass asset production
-until the visual grammar is locked.
+Independent review of `reports/portfolio-world/depth-occlusion/depth-occlusion-runtime-fix-v1.md`,
+then the Scale Bible + Asset Weight Lock Director task. Do not begin mass asset production.
 
 ## Next Recommended Agent
 User
-Task: Human visual grammar calibration: select one common camera elevation (`15°`, `22.5°`, or
-`30°`) for Hero Ship D, Exhibition Hall, and Warehouse. Final visual grammar and mass asset
-production remain unapproved.
+Task: Independent review of the minimal depth/occlusion runtime fix. Verify waterline/foot-contact
+sorting, Exhibit Hall player relation, dock/jetty regression, label ordering, and protected layout.
 
 ## Visual Pass 1 Status
 

@@ -3,10 +3,10 @@
 Updated: 2026-09-19
 
 ## Phase
-VISUAL GRAMMAR CALIBRATION IMPLEMENTED / HUMAN CAMERA-ELEVATION DECISION PENDING
+VISUAL GRAMMAR V1 LOCKED AT 15° / DEPTH-OCCLUSION FIX IMPLEMENTED / INDEPENDENT REVIEW PENDING
 
 ## Current Work Unit
-Retro Harbor Campus — Visual Grammar Calibration
+Retro Harbor Campus — Depth / Occlusion Runtime Fix v1
 
 ## Confirmed
 - MyPage repo 유지
@@ -72,10 +72,9 @@ Retro Harbor Campus — Visual Grammar Calibration
 - Exhibition Hall visual scale — NOT YET APPROVED
 - Harbor fleet density — NOT YET APPROVED
 - Berthing / jetty layout — NOT YET APPROVED
-- Visual Grammar calibration implemented: controlled and actual-harbor dev-only comparisons for
-  Hero Ship D, Exhibition Hall, and Warehouse at `15°` / `22.5°` / `30°`
-- Final camera elevation — NOT SELECTED; final visual grammar remains unlocked
-- Mass asset production — ON HOLD pending the human calibration decision
+- Visual Grammar v1.0 — LOCKED: Hybrid Orthographic 2.5D, `15°` elevation, `0°` yaw, `32 px` logical unit
+- Depth / Occlusion Runtime Fix v1 — IMPLEMENTED; independent review pending
+- Mass asset production — ON HOLD pending Scale Bible and asset-weight-budget locks
 
 ## Known Technical Follow-ups
 
@@ -85,5 +84,5 @@ Retro Harbor Campus — Visual Grammar Calibration
 - Normal production PNG transfer has grown to ~8.56 MB (Hero D + Exhibition + secondary fleet); the alpha/palette optimization pass flagged twice already has not yet started.
 
 ## Next
-1. Human decision on one common visual-grammar camera elevation: `15°`, `22.5°`, or `30°`
-2. After that lock, continue the pending Hero Ship D/building/fleet/berthing decisions without beginning mass asset production prematurely
+1. Independent review of Depth / Occlusion Runtime Fix v1
+2. Scale Bible + Asset Weight Lock; mass asset production remains unauthorized
