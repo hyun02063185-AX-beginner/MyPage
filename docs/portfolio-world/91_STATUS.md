@@ -3,10 +3,10 @@
 Updated: 2026-09-19
 
 ## Phase
-VISUAL GRAMMAR V1 LOCKED AT 15° / DEPTH-OCCLUSION FIX IMPLEMENTED / INDEPENDENT REVIEW PENDING
+VISUAL GRAMMAR V1 LOCKED AT 15° / DEPTH-OCCLUSION V1.1 INDEPENDENTLY VERIFIED / SCALE BIBLE + ASSET WEIGHT LOCK NEXT
 
 ## Current Work Unit
-Retro Harbor Campus — Depth / Occlusion Runtime Fix v1
+Retro Harbor Campus — Scale Bible + Asset Weight Lock (Director); Depth / Occlusion v1.1 verified
 
 ## Confirmed
 - MyPage repo 유지
@@ -73,7 +73,8 @@ Retro Harbor Campus — Depth / Occlusion Runtime Fix v1
 - Harbor fleet density — NOT YET APPROVED
 - Berthing / jetty layout — NOT YET APPROVED
 - Visual Grammar v1.0 — LOCKED: Hybrid Orthographic 2.5D, `15°` elevation, `0°` yaw, `32 px` logical unit
-- Depth / Occlusion Runtime Fix v1 — IMPLEMENTED; independent review pending
+- Depth / Occlusion Runtime Fix v1 — independently reviewed (`RETURN_TO_CODEX`): two Major regressions found (world-edge greenery drawn over water; viewing terrace hiding the player)
+- Depth / Occlusion v1.1 regression patch — independently re-checked (`READY_FOR_SCALE_BIBLE_ASSET_WEIGHT_LOCK`); both regressions closed, Hero D / east-brig and Exhibition Hall occlusion preserved, 20/20 tests; two Minor notes and earlier deferred minors (Hall art wider than footprint, per-frame Phaser depth-sort queue) carried forward, none blocking
 - Mass asset production — ON HOLD pending Scale Bible and asset-weight-budget locks
 
 ## Known Technical Follow-ups
@@ -84,5 +85,4 @@ Retro Harbor Campus — Depth / Occlusion Runtime Fix v1
 - Normal production PNG transfer has grown to ~8.56 MB (Hero D + Exhibition + secondary fleet); the alpha/palette optimization pass flagged twice already has not yet started.
 
 ## Next
-1. Independent review of Depth / Occlusion Runtime Fix v1
-2. Scale Bible + Asset Weight Lock; mass asset production remains unauthorized
+1. Scale Bible + Asset Weight Lock (Director); mass asset production remains on hold and unauthorized until those locks are made

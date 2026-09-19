@@ -4,8 +4,10 @@ Updated: 2026-09-19
 
 ## State
 Visual Grammar v1.0 is locked at `15°` elevation / `0°` yaw. Depth / Occlusion Runtime Fix v1
-is implemented with semantic depth bands and logical contact-Y ordering; independent review is
-pending. Mass asset production remains on hold pending Scale Bible and asset-weight-budget locks.
+(semantic depth bands, logical contact-Y ordering) was independently reviewed and returned for two
+Major regressions; the v1.1 patch fixed them and was independently re-checked
+(`READY_FOR_SCALE_BIBLE_ASSET_WEIGHT_LOCK`, 20/20 tests). Scale Bible + Asset Weight Lock is next.
+Mass asset production remains on hold and is not authorized.
 
 Hero Ship D, modest Exhibition Hall visual-scale refinement, a four-vessel secondary fleet,
 and a walkable service jetty are implemented and have passed independent review
@@ -64,13 +66,14 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Independent review of `reports/portfolio-world/depth-occlusion/depth-occlusion-runtime-fix-v1.md`,
-then the Scale Bible + Asset Weight Lock Director task. Do not begin mass asset production.
+Scale Bible + Asset Weight Lock Director task (depth/occlusion v1.1 is verified; see
+`reports/portfolio-world/depth-occlusion/depth-occlusion-runtime-fix-v1-1-short-recheck.md`).
+Do not begin mass asset production. Stop any local `vite preview` server before running `npm ci` on Windows.
 
 ## Next Recommended Agent
 User
-Task: Independent review of the minimal depth/occlusion runtime fix. Verify waterline/foot-contact
-sorting, Exhibit Hall player relation, dock/jetty regression, label ordering, and protected layout.
+Task: Scale Bible + Asset Weight Lock. Use content-bounds category dimension rules and provisional
+weight ceilings from the Visual Grammar pre-review; carry the recorded depth minors forward.
 
 ## Visual Pass 1 Status
 
