@@ -3,6 +3,8 @@
  * Contact Y, not transparent image/crown/roof height, establishes spatial order.
  */
 export const WORLD_DEPTH = Object.freeze({
+  BACKGROUND_GROUND: -40_000,
+  BACKGROUND_EDGE: -20_000,
   GROUND_WATER: 0,
   GROUND_DETAIL: 20_000,
   WALKABLE_STRUCTURE: 40_000,
@@ -15,6 +17,9 @@ export const WORLD_DEPTH = Object.freeze({
 });
 
 const CONTACT_Y_MULTIPLIER = 10;
+export const STABLE_DEPTH_TIE_GRANULARITY = 1 / 10_000;
+export const PLAYER_FACE_DEPTH_OFFSET = 0.000_01;
+export const HERO_SHIP_WATERLINE_OFFSET_Y = 18;
 
 /** A sub-unit deterministic tie-breaker: equal contact rows never flicker. */
 export function stableDepthTie(id) {
@@ -22,7 +27,7 @@ export function stableDepthTie(id) {
   for (let index = 0; index < id.length; index += 1) {
     hash = (hash * 31 + id.charCodeAt(index)) >>> 0;
   }
-  return (hash % 10_000) / 10_000;
+  return (hash % 10_000) * STABLE_DEPTH_TIE_GRANULARITY;
 }
 
 /**
@@ -53,8 +58,23 @@ export function getVesselDepth(waterlineY, id) {
   return depthAtContact(WORLD_DEPTH.WORLD_OBJECT_BODY, waterlineY, id);
 }
 
+/** Hero Ship D is anchored to its rendered hull/waterline, not its canvas bounds. */
+export function getHeroShipWaterlineY(ship) {
+  return ship.y + HERO_SHIP_WATERLINE_OFFSET_Y;
+}
+
 export function getPlayerDepth(footY) {
   return depthAtContact(WORLD_DEPTH.ACTOR_PLAYER, footY, "actor-player");
+}
+
+/** The face stays over the body without crossing a stable world-object tie slot. */
+export function getPlayerFaceDepth(footY) {
+  return getPlayerDepth(footY) + PLAYER_FACE_DEPTH_OFFSET;
+}
+
+/** Edge greenery is background framing: visible over ground, always beneath water. */
+export function getBackgroundEdgeDepth(id) {
+  return WORLD_DEPTH.BACKGROUND_EDGE + stableDepthTie(id);
 }
 
 export function getWorldLabelDepth(id) {
@@ -88,10 +108,13 @@ const BODY_TYPES = new Set([
   "cart",
   "timber-stack",
   "display-board",
-  "viewing-terrace",
   "large-ship",
   "warehouse",
   "cargo-shed",
+]);
+
+const FLAT_WALKABLE_TYPES = new Set([
+  "viewing-terrace",
 ]);
 
 export function getHarborVisualDepth(visual) {
@@ -105,8 +128,13 @@ export function getHarborVisualDepth(visual) {
       visual.id,
     );
   }
+  if (visual.type === "large-ship") {
+    return getVesselDepth(getHeroShipWaterlineY(visual), visual.id);
+  }
   const band = LOW_PROP_TYPES.has(visual.type)
     ? WORLD_DEPTH.LOW_PROP
+    : FLAT_WALKABLE_TYPES.has(visual.type)
+      ? WORLD_DEPTH.WALKABLE_STRUCTURE
     : BODY_TYPES.has(visual.type)
       ? WORLD_DEPTH.WORLD_OBJECT_BODY
       : WORLD_DEPTH.GROUND_DETAIL;

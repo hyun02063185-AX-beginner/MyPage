@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { PLAYER_SPEED, WORLD_HEIGHT, WORLD_WIDTH } from "../config/gameConfig";
-import { getPlayerDepth } from "../world/worldDepth.mjs";
+import { getPlayerDepth, getPlayerFaceDepth } from "../world/worldDepth.mjs";
 import { getMovementDirection, type MovementInput } from "./movement";
 
 export const PLAYER_WIDTH = 24;
@@ -64,6 +64,6 @@ export class Player {
   private syncVisualDepth(): void {
     const depth = getPlayerDepth(this.gameObject.y + PLAYER_HEIGHT / 2);
     this.gameObject.setDepth(depth);
-    this.face.setDepth(depth + 0.1);
+    this.face.setDepth(getPlayerFaceDepth(this.gameObject.y + PLAYER_HEIGHT / 2));
   }
 }

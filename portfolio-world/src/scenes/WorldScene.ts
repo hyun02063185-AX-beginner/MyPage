@@ -21,6 +21,7 @@ import {
 } from "../world/worldAssetManifest";
 import {
   getBuildingDepth,
+  getHeroShipWaterlineY,
   getHarborVisualDepth,
   getVesselDepth,
   getWorldLabelDepth,
@@ -236,10 +237,10 @@ export class WorldScene extends Phaser.Scene {
 
     if (ship && this.textures.exists(heroShipAsset.textureKey)) {
       this.add
-        .image(ship.x, ship.y + 18, heroShipAsset.textureKey)
+        .image(ship.x, getHeroShipWaterlineY(ship), heroShipAsset.textureKey)
         .setOrigin(0.5, heroShipAsset.originY)
         .setDisplaySize(heroShipAsset.displayWidth, heroShipAsset.displayHeight)
-        .setDepth(getVesselDepth(ship.y + 18, ship.id));
+        .setDepth(getVesselDepth(getHeroShipWaterlineY(ship), ship.id));
     }
 
     const warehouse = WORLD_LAYOUT.harborVisuals.find((visual) => visual.type === "warehouse");

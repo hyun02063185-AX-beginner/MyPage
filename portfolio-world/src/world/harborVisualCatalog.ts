@@ -23,6 +23,7 @@ import { getDockPostOffsets } from "./dockDecorationGeometry.mjs";
 import { HARBOR_PALETTE as COLORS } from "./visualPalette";
 import {
   getBuildingDepth,
+  getBackgroundEdgeDepth,
   getHarborVisualDepth,
   getWorldLabelDepth,
   WORLD_DEPTH,
@@ -77,7 +78,7 @@ export const HARBOR_VISUAL_CATALOG: Readonly<Record<HarborVisualType, string>> =
 };
 
 export function drawHarborGround(scene: Phaser.Scene): void {
-  const graphics = scene.add.graphics().setDepth(WORLD_DEPTH.GROUND_WATER);
+  const graphics = scene.add.graphics().setDepth(WORLD_DEPTH.BACKGROUND_GROUND);
   graphics.fillStyle(COLORS.ground).fillRect(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
   graphics.lineStyle(1, COLORS.groundGrid, 0.22);
   for (let x = 0; x <= WORLD_WIDTH; x += LOGICAL_UNIT) {
@@ -89,7 +90,7 @@ export function drawHarborGround(scene: Phaser.Scene): void {
 }
 
 export function drawHarborEdgeTreatment(scene: Phaser.Scene, edges: readonly WorldRect[]): void {
-  const graphics = scene.add.graphics().setDepth(WORLD_DEPTH.GROUND_DETAIL);
+  const graphics = scene.add.graphics().setDepth(getBackgroundEdgeDepth("harbor-edge-treatment"));
   for (const edge of edges) {
     graphics.fillStyle(COLORS.greenery, 0.85).fillRect(
       edge.x - edge.width / 2,
