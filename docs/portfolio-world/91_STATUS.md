@@ -3,10 +3,10 @@
 Updated: 2026-09-19
 
 ## Phase
-MASS ASSET PRODUCTION BATCH 01 INDEPENDENTLY REVIEWED / HUMAN VISUAL REVIEW PENDING / FULL WORLD ROLLOUT HOLD
+MAJOR BUILDING SCALE RECALIBRATION + LEGACY 15° AUDIT IMPLEMENTED / HUMAN REVIEW PENDING / FULL WORLD ROLLOUT HOLD
 
 ## Current Work Unit
-Mass Asset Production Batch 01 human visual review; full rollout remains on hold
+Major-building player/door recalibration review; full rollout remains on hold
 
 ## Confirmed
 - MyPage repo 유지
@@ -80,15 +80,17 @@ Mass Asset Production Batch 01 human visual review; full rollout remains on hold
 - Mass Asset Production Director Gate — PASS: Batch 01 only
 - Mass Asset Production Batch 01 — IMPLEMENTED: three destination buildings, warehouse, one medium vessel, one tree, crate, and lamp integrated
 - Mass Asset Production Batch 01 independent review — COMPLETE (`READY_FOR_BATCH_01_HUMAN_REVIEW`); all eight assets independently re-measured against the locked Scale Bible bands (zero hidden RGB, 4 px padding on all sides, true 1× export, all within category weight ceilings), depth/collision/IA confirmed byte-unchanged, BASE_URL loading verified live, normal production preload transfer recomputed at exactly 743,144 bytes; no Blocker/Major finding; five Minor findings recorded (a unit-rounding note, an orphaned manifest entry, the Hall's known footprint/art-width limitation now expanded to all four destination buildings, an audit-test coverage gap, and this status document's now-stale asset-weight note)
-- Full world asset rollout — HOLD pending Batch 01 human whole-world balance review
+- Batch 01 human scale review — COMPLETE: `SAME_CLASS_SCALE_CONSISTENCY = REQUIRED`; Player → Door → Building Mass is now the primary-destination calibration rule; Workshop reduced, Academy increased, Guild retained, and Exhibition uniformly increased without collision/layout changes
+- Legacy 15° compliance audit — COMPLETE: active Hero D, Brig, Cutter, and Medium Vessel are all compliant or compliant-with-minor; no targeted ship correction is required; retired Schooner is explicitly `DEPRECATED`
+- Full world asset rollout — HOLD pending recalibration human review
 
 ## Known Technical Follow-ups
 
 - Phaser bundle size exceeds Vite's 500 kB warning threshold; track a performance budget in a later Sprint.
 - `skipLibCheck` remains enabled for Phaser 4.2.1 / TypeScript 7 declaration compatibility; `src/**` remains strict.
 - Sprint 2: Spatial density / environmental landmark design required. Current world bounds are provisional but retained; current empty-map density is not final design approval.
-- Normal production PNG transfer is now 743,144 bytes (~0.71 MB) after the Batch 01 export-normalization pass, down from the prior ~8.56 MB; the four re-optimized legacy assets (Hero D, Exhibition Hall, Brig, Cutter) have no automated weight/padding test yet (independent review Finding BR-04).
+- Normal production PNG transfer is now 744,949 bytes (~0.71 MiB) after the destination-scale recalibration; all active v02 building exports retain 1×, 4 px padding, zero hidden RGB, and destination weight ceilings.
 - Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Mass Asset Production Batch 01 human whole-world balance review; do not begin full rollout
+1. Human review of the major-building player/door recalibration; do not begin full rollout

@@ -10,10 +10,13 @@ Major regressions; the v1.1 patch fixed them and was independently re-checked
 Budget v1 are now locked (`READY_WITH_MINOR_NOTES`): visible-content scale bands, 1× export,
 category ceilings, practical-alpha trimming, hidden-RGB cleanup, and the hybrid runtime/audit
 metadata contract are recorded in `retro-harbor-campus-scale-bible-asset-weight-lock-v1.md`.
-Mass Asset Production Director Gate has passed for Batch 01 only. Batch 01 is implemented and
-has passed independent review (`READY_FOR_BATCH_01_HUMAN_REVIEW`); normal production preload
-transfer is now 743,144 bytes (~0.71 MB). Human whole-world balance review is next; full-world
-rollout remains on hold and is not authorized.
+Mass Asset Production Director Gate has passed for Batch 01 only. Batch 01 has passed independent
+review and its human scale findings are applied: Academy is uniformly increased, Workshop uniformly
+reduced, Guild retained, and Exhibition uniformly increased under
+`PRIMARY_DESTINATION_PLAYER_DOOR_BUILDING_V1`. The legacy 15° audit finds the active fleet compliant
+or compliant-with-minor, so no ship correction batch is required. Normal production preload transfer
+is now 744,949 bytes (~0.71 MiB). Recalibration human review is next; full-world rollout remains on
+hold and is not authorized.
 
 Hero Ship D, modest Exhibition Hall visual-scale refinement, a four-vessel secondary fleet,
 and a walkable service jetty are implemented and have passed independent review
@@ -72,17 +75,16 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Human whole-world balance review of Mass Asset Production Batch 01. Read
-`reports/portfolio-world/art-production/mass-asset-production-batch-01-independent-review.md`
-(gate `READY_FOR_BATCH_01_HUMAN_REVIEW`) and judge whether the eight references read as one
-coherent 15° world and whether the destination buildings are balanced against Hero Ship D. Do not
-authorize full-world rollout. Stop any local `vite preview` server before running `npm ci` on
-Windows.
+Human review of the player/door major-building recalibration. Read
+`reports/portfolio-world/art-production/legacy-15deg-audit-major-building-scale-recalibration.md`
+(gate `READY_FOR_RECALIBRATION_HUMAN_REVIEW`), judge the Academy increase and Workshop reduction in
+the prepared DEV views, and confirm the four destinations feel like one class without being identical.
+Do not authorize full-world rollout. Stop any local `vite preview` server before running `npm ci` on Windows.
 
 ## Next Recommended Agent
 User
-Task: Human visual review of Mass Asset Production Batch 01 (aesthetic/whole-world balance
-judgment only — technical correctness is already independently confirmed).
+Task: Human visual review of the major-building player/door recalibration (aesthetic acceptance only;
+technical, collision, legacy-15°, and asset-budget checks are complete).
 
 ## Visual Pass 1 Status
 
