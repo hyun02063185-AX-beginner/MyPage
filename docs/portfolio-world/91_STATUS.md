@@ -3,7 +3,7 @@
 Updated: 2026-09-19
 
 ## Phase
-ART ASSET PHASE 01 HARBOR REFINEMENT IMPLEMENTED / INDEPENDENT REVIEW PENDING
+ART ASSET PHASE 01 HARBOR REFINEMENT INDEPENDENTLY REVIEWED / HUMAN FINAL DECISION PENDING
 
 ## Current Work Unit
 Retro Harbor Campus — Art Asset Phase 01: First Asset Slice
@@ -66,14 +66,19 @@ Retro Harbor Campus — Art Asset Phase 01: First Asset Slice
 - Art Asset Phase 01 independent review — COMPLETE (`READY_FOR_HUMAN_ASSET_SLICE_REVIEW`); BASE_URL/GitHub Pages asset loading independently verified via built-bundle inspection (dev-only comparison code is dead-code-eliminated in production) and live HTTP checks; layout, collision, and existing portfolio confirmed unchanged; asset transparency verified via direct pixel alpha sampling; no Blocker/Major finding
 - Hero ship human scale decision — PENDING; final ship scale not selected
 - Hero Ship D harbor-scale refinement — IMPLEMENTED; D is the temporary review default, not human-approved
-- Harbor fleet / service-jetty refinement — IMPLEMENTED; independent review and human final scale/fleet approval pending
+- Harbor fleet / service-jetty refinement — IMPLEMENTED
+- Harbor refinement independent review — COMPLETE (`READY_FOR_HARBOR_REFINEMENT_HUMAN_REVIEW`); D scale/design/perspective, Exhibition Hall enlargement, secondary-fleet integration, fleet hierarchy/density, service-jetty geometry and water-collision carve-out, manifest/provenance, BASE_URL/production preview, and QA (11/11) all independently re-verified against the actual code, layout data, and asset files; no Blocker/Major finding; four Minor findings recorded for human awareness (perspective-angle degree vs. A/B, D's aspect ratio vs. A, one geometric Exhibition Hall/prop overlap possibility, and a compounding asset-weight follow-up)
+- Hero Ship D final scale — NOT YET APPROVED
+- Exhibition Hall visual scale — NOT YET APPROVED
+- Harbor fleet density — NOT YET APPROVED
+- Berthing / jetty layout — NOT YET APPROVED
 
 ## Known Technical Follow-ups
 
 - Phaser bundle size exceeds Vite's 500 kB warning threshold; track a performance budget in a later Sprint.
 - `skipLibCheck` remains enabled for Phaser 4.2.1 / TypeScript 7 declaration compatibility; `src/**` remains strict.
 - Sprint 2: Spatial density / environmental landmark design required. Current world bounds are provisional but retained; current empty-map density is not final design approval.
+- Normal production PNG transfer has grown to ~8.56 MB (Hero D + Exhibition + secondary fleet); the alpha/palette optimization pass flagged twice already has not yet started.
 
 ## Next
-1. Independent review of Hero Ship D, Exhibition Hall visual scale, secondary fleet, and service jetty
-2. Human final scale/fleet approval decision
+1. Human final decision on Hero Ship D scale, Exhibition Hall visual scale, fleet density, and berthing layout

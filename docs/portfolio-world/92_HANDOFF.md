@@ -4,8 +4,10 @@ Updated: 2026-09-19
 
 ## State
 Hero Ship D, modest Exhibition Hall visual-scale refinement, a four-vessel secondary fleet,
-and a walkable service jetty are implemented. D is the temporary production review default;
-independent review and human final scale/fleet approval are pending. Final scale/fleet is not selected.
+and a walkable service jetty are implemented and have passed independent review
+(`READY_FOR_HARBOR_REFINEMENT_HUMAN_REVIEW`). D remains the temporary production review default.
+Human final approval of D's scale, the Exhibition Hall's visual scale, fleet density, and the
+berthing layout is still pending — none of these are yet human-approved.
 
 ## Work Context Metadata
 
@@ -58,13 +60,14 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Independent review of the harbor refinement, followed by human D scale, Exhibition Hall scale,
-and fleet-density decision.
+Human final decision on Hero Ship D scale, Exhibition Hall visual scale, fleet density, and
+berthing layout.
 
 ## Next Recommended Agent
 User
-Task: Independent review of Art Asset Phase 01 harbor refinement (Hero Ship D, Exhibition Hall
-visual scale, secondary fleet, dock/berthing walkability, and asset weight).
+Task: Human final review of the harbor scale/fleet refinement (Hero Ship D, Exhibition Hall
+visual scale, secondary fleet density, and berthing/jetty layout) — none of these are yet
+human-approved.
 
 ## Visual Pass 1 Status
 
@@ -167,8 +170,8 @@ HUMAN VISUAL FEEL TEST COMPLETE (`VISUAL_PASS_5_APPROVED_FOR_ASSET_APPLICATION`)
 FIRST ASSET SLICE IMPLEMENTED
 INDEPENDENT REVIEW COMPLETE (`READY_FOR_HUMAN_ASSET_SLICE_REVIEW`)
 HARBOR SCALE / FLEET REFINEMENT IMPLEMENTED
-INDEPENDENT REVIEW PENDING (`READY_FOR_HARBOR_REFINEMENT_INDEPENDENT_REVIEW`)
-HUMAN FINAL D SCALE / FLEET DECISION PENDING
+HARBOR REFINEMENT INDEPENDENT REVIEW COMPLETE (`READY_FOR_HARBOR_REFINEMENT_HUMAN_REVIEW`)
+HUMAN FINAL D SCALE / BUILDING SCALE / FLEET DENSITY / BERTHING DECISION PENDING
 
 ## Harbor Refinement Implementation
 
@@ -182,6 +185,28 @@ HUMAN FINAL D SCALE / FLEET DECISION PENDING
   declared geometry; no visual art bounds influence collision.
 - New refinement asset bytes: `6,491,797`; normal production image transfer is `8,557,016` bytes. Asset
   weight optimization remains pending human direction.
+
+## Harbor Refinement Independent Review
+
+- All display/byte figures in the implementation report were independently recomputed against the
+  actual manifest, layout data, and files on disk and matched exactly (D/secondary vessel byte sizes,
+  the 16px dock/jetty overlap, the 6,491,797 / 8,557,016 / 14,040,843 byte totals).
+- D's design was directly compared against C's source PNG: distinct art (mirrored bow/stern, different
+  window lighting/wheel/lantern layout), not a resize or reuse, while retaining C's three-mast landmark
+  character. D's elevated-deck perspective clearly resolves the human's pure-side-profile rejection of C.
+- Vessel containment, no vessel-to-vessel overlap, and the service jetty's water-collision carve-out were
+  independently recomputed from the raw rectangle coordinates (not just re-run tests) and confirmed
+  correct; `waterCollisionGeometry.mjs`, `Player.ts`, `gameConfig.ts`, and `worldLayout.ts` are all
+  byte-unchanged from before this refinement.
+- BASE_URL/GitHub Pages handling re-verified via both built-bundle inspection (dead-code elimination of
+  the dev-only comparison path still holds for the D default) and live production-preview HTTP checks;
+  11/11 tests pass; build output is byte-identical to the committed `world/` output.
+- Four Minor, non-blocking findings recorded: D's camera elevation reads more steeply "downward" than the
+  human's A/B reference framing (not a pure-side-profile violation); D's aspect ratio differs from A's
+  even though overall footprint area is close; the enlarged Exhibition Hall facade's computed bounding
+  box has slightly more geometric overlap potential with a nearby display-board prop (unconfirmed by a
+  live screenshot, which remains unavailable in this environment); and normal production PNG transfer has
+  grown to ~8.56 MB with the previously-flagged optimization pass still not started.
 
 ## Art Asset Phase 01 Independent Review
 
