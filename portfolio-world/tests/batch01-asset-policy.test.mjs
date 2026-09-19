@@ -19,6 +19,8 @@ test("Batch 01 production assets retain the locked audit contract", () => {
     assert.equal(asset.exportScale, "1x", `${asset.id} export scale`);
     assert.equal(asset.visibleBounds.x, 4, `${asset.id} left padding`);
     assert.equal(asset.visibleBounds.y, 4, `${asset.id} top padding`);
+    assert.equal(asset.visibleBounds.x + asset.visibleBounds.width + 4, asset.sourceWidth, `${asset.id} right padding`);
+    assert.equal(asset.visibleBounds.y + asset.visibleBounds.height + 4, asset.sourceHeight, `${asset.id} bottom padding`);
     assert.match(asset.optimizationStatus, /hidden-rgb-zeroed/);
     assert.ok(asset.fileBytes <= asset.weightCeilingBytes, `${asset.id} weight ceiling`);
     assert.equal(existsSync(resolve(projectRoot, "public", asset.runtimePath)), true, `${asset.id} file`);

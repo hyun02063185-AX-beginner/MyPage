@@ -24,6 +24,9 @@ test("first asset slice uses BASE_URL paths and ships every manifest PNG", () =>
     "assets/world/harbor/ship/secondary-schooner-v01.png",
     "assets/world/harbor/ship/secondary-cutter-v01.png",
     "assets/world/harbor/buildings/exhibition-hall-v01.png",
+    "assets/world/harbor/buildings/exhibition-hall-v02.png",
+    "assets/world/harbor/buildings/academy-v02.png",
+    "assets/world/harbor/buildings/workshop-v02.png",
     "assets/world/harbor/optimized/hero-ship-d-v01.png",
     "assets/world/harbor/optimized/exhibition-hall-v01.png",
     "assets/world/harbor/optimized/secondary-brig-v01.png",
@@ -37,7 +40,7 @@ test("harbor refinement keeps D as the temporary production default and comparis
   assert.match(manifestSource, /:\s*"heroShipD";\s*\n\s*return WORLD_ASSETS\[key\];/);
   assert.match(manifestSource, /import\.meta\.env\.DEV/);
   assert.match(manifestSource, /displayWidth:\s*365/);
-  assert.match(manifestSource, /displayWidth:\s*332/);
+  assert.match(manifestSource, /displayWidth:\s*356/);
 });
 
 test("visual grammar calibration ships every candidate and has no production query path", () => {
@@ -62,5 +65,10 @@ test("visual grammar calibration ships every candidate and has no production que
     readFileSync(resolve(buildAssets, productionScript), "utf8").includes("batchView"),
     false,
     "production bundle must not expose Batch 01 review framing",
+  );
+  assert.equal(
+    readFileSync(resolve(buildAssets, productionScript), "utf8").includes("scaleReview"),
+    false,
+    "production bundle must not expose player-door review framing",
   );
 });

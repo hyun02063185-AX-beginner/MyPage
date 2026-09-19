@@ -35,6 +35,28 @@ type MovementKeys = Record<
   Phaser.Input.Keyboard.Key
 >;
 
+type ScaleReviewView = "guild" | "academy" | "workshop" | "exhibition" | "tree" | "props" | "world";
+
+/** Dev-only player/door evidence positions; runtime layout and collision stay untouched. */
+const SCALE_REVIEW_SPAWNS: Readonly<Record<Exclude<ScaleReviewView, "world">, Readonly<{ x: number; y: number }>>> = {
+  guild: { x: 224, y: 632 },
+  academy: { x: 1024, y: 216 },
+  workshop: { x: 1824, y: 632 },
+  exhibition: { x: 1024, y: 1048 },
+  tree: { x: 968, y: 344 },
+  props: { x: 816, y: 1000 },
+};
+
+const getScaleReviewView = (): ScaleReviewView | undefined => {
+  if (!import.meta.env.DEV || new URLSearchParams(window.location.search).get("assetPreview") !== "scaleReview") {
+    return undefined;
+  }
+  const view = new URLSearchParams(window.location.search).get("scaleView");
+  return view === "guild" || view === "academy" || view === "workshop" || view === "exhibition" || view === "tree" || view === "props" || view === "world"
+    ? view
+    : undefined;
+};
+
 const getSecondarySailingAsset = (id: string) => {
   switch (id) {
     case "harbor-west-merchant-brig":
@@ -102,10 +124,14 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private createPlayer(): void {
+    const reviewSpawn = getScaleReviewView();
+    const spawn = reviewSpawn && reviewSpawn !== "world"
+      ? SCALE_REVIEW_SPAWNS[reviewSpawn]
+      : WORLD_LAYOUT.playerSpawn;
     this.player = new Player(
       this,
-      WORLD_LAYOUT.playerSpawn.x,
-      WORLD_LAYOUT.playerSpawn.y,
+      spawn.x,
+      spawn.y,
     );
     this.movementKeys = this.input.keyboard?.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.UP,
@@ -200,6 +226,16 @@ export class WorldScene extends Phaser.Scene {
       } as const;
       const [x, y, zoom] = framing[view as keyof typeof framing] ?? framing.harbor;
       this.cameras.main.stopFollow().setZoom(zoom).centerOn(x, y);
+    }
+
+    const scaleReview = getScaleReviewView();
+    if (scaleReview) {
+      if (scaleReview === "world") {
+        this.cameras.main.stopFollow().setZoom(0.4).centerOn(1024, 640);
+        return;
+      }
+      const { x, y } = SCALE_REVIEW_SPAWNS[scaleReview];
+      this.cameras.main.stopFollow().setZoom(1.1).centerOn(x, y - 36);
     }
   }
 
