@@ -17,7 +17,7 @@ export type WorldAsset = Readonly<{
   displayHeight: number;
   originY: number;
   scaleFamily?: "PRIMARY_DESTINATION_PLAYER_DOOR_BUILDING_V1";
-  scaleCalibration?: "reference-retained" | "door-chain-increased" | "door-chain-reduced" | "legacy-door-chain-increased";
+  scaleCalibration?: "reference-retained" | "door-chain-increased" | "door-chain-reduced" | "legacy-door-chain-increased" | "door-canonicalized";
 }>;
 
 /** Human-reviewed destination scale contract; collision remains independent. */
@@ -25,8 +25,8 @@ export const PRIMARY_DESTINATION_SCALE_FAMILY = {
   id: "PRIMARY_DESTINATION_PLAYER_DOOR_BUILDING_V1",
   playerWidth: 24,
   playerHeight: 32,
-  doorWidthRatioRange: [1.8, 2.6],
-  reference: "PLAYER -> MAIN DOOR -> BUILDING MASS",
+  doorWidthRatioRange: [1.65, 1.95],
+  reference: "PLAYER -> OPENABLE MAIN DOOR -> BUILDING MASS",
 } as const;
 
 export type CalibrationAngle = 15 | 22.5 | 30;
@@ -146,22 +146,22 @@ export const WORLD_ASSETS = {
     originY: 0.832,
   },
   exhibitionHall: {
-    id: "exhibition-hall-v02",
-    textureKey: "harbor-exhibition-hall-v02",
-    path: "assets/world/harbor/buildings/exhibition-hall-v02.png",
+    id: "exhibition-hall-v03",
+    textureKey: "harbor-exhibition-hall-v03",
+    path: "assets/world/harbor/buildings/exhibition-hall-v03.png",
     role: "waterfront Exhibition Hall production-style candidate",
     sourceType: "generated-original",
     provenance: "generated-original",
     status: "GAME_READY",
-    version: "v02",
-    notes: "Pre-lock art retained; uniformly re-exported for the human-reviewed player-door scale family. Source master remains non-loaded.",
+    version: "v03",
+    notes: "Door-canonicalized original art; the broad double-leaf entrance now follows the Guild Hall human-scale reference.",
     sourceWidth: 356,
     sourceHeight: 218,
     displayWidth: 356,
     displayHeight: 218,
     originY: 0.998,
     scaleFamily: "PRIMARY_DESTINATION_PLAYER_DOOR_BUILDING_V1",
-    scaleCalibration: "legacy-door-chain-increased",
+    scaleCalibration: "door-canonicalized",
   },
   guildHall: {
     id: "guild-hall-v01",
@@ -182,40 +182,40 @@ export const WORLD_ASSETS = {
     scaleCalibration: "reference-retained",
   },
   academy: {
-    id: "academy-v02",
-    textureKey: "harbor-academy-v02",
-    path: "assets/world/harbor/buildings/academy-v02.png",
+    id: "academy-v03",
+    textureKey: "harbor-academy-v03",
+    path: "assets/world/harbor/buildings/academy-v03.png",
     role: "Tier 1 Academy destination building",
     sourceType: "generated-original",
     provenance: "generated-original",
     status: "GAME_READY",
-    version: "v02",
-    notes: "Uniform 1× re-export increases the valid post-lock art to the shared player-door scale family; functional-base anchor retained.",
+    version: "v03",
+    notes: "Door-canonicalized original art; the central double-leaf entrance now follows the Guild Hall human-scale reference.",
     sourceWidth: 370,
     sourceHeight: 216,
     displayWidth: 370,
     displayHeight: 216,
     originY: 0.985,
     scaleFamily: "PRIMARY_DESTINATION_PLAYER_DOOR_BUILDING_V1",
-    scaleCalibration: "door-chain-increased",
+    scaleCalibration: "door-canonicalized",
   },
   workshop: {
-    id: "workshop-v02",
-    textureKey: "harbor-workshop-v02",
-    path: "assets/world/harbor/buildings/workshop-v02.png",
+    id: "workshop-v03",
+    textureKey: "harbor-workshop-v03",
+    path: "assets/world/harbor/buildings/workshop-v03.png",
     role: "Tier 1 Workshop destination building",
     sourceType: "generated-original",
     provenance: "generated-original",
     status: "GAME_READY",
-    version: "v02",
-    notes: "Uniform 1× re-export reduces the valid post-lock art to the shared player-door scale family; functional-base anchor retained.",
+    version: "v03",
+    notes: "Door-canonicalized original art replaces the oversized work bay with a Guild Hall-scale central double-leaf entrance.",
     sourceWidth: 291,
     sourceHeight: 170,
     displayWidth: 291,
     displayHeight: 170,
     originY: 0.982,
     scaleFamily: "PRIMARY_DESTINATION_PLAYER_DOOR_BUILDING_V1",
-    scaleCalibration: "door-chain-reduced",
+    scaleCalibration: "door-canonicalized",
   },
   harborWarehouse: {
     id: "harbor-warehouse-v01",

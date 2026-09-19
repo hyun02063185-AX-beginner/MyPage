@@ -343,6 +343,32 @@ function drawNavigationMonument(graphics: Phaser.GameObjects.Graphics, x: number
   graphics.fillStyle(COLORS.shipTrim).fillTriangle(x, y - 22, x - 6, y - 4, x + 6, y - 4);
 }
 
+/**
+ * Fixed, visual-only paving wear and shoulder details soften the original
+ * cross-axis composition. They never participate in collision or routing.
+ */
+export function drawHarborNaturalizedGroundDetails(scene: Phaser.Scene): void {
+  const graphics = scene.add.graphics().setDepth(WORLD_DEPTH.GROUND_DETAIL + 3);
+
+  graphics.fillStyle(COLORS.plazaStone, 0.58);
+  graphics.fillTriangle(800, 522, 840, 522, 816, 548);
+  graphics.fillTriangle(1204, 748, 1248, 748, 1230, 722);
+  graphics.fillTriangle(984, 424, 1008, 400, 1016, 432);
+  graphics.fillTriangle(1056, 688, 1080, 712, 1052, 720);
+
+  graphics.fillStyle(COLORS.stoneShade, 0.3);
+  graphics.fillRect(760, 530, 72, 8);
+  graphics.fillRect(1216, 742, 64, 8);
+  graphics.fillRect(986, 304, 10, 76);
+  graphics.fillRect(1052, 758, 10, 78);
+
+  graphics.lineStyle(2, COLORS.pathEdge, 0.7);
+  graphics.lineBetween(816, 522, 856, 546);
+  graphics.lineBetween(1192, 746, 1230, 722);
+  graphics.lineBetween(998, 316, 1018, 342);
+  graphics.lineBetween(1050, 814, 1074, 840);
+}
+
 function drawWater(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPlacement): void {
   const left = visual.x - visual.width / 2;
   const top = visual.y - visual.height / 2;

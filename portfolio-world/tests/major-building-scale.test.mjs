@@ -10,10 +10,10 @@ const manifestSource = readFileSync(resolve(projectRoot, "src/world/worldAssetMa
 
 test("major destinations retain the explicit player-door scale-family contract", () => {
   assert.equal(audit.scaleFamily, "PRIMARY_DESTINATION_PLAYER_DOOR_BUILDING_V1");
-  assert.deepEqual(audit.player, { displayWidth: 24, displayHeight: 32 });
+  assert.deepEqual(audit.player, { displayWidth: 24, displayHeight: 32, visibleBodyWidth: 20, visibleBodyHeight: 28 });
   assert.equal(audit.buildings.length, 4);
   assert.deepEqual(audit.buildings.map((building) => building.id), [
-    "guild-hall-v01", "academy-v02", "workshop-v02", "exhibition-hall-v02",
+    "guild-hall-v01", "academy-v03", "workshop-v03", "exhibition-hall-v03",
   ]);
 
   for (const building of audit.buildings) {
@@ -26,6 +26,8 @@ test("major destinations retain the explicit player-door scale-family contract",
     assert.equal(statSync(resolve(projectRoot, "public", building.runtimePath)).size, building.fileBytes, `${building.id} byte record`);
     assert.match(manifestSource, new RegExp(`id: "${building.id}"`), `${building.id} manifest`);
   }
+
+  assert.equal(audit.buildings.filter((building) => building.action === "targeted-door-regeneration").length, 3);
 
   for (const activeShip of ["heroShipD", "secondaryBrig", "secondaryCutter", "mediumSailingVessel"]) {
     assert.match(manifestSource, new RegExp(`${activeShip}: \\{[\\s\\S]*?status: "GAME_READY"`), `${activeShip} production status`);

@@ -10,6 +10,7 @@ import {
   drawHarborBuilding,
   drawHarborEdgeTreatment,
   drawHarborGround,
+  drawHarborNaturalizedGroundDetails,
   drawHarborPath,
   drawHarborPlaza,
   drawHarborVisual,
@@ -29,6 +30,10 @@ import {
   WORLD_DEPTH,
 } from "../world/worldDepth.mjs";
 import { WORLD_LAYOUT } from "../world/worldLayout";
+import {
+  getNaturalizedBuilding,
+  NATURALIZED_SCALE_REVIEW_SPAWNS,
+} from "../world/layoutNaturalization";
 
 type MovementKeys = Record<
   "up" | "down" | "left" | "right" | "w" | "a" | "s" | "d",
@@ -39,10 +44,7 @@ type ScaleReviewView = "guild" | "academy" | "workshop" | "exhibition" | "tree" 
 
 /** Dev-only player/door evidence positions; runtime layout and collision stay untouched. */
 const SCALE_REVIEW_SPAWNS: Readonly<Record<Exclude<ScaleReviewView, "world">, Readonly<{ x: number; y: number }>>> = {
-  guild: { x: 224, y: 632 },
-  academy: { x: 1024, y: 216 },
-  workshop: { x: 1824, y: 632 },
-  exhibition: { x: 1024, y: 1048 },
+  ...NATURALIZED_SCALE_REVIEW_SPAWNS,
   tree: { x: 968, y: 344 },
   props: { x: 816, y: 1000 },
 };
@@ -253,7 +255,9 @@ export class WorldScene extends Phaser.Scene {
       drawHarborPath(this, forecourt, true);
     }
     drawHarborPlaza(this, WORLD_LAYOUT.centralPlaza);
+    drawHarborNaturalizedGroundDetails(this);
     for (const building of WORLD_LAYOUT.buildings) {
+      const visualBuilding = getNaturalizedBuilding(building);
       const batchBuildingAsset = getBatch01BuildingAsset(building.id);
       if (batchBuildingAsset && this.textures.exists(batchBuildingAsset.textureKey)) {
         continue;
@@ -263,7 +267,7 @@ export class WorldScene extends Phaser.Scene {
       )) {
         continue;
       }
-      drawHarborBuilding(this, building);
+      drawHarborBuilding(this, visualBuilding);
     }
     for (const visual of WORLD_LAYOUT.harborVisuals.filter((item) => item.type !== "water")) {
       const batchVisualAsset = getBatch01VisualAsset(visual.id);
@@ -297,6 +301,7 @@ export class WorldScene extends Phaser.Scene {
     const heroShipAsset = calibration?.heroShipD ?? getHeroShipAsset(window.location.search);
 
     for (const building of WORLD_LAYOUT.buildings) {
+      const visualBuilding = getNaturalizedBuilding(building);
       const asset = building.id === "gallery"
         ? calibration?.exhibitionHall ?? WORLD_ASSETS.exhibitionHall
         : getBatch01BuildingAsset(building.id);
@@ -304,12 +309,12 @@ export class WorldScene extends Phaser.Scene {
         continue;
       }
       this.add
-        .image(building.x, building.y + building.height / 2, asset.textureKey)
+        .image(visualBuilding.x, visualBuilding.y + visualBuilding.height / 2, asset.textureKey)
         .setOrigin(0.5, asset.originY)
         .setDisplaySize(asset.displayWidth, asset.displayHeight)
-        .setDepth(getBuildingDepth(building));
+        .setDepth(getBuildingDepth(visualBuilding));
       this.add
-        .text(building.x, building.y + building.height / 2 - 16, building.label, {
+        .text(visualBuilding.x, visualBuilding.y + visualBuilding.height / 2 - 16, building.label, {
           align: "center",
           color: "#213840",
           fontFamily: "monospace",
