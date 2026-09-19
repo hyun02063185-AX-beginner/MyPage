@@ -6,14 +6,17 @@ Updated: 2026-09-19
 Visual Grammar v1.0 is locked at `15°` elevation / `0°` yaw. Depth / Occlusion Runtime Fix v1
 (semantic depth bands, logical contact-Y ordering) was independently reviewed and returned for two
 Major regressions; the v1.1 patch fixed them and was independently re-checked
-(`READY_FOR_SCALE_BIBLE_ASSET_WEIGHT_LOCK`, 20/20 tests). Scale Bible + Asset Weight Lock is next.
-Mass asset production remains on hold and is not authorized.
+(`READY_FOR_SCALE_BIBLE_ASSET_WEIGHT_LOCK`, 20/20 tests). Scale Bible v1 and Asset Weight
+Budget v1 are now locked (`READY_WITH_MINOR_NOTES`): visible-content scale bands, 1× export,
+category ceilings, practical-alpha trimming, hidden-RGB cleanup, and the hybrid runtime/audit
+metadata contract are recorded in `retro-harbor-campus-scale-bible-asset-weight-lock-v1.md`.
+Mass Asset Production Director Gate is next; mass asset production itself has not started.
 
 Hero Ship D, modest Exhibition Hall visual-scale refinement, a four-vessel secondary fleet,
 and a walkable service jetty are implemented and have passed independent review
 (`READY_FOR_HARBOR_REFINEMENT_HUMAN_REVIEW`). D remains the temporary production review default.
-Human final approval of D's scale, the Exhibition Hall's visual scale, fleet density, and the
-berthing layout is still pending — none of these are yet human-approved.
+Hero D's overall scale is now `LOCKED_FROM_D`; Exhibition Hall is the locked destination reference.
+Fleet-density and berthing-layout design decisions remain pending and are not authorized by this lock.
 
 ## Work Context Metadata
 
@@ -66,14 +69,14 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Scale Bible + Asset Weight Lock Director task (depth/occlusion v1.1 is verified; see
-`reports/portfolio-world/depth-occlusion/depth-occlusion-runtime-fix-v1-1-short-recheck.md`).
-Do not begin mass asset production. Stop any local `vite preview` server before running `npm ci` on Windows.
+Mass Asset Production Director Gate. Use the locked scale/weight report and asset-audit contract;
+do not claim production assets are complete. Stop any local `vite preview` server before running
+`npm ci` on Windows.
 
 ## Next Recommended Agent
 User
-Task: Scale Bible + Asset Weight Lock. Use content-bounds category dimension rules and provisional
-weight ceilings from the Visual Grammar pre-review; carry the recorded depth minors forward.
+Task: Mass Asset Production Director Gate. Apply the locked content-bounds category rules and
+weight ceilings; carry the recorded depth minors forward.
 
 ## Visual Pass 1 Status
 

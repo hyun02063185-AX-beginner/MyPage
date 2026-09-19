@@ -38,6 +38,19 @@ DEPRECATED
 - 원본
 - game-ready 위치
 
+## Production Asset Audit (Scale Bible v1)
+
+Runtime manifests stay lightweight, but each production-approved visual must have a maintained
+asset-audit record. Required fields are: `id`, `runtimePath`, `textureKey`, role/category,
+provenance, status, source width/height, strict and practical visible bounds, display
+width/height, logical width/height, anchor, depth class, file bytes, export scale, optimization
+status, alpha threshold, and audit date.
+
+The runtime path must resolve through `import.meta.env.BASE_URL`. Visual content bounds never
+replace collision bounds. New PNG exports must use the locked practical-alpha trim, retain the
+category anchor, clean RGB only at fully transparent pixels, meet the category weight ceiling,
+and be judged at actual runtime display size before `GAME_READY`.
+
 ## License
 
 출처/라이선스를 확인할 수 없는 외부 asset은 공개 build 금지.

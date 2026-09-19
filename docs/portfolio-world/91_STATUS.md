@@ -3,10 +3,10 @@
 Updated: 2026-09-19
 
 ## Phase
-VISUAL GRAMMAR V1 LOCKED AT 15° / DEPTH-OCCLUSION V1.1 INDEPENDENTLY VERIFIED / SCALE BIBLE + ASSET WEIGHT LOCK NEXT
+VISUAL GRAMMAR V1 LOCKED AT 15° / DEPTH-OCCLUSION V1.1 INDEPENDENTLY VERIFIED / SCALE BIBLE + ASSET WEIGHT BUDGET LOCKED / MASS ASSET PRODUCTION GATE NEXT
 
 ## Current Work Unit
-Retro Harbor Campus — Scale Bible + Asset Weight Lock (Director); Depth / Occlusion v1.1 verified
+Mass Asset Production Director Gate next; Scale Bible + Asset Weight Budget locked; Depth / Occlusion v1.1 verified
 
 ## Confirmed
 - MyPage repo 유지
@@ -64,18 +64,20 @@ Retro Harbor Campus — Scale Bible + Asset Weight Lock (Director); Depth / Occl
 - Visual Pass 5 human visual feel test — COMPLETE (`VISUAL_PASS_5_APPROVED_FOR_ASSET_APPLICATION`)
 - Art Asset Phase 01 first slice — IMPLEMENTED
 - Art Asset Phase 01 independent review — COMPLETE (`READY_FOR_HUMAN_ASSET_SLICE_REVIEW`); BASE_URL/GitHub Pages asset loading independently verified via built-bundle inspection (dev-only comparison code is dead-code-eliminated in production) and live HTTP checks; layout, collision, and existing portfolio confirmed unchanged; asset transparency verified via direct pixel alpha sampling; no Blocker/Major finding
-- Hero ship human scale decision — PENDING; final ship scale not selected
+- Hero Ship D overall scale reference — LOCKED_FROM_D (Hero D itself must not be resized)
 - Hero Ship D harbor-scale refinement — IMPLEMENTED; D is the temporary review default, not human-approved
 - Harbor fleet / service-jetty refinement — IMPLEMENTED
 - Harbor refinement independent review — COMPLETE (`READY_FOR_HARBOR_REFINEMENT_HUMAN_REVIEW`); D scale/design/perspective, Exhibition Hall enlargement, secondary-fleet integration, fleet hierarchy/density, service-jetty geometry and water-collision carve-out, manifest/provenance, BASE_URL/production preview, and QA (11/11) all independently re-verified against the actual code, layout data, and asset files; no Blocker/Major finding; four Minor findings recorded for human awareness (perspective-angle degree vs. A/B, D's aspect ratio vs. A, one geometric Exhibition Hall/prop overlap possibility, and a compounding asset-weight follow-up)
-- Hero Ship D final scale — NOT YET APPROVED
-- Exhibition Hall visual scale — NOT YET APPROVED
+- Hero Ship D final scale — LOCKED_FROM_D
+- Exhibition Hall visual scale — LOCKED as destination-building reference band
 - Harbor fleet density — NOT YET APPROVED
 - Berthing / jetty layout — NOT YET APPROVED
 - Visual Grammar v1.0 — LOCKED: Hybrid Orthographic 2.5D, `15°` elevation, `0°` yaw, `32 px` logical unit
 - Depth / Occlusion Runtime Fix v1 — independently reviewed (`RETURN_TO_CODEX`): two Major regressions found (world-edge greenery drawn over water; viewing terrace hiding the player)
 - Depth / Occlusion v1.1 regression patch — independently re-checked (`READY_FOR_SCALE_BIBLE_ASSET_WEIGHT_LOCK`); both regressions closed, Hero D / east-brig and Exhibition Hall occlusion preserved, 20/20 tests; two Minor notes and earlier deferred minors (Hall art wider than footprint, per-frame Phaser depth-sort queue) carried forward, none blocking
-- Mass asset production — ON HOLD pending Scale Bible and asset-weight-budget locks
+- Scale Bible v1 — LOCKED: visible-content measurements, category bands, and Hero D / Exhibition Hall references recorded
+- Asset Weight Budget v1 — LOCKED: 1× standard export, category ceilings, practical-alpha trim, and hidden-RGB cleanup recorded
+- Mass asset production — NOT STARTED; Mass Asset Production Director Gate is next (`READY_WITH_MINOR_NOTES`)
 
 ## Known Technical Follow-ups
 
@@ -85,4 +87,4 @@ Retro Harbor Campus — Scale Bible + Asset Weight Lock (Director); Depth / Occl
 - Normal production PNG transfer has grown to ~8.56 MB (Hero D + Exhibition + secondary fleet); the alpha/palette optimization pass flagged twice already has not yet started.
 
 ## Next
-1. Scale Bible + Asset Weight Lock (Director); mass asset production remains on hold and unauthorized until those locks are made
+1. Mass Asset Production Director Gate; production remains unstarted and every first PNG must pass its asset-audit acceptance record
