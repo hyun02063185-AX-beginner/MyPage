@@ -3,6 +3,11 @@
 Updated: 2026-09-19
 
 ## State
+Visual Grammar calibration is implemented: Hero Ship D, Exhibition Hall, and Warehouse can be
+compared under fixed conditions at `15°`, `22.5°`, and `30°` through dev-only controlled and
+actual-harbor URLs. The human camera-elevation decision is pending; final visual grammar is not
+locked and mass asset production remains on hold.
+
 Hero Ship D, modest Exhibition Hall visual-scale refinement, a four-vessel secondary fleet,
 and a walkable service jetty are implemented and have passed independent review
 (`READY_FOR_HARBOR_REFINEMENT_HUMAN_REVIEW`). D remains the temporary production review default.
@@ -60,14 +65,16 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Human final decision on Hero Ship D scale, Exhibition Hall visual scale, fleet density, and
-berthing layout.
+Human decision on the common camera elevation (`15°` / `22.5°` / `30°`) using the implementation
+record's deterministic comparison URLs. Then resolve the existing Hero Ship D scale, Exhibition
+Hall visual scale, fleet density, and berthing-layout decisions. Do not begin mass asset production
+until the visual grammar is locked.
 
 ## Next Recommended Agent
 User
-Task: Human final review of the harbor scale/fleet refinement (Hero Ship D, Exhibition Hall
-visual scale, secondary fleet density, and berthing/jetty layout) — none of these are yet
-human-approved.
+Task: Human visual grammar calibration: select one common camera elevation (`15°`, `22.5°`, or
+`30°`) for Hero Ship D, Exhibition Hall, and Warehouse. Final visual grammar and mass asset
+production remain unapproved.
 
 ## Visual Pass 1 Status
 

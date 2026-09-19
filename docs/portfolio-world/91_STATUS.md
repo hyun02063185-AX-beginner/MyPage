@@ -3,10 +3,10 @@
 Updated: 2026-09-19
 
 ## Phase
-ART ASSET PHASE 01 HARBOR REFINEMENT INDEPENDENTLY REVIEWED / HUMAN FINAL DECISION PENDING
+VISUAL GRAMMAR CALIBRATION IMPLEMENTED / HUMAN CAMERA-ELEVATION DECISION PENDING
 
 ## Current Work Unit
-Retro Harbor Campus — Art Asset Phase 01: First Asset Slice
+Retro Harbor Campus — Visual Grammar Calibration
 
 ## Confirmed
 - MyPage repo 유지
@@ -72,6 +72,10 @@ Retro Harbor Campus — Art Asset Phase 01: First Asset Slice
 - Exhibition Hall visual scale — NOT YET APPROVED
 - Harbor fleet density — NOT YET APPROVED
 - Berthing / jetty layout — NOT YET APPROVED
+- Visual Grammar calibration implemented: controlled and actual-harbor dev-only comparisons for
+  Hero Ship D, Exhibition Hall, and Warehouse at `15°` / `22.5°` / `30°`
+- Final camera elevation — NOT SELECTED; final visual grammar remains unlocked
+- Mass asset production — ON HOLD pending the human calibration decision
 
 ## Known Technical Follow-ups
 
@@ -81,4 +85,5 @@ Retro Harbor Campus — Art Asset Phase 01: First Asset Slice
 - Normal production PNG transfer has grown to ~8.56 MB (Hero D + Exhibition + secondary fleet); the alpha/palette optimization pass flagged twice already has not yet started.
 
 ## Next
-1. Human final decision on Hero Ship D scale, Exhibition Hall visual scale, fleet density, and berthing layout
+1. Human decision on one common visual-grammar camera elevation: `15°`, `22.5°`, or `30°`
+2. After that lock, continue the pending Hero Ship D/building/fleet/berthing decisions without beginning mass asset production prematurely
