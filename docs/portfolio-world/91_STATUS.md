@@ -3,10 +3,10 @@
 Updated: 2026-09-19
 
 ## Phase
-MASS ASSET PRODUCTION BATCH 01 IMPLEMENTED / INDEPENDENT REVIEW PENDING / FULL WORLD ROLLOUT HOLD
+MASS ASSET PRODUCTION BATCH 01 INDEPENDENTLY REVIEWED / HUMAN VISUAL REVIEW PENDING / FULL WORLD ROLLOUT HOLD
 
 ## Current Work Unit
-Mass Asset Production Batch 01 independent review; full rollout remains on hold
+Mass Asset Production Batch 01 human visual review; full rollout remains on hold
 
 ## Confirmed
 - MyPage repo 유지
@@ -78,15 +78,17 @@ Mass Asset Production Batch 01 independent review; full rollout remains on hold
 - Scale Bible v1 — LOCKED: visible-content measurements, category bands, and Hero D / Exhibition Hall references recorded
 - Asset Weight Budget v1 — LOCKED: 1× standard export, category ceilings, practical-alpha trim, and hidden-RGB cleanup recorded
 - Mass Asset Production Director Gate — PASS: Batch 01 only
-- Mass Asset Production Batch 01 — IMPLEMENTED: three destination buildings, warehouse, one medium vessel, one tree, crate, and lamp integrated; independent review pending
-- Full world asset rollout — HOLD pending Batch 01 independent and human whole-world review
+- Mass Asset Production Batch 01 — IMPLEMENTED: three destination buildings, warehouse, one medium vessel, one tree, crate, and lamp integrated
+- Mass Asset Production Batch 01 independent review — COMPLETE (`READY_FOR_BATCH_01_HUMAN_REVIEW`); all eight assets independently re-measured against the locked Scale Bible bands (zero hidden RGB, 4 px padding on all sides, true 1× export, all within category weight ceilings), depth/collision/IA confirmed byte-unchanged, BASE_URL loading verified live, normal production preload transfer recomputed at exactly 743,144 bytes; no Blocker/Major finding; five Minor findings recorded (a unit-rounding note, an orphaned manifest entry, the Hall's known footprint/art-width limitation now expanded to all four destination buildings, an audit-test coverage gap, and this status document's now-stale asset-weight note)
+- Full world asset rollout — HOLD pending Batch 01 human whole-world balance review
 
 ## Known Technical Follow-ups
 
 - Phaser bundle size exceeds Vite's 500 kB warning threshold; track a performance budget in a later Sprint.
 - `skipLibCheck` remains enabled for Phaser 4.2.1 / TypeScript 7 declaration compatibility; `src/**` remains strict.
 - Sprint 2: Spatial density / environmental landmark design required. Current world bounds are provisional but retained; current empty-map density is not final design approval.
-- Normal production PNG transfer has grown to ~8.56 MB (Hero D + Exhibition + secondary fleet); the alpha/palette optimization pass flagged twice already has not yet started.
+- Normal production PNG transfer is now 743,144 bytes (~0.71 MB) after the Batch 01 export-normalization pass, down from the prior ~8.56 MB; the four re-optimized legacy assets (Hero D, Exhibition Hall, Brig, Cutter) have no automated weight/padding test yet (independent review Finding BR-04).
+- Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Mass Asset Production Batch 01 independent review, then human whole-world balance review; do not begin full rollout
+1. Mass Asset Production Batch 01 human whole-world balance review; do not begin full rollout

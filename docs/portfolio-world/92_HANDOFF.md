@@ -11,7 +11,9 @@ Budget v1 are now locked (`READY_WITH_MINOR_NOTES`): visible-content scale bands
 category ceilings, practical-alpha trimming, hidden-RGB cleanup, and the hybrid runtime/audit
 metadata contract are recorded in `retro-harbor-campus-scale-bible-asset-weight-lock-v1.md`.
 Mass Asset Production Director Gate has passed for Batch 01 only. Batch 01 is implemented and
-awaits independent review; full-world rollout remains on hold.
+has passed independent review (`READY_FOR_BATCH_01_HUMAN_REVIEW`); normal production preload
+transfer is now 743,144 bytes (~0.71 MB). Human whole-world balance review is next; full-world
+rollout remains on hold and is not authorized.
 
 Hero Ship D, modest Exhibition Hall visual-scale refinement, a four-vessel secondary fleet,
 and a walkable service jetty are implemented and have passed independent review
@@ -70,15 +72,17 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Independent review of Mass Asset Production Batch 01. Read
-`reports/portfolio-world/art-production/mass-asset-production-batch-01.md`, verify the eight
-integrated references, and do not authorize full-world rollout. Stop any local `vite preview`
-server before running `npm ci` on Windows.
+Human whole-world balance review of Mass Asset Production Batch 01. Read
+`reports/portfolio-world/art-production/mass-asset-production-batch-01-independent-review.md`
+(gate `READY_FOR_BATCH_01_HUMAN_REVIEW`) and judge whether the eight references read as one
+coherent 15° world and whether the destination buildings are balanced against Hero Ship D. Do not
+authorize full-world rollout. Stop any local `vite preview` server before running `npm ci` on
+Windows.
 
 ## Next Recommended Agent
 User
-Task: Mass Asset Production Batch 01 independent review. Verify the locked content-bounds and
-weight rules, collision/IA protection, texture transfer, and the carried depth minors.
+Task: Human visual review of Mass Asset Production Batch 01 (aesthetic/whole-world balance
+judgment only — technical correctness is already independently confirmed).
 
 ## Visual Pass 1 Status
 
