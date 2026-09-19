@@ -19,6 +19,13 @@ import {
   getHeroShipAsset,
   WORLD_ASSETS,
 } from "../world/worldAssetManifest";
+import {
+  getBuildingDepth,
+  getHarborVisualDepth,
+  getVesselDepth,
+  getWorldLabelDepth,
+  WORLD_DEPTH,
+} from "../world/worldDepth.mjs";
 import { WORLD_LAYOUT } from "../world/worldLayout";
 
 type MovementKeys = Record<
@@ -213,7 +220,7 @@ export class WorldScene extends Phaser.Scene {
         .image(exhibition.x, exhibition.y + exhibition.height / 2, exhibitionAsset.textureKey)
         .setOrigin(0.5, exhibitionAsset.originY)
         .setDisplaySize(exhibitionAsset.displayWidth, exhibitionAsset.displayHeight)
-        .setDepth(5);
+        .setDepth(getBuildingDepth(exhibition));
       this.add
         .text(exhibition.x, exhibition.y + exhibition.height / 2 - 16, exhibition.label, {
           align: "center",
@@ -224,7 +231,7 @@ export class WorldScene extends Phaser.Scene {
           wordWrap: { width: exhibition.width - 32 },
         })
         .setOrigin(0.5)
-        .setDepth(8);
+        .setDepth(getWorldLabelDepth(exhibition.id));
     }
 
     if (ship && this.textures.exists(heroShipAsset.textureKey)) {
@@ -232,7 +239,7 @@ export class WorldScene extends Phaser.Scene {
         .image(ship.x, ship.y + 18, heroShipAsset.textureKey)
         .setOrigin(0.5, heroShipAsset.originY)
         .setDisplaySize(heroShipAsset.displayWidth, heroShipAsset.displayHeight)
-        .setDepth(calibration ? 7.2 : 7);
+        .setDepth(getVesselDepth(ship.y + 18, ship.id));
     }
 
     const warehouse = WORLD_LAYOUT.harborVisuals.find((visual) => visual.type === "warehouse");
@@ -241,7 +248,7 @@ export class WorldScene extends Phaser.Scene {
         .image(warehouse.x, warehouse.y + warehouse.height / 2, calibration.warehouse.textureKey)
         .setOrigin(0.5, calibration.warehouse.originY)
         .setDisplaySize(calibration.warehouse.displayWidth, calibration.warehouse.displayHeight)
-        .setDepth(7);
+        .setDepth(getHarborVisualDepth(warehouse));
     }
 
     for (const vessel of WORLD_LAYOUT.harborVisuals.filter(
@@ -256,7 +263,7 @@ export class WorldScene extends Phaser.Scene {
         .setOrigin(0.5, asset.originY)
         .setDisplaySize(asset.displayWidth, asset.displayHeight)
         .setFlipX(vessel.id === "harbor-east-merchant-brig")
-      .setDepth(7);
+        .setDepth(getVesselDepth(vessel.y + vessel.height / 2, vessel.id));
     }
   }
 
@@ -271,9 +278,9 @@ export class WorldScene extends Phaser.Scene {
       return;
     }
 
-    this.add.rectangle(1050, 576, 1440, 650, 0xd9c7a5).setDepth(20);
-    this.add.rectangle(1050, 750, 1440, 300, 0x4d9baa).setDepth(21);
-    this.add.rectangle(1050, 742, 1440, 16, 0x8d5637).setDepth(22);
+    this.add.rectangle(1050, 576, 1440, 650, 0xd9c7a5).setDepth(WORLD_DEPTH.HTML_UI);
+    this.add.rectangle(1050, 750, 1440, 300, 0x4d9baa).setDepth(WORLD_DEPTH.HTML_UI + 1);
+    this.add.rectangle(1050, 742, 1440, 16, 0x8d5637).setDepth(WORLD_DEPTH.HTML_UI + 2);
     const subjects = [
       [650, 650, calibration.heroShipD, "Hero Ship D"],
       [1090, 620, calibration.exhibitionHall, "Exhibition Hall"],
@@ -283,13 +290,13 @@ export class WorldScene extends Phaser.Scene {
       this.add.image(x, y, asset.textureKey)
         .setOrigin(0.5, asset.originY)
         .setDisplaySize(asset.displayWidth, asset.displayHeight)
-        .setDepth(24);
+        .setDepth(WORLD_DEPTH.HTML_UI + 4);
       this.add.text(x, 290, label, {
         color: "#213840", fontFamily: "monospace", fontSize: "20px", fontStyle: "bold",
-      }).setOrigin(0.5).setDepth(25);
+      }).setOrigin(0.5).setDepth(WORLD_DEPTH.HTML_UI + 5);
     }
     this.add.text(1050, 205, `Visual grammar calibration — ${calibration.angle}° above horizontal`, {
       color: "#213840", fontFamily: "monospace", fontSize: "24px", fontStyle: "bold",
-    }).setOrigin(0.5).setDepth(25);
+    }).setOrigin(0.5).setDepth(WORLD_DEPTH.HTML_UI + 5);
   }
 }

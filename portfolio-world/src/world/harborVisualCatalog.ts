@@ -21,6 +21,12 @@ import {
 } from "./streetscapeVisuals";
 import { getDockPostOffsets } from "./dockDecorationGeometry.mjs";
 import { HARBOR_PALETTE as COLORS } from "./visualPalette";
+import {
+  getBuildingDepth,
+  getHarborVisualDepth,
+  getWorldLabelDepth,
+  WORLD_DEPTH,
+} from "./worldDepth.mjs";
 import type {
   BuildingFootprint,
   HarborVisualPlacement,
@@ -71,7 +77,7 @@ export const HARBOR_VISUAL_CATALOG: Readonly<Record<HarborVisualType, string>> =
 };
 
 export function drawHarborGround(scene: Phaser.Scene): void {
-  const graphics = scene.add.graphics().setDepth(-4);
+  const graphics = scene.add.graphics().setDepth(WORLD_DEPTH.GROUND_WATER);
   graphics.fillStyle(COLORS.ground).fillRect(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
   graphics.lineStyle(1, COLORS.groundGrid, 0.22);
   for (let x = 0; x <= WORLD_WIDTH; x += LOGICAL_UNIT) {
@@ -83,7 +89,7 @@ export function drawHarborGround(scene: Phaser.Scene): void {
 }
 
 export function drawHarborEdgeTreatment(scene: Phaser.Scene, edges: readonly WorldRect[]): void {
-  const graphics = scene.add.graphics().setDepth(-2);
+  const graphics = scene.add.graphics().setDepth(WORLD_DEPTH.GROUND_DETAIL);
   for (const edge of edges) {
     graphics.fillStyle(COLORS.greenery, 0.85).fillRect(
       edge.x - edge.width / 2,
@@ -104,13 +110,13 @@ export function drawHarborPath(scene: Phaser.Scene, path: WorldPath, isForecourt
   scene.add
     .rectangle(path.x, path.y, path.width, path.height, isForecourt ? COLORS.plazaStone : COLORS.path)
     .setStrokeStyle(2, COLORS.pathEdge)
-    .setDepth(1);
+    .setDepth(WORLD_DEPTH.GROUND_DETAIL + 1);
 }
 
 export function drawHarborPlaza(scene: Phaser.Scene, plaza: WorldZone): void {
   const left = plaza.x - plaza.width / 2;
   const top = plaza.y - plaza.height / 2;
-  const graphics = scene.add.graphics().setDepth(2);
+  const graphics = scene.add.graphics().setDepth(WORLD_DEPTH.GROUND_DETAIL + 2);
   graphics.fillStyle(COLORS.stone).fillRect(left, top, plaza.width, plaza.height);
   graphics.fillStyle(COLORS.plazaStone, 0.35).fillRect(left + 12, top + 12, plaza.width - 24, plaza.height - 24);
   graphics.lineStyle(4, COLORS.stoneShade).strokeRect(left, top, plaza.width, plaza.height);
@@ -135,12 +141,12 @@ export function drawHarborPlaza(scene: Phaser.Scene, plaza: WorldZone): void {
       fontStyle: "bold",
     })
     .setOrigin(0.5)
-    .setDepth(8);
+    .setDepth(getWorldLabelDepth(plaza.id));
 }
 
 /** Four role-specific silhouettes preserve the existing building collision footprints. */
 export function drawHarborBuilding(scene: Phaser.Scene, building: BuildingFootprint): void {
-  const graphics = scene.add.graphics().setDepth(4);
+  const graphics = scene.add.graphics().setDepth(getBuildingDepth(building));
   const left = building.x - building.width / 2;
   const top = building.y - building.height / 2;
   const bottom = top + building.height;
@@ -203,7 +209,7 @@ export function drawHarborBuilding(scene: Phaser.Scene, building: BuildingFootpr
       wordWrap: { width: building.width - LOGICAL_UNIT },
     })
     .setOrigin(0.5)
-    .setDepth(8);
+    .setDepth(getWorldLabelDepth(building.id));
 }
 
 const exhaustiveBuilding = (value: never): never => {
@@ -212,7 +218,7 @@ const exhaustiveBuilding = (value: never): never => {
 
 /** Exhaustive visual dispatch makes new layout types fail loudly until rendered. */
 export function drawHarborVisual(scene: Phaser.Scene, visual: HarborVisualPlacement): void {
-  const graphics = scene.add.graphics().setDepth(visual.type === "water" ? 0 : 6);
+  const graphics = scene.add.graphics().setDepth(getHarborVisualDepth(visual));
   const left = visual.x - visual.width / 2;
   const top = visual.y - visual.height / 2;
 

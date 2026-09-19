@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { PLAYER_SPEED, WORLD_HEIGHT, WORLD_WIDTH } from "../config/gameConfig";
+import { getPlayerDepth } from "../world/worldDepth.mjs";
 import { getMovementDirection, type MovementInput } from "./movement";
 
 export const PLAYER_WIDTH = 24;
@@ -18,8 +19,7 @@ export class Player {
   public constructor(scene: Phaser.Scene, x: number, y: number) {
     this.gameObject = scene.add
       .rectangle(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, 0xf5c96a)
-      .setStrokeStyle(2, 0x28384d)
-      .setDepth(11);
+      .setStrokeStyle(2, 0x28384d);
     this.face = scene.add
       .rectangle(
       x,
@@ -27,12 +27,12 @@ export class Player {
       PLAYER_WIDTH / 3,
       PLAYER_HEIGHT / 6,
       0x28384d,
-      )
-      .setDepth(12);
+      );
 
     scene.physics.add.existing(this.gameObject);
     this.body = (this.gameObject as RectangleWithArcadeBody).body;
     this.body.setAllowGravity(false).setSize(PLAYER_WIDTH, PLAYER_HEIGHT);
+    this.syncVisualDepth();
   }
 
   /** Arcade integrates this fixed velocity with Phaser's frame delta. */
@@ -57,5 +57,13 @@ export class Player {
       this.body.updateFromGameObject();
     }
     this.face.setPosition(this.gameObject.x, this.gameObject.y - PLAYER_HEIGHT / 4);
+    this.syncVisualDepth();
+  }
+
+  /** Two scalar updates per frame; no display-list rebuild or allocation is required. */
+  private syncVisualDepth(): void {
+    const depth = getPlayerDepth(this.gameObject.y + PLAYER_HEIGHT / 2);
+    this.gameObject.setDepth(depth);
+    this.face.setDepth(depth + 0.1);
   }
 }
