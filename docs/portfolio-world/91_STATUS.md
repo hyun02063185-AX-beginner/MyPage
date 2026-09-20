@@ -3,10 +3,10 @@
 Updated: 2026-09-20
 
 ## Phase
-FULL WORLD ROLLOUT AUTHORIZED / BATCH 02 COMPLETE / BATCH 03 INDEPENDENT REVIEW RETURN_TO_CODEX / INTEGRATION HOTFIX IMPLEMENTED / SHORT RE-CHECK PENDING
+FULL WORLD ROLLOUT AUTHORIZED / BATCH 02 COMPLETE / BATCH 03 TECHNICALLY VERIFIED / FLEET AUTHENTICITY IMPLEMENTED / INDEPENDENT REVIEW PENDING
 
 ## Current Work Unit
-Batch 03 Fleet + Dockside Activity short re-check pending; Fleet Authenticity Pass and Batch 04 remain not started
+Fleet Authenticity independent review pending; Batch 04 remains not started
 
 ## Confirmed
 - MyPage repo 유지
@@ -89,6 +89,7 @@ Batch 03 Fleet + Dockside Activity short re-check pending; Fleet Authenticity Pa
 - Batch 03 independent review — RETURN_TO_CODEX; integration hotfix — IMPLEMENTED; short re-check — PENDING
 - Fleet Authenticity Pass — NOT STARTED
 - Batch 04 — NOT STARTED
+- Fleet Authenticity Production Pass — IMPLEMENTED; independent review — PENDING
 
 ## Known Technical Follow-ups
 
@@ -99,4 +100,4 @@ Batch 03 Fleet + Dockside Activity short re-check pending; Fleet Authenticity Pa
 - Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Batch 03 short re-check of the integration hotfix; do not mark Batch 03 complete until that review passes.
+1. Independent review of the Fleet Authenticity Production Pass; do not mark it complete until that review passes.

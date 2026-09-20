@@ -3,7 +3,7 @@
 Updated: 2026-09-20
 
 ## State
-The human correction loop is PASS and full mass-asset rollout is AUTHORIZED. Batch 02 Harbor Support + Streetscape is human-accepted and COMPLETE: asset scale and support/prop placement feel appropriate, and the preferred slightly irregular harbor composition fits the concept better than a highly ordered layout. No further Batch 02 visual correction is requested. Batch 03 Fleet + Dockside Activity independent review is `RETURN_TO_CODEX`; its integration hotfix is IMPLEMENTED and a short re-check is PENDING. Do not mark Batch 03 complete yet. The hotfix adds rendered-alpha local overlap validation, buoy water semantics, gangplank vessel-to-pier validation, and static B3 berth resolution from `BERTHING_SLOTS`, while keeping all seven accepted production assets, collision, IA, routes, player movement, depth bands, and the normal 691,006-byte preload unchanged. Fleet Authenticity Pass and Batch 04 are NOT STARTED.
+Batch 02 is COMPLETE and Batch 03 integration is TECHNICALLY VERIFIED. Fleet Authenticity is IMPLEMENTED and awaiting independent review; do not mark it complete. Four active sailing textures are regenerated v02 Age-of-Sail merchant/exploration ships with furled sails, while the workboat and dinghy, vessel count, `BERTHING_SLOTS`, harbor layout, collision, IA, routes, and player movement remain unchanged. Normal preload is now 603,413 bytes. Batch 04 is NOT STARTED.
 
 Visual Grammar v1.0 is locked at `15°` elevation / `0°` yaw. Depth / Occlusion Runtime Fix v1
 (semantic depth bands, logical contact-Y ordering) was independently reviewed and returned for two
