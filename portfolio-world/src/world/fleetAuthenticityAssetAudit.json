@@ -1,0 +1,12 @@
+{
+  "auditDate": "2026-09-20",
+  "exportStandard": "1x",
+  "alphaThreshold": "alpha > 16",
+  "paddingRule": "4 runtime pixels around practical visible content",
+  "assets": [
+    {"id":"hero-ship-d-v02","runtimePath":"assets/world/harbor/optimized/hero-ship-d-v02.png","textureKey":"harbor-hero-ship-d-v02","oldSailState":"deployed","newSailState":"furled-stowed","oldVisibleBounds":{"width":357,"height":247},"visibleBounds":{"x":4,"y":4,"width":357,"height":247},"sourceWidth":365,"sourceHeight":255,"displayWidth":365,"displayHeight":255,"originY":0.864,"oldBytes":142840,"fileBytes":91556,"weightCeilingBytes":163840,"provenance":"generated-original","status":"GAME_READY"},
+    {"id":"secondary-brig-v02","runtimePath":"assets/world/harbor/optimized/secondary-brig-v02.png","textureKey":"harbor-secondary-brig-v02","oldSailState":"deployed","newSailState":"furled-stowed","oldVisibleBounds":{"width":128,"height":113},"visibleBounds":{"x":4,"y":4,"width":128,"height":88},"sourceWidth":136,"sourceHeight":96,"displayWidth":136,"displayHeight":96,"originY":0.833,"oldBytes":23837,"fileBytes":10310,"weightCeilingBytes":38912,"provenance":"generated-original","status":"GAME_READY"},
+    {"id":"medium-sailing-vessel-01-v02","runtimePath":"assets/world/harbor/ship/medium-sailing-vessel-01-v02.png","textureKey":"harbor-medium-sailing-vessel-01-v02","oldSailState":"deployed","newSailState":"furled-stowed","oldVisibleBounds":{"width":160,"height":113},"visibleBounds":{"x":4,"y":4,"width":160,"height":113},"sourceWidth":168,"sourceHeight":121,"displayWidth":168,"displayHeight":121,"originY":0.84,"oldBytes":31654,"fileBytes":16202,"weightCeilingBytes":38912,"provenance":"generated-original","status":"GAME_READY"},
+    {"id":"secondary-cutter-v02","runtimePath":"assets/world/harbor/optimized/secondary-cutter-v02.png","textureKey":"harbor-secondary-cutter-v02","oldSailState":"deployed","newSailState":"furled-stowed","oldVisibleBounds":{"width":93,"height":92},"visibleBounds":{"x":4,"y":4,"width":93,"height":78},"sourceWidth":101,"sourceHeight":86,"displayWidth":101,"displayHeight":86,"originY":0.802,"oldBytes":13771,"fileBytes":6441,"weightCeilingBytes":38912,"provenance":"generated-original","status":"GAME_READY"}
+  ]
+}

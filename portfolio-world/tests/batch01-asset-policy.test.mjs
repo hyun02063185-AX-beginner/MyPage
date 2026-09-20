@@ -8,7 +8,7 @@ const projectRoot = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const audit = JSON.parse(readFileSync(resolve(projectRoot, "src/world/batch01AssetAudit.json"), "utf8"));
 const manifestSource = readFileSync(resolve(projectRoot, "src/world/worldAssetManifest.ts"), "utf8");
 
-test("Batch 01 production assets retain the locked audit contract", () => {
+test("Batch 01 production assets retain their locked audit contract or an explicit successor audit", () => {
   assert.equal(audit.alphaThreshold, "alpha > 16");
   assert.equal(audit.exportStandard, "1x");
   assert.equal(audit.assets.length, 8);
@@ -25,6 +25,11 @@ test("Batch 01 production assets retain the locked audit contract", () => {
     assert.ok(asset.fileBytes <= asset.weightCeilingBytes, `${asset.id} weight ceiling`);
     assert.equal(existsSync(resolve(projectRoot, "public", asset.runtimePath)), true, `${asset.id} file`);
     assert.equal(statSync(resolve(projectRoot, "public", asset.runtimePath)).size, asset.fileBytes, `${asset.id} bytes`);
+    if (asset.id === "medium-sailing-vessel-01-v01") {
+      assert.equal(manifestSource.includes(`id: "${asset.id}"`), false, `${asset.id} superseded identity`);
+      assert.match(manifestSource, /id: "medium-sailing-vessel-01-v02"/, "medium successor manifest entry");
+      continue;
+    }
     assert.match(manifestSource, new RegExp(`id: "${asset.id}"`), `${asset.id} manifest entry`);
   }
 });
