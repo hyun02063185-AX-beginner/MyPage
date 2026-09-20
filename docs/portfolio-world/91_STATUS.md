@@ -3,7 +3,7 @@
 Updated: 2026-09-20
 
 ## Phase
-DOOR CANONICALIZATION + HARBOR LAYOUT NATURALIZATION IMPLEMENTED / HUMAN REVIEW PENDING / FULL WORLD ROLLOUT HOLD
+FULL WORLD ROLLOUT AUTHORIZED / BATCH 02 HARBOR SUPPORT + STREETSCAPE IMPLEMENTED / INDEPENDENT REVIEW PENDING
 
 ## Current Work Unit
 Guild Hall-door canonicalization and visual-only harbor-layout naturalization review; full rollout remains on hold
@@ -95,4 +95,4 @@ Guild Hall-door canonicalization and visual-only harbor-layout naturalization re
 - Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Human review of canonical Guild-versus-Academy/Workshop/Exhibition door views and naturalized world view; do not begin full rollout
+1. Independent review of Batch 02 Harbor Support + Streetscape; then proceed to Batch 03 Fleet + Dockside Activity.
