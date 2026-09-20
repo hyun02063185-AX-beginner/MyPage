@@ -121,6 +121,29 @@ function assertDoesNotOverlap(rect, protectedRect, reason) {
   }
 }
 
+// Explicit rendered-alpha bounds for the four Batch 02 props reviewed against accepted waterfront furniture.
+const BATCH02_VISIBLE_BOUNDS = Object.freeze({
+  "harbor-tree-02": { x: 4, y: 13, width: 54, height: 47, displayWidth: 62, displayHeight: 74, originY: 0.95 },
+  "harbor-shrub-planter": { x: 4, y: 11, width: 48, height: 26, displayWidth: 56, displayHeight: 48, originY: 0.94 },
+  "harbor-safety-rail": { x: 4, y: 9, width: 56, height: 26, displayWidth: 64, displayHeight: 44, originY: 0.91 },
+  "harbor-service-marker": { x: 15, y: 4, width: 18, height: 48, displayWidth: 48, displayHeight: 56, originY: 0.95 },
+});
+
+function renderedVisibleRect(visual, bounds) {
+  return { id: visual.id, x: visual.x - bounds.displayWidth / 2 + bounds.x + bounds.width / 2, y: visual.y + visual.height / 2 - bounds.originY * bounds.displayHeight + bounds.y + bounds.height / 2, width: bounds.width, height: bounds.height };
+}
+
+function assertBatch02WaterfrontClearance(visuals) {
+  const protectedIds = new Set(["waterfront-viewing-terrace", "waterfront-viewing-bench", "exhibition-flag-east"]);
+  const protectedVisuals = visuals.filter((visual) => protectedIds.has(visual.id));
+  for (const visual of visuals) {
+    const bounds = BATCH02_VISIBLE_BOUNDS[visual.id];
+    if (!bounds) continue;
+    const visible = renderedVisibleRect(visual, bounds);
+    for (const protectedVisual of protectedVisuals) assertDoesNotOverlap(visible, protectedVisual, "Batch 02 visual overlaps accepted waterfront composition");
+  }
+}
+
 /** Shared runtime and Node-test validation for the project-owned layout data. */
 export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
   const placementCollections = [
@@ -219,6 +242,7 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
   }
 
   const waterVisuals = layout.harborVisuals.filter((visual) => visual.type === "water");
+  assertBatch02WaterfrontClearance(layout.harborVisuals);
   const southWater = waterVisuals.find((visual) => visual.id === "waterfront-water");
   if (!southWater || waterVisuals.length < 3) {
     throw new Error("Layout requires south water plus both inner harbor basins");
