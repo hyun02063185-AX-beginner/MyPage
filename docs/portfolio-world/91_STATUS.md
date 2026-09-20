@@ -3,10 +3,10 @@
 Updated: 2026-09-20
 
 ## Phase
-FULL WORLD ROLLOUT AUTHORIZED / BATCH 02 COMPLETE / BATCH 03 INTEGRATION HOTFIX IMPLEMENTED, SHORT RE-CHECK PENDING
+FULL WORLD ROLLOUT AUTHORIZED / BATCH 02 COMPLETE / BATCH 03 INDEPENDENT REVIEW RETURN_TO_CODEX / INTEGRATION HOTFIX IMPLEMENTED / SHORT RE-CHECK PENDING
 
 ## Current Work Unit
-Guild Hall-door canonicalization and visual-only harbor-layout naturalization review; full rollout remains on hold
+Batch 03 Fleet + Dockside Activity short re-check pending; Fleet Authenticity Pass and Batch 04 remain not started
 
 ## Confirmed
 - MyPage repo 유지
@@ -85,6 +85,10 @@ Guild Hall-door canonicalization and visual-only harbor-layout naturalization re
 - Major Building Door Canonicalization + Harbor Layout Naturalization — IMPLEMENTED: Guild Hall v01 retained as the usable `42×52 px` door-opening reference; Academy, Workshop, and Exhibition Hall v03 regenerate internally mismatched door geometry at the same visible human scale
 - Harbor layout naturalization — IMPLEMENTED: render-only destination offsets, asymmetric Harbor Square furniture, and visual path shoulders reduce cardinal rigidity; destination footprints, collision, routes, IA, water, and ship state are unchanged
 - Full world asset rollout — HOLD pending door/layout human review
+- Batch 02 Harbor Support + Streetscape — COMPLETE (human-accepted)
+- Batch 03 independent review — RETURN_TO_CODEX; integration hotfix — IMPLEMENTED; short re-check — PENDING
+- Fleet Authenticity Pass — NOT STARTED
+- Batch 04 — NOT STARTED
 
 ## Known Technical Follow-ups
 
@@ -95,4 +99,4 @@ Guild Hall-door canonicalization and visual-only harbor-layout naturalization re
 - Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Batch 03 Fleet + Dockside Activity pre-review; implementation has not started.
+1. Batch 03 short re-check of the integration hotfix; do not mark Batch 03 complete until that review passes.

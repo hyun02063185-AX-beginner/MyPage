@@ -3,7 +3,7 @@
 Updated: 2026-09-20
 
 ## State
-The human correction loop is PASS and full mass-asset rollout is AUTHORIZED. Batch 02 Harbor Support + Streetscape is human-accepted and COMPLETE: asset scale and support/prop placement feel appropriate, and the preferred slightly irregular harbor composition fits the concept better than a highly ordered layout. No further Batch 02 visual correction is requested. Batch 03 Fleet + Dockside Activity may proceed to PRE-REVIEW only and is NOT IMPLEMENTED YET. Batch 02 retains twelve generated-original 1× runtime assets with audited padding, hidden-RGB cleanup, role ceilings, non-collidable placements, and production BASE_URL preload coverage. Primary building doors, fleet design, dock/basin layout, IA, and collision are unchanged.
+The human correction loop is PASS and full mass-asset rollout is AUTHORIZED. Batch 02 Harbor Support + Streetscape is human-accepted and COMPLETE: asset scale and support/prop placement feel appropriate, and the preferred slightly irregular harbor composition fits the concept better than a highly ordered layout. No further Batch 02 visual correction is requested. Batch 03 Fleet + Dockside Activity independent review is `RETURN_TO_CODEX`; its integration hotfix is IMPLEMENTED and a short re-check is PENDING. Do not mark Batch 03 complete yet. The hotfix adds rendered-alpha local overlap validation, buoy water semantics, gangplank vessel-to-pier validation, and static B3 berth resolution from `BERTHING_SLOTS`, while keeping all seven accepted production assets, collision, IA, routes, player movement, depth bands, and the normal 691,006-byte preload unchanged. Fleet Authenticity Pass and Batch 04 are NOT STARTED.
 
 Visual Grammar v1.0 is locked at `15°` elevation / `0°` yaw. Depth / Occlusion Runtime Fix v1
 (semantic depth bands, logical contact-Y ordering) was independently reviewed and returned for two
@@ -77,16 +77,17 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Human review of the canonical door and naturalized-layout pass. Read
-`reports/portfolio-world/art-production/major-building-door-canonicalization-layout-naturalization.md`
-(gate `READY_FOR_DOOR_LAYOUT_HUMAN_REVIEW`), compare the prepared DEV door views and whole-world frame,
-then confirm that the four destinations read as one human-scale class without equalizing their masses.
-Do not authorize full-world rollout. Stop any local `vite preview` server before running `npm ci` on Windows.
+Perform the focused Batch 03 short re-check. Read
+`reports/portfolio-world/art-production/mass-asset-production-batch-03-integration-hotfix.md`
+(gate `READY_FOR_BATCH_03_SHORT_RECHECK`), verify the six overlap closures, buoy-in-water placement,
+gangplank-to-workboat/west-pier relationship, and slot-driven B3 vessel placement. Do not start Fleet
+Authenticity Pass or Batch 04; do not mark Batch 03 complete before this re-check. Stop any local `vite preview`
+server before running `npm ci` on Windows.
 
 ## Next Recommended Agent
 User
-Task: Human visual review of Guild-canonical doors and the less-cardinal harbor layout (aesthetic acceptance
-only; technical, collision, IA, legacy-15°, and asset-budget checks are complete).
+Task: Short Batch 03 integration re-check (six overlap closures, buoy/gangplank semantics, and berth-driven
+runtime placement); Batch 03 is still pending review, not complete.
 
 ## Visual Pass 1 Status
 
