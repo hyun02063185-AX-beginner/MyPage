@@ -3,7 +3,7 @@
 Updated: 2026-09-20
 
 ## State
-The human correction loop is PASS and full mass-asset rollout is AUTHORIZED. Batch 02 independent review returned one Major waterfront-overlap finding; the targeted coordinate-only hotfix is implemented and a short independent re-check is pending. Batch 03 Fleet + Dockside Activity has not started. Batch 02 retains twelve generated-original 1× runtime assets with audited padding, hidden-RGB cleanup, role ceilings, non-collidable placements, and production BASE_URL preload coverage. Primary building doors, fleet design, dock/basin layout, IA, and collision are unchanged.
+The human correction loop is PASS and full mass-asset rollout is AUTHORIZED. Batch 02 first overlap hotfix closed the original four conflicts; its short re-check found four secondary local conflicts. Hotfix v2 is implemented with broader local visual-overlap validation, and final short independent re-check is pending. Batch 03 Fleet + Dockside Activity has not started. Batch 02 retains twelve generated-original 1× runtime assets with audited padding, hidden-RGB cleanup, role ceilings, non-collidable placements, and production BASE_URL preload coverage. Primary building doors, fleet design, dock/basin layout, IA, and collision are unchanged.
 
 Visual Grammar v1.0 is locked at `15°` elevation / `0°` yaw. Depth / Occlusion Runtime Fix v1
 (semantic depth bands, logical contact-Y ordering) was independently reviewed and returned for two
