@@ -100,9 +100,9 @@
     { "id": "harbor-rope-coil", "type": "rope-coil", "tier": "detail", "x": 584, "y": 928, "width": 56, "height": 32, "collidable": false, "zone": "gallery" },
     { "id": "harbor-bench", "type": "bench", "tier": "detail", "x": 672, "y": 920, "width": 72, "height": 34, "collidable": false, "zone": "gallery" },
     { "id": "harbor-notice-board", "type": "notice-board", "tier": "secondary", "x": 608, "y": 896, "width": 56, "height": 64, "collidable": false, "zone": "gallery" },
-    { "id": "harbor-safety-rail", "type": "safety-rail", "tier": "detail", "x": 824, "y": 912, "width": 64, "height": 44, "collidable": false, "zone": "gallery" },
-    { "id": "harbor-tree-02", "type": "tree", "tier": "secondary", "x": 800, "y": 896, "width": 62, "height": 74, "collidable": false, "zone": "gallery" },
-    { "id": "harbor-shrub-planter", "type": "planter", "tier": "detail", "x": 640, "y": 892, "width": 56, "height": 48, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-safety-rail", "type": "safety-rail", "tier": "detail", "x": 824, "y": 840, "width": 64, "height": 44, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-tree-02", "type": "tree", "tier": "secondary", "x": 744, "y": 880, "width": 62, "height": 74, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-shrub-planter", "type": "planter", "tier": "detail", "x": 672, "y": 892, "width": 56, "height": 48, "collidable": false, "zone": "gallery" },
     { "id": "harbor-mooring-bollard", "type": "mooring-bollard", "tier": "detail", "x": 816, "y": 1020, "width": 32, "height": 40, "collidable": false, "zone": "gallery" },
     { "id": "harbor-service-marker", "type": "service-marker", "tier": "detail", "x": 1212, "y": 980, "width": 48, "height": 56, "collidable": false, "zone": "gallery" }
   ],

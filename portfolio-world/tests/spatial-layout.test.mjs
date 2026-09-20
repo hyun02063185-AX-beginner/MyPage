@@ -194,13 +194,20 @@ test("Pass 4 keeps land-side props dry and both pier arms out of water collision
   );
 });
 
-test("Batch 02 rendered alpha bounds cannot cover accepted waterfront amenities", () => {
-  const preHotfix = structuredClone(translatedLayout());
-  Object.assign(preHotfix.harborVisuals.find((visual) => visual.id === "harbor-tree-02"), { x: 720, y: 856 });
-  Object.assign(preHotfix.harborVisuals.find((visual) => visual.id === "harbor-shrub-planter"), { x: 648, y: 904 });
-  Object.assign(preHotfix.harborVisuals.find((visual) => visual.id === "harbor-safety-rail"), { x: 704, y: 916 });
-  Object.assign(preHotfix.harborVisuals.find((visual) => visual.id === "harbor-service-marker"), { x: 1200, y: 884 });
-  assert.throws(() => validateWorldLayout(preHotfix, WORLD_DIMENSIONS), /Batch 02 visual overlaps accepted waterfront composition/);
+test("Batch 02 waterfront visual contract rejects generation 1 coordinates", () => {
+  for (const [id, x, y] of [["harbor-tree-02", 720, 856], ["harbor-shrub-planter", 648, 904], ["harbor-safety-rail", 704, 916], ["harbor-service-marker", 1200, 884]]) {
+    const preHotfix = structuredClone(translatedLayout());
+    Object.assign(preHotfix.harborVisuals.find((visual) => visual.id === id), { x, y });
+    assert.throws(() => validateWorldLayout(preHotfix, WORLD_DIMENSIONS), /Waterfront static visual overlap/, id);
+  }
+});
+
+test("Batch 02 waterfront visual contract rejects v1 self-inflicted coordinates", () => {
+  for (const [id, x, y] of [["harbor-tree-02", 800, 800], ["harbor-shrub-planter", 640, 796], ["harbor-safety-rail", 824, 816]]) {
+    const v1Hotfix = structuredClone(translatedLayout());
+    Object.assign(v1Hotfix.harborVisuals.find((visual) => visual.id === id), { x, y });
+    assert.throws(() => validateWorldLayout(v1Hotfix, WORLD_DIMENSIONS), /Waterfront static visual overlap/, id);
+  }
 });
 
 test("harbor refinement fits four secondary sailing vessels and keeps the service jetty walkable", () => {

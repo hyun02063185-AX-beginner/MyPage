@@ -127,20 +127,31 @@ const BATCH02_VISIBLE_BOUNDS = Object.freeze({
   "harbor-shrub-planter": { x: 4, y: 11, width: 48, height: 26, displayWidth: 56, displayHeight: 48, originY: 0.94 },
   "harbor-safety-rail": { x: 4, y: 9, width: 56, height: 26, displayWidth: 64, displayHeight: 44, originY: 0.91 },
   "harbor-service-marker": { x: 15, y: 4, width: 18, height: 48, displayWidth: 48, displayHeight: 56, originY: 0.95 },
+  "harbor-notice-board": { x: 10, y: 4, width: 35, height: 56, displayWidth: 56, displayHeight: 64, originY: 0.94 },
 });
+
+// This is deliberately a local scene contract, not a whole-world collision engine.
+// Every selected pair is expected to remain visibly separate; no intentional overlaps exist here.
+const WATERFRONT_STATIC_VISUAL_ITEMS = new Set([
+  "waterfront-viewing-terrace", "waterfront-viewing-bench", "exhibition-flag-east",
+  "exhibition-display-board", "harbor-notice-board", "harbor-tree-02",
+  "harbor-shrub-planter", "harbor-safety-rail", "harbor-service-marker",
+]);
 
 function renderedVisibleRect(visual, bounds) {
   return { id: visual.id, x: visual.x - bounds.displayWidth / 2 + bounds.x + bounds.width / 2, y: visual.y + visual.height / 2 - bounds.originY * bounds.displayHeight + bounds.y + bounds.height / 2, width: bounds.width, height: bounds.height };
 }
 
-function assertBatch02WaterfrontClearance(visuals) {
-  const protectedIds = new Set(["waterfront-viewing-terrace", "waterfront-viewing-bench", "exhibition-flag-east"]);
-  const protectedVisuals = visuals.filter((visual) => protectedIds.has(visual.id));
-  for (const visual of visuals) {
-    const bounds = BATCH02_VISIBLE_BOUNDS[visual.id];
-    if (!bounds) continue;
-    const visible = renderedVisibleRect(visual, bounds);
-    for (const protectedVisual of protectedVisuals) assertDoesNotOverlap(visible, protectedVisual, "Batch 02 visual overlaps accepted waterfront composition");
+function assertWaterfrontStaticVisualClearance(visuals) {
+  const sceneItems = visuals.filter((visual) => WATERFRONT_STATIC_VISUAL_ITEMS.has(visual.id));
+  for (let index = 0; index < sceneItems.length; index += 1) {
+    const first = sceneItems[index];
+    const firstRect = BATCH02_VISIBLE_BOUNDS[first.id] ? renderedVisibleRect(first, BATCH02_VISIBLE_BOUNDS[first.id]) : first;
+    for (let comparison = index + 1; comparison < sceneItems.length; comparison += 1) {
+      const second = sceneItems[comparison];
+      const secondRect = BATCH02_VISIBLE_BOUNDS[second.id] ? renderedVisibleRect(second, BATCH02_VISIBLE_BOUNDS[second.id]) : second;
+      assertDoesNotOverlap(firstRect, secondRect, "Waterfront static visual overlap");
+    }
   }
 }
 
@@ -242,7 +253,7 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
   }
 
   const waterVisuals = layout.harborVisuals.filter((visual) => visual.type === "water");
-  assertBatch02WaterfrontClearance(layout.harborVisuals);
+  assertWaterfrontStaticVisualClearance(layout.harborVisuals);
   const southWater = waterVisuals.find((visual) => visual.id === "waterfront-water");
   if (!southWater || waterVisuals.length < 3) {
     throw new Error("Layout requires south water plus both inner harbor basins");
