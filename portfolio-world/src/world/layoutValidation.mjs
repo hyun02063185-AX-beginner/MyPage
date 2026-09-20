@@ -30,12 +30,18 @@ const HARBOR_VISUAL_TYPES = new Set([
   "large-ship",
   "warehouse",
   "cargo-shed",
+  "warehouse-annex",
+  "service-hut",
+  "rope-coil",
+  "safety-rail",
+  "mooring-bollard",
+  "service-marker",
 ]);
 const HARBOR_VISUAL_TIERS = new Set(["primary", "secondary", "detail"]);
 const COLLIDABLE_HARBOR_VISUAL_TYPES = new Set(["water", "warehouse"]);
 const FLOATING_VESSEL_TYPES = new Set(["large-ship", "small-boat", "secondary-sailing-ship"]);
-const SUPPORT_BUILDING_TYPES = new Set(["warehouse", "cargo-shed"]);
-const LAND_SIDE_PROP_TYPES = new Set(["planter", "bench", "lamp", "crate", "barrel", "viewing-terrace"]);
+const SUPPORT_BUILDING_TYPES = new Set(["warehouse", "cargo-shed", "warehouse-annex", "service-hut"]);
+const LAND_SIDE_PROP_TYPES = new Set(["planter", "bench", "lamp", "crate", "barrel", "viewing-terrace", "rope-coil", "safety-rail", "mooring-bollard", "service-marker"]);
 const REQUIRED_WALKABLE_PIER_IDS = new Set([
   "harbor-pier-west",
   "harbor-pier-east",
@@ -60,9 +66,13 @@ const PERMANENT_STREETSCAPE_TYPES = new Set([
   "large-ship",
   "warehouse",
   "cargo-shed",
+  "warehouse-annex",
+  "service-hut",
+  "safety-rail",
+  "service-marker",
 ]);
 // Harbor refinement adds a bounded fleet and service berth without reopening town density.
-const DENSITY_CAPS = { primary: 10, secondary: 36, detail: 45 };
+const DENSITY_CAPS = { primary: 10, secondary: 40, detail: 45 };
 
 function assertRect(rect, worldWidth, worldHeight) {
   if (

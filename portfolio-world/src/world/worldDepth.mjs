@@ -87,6 +87,9 @@ const LOW_PROP_TYPES = new Set([
   "crate",
   "barrel",
   "flag",
+  "rope-coil",
+  "safety-rail",
+  "mooring-bollard",
 ]);
 
 const BODY_TYPES = new Set([
@@ -111,6 +114,9 @@ const BODY_TYPES = new Set([
   "large-ship",
   "warehouse",
   "cargo-shed",
+  "warehouse-annex",
+  "service-hut",
+  "service-marker",
 ]);
 
 const FLAT_WALKABLE_TYPES = new Set([

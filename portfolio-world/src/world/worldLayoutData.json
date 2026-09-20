@@ -92,7 +92,19 @@
     { "id": "harbor-east-basin", "type": "water", "tier": "primary", "x": 1648, "y": 1120, "width": 800, "height": 128, "collidable": true, "zone": "gallery" },
     { "id": "harbor-pier-west", "type": "dock", "tier": "secondary", "x": 752, "y": 1176, "width": 160, "height": 32, "collidable": false, "walkable": true, "zone": "gallery" },
     { "id": "harbor-pier-east", "type": "dock", "tier": "secondary", "x": 1296, "y": 1176, "width": 160, "height": 32, "collidable": false, "walkable": true, "zone": "gallery" },
-    { "id": "harbor-service-jetty", "type": "dock", "tier": "secondary", "x": 1096, "y": 1184, "width": 144, "height": 32, "collidable": false, "walkable": true, "zone": "gallery" }
+    { "id": "harbor-service-jetty", "type": "dock", "tier": "secondary", "x": 1096, "y": 1184, "width": 144, "height": 32, "collidable": false, "walkable": true, "zone": "gallery" },
+    { "id": "harbor-warehouse-annex", "type": "warehouse-annex", "tier": "secondary", "x": 280, "y": 836, "width": 168, "height": 100, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-service-hut", "type": "service-hut", "tier": "secondary", "x": 520, "y": 852, "width": 104, "height": 80, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-cargo-stack", "type": "crate", "tier": "detail", "x": 376, "y": 920, "width": 72, "height": 54, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-barrel-cluster", "type": "barrel", "tier": "detail", "x": 472, "y": 916, "width": 52, "height": 54, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-rope-coil", "type": "rope-coil", "tier": "detail", "x": 584, "y": 928, "width": 56, "height": 32, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-bench", "type": "bench", "tier": "detail", "x": 672, "y": 920, "width": 72, "height": 34, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-notice-board", "type": "notice-board", "tier": "secondary", "x": 608, "y": 896, "width": 56, "height": 64, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-safety-rail", "type": "safety-rail", "tier": "detail", "x": 704, "y": 1012, "width": 64, "height": 44, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-tree-02", "type": "tree", "tier": "secondary", "x": 720, "y": 952, "width": 62, "height": 74, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-shrub-planter", "type": "planter", "tier": "detail", "x": 648, "y": 1000, "width": 56, "height": 48, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-mooring-bollard", "type": "mooring-bollard", "tier": "detail", "x": 816, "y": 1020, "width": 32, "height": 40, "collidable": false, "zone": "gallery" },
+    { "id": "harbor-service-marker", "type": "service-marker", "tier": "detail", "x": 1200, "y": 980, "width": 48, "height": 56, "collidable": false, "zone": "gallery" }
   ],
   "edgeDecorations": [
     { "id": "edge-north", "x": 1024, "y": 32, "width": 2048, "height": 64 },

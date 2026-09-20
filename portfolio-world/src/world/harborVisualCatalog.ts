@@ -75,6 +75,12 @@ export const HARBOR_VISUAL_CATALOG: Readonly<Record<HarborVisualType, string>> =
   "large-ship": "large harbor ship silhouette",
   warehouse: "harbor warehouse",
   "cargo-shed": "harbor cargo shed",
+  "warehouse-annex": "harbor warehouse annex",
+  "service-hut": "harbor service hut",
+  "rope-coil": "dockside rope coil",
+  "safety-rail": "harbor safety rail",
+  "mooring-bollard": "mooring bollard",
+  "service-marker": "dock service marker",
 };
 
 export function drawHarborGround(scene: Phaser.Scene): void {
@@ -327,6 +333,26 @@ export function drawHarborVisual(scene: Phaser.Scene, visual: HarborVisualPlacem
       return;
     case "cargo-shed":
       drawCargoShed(graphics, visual);
+      return;
+    case "warehouse-annex":
+    case "service-hut":
+      drawCargoShed(graphics, visual);
+      return;
+    case "rope-coil":
+      graphics.lineStyle(3, COLORS.rope).strokeEllipse(visual.x, visual.y, visual.width, visual.height * 0.7);
+      graphics.lineStyle(2, COLORS.rope).strokeEllipse(visual.x, visual.y, visual.width * 0.62, visual.height * 0.42);
+      return;
+    case "safety-rail":
+      graphics.lineStyle(4, COLORS.woodDark).lineBetween(left, visual.y, left + visual.width, visual.y);
+      graphics.lineStyle(3, COLORS.woodDark).lineBetween(left + 6, visual.y, left + 6, top + visual.height);
+      graphics.lineStyle(3, COLORS.woodDark).lineBetween(left + visual.width - 6, visual.y, left + visual.width - 6, top + visual.height);
+      return;
+    case "mooring-bollard":
+      graphics.fillStyle(COLORS.shipTrim).fillEllipse(visual.x, visual.y, visual.width, visual.height);
+      return;
+    case "service-marker":
+      graphics.lineStyle(4, COLORS.woodDark).lineBetween(visual.x, top, visual.x, top + visual.height);
+      graphics.fillStyle(COLORS.lamp).fillCircle(visual.x, top + 7, 7);
       return;
     default:
       return exhaustiveVisual(visual.type);

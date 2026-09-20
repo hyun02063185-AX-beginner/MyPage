@@ -93,6 +93,28 @@ const getBatch01VisualAsset = (id: string): WorldAssetEntry | undefined => {
   }
 };
 
+/** Batch 02 replaces only its new support/street placements, keeping accepted art intact. */
+const getBatch02VisualAsset = (id: string): WorldAssetEntry | undefined => {
+  switch (id) {
+    case "harbor-warehouse-annex": return WORLD_ASSETS.harborWarehouseAnnex;
+    case "harbor-service-hut": return WORLD_ASSETS.harborServiceHut;
+    case "harbor-cargo-stack": return WORLD_ASSETS.harborCargoStack;
+    case "harbor-barrel-cluster": return WORLD_ASSETS.harborBarrelCluster;
+    case "harbor-rope-coil": return WORLD_ASSETS.harborRopeCoil;
+    case "harbor-bench": return WORLD_ASSETS.harborBench;
+    case "harbor-notice-board": return WORLD_ASSETS.harborNoticeBoard;
+    case "harbor-safety-rail": return WORLD_ASSETS.harborSafetyRail;
+    case "harbor-tree-02": return WORLD_ASSETS.harborTree02;
+    case "harbor-shrub-planter": return WORLD_ASSETS.harborShrubPlanter;
+    case "harbor-mooring-bollard": return WORLD_ASSETS.harborMooringBollard;
+    case "harbor-service-marker": return WORLD_ASSETS.harborServiceMarker;
+    default: return undefined;
+  }
+};
+
+const getProductionVisualAsset = (id: string): WorldAssetEntry | undefined =>
+  getBatch02VisualAsset(id) ?? getBatch01VisualAsset(id);
+
 /** Orchestrates layout, focused harbor visuals, collision, input, and camera. */
 export class WorldScene extends Phaser.Scene {
   private player?: Player;
@@ -270,7 +292,7 @@ export class WorldScene extends Phaser.Scene {
       drawHarborBuilding(this, visualBuilding);
     }
     for (const visual of WORLD_LAYOUT.harborVisuals.filter((item) => item.type !== "water")) {
-      const batchVisualAsset = getBatch01VisualAsset(visual.id);
+      const batchVisualAsset = getProductionVisualAsset(visual.id);
       if (batchVisualAsset && this.textures.exists(batchVisualAsset.textureKey)) {
         continue;
       }
@@ -360,7 +382,7 @@ export class WorldScene extends Phaser.Scene {
     }
 
     for (const visual of WORLD_LAYOUT.harborVisuals) {
-      const asset = getBatch01VisualAsset(visual.id);
+      const asset = getProductionVisualAsset(visual.id);
       if (!asset || !this.textures.exists(asset.textureKey)) {
         continue;
       }

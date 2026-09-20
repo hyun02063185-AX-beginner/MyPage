@@ -36,4 +36,10 @@ export const LANDMARK_CATALOG: Readonly<Record<HarborVisualType, LandmarkDefinit
   "large-ship": { label: "Large harbor ship", category: "atmosphere" },
   warehouse: { label: "Harbor warehouse", category: "atmosphere" },
   "cargo-shed": { label: "Cargo shed", category: "atmosphere" },
+  "warehouse-annex": { label: "Warehouse annex", category: "atmosphere" },
+  "service-hut": { label: "Service hut", category: "atmosphere" },
+  "rope-coil": { label: "Rope coil", category: "atmosphere" },
+  "safety-rail": { label: "Safety rail", category: "atmosphere" },
+  "mooring-bollard": { label: "Mooring bollard", category: "atmosphere" },
+  "service-marker": { label: "Service marker", category: "wayfinding" },
 };

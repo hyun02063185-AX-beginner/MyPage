@@ -29,7 +29,13 @@ export type HarborVisualType =
   | "viewing-terrace"
   | "large-ship"
   | "warehouse"
-  | "cargo-shed";
+  | "cargo-shed"
+  | "warehouse-annex"
+  | "service-hut"
+  | "rope-coil"
+  | "safety-rail"
+  | "mooring-bollard"
+  | "service-marker";
 
 export type HarborVisualTier = "primary" | "secondary" | "detail";
 
