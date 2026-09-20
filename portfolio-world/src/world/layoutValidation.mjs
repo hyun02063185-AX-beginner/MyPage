@@ -130,7 +130,28 @@ const BATCH02_VISIBLE_BOUNDS = Object.freeze({
   "harbor-safety-rail": { x: 4, y: 9, width: 56, height: 26, displayWidth: 64, displayHeight: 44, originY: 0.91 },
   "harbor-service-marker": { x: 15, y: 4, width: 18, height: 48, displayWidth: 48, displayHeight: 56, originY: 0.95 },
   "harbor-notice-board": { x: 10, y: 4, width: 35, height: 56, displayWidth: 56, displayHeight: 64, originY: 0.94 },
+  "harbor-mooring-bollard": { x: 5, y: 4, width: 21, height: 32, displayWidth: 32, displayHeight: 40, originY: 0.95 },
 });
+
+// Measured practical-alpha bounds and actual WorldScene image placement for Batch 03.
+// This stays a narrow harbor-scene contract, rather than becoming a general collision system.
+const BATCH03_VISIBLE_BOUNDS = Object.freeze({
+  "harbor-small-workboat": { x: 15, y: 4, width: 79, height: 56, displayWidth: 110, displayHeight: 64, originY: 0.86 },
+  "harbor-dinghy": { x: 4, y: 6, width: 68, height: 29, displayWidth: 76, displayHeight: 42, originY: 0.85 },
+  "dock-rope-line": { x: 4, y: 6, width: 56, height: 21, displayWidth: 64, displayHeight: 34, originY: 0.9 },
+  "dock-gangplank": { x: 8, y: 4, width: 47, height: 30, displayWidth: 64, displayHeight: 38, originY: 0.9 },
+  "dock-buoy": { x: 4, y: 4, width: 24, height: 32, displayWidth: 32, displayHeight: 40, originY: 0.9 },
+  "dock-hand-cart": { x: 4, y: 7, width: 48, height: 31, displayWidth: 56, displayHeight: 46, originY: 0.9 },
+  "dock-work-net": { x: 4, y: 4, width: 50, height: 40, displayWidth: 58, displayHeight: 48, originY: 0.9 },
+});
+
+const BATCH03_HARBOR_SCENE_ITEMS = new Set([
+  ...Object.keys(BATCH03_VISIBLE_BOUNDS),
+  "waterfront-viewing-terrace", "waterfront-viewing-lamp", "harbor-mooring-bollard",
+  "harbor-rope-coil", "harbor-barrel-cluster", "harbor-cargo-stack", "harbor-notice-board",
+  "harbor-pier-west", "harbor-service-jetty", "harbor-warehouse-annex", "harbor-service-hut",
+]);
+const BATCH03_INTENTIONAL_OVERLAPS = new Set(["dock-gangplank|harbor-small-workboat"]);
 
 // This is deliberately a local scene contract, not a whole-world collision engine.
 // Every selected pair is expected to remain visibly separate; no intentional overlaps exist here.
@@ -142,6 +163,71 @@ const WATERFRONT_STATIC_VISUAL_ITEMS = new Set([
 
 function renderedVisibleRect(visual, bounds) {
   return { id: visual.id, x: visual.x - bounds.displayWidth / 2 + bounds.x + bounds.width / 2, y: visual.y + visual.height / 2 - bounds.originY * bounds.displayHeight + bounds.y + bounds.height / 2, width: bounds.width, height: bounds.height };
+}
+
+function sceneRect(visual) {
+  const bounds = BATCH03_VISIBLE_BOUNDS[visual.id] ?? BATCH02_VISIBLE_BOUNDS[visual.id];
+  return bounds ? renderedVisibleRect(visual, bounds) : visual;
+}
+
+function pairKey(first, second) {
+  return [first.id, second.id].sort().join("|");
+}
+
+function hasMaterialOverlap(first, second) {
+  const width = Math.min(first.x + first.width / 2, second.x + second.width / 2)
+    - Math.max(first.x - first.width / 2, second.x - second.width / 2);
+  const height = Math.min(first.y + first.height / 2, second.y + second.height / 2)
+    - Math.max(first.y - first.height / 2, second.y - second.height / 2);
+  // A one-pixel alpha-edge touch is not a visible conflict; all review-classified
+  // material cases are comfortably above this floor in both dimensions.
+  return width > 2 && height > 2;
+}
+
+export function findBatch03HarborSceneOverlaps(visuals) {
+  const sceneItems = visuals.filter((visual) => BATCH03_HARBOR_SCENE_ITEMS.has(visual.id));
+  const overlapsFound = [];
+  for (let index = 0; index < sceneItems.length; index += 1) {
+    for (let comparison = index + 1; comparison < sceneItems.length; comparison += 1) {
+      const first = sceneItems[index];
+      const second = sceneItems[comparison];
+      if (!BATCH03_VISIBLE_BOUNDS[first.id] && !BATCH03_VISIBLE_BOUNDS[second.id]) continue;
+      if (BATCH03_INTENTIONAL_OVERLAPS.has(pairKey(first, second))) continue;
+      if (hasMaterialOverlap(sceneRect(first), sceneRect(second))) overlapsFound.push(pairKey(first, second));
+    }
+  }
+  return overlapsFound;
+}
+
+function assertBatch03HarborSceneClearance(visuals) {
+  const overlapsFound = findBatch03HarborSceneOverlaps(visuals);
+  if (overlapsFound.length > 0) {
+    throw new Error(`Batch 03 harbor scene overlap: ${overlapsFound[0].replace("|", " / ")}`);
+  }
+}
+
+function assertGangplankRelationship(visuals, protectedNavigation) {
+  const gangplank = visuals.find((visual) => visual.id === "dock-gangplank");
+  const workboat = visuals.find((visual) => visual.id === "harbor-small-workboat");
+  const pier = visuals.find((visual) => visual.id === "harbor-pier-west");
+  if (!gangplank || gangplank.type !== "gangplank" || !workboat || !pier) {
+    throw new Error("Batch 03 gangplank relationship is incomplete");
+  }
+  const gangplankRect = sceneRect(gangplank);
+  const workboatRect = sceneRect(workboat);
+  if (!overlaps(gangplankRect, workboatRect)) {
+    throw new Error("Gangplank must contact the small workboat");
+  }
+  const pierTop = pier.y - pier.height / 2;
+  const gangplankBottom = gangplankRect.y + gangplankRect.height / 2;
+  const crossesPierSpan = gangplankRect.x + gangplankRect.width / 2 >= pier.x - pier.width / 2
+    && gangplankRect.x - gangplankRect.width / 2 <= pier.x + pier.width / 2;
+  if (!crossesPierSpan || Math.abs(pierTop - gangplankBottom) > 8) {
+    throw new Error("Gangplank must terminate at the west pier edge");
+  }
+  for (const protectedRect of protectedNavigation) {
+    assertDoesNotOverlap(gangplankRect, protectedRect, "Gangplank overlaps protected navigation");
+  }
 }
 
 function assertWaterfrontStaticVisualClearance(visuals) {
@@ -259,6 +345,8 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
     if (!waterVisuals.some((water) => contains(water, buoy))) throw new Error(`Buoy must be contained in water: ${buoy.id}`);
   }
   assertWaterfrontStaticVisualClearance(layout.harborVisuals);
+  assertBatch03HarborSceneClearance(layout.harborVisuals);
+  assertGangplankRelationship(layout.harborVisuals, protectedNavigation);
   const southWater = waterVisuals.find((visual) => visual.id === "waterfront-water");
   if (!southWater || waterVisuals.length < 3) {
     throw new Error("Layout requires south water plus both inner harbor basins");

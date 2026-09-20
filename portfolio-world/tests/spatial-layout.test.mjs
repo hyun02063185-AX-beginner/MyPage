@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import rawWorldLayout from "../src/world/worldLayoutData.json" with { type: "json" };
-import { validateWorldLayout } from "../src/world/layoutValidation.mjs";
+import { findBatch03HarborSceneOverlaps, validateWorldLayout } from "../src/world/layoutValidation.mjs";
+import { resolveStaticBerthPlacements } from "../src/world/berthingPlacement.mjs";
 import { createWaterCollisionRects, rectsOverlap } from "../src/world/waterCollisionGeometry.mjs";
 import {
   assertTownTranslation,
@@ -238,4 +240,69 @@ test("harbor refinement fits four secondary sailing vessels and keeps the servic
     translated.harborVisuals.filter((visual) => visual.type === "dock" && visual.walkable),
   );
   assert.equal(collisionRects.some((water) => rectsOverlap(water, serviceJetty)), false);
+});
+
+test("Batch 03 rendered-alpha harbor contract reproduces all six review overlap fixtures and clears the final scene", () => {
+  const reviewedPlacement = structuredClone(translatedLayout());
+  const originalCoordinates = {
+    "dock-rope-line": [792, 1000],
+    "dock-gangplank": [872, 1008],
+    "dock-buoy": [820, 1008],
+    "dock-hand-cart": [560, 944],
+    "dock-work-net": [512, 932],
+  };
+  for (const [id, [x, y]] of Object.entries(originalCoordinates)) {
+    Object.assign(reviewedPlacement.harborVisuals.find((visual) => visual.id === id), {
+      x,
+      y: y + TOWN_TRANSLATION_Y,
+    });
+  }
+  const reproducedOverlaps = new Set(findBatch03HarborSceneOverlaps(reviewedPlacement.harborVisuals));
+  for (const reviewedPair of [
+    "dock-buoy|dock-rope-line",
+    "dock-buoy|harbor-mooring-bollard",
+    "dock-hand-cart|harbor-rope-coil",
+    "dock-rope-line|waterfront-viewing-lamp",
+    "dock-rope-line|waterfront-viewing-terrace",
+    "dock-work-net|harbor-barrel-cluster",
+  ]) assert.equal(reproducedOverlaps.has(reviewedPair), true, reviewedPair);
+  assert.deepEqual(findBatch03HarborSceneOverlaps(translatedLayout().harborVisuals), []);
+});
+
+test("Batch 03 buoy and gangplank semantic fixtures reject dry and disconnected placements", () => {
+  const dryBuoy = structuredClone(translatedLayout());
+  Object.assign(dryBuoy.harborVisuals.find((visual) => visual.id === "dock-buoy"), { x: 820, y: 1008 + TOWN_TRANSLATION_Y });
+  assert.throws(() => validateWorldLayout(dryBuoy, WORLD_DIMENSIONS), /Buoy must be contained in water/);
+
+  const disconnectedGangplank = structuredClone(translatedLayout());
+  Object.assign(disconnectedGangplank.harborVisuals.find((visual) => visual.id === "dock-gangplank"), { x: 1100, y: 1008 + TOWN_TRANSLATION_Y });
+  assert.throws(() => validateWorldLayout(disconnectedGangplank, WORLD_DIMENSIONS), /Gangplank must contact the small workboat/);
+  assert.doesNotThrow(() => validateWorldLayout(translatedLayout(), WORLD_DIMENSIONS));
+});
+
+test("Batch 03 vessel berth references resolve runtime x/y/heading without using raw vessel coordinates", () => {
+  const slotSource = readFileSync(new URL("../src/world/berthingSlots.ts", import.meta.url), "utf8");
+  const slots = [
+    { id: "small-work-west", x: 700, y: 1116, heading: 0, assignedVesselId: "harbor-small-workboat" },
+    { id: "utility-pocket", x: 980, y: 1210, heading: 0, assignedVesselId: "harbor-dinghy" },
+  ];
+  for (const slot of slots) {
+    assert.match(slotSource, new RegExp(`id: "${slot.id}", x: ${slot.x}, y: ${slot.y}, heading: ${slot.heading}.*assignedVesselId: "${slot.assignedVesselId}"`));
+  }
+  const sourceWithWrongVesselCoordinates = structuredClone(rawWorldLayout.harborVisuals);
+  for (const vessel of sourceWithWrongVesselCoordinates.filter((visual) => visual.berthSlotId)) {
+    vessel.x = -999;
+    vessel.y = -999;
+  }
+  const resolved = resolveStaticBerthPlacements(sourceWithWrongVesselCoordinates, slots, TOWN_TRANSLATION_Y);
+  for (const slot of slots) {
+    const vessel = resolved.find((visual) => visual.id === slot.assignedVesselId);
+    assert.deepEqual(
+      { x: vessel?.x, y: vessel?.y, heading: vessel?.heading },
+      { x: slot.x, y: slot.y + TOWN_TRANSLATION_Y, heading: slot.heading },
+    );
+  }
+  const invalidAssignment = structuredClone(sourceWithWrongVesselCoordinates);
+  invalidAssignment.find((visual) => visual.id === "harbor-dinghy").berthSlotId = "missing-berth";
+  assert.throws(() => resolveStaticBerthPlacements(invalidAssignment, slots, TOWN_TRANSLATION_Y), /Invalid berth assignment/);
 });

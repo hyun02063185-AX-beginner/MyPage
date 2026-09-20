@@ -90,6 +90,8 @@ const LOW_PROP_TYPES = new Set([
   "rope-coil",
   "safety-rail",
   "mooring-bollard",
+  "buoy",
+  "gangplank",
 ]);
 
 const BODY_TYPES = new Set([

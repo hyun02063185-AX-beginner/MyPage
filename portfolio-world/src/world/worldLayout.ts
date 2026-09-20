@@ -1,9 +1,10 @@
 import { WORLD_HEIGHT, WORLD_WIDTH } from "../config/gameConfig";
 import { validateWorldLayout } from "./layoutValidation.mjs";
-import { assertTownTranslation, translateTownLayout } from "./layoutTransform.mjs";
+import { assertTownTranslation, TOWN_TRANSLATION_Y, translateTownLayout } from "./layoutTransform.mjs";
 import { createWaterCollisionRects } from "./waterCollisionGeometry.mjs";
 import rawWorldLayout from "./worldLayoutData.json";
 import { BERTHING_SLOTS } from "./berthingSlots";
+import { resolveStaticBerthPlacements } from "./berthingPlacement.mjs";
 import type {
   BuildingFootprint,
   HarborVisualPlacement,
@@ -29,13 +30,13 @@ const sourceLayoutData = rawWorldLayout as unknown as RawLayout;
 const translatedLayoutData = translateTownLayout(sourceLayoutData, {
   worldHeight: WORLD_HEIGHT,
 }) as RawLayout;
-const berthByVessel = new Map(BERTHING_SLOTS.filter((slot) => slot.assignedVesselId).map((slot) => [slot.assignedVesselId, slot]));
 const layoutData = {
   ...translatedLayoutData,
-  harborVisuals: translatedLayoutData.harborVisuals.map((visual) => {
-    const berth = berthByVessel.get(visual.id);
-    return berth ? { ...visual, x: berth.x, y: berth.y - 96 } : visual;
-  }),
+  harborVisuals: resolveStaticBerthPlacements(
+    translatedLayoutData.harborVisuals,
+    BERTHING_SLOTS,
+    TOWN_TRANSLATION_Y,
+  ),
 } as RawLayout;
 assertTownTranslation(sourceLayoutData, translatedLayoutData, { worldHeight: WORLD_HEIGHT });
 const centralPlaza = layoutData.zones.find((zone) => zone.id === "plaza");

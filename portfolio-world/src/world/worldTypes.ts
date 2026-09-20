@@ -62,6 +62,10 @@ export type HarborVisualPlacement = WorldRect &
     type: HarborVisualType;
     tier: HarborVisualTier;
     collidable: boolean;
+    /** Static berth metadata controls the resolved vessel transform at runtime. */
+    berthSlotId?: string;
+    /** Resolved static berth heading; no dynamic vessel movement is implied. */
+    heading?: number;
     /** Dock footprints that remain visually water-adjacent but are player-walkable. */
     walkable?: boolean;
     zone: PlacementZone;
