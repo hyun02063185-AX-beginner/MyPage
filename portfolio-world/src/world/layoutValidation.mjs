@@ -36,6 +36,8 @@ const HARBOR_VISUAL_TYPES = new Set([
   "safety-rail",
   "mooring-bollard",
   "service-marker",
+  "buoy",
+  "gangplank",
 ]);
 const HARBOR_VISUAL_TIERS = new Set(["primary", "secondary", "detail"]);
 const COLLIDABLE_HARBOR_VISUAL_TYPES = new Set(["water", "warehouse"]);
@@ -253,6 +255,9 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
   }
 
   const waterVisuals = layout.harborVisuals.filter((visual) => visual.type === "water");
+  for (const buoy of layout.harborVisuals.filter((visual) => visual.type === "buoy")) {
+    if (!waterVisuals.some((water) => contains(water, buoy))) throw new Error(`Buoy must be contained in water: ${buoy.id}`);
+  }
   assertWaterfrontStaticVisualClearance(layout.harborVisuals);
   const southWater = waterVisuals.find((visual) => visual.id === "waterfront-water");
   if (!southWater || waterVisuals.length < 3) {

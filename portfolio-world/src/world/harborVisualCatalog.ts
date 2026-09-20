@@ -81,6 +81,8 @@ export const HARBOR_VISUAL_CATALOG: Readonly<Record<HarborVisualType, string>> =
   "safety-rail": "harbor safety rail",
   "mooring-bollard": "mooring bollard",
   "service-marker": "dock service marker",
+  buoy: "floating harbor buoy",
+  gangplank: "visual-only vessel gangplank",
 };
 
 export function drawHarborGround(scene: Phaser.Scene): void {
@@ -353,6 +355,12 @@ export function drawHarborVisual(scene: Phaser.Scene, visual: HarborVisualPlacem
     case "service-marker":
       graphics.lineStyle(4, COLORS.woodDark).lineBetween(visual.x, top, visual.x, top + visual.height);
       graphics.fillStyle(COLORS.lamp).fillCircle(visual.x, top + 7, 7);
+      return;
+    case "buoy":
+      graphics.fillStyle(COLORS.lamp).fillCircle(visual.x, visual.y, Math.min(visual.width, visual.height) / 3);
+      return;
+    case "gangplank":
+      graphics.fillStyle(COLORS.dockWood).fillRect(left, visual.y - 4, visual.width, 8);
       return;
     default:
       return exhaustiveVisual(visual.type);

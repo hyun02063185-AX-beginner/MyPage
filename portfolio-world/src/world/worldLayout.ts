@@ -3,6 +3,7 @@ import { validateWorldLayout } from "./layoutValidation.mjs";
 import { assertTownTranslation, translateTownLayout } from "./layoutTransform.mjs";
 import { createWaterCollisionRects } from "./waterCollisionGeometry.mjs";
 import rawWorldLayout from "./worldLayoutData.json";
+import { BERTHING_SLOTS } from "./berthingSlots";
 import type {
   BuildingFootprint,
   HarborVisualPlacement,
@@ -25,10 +26,18 @@ type RawLayout = Readonly<{
 }>;
 
 const sourceLayoutData = rawWorldLayout as unknown as RawLayout;
-const layoutData = translateTownLayout(sourceLayoutData, {
+const translatedLayoutData = translateTownLayout(sourceLayoutData, {
   worldHeight: WORLD_HEIGHT,
 }) as RawLayout;
-assertTownTranslation(sourceLayoutData, layoutData, { worldHeight: WORLD_HEIGHT });
+const berthByVessel = new Map(BERTHING_SLOTS.filter((slot) => slot.assignedVesselId).map((slot) => [slot.assignedVesselId, slot]));
+const layoutData = {
+  ...translatedLayoutData,
+  harborVisuals: translatedLayoutData.harborVisuals.map((visual) => {
+    const berth = berthByVessel.get(visual.id);
+    return berth ? { ...visual, x: berth.x, y: berth.y - 96 } : visual;
+  }),
+} as RawLayout;
+assertTownTranslation(sourceLayoutData, translatedLayoutData, { worldHeight: WORLD_HEIGHT });
 const centralPlaza = layoutData.zones.find((zone) => zone.id === "plaza");
 
 if (!centralPlaza) {

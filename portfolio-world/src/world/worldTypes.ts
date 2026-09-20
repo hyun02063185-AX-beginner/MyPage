@@ -35,7 +35,9 @@ export type HarborVisualType =
   | "rope-coil"
   | "safety-rail"
   | "mooring-bollard"
-  | "service-marker";
+  | "service-marker"
+  | "buoy"
+  | "gangplank";
 
 export type HarborVisualTier = "primary" | "secondary" | "detail";
 

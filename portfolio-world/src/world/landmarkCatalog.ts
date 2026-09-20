@@ -42,4 +42,6 @@ export const LANDMARK_CATALOG: Readonly<Record<HarborVisualType, LandmarkDefinit
   "safety-rail": { label: "Safety rail", category: "atmosphere" },
   "mooring-bollard": { label: "Mooring bollard", category: "atmosphere" },
   "service-marker": { label: "Service marker", category: "wayfinding" },
+  buoy: { label: "Buoy", category: "atmosphere" },
+  gangplank: { label: "Gangplank", category: "atmosphere" },
 };
