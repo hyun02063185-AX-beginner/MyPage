@@ -3,7 +3,7 @@
 Updated: 2026-09-20
 
 ## Phase
-FULL WORLD ROLLOUT AUTHORIZED / BATCH 02 COMPLETE / BATCH 03 IMPLEMENTED, INDEPENDENT REVIEW PENDING
+FULL WORLD ROLLOUT AUTHORIZED / BATCH 02 COMPLETE / BATCH 03 INTEGRATION HOTFIX IMPLEMENTED, SHORT RE-CHECK PENDING
 
 ## Current Work Unit
 Guild Hall-door canonicalization and visual-only harbor-layout naturalization review; full rollout remains on hold
