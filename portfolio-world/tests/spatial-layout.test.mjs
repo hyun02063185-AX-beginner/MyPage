@@ -215,7 +215,7 @@ test("harbor refinement fits four secondary sailing vessels and keeps the servic
   const secondaryFleet = translated.harborVisuals.filter(
     (visual) => visual.type === "secondary-sailing-ship",
   );
-  assert.equal(secondaryFleet.length, 4);
+  assert.equal(secondaryFleet.length, 6);
   assert.equal(
     secondaryFleet.every((vessel) =>
       translated.harborVisuals

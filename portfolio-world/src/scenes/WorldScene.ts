@@ -68,6 +68,8 @@ const getSecondarySailingAsset = (id: string) => {
       return WORLD_ASSETS.mediumSailingVessel;
     case "harbor-east-harbor-cutter":
       return WORLD_ASSETS.secondaryCutter;
+    case "harbor-small-workboat": return WORLD_ASSETS.smallWorkboat;
+    case "harbor-dinghy": return WORLD_ASSETS.harborDinghy;
     default:
       return undefined;
   }
@@ -112,8 +114,14 @@ const getBatch02VisualAsset = (id: string): WorldAssetEntry | undefined => {
   }
 };
 
+const getBatch03VisualAsset = (id: string): WorldAssetEntry | undefined => ({
+  "dock-rope-line": WORLD_ASSETS.dockRopeLine, "dock-gangplank": WORLD_ASSETS.dockGangplank,
+  "dock-buoy": WORLD_ASSETS.dockBuoy, "dock-hand-cart": WORLD_ASSETS.dockHandCart,
+  "dock-work-net": WORLD_ASSETS.dockWorkNet,
+}[id]);
+
 const getProductionVisualAsset = (id: string): WorldAssetEntry | undefined =>
-  getBatch02VisualAsset(id) ?? getBatch01VisualAsset(id);
+  getBatch03VisualAsset(id) ?? getBatch02VisualAsset(id) ?? getBatch01VisualAsset(id);
 
 /** Orchestrates layout, focused harbor visuals, collision, input, and camera. */
 export class WorldScene extends Phaser.Scene {
