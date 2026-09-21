@@ -1,9 +1,19 @@
 # 92. Portfolio World — Handoff
 
-Updated: 2026-09-20
+Updated: 2026-09-21
 
 ## State
-Batch 02 is COMPLETE and Batch 03 integration is TECHNICALLY VERIFIED. Fleet Authenticity is IMPLEMENTED and has been INDEPENDENTLY REVIEWED (`READY_FOR_FLEET_AUTHENTICITY_HUMAN_REVIEW`); Human Review is next and Fleet Authenticity is not yet marked complete. Four active sailing textures are regenerated v02 Age-of-Sail merchant/exploration ships with furled sails, while the workboat and dinghy, vessel count, `BERTHING_SLOTS`, harbor layout, collision, IA, routes, and player movement remain unchanged. Normal preload is now 603,413 bytes (independently recomputed and confirmed by review). Batch 04 is NOT STARTED and not authorized.
+Batch 02 is COMPLETE / HUMAN ACCEPTED and Batch 03 integration is TECHNICALLY VERIFIED. Fleet Authenticity is IMPLEMENTED + INDEPENDENTLY REVIEWED; Fleet Presence Refinement is IMPLEMENTED + CLOSEOUT VERIFIED. Active sailing textures remain v02 furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract uses Hero 1.35×, Medium 1.30×, Brig 1.25×, Cutter 1.30×, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning. Normal BootScene production preload is 603,413 bytes across 31 assets. Batch 04 is NEXT but NOT STARTED.
+
+## Batch 04 Handoff
+
+Workflow: **Production → Harness → Visual QA → grouped Major repair → short confirmation → Human Review**.
+
+Batch 04 milestone: **Whole-world Environment Completion + Final Balance**. Do not implement it in this closeout. It covers environmental completeness, cross-zone balance, hierarchy, readability, density, transitions, and world-level polish; it excludes dynamic ship movement, day/night, NPC systems, realtime LLM, multiplayer, and major world redesign without separate authorization.
+
+Severity: Blocker and Major must close before Human Review. Minor is recorded/deferred unless it harms the milestone; Polish belongs to Batch 04 final balance / final polish. Current fleet-phase deferred findings: two Minor visual notes, no Blocker/Major, no newly opened Polish item.
+
+This section supersedes older Fleet Authenticity “Human Review next” and “Batch 04 not authorized” passages below, retained as historical records.
 
 The independent review (`reports/portfolio-world/art-production/harbor-fleet-authenticity-independent-review.md`)
 directly opened and pixel-decoded all four regenerated PNGs rather than trusting `fleetAuthenticityAssetAudit.json`,
@@ -88,16 +98,11 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Batch 03 integration is TECHNICALLY VERIFIED and Fleet Authenticity production has been INDEPENDENTLY REVIEWED
-(`reports/portfolio-world/art-production/harbor-fleet-authenticity-independent-review.md`,
-`READY_FOR_FLEET_AUTHENTICITY_HUMAN_REVIEW`). Fleet Authenticity Human Review is next. Do not mark Fleet
-Authenticity complete before that human review, and do not start Batch 04. Stop any local `vite preview` server
-before running `npm ci` on Windows.
+Batch 04 orchestrated planning is next. Do not start Batch 04 implementation until separately authorized. Stop any local `vite preview` server before running `npm ci` on Windows.
 
 ## Next Recommended Agent
-User
-Task: Human Review of the Fleet Authenticity Production Pass (moored Age-of-Sail fleet with furled sails); read
-the independent review report above first. Fleet Authenticity is not yet complete; Batch 04 is not authorized.
+Director / Production
+Task: Plan the Batch 04 Whole-world Environment Completion + Final Balance milestone using the grouped workflow above; do not begin implementation in the planning task.
 
 ## Visual Pass 1 Status
 

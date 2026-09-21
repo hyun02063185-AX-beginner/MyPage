@@ -1,12 +1,25 @@
 # 91. Portfolio World — Project Status
 
-Updated: 2026-09-20
+Updated: 2026-09-21
 
 ## Phase
-FULL WORLD ROLLOUT AUTHORIZED / BATCH 02 COMPLETE / BATCH 03 TECHNICALLY VERIFIED / FLEET AUTHENTICITY INDEPENDENTLY REVIEWED / HUMAN REVIEW PENDING
+BATCH 02 COMPLETE / HUMAN ACCEPTED / BATCH 03 INTEGRATION TECHNICALLY VERIFIED / FLEET AUTHENTICITY + FLEET PRESENCE CLOSED / BATCH 04 NEXT (NOT STARTED)
 
 ## Current Work Unit
-Fleet Authenticity human review pending; Batch 04 remains not started
+Fleet Presence closeout complete; Batch 04 orchestrated planning is next and implementation remains not started
+
+## Canonical Closeout — 2026-09-21
+
+- Batch 02 is COMPLETE / HUMAN ACCEPTED.
+- Batch 03 Integration is TECHNICALLY VERIFIED.
+- Fleet Authenticity is IMPLEMENTED + INDEPENDENTLY REVIEWED; Fleet Presence Refinement is IMPLEMENTED + CLOSEOUT VERIFIED.
+- Current Harbor visual direction is locked enough for continuation. The final refinement has Hero 1.35×, Medium 1.30×, Brig 1.25×, Cutter 1.30×, mixed facings, zero alpha-envelope vessel overlap, waterfront work zoning, and Harbor Square landscape zoning.
+- Current validation is 31/31 passing; canonical production preload is 603,413 bytes across 31 BootScene assets.
+- Batch 04 is NEXT and NOT STARTED: Whole-world Environment Completion + Final Balance only.
+- Batch 04 workflow: Production → Harness → Visual QA → grouped Major repair → short confirmation → Human Review.
+- Blocker and Major findings must close before Human Review; Minor and Polish findings are recorded/deferred unless milestone-harming.
+
+This closeout supersedes older Fleet Authenticity “human review pending” references below, which remain as historical records.
 
 ## Confirmed
 - MyPage repo 유지
@@ -100,4 +113,4 @@ Fleet Authenticity human review pending; Batch 04 remains not started
 - Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Human review of the Fleet Authenticity Production Pass (`reports/portfolio-world/art-production/harbor-fleet-authenticity-independent-review.md`); do not mark Fleet Authenticity complete and do not start Batch 04 until that human review passes.
+1. Batch 04 orchestrated planning only: Whole-world Environment Completion + Final Balance. Do not begin implementation without a separately authorized Batch 04 task.
