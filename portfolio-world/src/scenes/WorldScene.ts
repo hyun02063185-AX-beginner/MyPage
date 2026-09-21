@@ -121,8 +121,16 @@ const getBatch03VisualAsset = (id: string): WorldAssetEntry | undefined => ({
   "dock-work-net": WORLD_ASSETS.dockWorkNet,
 }[id]);
 
+/** Batch 04 deliberately reuses existing civic/greenery art; no new runtime asset is needed. */
+const getBatch04VisualAsset = (id: string): WorldAssetEntry | undefined => ({
+  "guild-edge-tree": WORLD_ASSETS.harborTree02,
+  "academy-garden-tree-west": WORLD_ASSETS.harborTree02,
+  "workshop-transition-planter": WORLD_ASSETS.harborShrubPlanter,
+  "exhibition-promenade-planter-east": WORLD_ASSETS.harborShrubPlanter,
+}[id]);
+
 const getProductionVisualAsset = (id: string): WorldAssetEntry | undefined =>
-  getBatch03VisualAsset(id) ?? getBatch02VisualAsset(id) ?? getBatch01VisualAsset(id);
+  getBatch04VisualAsset(id) ?? getBatch03VisualAsset(id) ?? getBatch02VisualAsset(id) ?? getBatch01VisualAsset(id);
 
 /** Orchestrates layout, focused harbor visuals, collision, input, and camera. */
 export class WorldScene extends Phaser.Scene {

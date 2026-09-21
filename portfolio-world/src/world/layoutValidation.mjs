@@ -87,6 +87,24 @@ const WORKING_WATERFRONT_ITEM_IDS = new Set([
   "harbor-dinghy", "dock-rope-line", "dock-gangplank", "dock-buoy", "dock-hand-cart", "dock-work-net",
   "harbor-cargo-stack", "harbor-barrel-cluster", "harbor-rope-coil", "harbor-mooring-bollard", "harbor-service-marker",
 ]);
+// Batch 04 closes the only under-articulated destination approaches with visual-only
+// reuse. These are intentionally sparse: the dock remains the densest zone.
+const BATCH04_COMPLETION_ITEMS = Object.freeze({
+  "guild-edge-tree": { type: "tree", zone: "career" },
+  "academy-garden-tree-west": { type: "tree", zone: "lecture" },
+  "workshop-transition-planter": { type: "planter", zone: "ai-lab" },
+  "exhibition-promenade-planter-east": { type: "planter", zone: "gallery" },
+});
+const BATCH04_ZONE_DENSITY_CEILINGS = Object.freeze({
+  plaza: 18, career: 10, lecture: 8, "ai-lab": 9, gallery: 48,
+});
+const BATCH04_OVERLAP_SCOPE = new Set([
+  ...Object.keys(BATCH04_COMPLETION_ITEMS),
+  "guild-notice-board", "guild-route-map", "guild-registry-stand", "guild-journey-bench", "guild-journey-lamp", "guild-journey-flag",
+  "academy-study-garden", "academy-sign", "academy-tree", "academy-study-bench", "academy-study-lamp", "academy-banner-west", "academy-banner-east",
+  "workshop-worktable", "workshop-tool-rack", "workshop-cart", "workshop-timber-stack", "workshop-yard-lamp", "workshop-material-crate",
+  "exhibition-display-board", "exhibition-flag-west", "exhibition-flag-east", "waterfront-viewing-terrace", "waterfront-viewing-bench", "waterfront-viewing-lamp", "harbor-safety-rail",
+]);
 
 function assertRect(rect, worldWidth, worldHeight) {
   if (
@@ -143,6 +161,10 @@ const BATCH02_VISIBLE_BOUNDS = Object.freeze({
   "harbor-service-marker": { x: 15, y: 4, width: 18, height: 48, displayWidth: 48, displayHeight: 56, originY: 0.95 },
   "harbor-notice-board": { x: 10, y: 4, width: 35, height: 56, displayWidth: 56, displayHeight: 64, originY: 0.94 },
   "harbor-mooring-bollard": { x: 5, y: 4, width: 21, height: 32, displayWidth: 32, displayHeight: 40, originY: 0.95 },
+  "guild-edge-tree": { x: 4, y: 13, width: 54, height: 47, displayWidth: 62, displayHeight: 74, originY: 0.95 },
+  "academy-garden-tree-west": { x: 4, y: 13, width: 54, height: 47, displayWidth: 62, displayHeight: 74, originY: 0.95 },
+  "workshop-transition-planter": { x: 4, y: 11, width: 48, height: 26, displayWidth: 56, displayHeight: 48, originY: 0.94 },
+  "exhibition-promenade-planter-east": { x: 4, y: 11, width: 48, height: 26, displayWidth: 56, displayHeight: 48, originY: 0.94 },
 });
 
 // Measured practical-alpha bounds and actual WorldScene image placement for Batch 03.
@@ -272,6 +294,52 @@ export function findBatch03HarborSceneOverlaps(visuals) {
     }
   }
   return overlapsFound;
+}
+
+/**
+ * Conservative whole-world visual sweep. It combines the existing rendered-alpha
+ * fleet and waterfront checks with every new Batch 04 approach item and its local
+ * protected composition. It does not mistake intentional building/path layering for
+ * a material art collision.
+ */
+export function findWholeWorldMaterialOverlaps(visuals) {
+  const overlapsFound = new Set([
+    ...findFleetMaterialOverlaps(visuals),
+    ...findBatch03HarborSceneOverlaps(visuals),
+  ]);
+  const sceneItems = visuals.filter((visual) => BATCH04_OVERLAP_SCOPE.has(visual.id));
+  for (let index = 0; index < sceneItems.length; index += 1) {
+    for (let comparison = index + 1; comparison < sceneItems.length; comparison += 1) {
+      const first = sceneItems[index];
+      const second = sceneItems[comparison];
+      if (!BATCH04_COMPLETION_ITEMS[first.id] && !BATCH04_COMPLETION_ITEMS[second.id]) continue;
+      if (hasMaterialOverlap(sceneRect(first), sceneRect(second))) {
+        overlapsFound.add(pairKey(first, second));
+      }
+    }
+  }
+  return [...overlapsFound].sort();
+}
+
+function assertBatch04CompletionContract(layout) {
+  for (const [id, expected] of Object.entries(BATCH04_COMPLETION_ITEMS)) {
+    const visual = layout.harborVisuals.find((item) => item.id === id);
+    if (!visual || visual.type !== expected.type || visual.zone !== expected.zone || visual.collidable) {
+      throw new Error(`Batch 04 completion placement drift: ${id}`);
+    }
+  }
+  const countsByZone = Object.fromEntries(layout.zones.map((zone) => [zone.id, 0]));
+  for (const visual of layout.harborVisuals) countsByZone[visual.zone] = (countsByZone[visual.zone] ?? 0) + 1;
+  for (const [zone, ceiling] of Object.entries(BATCH04_ZONE_DENSITY_CEILINGS)) {
+    if (countsByZone[zone] > ceiling) throw new Error(`Batch 04 zone density cap exceeded: ${zone}`);
+  }
+  if (countsByZone.gallery <= Math.max(countsByZone.plaza, countsByZone.career, countsByZone.lecture, countsByZone["ai-lab"])) {
+    throw new Error("Batch 04 working waterfront must remain the densest environment");
+  }
+  const overlapsFound = findWholeWorldMaterialOverlaps(layout.harborVisuals);
+  if (overlapsFound.length > 0) {
+    throw new Error(`Whole-world material overlap: ${overlapsFound[0].replace("|", " / ")}`);
+  }
 }
 
 function assertBatch03HarborSceneClearance(visuals) {
@@ -466,4 +534,5 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
     }
   }
   assertFleetPresenceContract(layout.harborVisuals);
+  assertBatch04CompletionContract(layout);
 }

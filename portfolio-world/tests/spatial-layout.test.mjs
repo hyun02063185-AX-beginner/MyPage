@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import rawWorldLayout from "../src/world/worldLayoutData.json" with { type: "json" };
-import { findBatch03HarborSceneOverlaps, validateWorldLayout } from "../src/world/layoutValidation.mjs";
+import { findBatch03HarborSceneOverlaps, findWholeWorldMaterialOverlaps, validateWorldLayout } from "../src/world/layoutValidation.mjs";
 import { resolveStaticBerthPlacements } from "../src/world/berthingPlacement.mjs";
 import { createWaterCollisionRects, rectsOverlap } from "../src/world/waterCollisionGeometry.mjs";
 import {
@@ -307,4 +307,32 @@ test("Batch 03 vessel berth references resolve runtime x/y/heading without using
   const invalidAssignment = structuredClone(sourceWithWrongVesselCoordinates);
   invalidAssignment.find((visual) => visual.id === "harbor-dinghy").berthSlotId = "missing-berth";
   assert.throws(() => resolveStaticBerthPlacements(invalidAssignment, slots, TOWN_TRANSLATION_Y), /Invalid berth assignment/);
+});
+
+test("Batch 04 completion placements preserve visual-only zoning, density balance, and whole-world clearance", () => {
+  const translated = translatedLayout();
+  assert.deepEqual(findWholeWorldMaterialOverlaps(translated.harborVisuals), []);
+  for (const [id, type, zone] of [
+    ["guild-edge-tree", "tree", "career"],
+    ["academy-garden-tree-west", "tree", "lecture"],
+    ["workshop-transition-planter", "planter", "ai-lab"],
+    ["exhibition-promenade-planter-east", "planter", "gallery"],
+  ]) {
+    const placement = translated.harborVisuals.find((visual) => visual.id === id);
+    assert.deepEqual(
+      { type: placement?.type, zone: placement?.zone, collidable: placement?.collidable },
+      { type, zone, collidable: false },
+      id,
+    );
+  }
+
+  const materialOverlap = structuredClone(translated);
+  Object.assign(
+    materialOverlap.harborVisuals.find((visual) => visual.id === "workshop-transition-planter"),
+    { x: 1424, y: 632 },
+  );
+  assert.throws(
+    () => validateWorldLayout(materialOverlap, WORLD_DIMENSIONS),
+    /Whole-world material overlap/,
+  );
 });
