@@ -39,7 +39,7 @@ test("first asset slice uses BASE_URL paths and ships every manifest PNG", () =>
 test("harbor refinement keeps D as the temporary production default and comparison dev-only", () => {
   assert.match(manifestSource, /:\s*"heroShipD";\s*\n\s*return WORLD_ASSETS\[key\];/);
   assert.match(manifestSource, /import\.meta\.env\.DEV/);
-  assert.match(manifestSource, /displayWidth:\s*365/);
+  assert.match(manifestSource, /id: "hero-ship-d-v03"[\s\S]{0,800}displayWidth:\s*490/);
   assert.match(manifestSource, /displayWidth:\s*356/);
 });
 

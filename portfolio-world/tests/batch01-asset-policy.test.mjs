@@ -27,7 +27,7 @@ test("Batch 01 production assets retain their locked audit contract or an explic
     assert.equal(statSync(resolve(projectRoot, "public", asset.runtimePath)).size, asset.fileBytes, `${asset.id} bytes`);
     if (asset.id === "medium-sailing-vessel-01-v01") {
       assert.equal(manifestSource.includes(`id: "${asset.id}"`), false, `${asset.id} superseded identity`);
-      assert.match(manifestSource, /id: "medium-sailing-vessel-01-v02"/, "medium successor manifest entry");
+      assert.match(manifestSource, /id: "medium-sailing-vessel-01-v03"/, "medium successor manifest entry");
       continue;
     }
     assert.match(manifestSource, new RegExp(`id: "${asset.id}"`), `${asset.id} manifest entry`);
