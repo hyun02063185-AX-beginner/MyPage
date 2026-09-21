@@ -1,4 +1,5 @@
 import { createWaterCollisionRects, rectsOverlap } from "./waterCollisionGeometry.mjs";
+import { FLEET_PRESENTATION, getFleetVisibleRect } from "./fleetPresentation.mjs";
 
 const HARBOR_VISUAL_TYPES = new Set([
   "navigation-monument",
@@ -75,6 +76,17 @@ const PERMANENT_STREETSCAPE_TYPES = new Set([
 ]);
 // Harbor refinement adds a bounded fleet and service berth without reopening town density.
 const DENSITY_CAPS = { primary: 10, secondary: 40, detail: 45 };
+const FLEET_CLASS_ORDER = ["hero", "medium", "brig", "cutter", "small-workboat", "dinghy"];
+const SQUARE_REST_ITEM_IDS = new Set([
+  "harbor-tree-02", "harbor-shrub-planter", "harbor-bench", "waterfront-promenade-planter",
+]);
+const WORKING_WATERFRONT_ITEM_IDS = new Set([
+  "waterfront-dock", "harbor-pier-west", "harbor-pier-east", "harbor-service-jetty",
+  "harbor-large-ship", "harbor-west-merchant-brig", "harbor-west-cargo-schooner",
+  "harbor-east-merchant-brig", "harbor-east-harbor-cutter", "harbor-small-workboat",
+  "harbor-dinghy", "dock-rope-line", "dock-gangplank", "dock-buoy", "dock-hand-cart", "dock-work-net",
+  "harbor-cargo-stack", "harbor-barrel-cluster", "harbor-rope-coil", "harbor-mooring-bollard", "harbor-service-marker",
+]);
 
 function assertRect(rect, worldWidth, worldHeight) {
   if (
@@ -166,6 +178,8 @@ function renderedVisibleRect(visual, bounds) {
 }
 
 function sceneRect(visual) {
+  const fleetRect = getFleetVisibleRect(visual);
+  if (fleetRect) return fleetRect;
   const bounds = BATCH03_VISIBLE_BOUNDS[visual.id] ?? BATCH02_VISIBLE_BOUNDS[visual.id];
   return bounds ? renderedVisibleRect(visual, bounds) : visual;
 }
@@ -182,6 +196,67 @@ function hasMaterialOverlap(first, second) {
   // A one-pixel alpha-edge touch is not a visible conflict; all review-classified
   // material cases are comfortably above this floor in both dimensions.
   return width > 2 && height > 2;
+}
+
+function fleetSceneRect(vessel) {
+  return getFleetVisibleRect(vessel) ?? vessel;
+}
+
+/** Actual alpha envelopes are used so enlarged transparent canvases never mask a collision. */
+export function findFleetMaterialOverlaps(visuals) {
+  const vessels = visuals.filter((visual) => FLOATING_VESSEL_TYPES.has(visual.type));
+  const overlapsFound = [];
+  for (let index = 0; index < vessels.length; index += 1) {
+    for (let comparison = index + 1; comparison < vessels.length; comparison += 1) {
+      if (hasMaterialOverlap(fleetSceneRect(vessels[index]), fleetSceneRect(vessels[comparison]))) {
+        overlapsFound.push(pairKey(vessels[index], vessels[comparison]));
+      }
+    }
+  }
+  return overlapsFound;
+}
+
+function assertFleetPresenceContract(visuals) {
+  const vessels = visuals.filter((visual) => FLEET_PRESENTATION[visual.id]);
+  const facings = new Set();
+  const classWidths = new Map();
+  for (const vessel of vessels) {
+    const presentation = FLEET_PRESENTATION[vessel.id];
+    if (presentation.scale <= 0 || presentation.scale > 1.5) {
+      throw new Error(`Fleet presentation scale is out of range: ${vessel.id}`);
+    }
+    facings.add(presentation.facing);
+    const visibleRect = fleetSceneRect(vessel);
+    const current = classWidths.get(presentation.vesselClass) ?? 0;
+    classWidths.set(presentation.vesselClass, Math.max(current, visibleRect.width));
+  }
+  if (!facings.has("left") || !facings.has("right")) {
+    throw new Error("Fleet presentation requires both left and right facings");
+  }
+  for (let index = 0; index < FLEET_CLASS_ORDER.length - 1; index += 1) {
+    const larger = classWidths.get(FLEET_CLASS_ORDER[index]);
+    const smaller = classWidths.get(FLEET_CLASS_ORDER[index + 1]);
+    if (!(larger > smaller)) {
+      throw new Error(`Fleet hierarchy is not preserved: ${FLEET_CLASS_ORDER[index]} / ${FLEET_CLASS_ORDER[index + 1]}`);
+    }
+  }
+  const overlapsFound = findFleetMaterialOverlaps(visuals);
+  if (overlapsFound.length > 0) {
+    throw new Error(`Fleet material overlap: ${overlapsFound[0].replace("|", " / ")}`);
+  }
+}
+
+function assertHarborZoning(layout) {
+  const plaza = layout.zones.find((zone) => zone.id === "plaza");
+  if (!plaza) throw new Error("Harbor Square is missing");
+  for (const visual of layout.harborVisuals) {
+    if (SQUARE_REST_ITEM_IDS.has(visual.id) && (visual.zone !== "plaza" || !contains(plaza, visual))) {
+      throw new Error(`Square landscape zoning drift: ${visual.id}`);
+    }
+    if (WORKING_WATERFRONT_ITEM_IDS.has(visual.id) && visual.zone !== "gallery") {
+      throw new Error(`Working waterfront zoning drift: ${visual.id}`);
+    }
+  }
 }
 
 export function findBatch03HarborSceneOverlaps(visuals) {
@@ -347,6 +422,7 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
   assertWaterfrontStaticVisualClearance(layout.harborVisuals);
   assertBatch03HarborSceneClearance(layout.harborVisuals);
   assertGangplankRelationship(layout.harborVisuals, protectedNavigation);
+  assertHarborZoning(layout);
   const southWater = waterVisuals.find((visual) => visual.id === "waterfront-water");
   if (!southWater || waterVisuals.length < 3) {
     throw new Error("Layout requires south water plus both inner harbor basins");
@@ -389,4 +465,5 @@ export function validateWorldLayout(layout, { worldWidth, worldHeight }) {
       assertDoesNotOverlap(vessels[index], vessels[comparison], "Floating vessels overlap");
     }
   }
+  assertFleetPresenceContract(layout.harborVisuals);
 }

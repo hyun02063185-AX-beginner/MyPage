@@ -283,6 +283,8 @@ test("Batch 03 buoy and gangplank semantic fixtures reject dry and disconnected 
 test("Batch 03 vessel berth references resolve runtime x/y/heading without using raw vessel coordinates", () => {
   const slotSource = readFileSync(new URL("../src/world/berthingSlots.ts", import.meta.url), "utf8");
   const slots = [
+    { id: "hero-large", x: 1450, y: 1236, heading: 0, assignedVesselId: "harbor-large-ship" },
+    { id: "medium-west", x: 500, y: 1116, heading: 0, assignedVesselId: "harbor-west-cargo-schooner" },
     { id: "small-work-west", x: 700, y: 1116, heading: 0, assignedVesselId: "harbor-small-workboat" },
     { id: "utility-pocket", x: 980, y: 1210, heading: 0, assignedVesselId: "harbor-dinghy" },
   ];

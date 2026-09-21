@@ -30,6 +30,7 @@ import {
   WORLD_DEPTH,
 } from "../world/worldDepth.mjs";
 import { WORLD_LAYOUT } from "../world/worldLayout";
+import { getFleetPresentation } from "../world/fleetPresentation.mjs";
 import {
   getNaturalizedBuilding,
   NATURALIZED_SCALE_REVIEW_SPAWNS,
@@ -357,10 +358,15 @@ export class WorldScene extends Phaser.Scene {
     }
 
     if (ship && this.textures.exists(heroShipAsset.textureKey)) {
+      const presentation = getFleetPresentation(ship.id);
       this.add
         .image(ship.x, getHeroShipWaterlineY(ship), heroShipAsset.textureKey)
         .setOrigin(0.5, heroShipAsset.originY)
-        .setDisplaySize(heroShipAsset.displayWidth, heroShipAsset.displayHeight)
+        .setDisplaySize(
+          heroShipAsset.displayWidth * (presentation?.scale ?? 1),
+          heroShipAsset.displayHeight * (presentation?.scale ?? 1),
+        )
+        .setFlipX(presentation?.facing === "left")
         .setDepth(getVesselDepth(getHeroShipWaterlineY(ship), ship.id));
     }
 
@@ -381,11 +387,15 @@ export class WorldScene extends Phaser.Scene {
       if (!asset || !this.textures.exists(asset.textureKey)) {
         continue;
       }
+      const presentation = getFleetPresentation(vessel.id);
       this.add
         .image(vessel.x, vessel.y + vessel.height / 2, asset.textureKey)
         .setOrigin(0.5, asset.originY)
-        .setDisplaySize(asset.displayWidth, asset.displayHeight)
-        .setFlipX(vessel.id === "harbor-east-merchant-brig")
+        .setDisplaySize(
+          asset.displayWidth * (presentation?.scale ?? 1),
+          asset.displayHeight * (presentation?.scale ?? 1),
+        )
+        .setFlipX(presentation?.facing === "left")
         .setDepth(getVesselDepth(vessel.y + vessel.height / 2, vessel.id));
     }
 
