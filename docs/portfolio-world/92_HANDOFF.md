@@ -3,7 +3,18 @@
 Updated: 2026-09-20
 
 ## State
-Batch 02 is COMPLETE and Batch 03 integration is TECHNICALLY VERIFIED. Fleet Authenticity is IMPLEMENTED and awaiting independent review; do not mark it complete. Four active sailing textures are regenerated v02 Age-of-Sail merchant/exploration ships with furled sails, while the workboat and dinghy, vessel count, `BERTHING_SLOTS`, harbor layout, collision, IA, routes, and player movement remain unchanged. Normal preload is now 603,413 bytes. Batch 04 is NOT STARTED.
+Batch 02 is COMPLETE and Batch 03 integration is TECHNICALLY VERIFIED. Fleet Authenticity is IMPLEMENTED and has been INDEPENDENTLY REVIEWED (`READY_FOR_FLEET_AUTHENTICITY_HUMAN_REVIEW`); Human Review is next and Fleet Authenticity is not yet marked complete. Four active sailing textures are regenerated v02 Age-of-Sail merchant/exploration ships with furled sails, while the workboat and dinghy, vessel count, `BERTHING_SLOTS`, harbor layout, collision, IA, routes, and player movement remain unchanged. Normal preload is now 603,413 bytes (independently recomputed and confirmed by review). Batch 04 is NOT STARTED and not authorized.
+
+The independent review (`reports/portfolio-world/art-production/harbor-fleet-authenticity-independent-review.md`)
+directly opened and pixel-decoded all four regenerated PNGs rather than trusting `fleetAuthenticityAssetAudit.json`,
+traced active-asset replacement end-to-end into `WorldScene.ts` rendering, and independently re-verified the 15°
+grammar, furled sail state, Age-of-Sail character, scale hierarchy, berth/overlap/dock relationships, asset
+hygiene (hidden-RGB and padding via a from-scratch PNG decoder), and preload. 31/31 tests pass. Three Minor,
+non-blocking findings were recorded: the harbor overlap validator's rendered-alpha checking does not extend to
+the four regenerated sailing-vessel placements (pre-existing scope gap, not a regression); Hero D's hull carries
+a row of small dark squares that read ambiguously as windows or gunports; and the Cutter's very small source
+canvas (101×86) gives its furled-sail/15° reading somewhat lower visual confidence than the other three vessels.
+No Blocker or Major finding.
 
 Visual Grammar v1.0 is locked at `15°` elevation / `0°` yaw. Depth / Occlusion Runtime Fix v1
 (semantic depth bands, logical contact-Y ordering) was independently reviewed and returned for two
@@ -77,17 +88,16 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Perform the focused Batch 03 short re-check. Read
-`reports/portfolio-world/art-production/mass-asset-production-batch-03-integration-hotfix.md`
-(gate `READY_FOR_BATCH_03_SHORT_RECHECK`), verify the six overlap closures, buoy-in-water placement,
-gangplank-to-workboat/west-pier relationship, and slot-driven B3 vessel placement. Do not start Fleet
-Authenticity Pass or Batch 04; do not mark Batch 03 complete before this re-check. Stop any local `vite preview`
-server before running `npm ci` on Windows.
+Batch 03 integration is TECHNICALLY VERIFIED and Fleet Authenticity production has been INDEPENDENTLY REVIEWED
+(`reports/portfolio-world/art-production/harbor-fleet-authenticity-independent-review.md`,
+`READY_FOR_FLEET_AUTHENTICITY_HUMAN_REVIEW`). Fleet Authenticity Human Review is next. Do not mark Fleet
+Authenticity complete before that human review, and do not start Batch 04. Stop any local `vite preview` server
+before running `npm ci` on Windows.
 
 ## Next Recommended Agent
 User
-Task: Short Batch 03 integration re-check (six overlap closures, buoy/gangplank semantics, and berth-driven
-runtime placement); Batch 03 is still pending review, not complete.
+Task: Human Review of the Fleet Authenticity Production Pass (moored Age-of-Sail fleet with furled sails); read
+the independent review report above first. Fleet Authenticity is not yet complete; Batch 04 is not authorized.
 
 ## Visual Pass 1 Status
 

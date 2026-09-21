@@ -3,10 +3,10 @@
 Updated: 2026-09-20
 
 ## Phase
-FULL WORLD ROLLOUT AUTHORIZED / BATCH 02 COMPLETE / BATCH 03 TECHNICALLY VERIFIED / FLEET AUTHENTICITY IMPLEMENTED / INDEPENDENT REVIEW PENDING
+FULL WORLD ROLLOUT AUTHORIZED / BATCH 02 COMPLETE / BATCH 03 TECHNICALLY VERIFIED / FLEET AUTHENTICITY INDEPENDENTLY REVIEWED / HUMAN REVIEW PENDING
 
 ## Current Work Unit
-Fleet Authenticity independent review pending; Batch 04 remains not started
+Fleet Authenticity human review pending; Batch 04 remains not started
 
 ## Confirmed
 - MyPage repo 유지
@@ -89,7 +89,7 @@ Fleet Authenticity independent review pending; Batch 04 remains not started
 - Batch 03 independent review — RETURN_TO_CODEX; integration hotfix — IMPLEMENTED; short re-check — PENDING
 - Fleet Authenticity Pass — NOT STARTED
 - Batch 04 — NOT STARTED
-- Fleet Authenticity Production Pass — IMPLEMENTED; independent review — PENDING
+- Fleet Authenticity Production Pass — IMPLEMENTED; independent review — COMPLETE (`READY_FOR_FLEET_AUTHENTICITY_HUMAN_REVIEW`); all four regenerated PNGs directly opened and pixel-decoded (not just JSON-trusted), active-asset replacement traced end-to-end to WorldScene rendering, 15°/sail-state/Age-of-Sail/hierarchy/berth/overlap/hygiene/preload independently re-verified, 31/31 tests, preload recomputed at 603,413 bytes; three Minor findings recorded (overlap validator does not extend rendered-alpha checking to the four regenerated sailing vessels; Hero D's hull window row is ambiguously gunport-like; Cutter's very small source canvas lowers visual-confidence slightly); no Blocker/Major. Human Review is next; Fleet Authenticity is not yet marked complete and Batch 04 is not authorized.
 
 ## Known Technical Follow-ups
 
@@ -100,4 +100,4 @@ Fleet Authenticity independent review pending; Batch 04 remains not started
 - Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Independent review of the Fleet Authenticity Production Pass; do not mark it complete until that review passes.
+1. Human review of the Fleet Authenticity Production Pass (`reports/portfolio-world/art-production/harbor-fleet-authenticity-independent-review.md`); do not mark Fleet Authenticity complete and do not start Batch 04 until that human review passes.
