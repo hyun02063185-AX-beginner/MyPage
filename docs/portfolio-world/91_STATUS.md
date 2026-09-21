@@ -1,12 +1,21 @@
 # 91. Portfolio World — Project Status
 
-Updated: 2026-09-21
+Updated: 2026-09-22
 
 ## Phase
-BATCH 02 COMPLETE / HUMAN ACCEPTED / BATCH 03 INTEGRATION TECHNICALLY VERIFIED / FLEET AUTHENTICITY + FLEET PRESENCE CLOSED / BATCH 04 PRODUCTION IMPLEMENTED / WHOLE-WORLD VISUAL QA PENDING
+BATCH 02 COMPLETE / HUMAN ACCEPTED / BATCH 03 INTEGRATION TECHNICALLY VERIFIED / FLEET AUTHENTICITY + FLEET PRESENCE CLOSED / FLEET NATIVE-RESOLUTION QUALITY PASS IMPLEMENTED / HUMAN REVIEW PENDING
 
 ## Current Work Unit
-Batch 04 Whole-world Environment Completion production + automated harness complete; independent Whole-world Visual QA is next
+Fleet Native-Resolution Quality Pass implemented; human review of the remastered Hero, Medium, Brig, and Cutter is next
+
+## Fleet Native-Resolution Quality Pass — 2026-09-22
+
+- Active Hero Ship D, Medium Vessel, Brig, and Cutter are v03 native-resolution remasters. Their approved visible envelopes, berth positions, roles, mixed facings, furled sail state, and 15° grammar are preserved while their runtime scales are reduced to 1.0.
+- Workboat and Dinghy are unchanged. No world geometry, collision, IA, paths, depth, docking, buildings, or waterfront zoning changed.
+- Native-resolved active ship preload is 82,276 bytes. Canonical BootScene production preload is now 31 assets / 561,180 bytes (−42,233 bytes).
+- Automated Harness = PASS (32/32); material vessel overlap = 0; production preview paths return HTTP 200; Blocker/Major = 0.
+- Final gate: `READY_FOR_FLEET_NATIVE_RESOLUTION_HUMAN_REVIEW`.
+- Report: `reports/portfolio-world/fleet-native-resolution-quality-pass.md`.
 
 ## Batch 04 Production Closeout — 2026-09-21
 

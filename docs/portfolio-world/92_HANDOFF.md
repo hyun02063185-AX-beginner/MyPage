@@ -1,9 +1,13 @@
 # 92. Portfolio World — Handoff
 
-Updated: 2026-09-21
+Updated: 2026-09-22
 
 ## State
-Batch 02 is COMPLETE / HUMAN ACCEPTED and Batch 03 integration is TECHNICALLY VERIFIED. Fleet Authenticity is IMPLEMENTED + INDEPENDENTLY REVIEWED; Fleet Presence Refinement is IMPLEMENTED + CLOSEOUT VERIFIED. Active sailing textures remain v02 furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract uses Hero 1.35×, Medium 1.30×, Brig 1.25×, Cutter 1.30×, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning. Normal BootScene production preload is 603,413 bytes across 31 assets. Batch 04 Production is IMPLEMENTED; Whole-world Visual QA is PENDING; Human Review is NOT YET.
+Batch 02 is COMPLETE / HUMAN ACCEPTED and Batch 03 integration is TECHNICALLY VERIFIED. Fleet Authenticity is IMPLEMENTED + INDEPENDENTLY REVIEWED; Fleet Presence Refinement is IMPLEMENTED + CLOSEOUT VERIFIED. Active core sailing textures are now v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are now 1.0. Normal BootScene production preload is 561,180 bytes across 31 assets. Fleet Native-Resolution Quality Pass is IMPLEMENTED; Human Review is PENDING.
+
+## Fleet Native-Resolution Human Review Handoff
+
+Review the Hero, Medium, Brig, and Cutter specifically for the intended result: same approved ship designs and presence, but sharper native-resolution detail without runtime enlargement. The pass changes only active ship PNGs, manifest dimensions/paths, and fleet presentation bounds; berth placement, roles, facings, depth, collision, IA, paths, buildings, world layout, and workboat/dinghy remain unchanged. Production checks: 32/32 tests pass, material vessel overlap = 0, all four v03 production asset URLs return HTTP 200, and preload is 561,180 bytes (−42,233). Gate: `READY_FOR_FLEET_NATIVE_RESOLUTION_HUMAN_REVIEW`. See `reports/portfolio-world/fleet-native-resolution-quality-pass.md`.
 
 ## Batch 04 Handoff
 
