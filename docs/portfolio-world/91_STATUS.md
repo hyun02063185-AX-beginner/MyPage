@@ -3,10 +3,19 @@
 Updated: 2026-09-21
 
 ## Phase
-BATCH 02 COMPLETE / HUMAN ACCEPTED / BATCH 03 INTEGRATION TECHNICALLY VERIFIED / FLEET AUTHENTICITY + FLEET PRESENCE CLOSED / BATCH 04 NEXT (NOT STARTED)
+BATCH 02 COMPLETE / HUMAN ACCEPTED / BATCH 03 INTEGRATION TECHNICALLY VERIFIED / FLEET AUTHENTICITY + FLEET PRESENCE CLOSED / BATCH 04 PRODUCTION IMPLEMENTED / WHOLE-WORLD VISUAL QA PENDING
 
 ## Current Work Unit
-Fleet Presence closeout complete; Batch 04 orchestrated planning is next and implementation remains not started
+Batch 04 Whole-world Environment Completion production + automated harness complete; independent Whole-world Visual QA is next
+
+## Batch 04 Production Closeout — 2026-09-21
+
+- Batch 04 Production = IMPLEMENTED. Automated Harness = PASS (32/32).
+- Four visual-only reuse placements complete the Guild Hall edge, Academy approach, Workshop transition, and Exhibition promenade. No destination, vessel, berth, path, world dimension, navigation, collision, or depth policy changed.
+- New production assets: 0. Canonical BootScene preload remains 31 assets / 603,413 bytes.
+- Whole-world rendered-material overlap sweep: 0 unintended overlaps. Production QA Blocker = 0, Major = 0; no new Minor or Polish finding. Two historical Minor notes remain deferred.
+- Batch 04 Whole-world Visual QA = PENDING. Human Review = NOT YET.
+- Report: `reports/portfolio-world/batch-04-whole-world-environment-completion.md`.
 
 ## Canonical Closeout — 2026-09-21
 
@@ -14,8 +23,8 @@ Fleet Presence closeout complete; Batch 04 orchestrated planning is next and imp
 - Batch 03 Integration is TECHNICALLY VERIFIED.
 - Fleet Authenticity is IMPLEMENTED + INDEPENDENTLY REVIEWED; Fleet Presence Refinement is IMPLEMENTED + CLOSEOUT VERIFIED.
 - Current Harbor visual direction is locked enough for continuation. The final refinement has Hero 1.35×, Medium 1.30×, Brig 1.25×, Cutter 1.30×, mixed facings, zero alpha-envelope vessel overlap, waterfront work zoning, and Harbor Square landscape zoning.
-- Current validation is 31/31 passing; canonical production preload is 603,413 bytes across 31 BootScene assets.
-- Batch 04 is NEXT and NOT STARTED: Whole-world Environment Completion + Final Balance only.
+- Current validation is 32/32 passing; canonical production preload is 603,413 bytes across 31 BootScene assets.
+- Batch 04 Production is IMPLEMENTED: Whole-world Environment Completion + Final Balance is ready for independent Visual QA only.
 - Batch 04 workflow: Production → Harness → Visual QA → grouped Major repair → short confirmation → Human Review.
 - Blocker and Major findings must close before Human Review; Minor and Polish findings are recorded/deferred unless milestone-harming.
 
@@ -101,8 +110,8 @@ This closeout supersedes older Fleet Authenticity “human review pending” ref
 - Batch 02 Harbor Support + Streetscape — COMPLETE (human-accepted)
 - Batch 03 independent review — RETURN_TO_CODEX; integration hotfix — IMPLEMENTED; short re-check — PENDING
 - Fleet Authenticity Pass — NOT STARTED
-- Batch 04 — NOT STARTED
-- Fleet Authenticity Production Pass — IMPLEMENTED; independent review — COMPLETE (`READY_FOR_FLEET_AUTHENTICITY_HUMAN_REVIEW`); all four regenerated PNGs directly opened and pixel-decoded (not just JSON-trusted), active-asset replacement traced end-to-end to WorldScene rendering, 15°/sail-state/Age-of-Sail/hierarchy/berth/overlap/hygiene/preload independently re-verified, 31/31 tests, preload recomputed at 603,413 bytes; three Minor findings recorded (overlap validator does not extend rendered-alpha checking to the four regenerated sailing vessels; Hero D's hull window row is ambiguously gunport-like; Cutter's very small source canvas lowers visual-confidence slightly); no Blocker/Major. Human Review is next; Fleet Authenticity is not yet marked complete and Batch 04 is not authorized.
+- Batch 04 — historical pre-production note superseded by the Batch 04 Production Closeout above
+- Fleet Authenticity Production Pass — IMPLEMENTED; independent review — COMPLETE (`READY_FOR_FLEET_AUTHENTICITY_HUMAN_REVIEW`); all four regenerated PNGs directly opened and pixel-decoded (not just JSON-trusted), active-asset replacement traced end-to-end to WorldScene rendering, 15°/sail-state/Age-of-Sail/hierarchy/berth/overlap/hygiene/preload independently re-verified, 31/31 tests, preload recomputed at 603,413 bytes; three Minor findings recorded (overlap validator does not extend rendered-alpha checking to the four regenerated sailing vessels; Hero D's hull window row is ambiguously gunport-like; Cutter's very small source canvas lowers visual-confidence slightly); no Blocker/Major. This historical authorization note is superseded by the Batch 04 Production Closeout above.
 
 ## Known Technical Follow-ups
 
@@ -113,4 +122,4 @@ This closeout supersedes older Fleet Authenticity “human review pending” ref
 - Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Batch 04 orchestrated planning only: Whole-world Environment Completion + Final Balance. Do not begin implementation without a separately authorized Batch 04 task.
+1. Independent Batch 04 Whole-world Visual QA. Do not mark Batch 04 complete or begin a repair loop unless it identifies a Blocker or Major.

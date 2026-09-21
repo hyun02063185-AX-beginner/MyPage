@@ -3,15 +3,17 @@
 Updated: 2026-09-21
 
 ## State
-Batch 02 is COMPLETE / HUMAN ACCEPTED and Batch 03 integration is TECHNICALLY VERIFIED. Fleet Authenticity is IMPLEMENTED + INDEPENDENTLY REVIEWED; Fleet Presence Refinement is IMPLEMENTED + CLOSEOUT VERIFIED. Active sailing textures remain v02 furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract uses Hero 1.35×, Medium 1.30×, Brig 1.25×, Cutter 1.30×, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning. Normal BootScene production preload is 603,413 bytes across 31 assets. Batch 04 is NEXT but NOT STARTED.
+Batch 02 is COMPLETE / HUMAN ACCEPTED and Batch 03 integration is TECHNICALLY VERIFIED. Fleet Authenticity is IMPLEMENTED + INDEPENDENTLY REVIEWED; Fleet Presence Refinement is IMPLEMENTED + CLOSEOUT VERIFIED. Active sailing textures remain v02 furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract uses Hero 1.35×, Medium 1.30×, Brig 1.25×, Cutter 1.30×, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning. Normal BootScene production preload is 603,413 bytes across 31 assets. Batch 04 Production is IMPLEMENTED; Whole-world Visual QA is PENDING; Human Review is NOT YET.
 
 ## Batch 04 Handoff
 
-Workflow: **Production → Harness → Visual QA → grouped Major repair → short confirmation → Human Review**.
+Workflow: **Production → Harness → Visual QA → grouped Major repair → short confirmation → Human Review**. Production and Harness are now complete.
 
-Batch 04 milestone: **Whole-world Environment Completion + Final Balance**. Do not implement it in this closeout. It covers environmental completeness, cross-zone balance, hierarchy, readability, density, transitions, and world-level polish; it excludes dynamic ship movement, day/night, NPC systems, realtime LLM, multiplayer, and major world redesign without separate authorization.
+Batch 04 milestone: **Whole-world Environment Completion + Final Balance**. Production added four visual-only existing-asset reuses: Guild Hall outer-edge tree, Academy west approach tree, Workshop transition planter, and Exhibition Hall promenade planter. It preserves all accepted buildings, fleet, berths, paths, world dimensions, collision and depth architecture. It excludes dynamic ship movement, day/night, NPC systems, realtime LLM, multiplayer, and major redesign.
 
-Severity: Blocker and Major must close before Human Review. Minor is recorded/deferred unless it harms the milestone; Polish belongs to Batch 04 final balance / final polish. Current fleet-phase deferred findings: two Minor visual notes, no Blocker/Major, no newly opened Polish item.
+Severity: Blocker and Major must close before Human Review. Production QA result: Blocker 0, Major 0, new Minor 0, Polish 0. Two historical Minor visual notes remain deferred. The automated harness passes 32/32; whole-world material overlap sweep returns 0 unintended overlaps; canonical preload remains exactly 603,413 bytes across 31 assets; new asset count is 0.
+
+Independent Visual QA handoff: review whole-world overview, Harbor Square, Guild Hall approach, Academy approach, Workshop approach, Exhibition Hall/waterfront, dock/fleet, and major transitions. The production report is `reports/portfolio-world/batch-04-whole-world-environment-completion.md`. A local built preview responded HTTP 200 at `/MyPage/world/`; browser screenshot capture was unavailable in this environment and is not being represented as Visual QA evidence. Final production gate: `READY_FOR_BATCH_04_WHOLE_WORLD_VISUAL_QA`.
 
 This section supersedes older Fleet Authenticity “Human Review next” and “Batch 04 not authorized” passages below, retained as historical records.
 
@@ -98,11 +100,11 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Batch 04 orchestrated planning is next. Do not start Batch 04 implementation until separately authorized. Stop any local `vite preview` server before running `npm ci` on Windows.
+Independent Batch 04 Whole-world Visual QA is next. Do not mark Batch 04 complete or begin a repair loop unless it identifies a Blocker or Major. Stop any local `vite preview` server before running `npm ci` on Windows.
 
 ## Next Recommended Agent
-Director / Production
-Task: Plan the Batch 04 Whole-world Environment Completion + Final Balance milestone using the grouped workflow above; do not begin implementation in the planning task.
+Independent Visual QA
+Task: Inspect the Batch 04 whole world using the handoff views; classify only Blocker/Major for repair and record Minor/Polish without a repair loop.
 
 ## Visual Pass 1 Status
 
