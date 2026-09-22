@@ -1,0 +1,13 @@
+{
+  "scaleFamily": "PRIMARY_DESTINATION_PLAYER_DOOR_BUILDING_V1",
+  "player": { "displayWidth": 24, "displayHeight": 32, "visibleBodyWidth": 20, "visibleBodyHeight": 28 },
+  "referenceChain": "PLAYER -> OPENABLE MAIN DOOR -> BUILDING MASS",
+  "measurementMethod": "Measure only the dark, visibly openable double-leaf aperture at runtime 1x; exclude decorative arches, exterior frames, steps, and glazing. +/- 2 px raster uncertainty applies.",
+  "doorWidthRatioTarget": { "minimum": 1.65, "maximum": 1.95, "description": "Canonical clear aperture measured against the 24 px player canvas; this reads as approximately 2.1 player body widths." },
+  "buildings": [
+    { "id": "guild-hall-v01", "runtimePath": "assets/world/harbor/buildings/guild-hall-v01.png", "preReviewDisplay": [338,204], "display": [338,204], "visible": [330,196], "mainDoor": [42,52], "doorToPlayer": [1.75,1.63], "doorToVisibleMass": [0.127,0.265], "action": "reference-retained", "fileBytes": 114758 },
+    { "id": "academy-v03", "runtimePath": "assets/world/harbor/buildings/academy-v03.png", "preReviewDisplay": [370,216], "display": [370,216], "visible": [362,208], "mainDoor": [42,52], "doorToPlayer": [1.75,1.63], "doorToVisibleMass": [0.116,0.25], "action": "targeted-door-regeneration", "fileBytes": 79265 },
+    { "id": "workshop-v03", "runtimePath": "assets/world/harbor/buildings/workshop-v03.png", "preReviewDisplay": [291,170], "display": [291,170], "visible": [283,162], "mainDoor": [42,50], "doorToPlayer": [1.75,1.56], "doorToVisibleMass": [0.148,0.309], "action": "targeted-door-regeneration", "fileBytes": 56423 },
+    { "id": "exhibition-hall-v03", "runtimePath": "assets/world/harbor/buildings/exhibition-hall-v03.png", "preReviewDisplay": [356,218], "display": [356,218], "visible": [348,210], "mainDoor": [42,52], "doorToPlayer": [1.75,1.63], "doorToVisibleMass": [0.121,0.248], "action": "targeted-door-regeneration", "fileBytes": 70064 }
+  ]
+}

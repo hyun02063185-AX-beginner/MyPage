@@ -1,66 +1,68 @@
-import { LOGICAL_UNIT, WORLD_HEIGHT, WORLD_WIDTH } from "../config/gameConfig";
+import { WORLD_HEIGHT, WORLD_WIDTH } from "../config/gameConfig";
+import { validateWorldLayout } from "./layoutValidation.mjs";
+import { assertTownTranslation, TOWN_TRANSLATION_Y, translateTownLayout } from "./layoutTransform.mjs";
+import { createWaterCollisionRects } from "./waterCollisionGeometry.mjs";
+import rawWorldLayout from "./worldLayoutData.json";
+import { BERTHING_SLOTS } from "./berthingSlots";
+import { resolveStaticBerthPlacements } from "./berthingPlacement.mjs";
+import type {
+  BuildingFootprint,
+  HarborVisualPlacement,
+  ReservedLot,
+  WorldLayout,
+  WorldPath,
+  WorldRect,
+  WorldZone,
+  WorldZoneId,
+} from "./worldTypes";
 
-export type WorldZone = Readonly<{
-  id: "plaza" | "lecture" | "career" | "ai-lab" | "gallery";
-  label: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+type RawLayout = Readonly<{
+  playerSpawn: Readonly<{ x: number; y: number }>;
+  zones: readonly WorldZone[];
+  paths: readonly WorldPath[];
+  forecourts: readonly WorldPath[];
+  harborVisuals: readonly HarborVisualPlacement[];
+  reservedLots: readonly ReservedLot[];
+  edgeDecorations: readonly WorldRect[];
 }>;
 
-const PLAZA_WIDTH = LOGICAL_UNIT * 14;
-const PLAZA_HEIGHT = LOGICAL_UNIT * 9;
+const sourceLayoutData = rawWorldLayout as unknown as RawLayout;
+const translatedLayoutData = translateTownLayout(sourceLayoutData, {
+  worldHeight: WORLD_HEIGHT,
+}) as RawLayout;
+const layoutData = {
+  ...translatedLayoutData,
+  harborVisuals: resolveStaticBerthPlacements(
+    translatedLayoutData.harborVisuals,
+    BERTHING_SLOTS,
+    TOWN_TRANSLATION_Y,
+  ),
+} as RawLayout;
+assertTownTranslation(sourceLayoutData, translatedLayoutData, { worldHeight: WORLD_HEIGHT });
+const centralPlaza = layoutData.zones.find((zone) => zone.id === "plaza");
 
-const centralPlaza: WorldZone = {
-  id: "plaza",
-  label: "Central Plaza",
-  x: WORLD_WIDTH / 2,
-  y: WORLD_HEIGHT / 2,
-  width: PLAZA_WIDTH,
-  height: PLAZA_HEIGHT,
+if (!centralPlaza) {
+  throw new Error("World layout requires a Central Plaza");
+}
+
+const buildings = layoutData.zones
+  .filter((zone): zone is Exclude<WorldZone, { id: "plaza" }> => zone.id !== "plaza")
+  .map((zone) => ({ ...zone, collidable: true as const }));
+const waterCollisionRects = createWaterCollisionRects(
+  layoutData.harborVisuals.filter((visual) => visual.type === "water"),
+  layoutData.harborVisuals.filter((visual) => visual.type === "dock" && visual.walkable),
+);
+
+const layout: WorldLayout = {
+  ...layoutData,
+  centralPlaza,
+  buildings: buildings as readonly BuildingFootprint[],
+  waterCollisionRects,
 };
 
-/** Directional prototype data only: no URLs, handlers, collision, or Tiled map. */
-export const WORLD_LAYOUT = {
-  centralPlaza,
-  playerSpawn: {
-    x: centralPlaza.x,
-    y: centralPlaza.y + centralPlaza.height / 2 + LOGICAL_UNIT * 2,
-  },
-  zones: [
-    centralPlaza,
-    {
-      id: "lecture",
-      label: "North · Future Lecture",
-      x: WORLD_WIDTH / 2,
-      y: LOGICAL_UNIT * 5,
-      width: LOGICAL_UNIT * 8,
-      height: LOGICAL_UNIT * 4,
-    },
-    {
-      id: "career",
-      label: "West · Future Career",
-      x: LOGICAL_UNIT * 7,
-      y: WORLD_HEIGHT / 2,
-      width: LOGICAL_UNIT * 8,
-      height: LOGICAL_UNIT * 4,
-    },
-    {
-      id: "ai-lab",
-      label: "East · Future AI Lab",
-      x: WORLD_WIDTH - LOGICAL_UNIT * 7,
-      y: WORLD_HEIGHT / 2,
-      width: LOGICAL_UNIT * 8,
-      height: LOGICAL_UNIT * 4,
-    },
-    {
-      id: "gallery",
-      label: "South · Future Gallery",
-      x: WORLD_WIDTH / 2,
-      y: WORLD_HEIGHT - LOGICAL_UNIT * 5,
-      width: LOGICAL_UNIT * 8,
-      height: LOGICAL_UNIT * 4,
-    },
-  ] as const satisfies readonly WorldZone[],
-} as const;
+validateWorldLayout(layoutData, { worldWidth: WORLD_WIDTH, worldHeight: WORLD_HEIGHT });
+
+/** Project-owned spatial data; Tiled and URL/content payloads remain deferred. */
+export const WORLD_LAYOUT = layout;
+
+export type { HarborVisualPlacement, ReservedLot, WorldZone, WorldZoneId } from "./worldTypes";

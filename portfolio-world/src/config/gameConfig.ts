@@ -29,6 +29,12 @@ export const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
   backgroundColor: "#122033",
   pixelArt: true,
   roundPixels: true,
+  physics: {
+    default: "arcade",
+    arcade: {
+      debug: false,
+    },
+  },
   input: {
     keyboard: {
       // Phaser's supported prevent-default capture prevents movement keys scrolling the page.
