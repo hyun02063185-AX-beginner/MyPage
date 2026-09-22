@@ -3,10 +3,19 @@
 Updated: 2026-09-22
 
 ## Phase
-RELEASE READINESS — BLOCKER REPAIR IMPLEMENTED; INDEPENDENT SHORT CHECK PENDING
+RELEASE READINESS — BLOCKER SHORT RECHECK COMPLETE; READY FOR RELEASE CLOSEOUT
 
 ## Current Work Unit
-Release Blocker Verification — PENDING INDEPENDENT SHORT CHECK. Verify the new root entry and all four deliberate World destination activations in production without reopening accepted visual work.
+Release Blocker Short Recheck — COMPLETE. RR-01 and RR-02 are both independently CLOSED in a live production build (manual walk to all four forecourts, E/Enter/click activation, Pages-safe routing, world exit). Gate: `READY_FOR_RELEASE_CLOSEOUT`.
+
+## Release Blocker Short Recheck — 2026-09-22
+
+- Independently re-verified `74e4353`/`97383e2` in a running production build (headless-browser driver against a GitHub-Pages-shaped local server), not from source or unit tests alone.
+- Root "Portfolio World" link clicked live → `/MyPage/world/` loads, 0 console errors. RR-01 = CLOSED.
+- All four forecourts (Guild Hall, Academy, Workshop, Exhibition Hall) reached by real held movement keys from spawn; each correct prompt appeared; E, Enter, and click were each exercised and each deliberately activated navigation to the correct `/MyPage/*.html` target; proximity alone did not navigate. RR-02 = CLOSED.
+- QA reproduced: typecheck/build/test 35/35, `git diff --check` clean, preload unchanged at 31 assets / 561,180 bytes, worktree clean.
+- Blocker = 0, Major = 0; the known Vite >500 kB chunk warning remains Minor/deferred.
+- Report: `reports/portfolio-world/release-blocker-short-recheck.md`.
 
 ## Release Blocker Repair — 2026-09-22
 
@@ -149,4 +158,4 @@ This closeout supersedes older Fleet Authenticity “human review pending” ref
 - Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Independently walk to each destination forecourt and activate Guild Hall → Career, Academy → Teaching, Workshop → Making, Exhibition Hall → Gallery in a production build; confirm the root World entry and World exit again. Do not begin visual polish.
+1. Release closeout decision. The short recheck above already independently confirmed all four forecourt activations, the root World entry, and the World exit in a production build. Do not begin visual polish.

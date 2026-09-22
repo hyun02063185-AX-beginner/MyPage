@@ -5,9 +5,15 @@ Updated: 2026-09-22
 ## State
 Batch 02 is COMPLETE / HUMAN ACCEPTED; Batch 03 is COMPLETE; Fleet Authenticity and Fleet Presence are COMPLETE; Fleet Native Resolution is COMPLETE / HUMAN ACCEPTED; and Batch 04 Whole-world Environment Completion is COMPLETE / HUMAN ACCEPTED. Active core sailing textures are v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0. Normal BootScene production preload is 561,180 bytes across 31 assets.
 
+## Release Blocker Short Recheck — 2026-09-22
+
+Current phase: **RELEASE READINESS — BLOCKER SHORT RECHECK COMPLETE / READY FOR RELEASE CLOSEOUT**.
+
+Both `release-readiness-audit.md` Blockers were independently re-verified in a live production build via a headless-browser driver against a GitHub-Pages-shaped local server (not from source or unit tests alone): the root "Portfolio World" link was clicked and loaded `/MyPage/world/`; all four forecourts (Guild Hall, Academy, Workshop, Exhibition Hall) were reached with real held movement keys from spawn and each correctly prompted; E, Enter, and click were each exercised and deliberately activated navigation to the correct `/MyPage/*.html` target (proximity alone did not navigate); the World exit returned to `/MyPage/`; 0 console errors throughout. QA reproduced 35/35, preload unchanged at 561,180 bytes / 31 assets, worktree clean. RR-01 = CLOSED, RR-02 = CLOSED, Blocker = 0, Major = 0. See `reports/portfolio-world/release-blocker-short-recheck.md`. Do not reopen Batch 04 visual work or start a polish pass.
+
 ## Release Readiness Handoff — 2026-09-22
 
-Current phase: **RELEASE READINESS — BLOCKER REPAIR IMPLEMENTED**.
+Prior phase: **RELEASE READINESS — BLOCKER REPAIR IMPLEMENTED**. Superseded by the short recheck above.
 
 The visual milestone remains closed. The two functional omissions from `reports/portfolio-world/release-readiness-audit.md` are repaired:
 
@@ -115,11 +121,11 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Independent release-blocker short check is next: manually activate all four destination forecourts in a production build, reconfirm the optional root entry and World exit, then decide the final release gate. Stop any local `vite preview` server before running `npm ci` on Windows.
+Release closeout decision. The independent release-blocker short check is complete: all four destination forecourts were manually activated in a production build, and the optional root entry and World exit were reconfirmed. Stop any local `vite preview` server before running `npm ci` on Windows.
 
 ## Next Recommended Agent
-Independent release-blocker short check
-Task: Verify each deliberate World destination activation in a production build, plus root entry and exit. Preserve the accepted visual world.
+Release closeout
+Task: Decide the final release gate given `READY_FOR_RELEASE_CLOSEOUT`. Preserve the accepted visual world; do not reopen Batch 04 or start a polish pass.
 
 ## Visual Pass 1 Status
 
