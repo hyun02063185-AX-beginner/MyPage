@@ -3,7 +3,11 @@
 Updated: 2026-09-22
 
 ## State
-Batch 02 is COMPLETE / HUMAN ACCEPTED; Batch 03 is COMPLETE; Fleet Authenticity and Fleet Presence are COMPLETE; Fleet Native Resolution is COMPLETE / HUMAN ACCEPTED; and Batch 04 Whole-world Environment Completion is COMPLETE / HUMAN ACCEPTED. Active core sailing textures are v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0. Normal BootScene production preload is 561,180 bytes across 31 assets.
+**PORTFOLIO WORLD V1 = RELEASED.** Batch 02 = COMPLETE; Batch 03 = COMPLETE; Fleet Authenticity = COMPLETE; Fleet Presence = COMPLETE; Fleet Native Resolution = COMPLETE; Batch 04 = COMPLETE / HUMAN ACCEPTED; Release Readiness = PASS; Release Blockers = CLOSED; GitHub Pages Production = VERIFIED; Deferred Minor = 1 RELEASE-SAFE. Active core sailing textures remain v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0. Normal BootScene production preload is 561,180 bytes across 31 assets.
+
+## Production Release Closeout — 2026-09-22
+
+Release merge `eaadc02` is on and pushed to `main`; the preserved feature head is `e68b673`. Fresh pre-merge and post-merge checks passed (clean install, typecheck, build, `npm test` 35/35, and `git diff --check`). GitHub Pages production was rendered and verified at `/MyPage/` and `/MyPage/world/`: root entry, 1024×576 World canvas, hashed production assets, 0 World console warnings/errors, World exit, and all four target endpoints pass. See `reports/portfolio-world/portfolio-world-v1-release-closeout.md`. Do not reopen visual polish solely for the known release-safe Vite chunk-size warning.
 
 ## Release Blocker Short Recheck — 2026-09-22
 

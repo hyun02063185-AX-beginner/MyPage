@@ -3,10 +3,17 @@
 Updated: 2026-09-22
 
 ## Phase
-RELEASE READINESS — BLOCKER SHORT RECHECK COMPLETE; READY FOR RELEASE CLOSEOUT
+PORTFOLIO WORLD V1 — RELEASED
 
 ## Current Work Unit
-Release Blocker Short Recheck — COMPLETE. RR-01 and RR-02 are both independently CLOSED in a live production build (manual walk to all four forecourts, E/Enter/click activation, Pages-safe routing, world exit). Gate: `READY_FOR_RELEASE_CLOSEOUT`.
+Release Closeout — COMPLETE. Batch 02 = COMPLETE; Batch 03 = COMPLETE; Fleet Authenticity = COMPLETE; Fleet Presence = COMPLETE; Fleet Native Resolution = COMPLETE; Batch 04 = COMPLETE / HUMAN ACCEPTED; Release Readiness = PASS; Release Blockers = CLOSED; GitHub Pages Production = VERIFIED; Deferred Minor = 1 RELEASE-SAFE. Gate: `PORTFOLIO_WORLD_V1_RELEASED`.
+
+## Production Release Closeout — 2026-09-22
+
+- `main` release merge `eaadc02` is pushed to `origin/main`; the feature tip is `e68b673` and is preserved by the merge.
+- Fresh pre-merge and post-merge QA both passed: clean install, typecheck, build, `npm test` **35/35**, and `git diff --check`. Canonical BootScene preload remains **31 assets / 561,180 bytes**.
+- GitHub Pages production was verified at `/MyPage/` and `/MyPage/world/`: the root entry opens World, its 1024×576 canvas and deployed hashed assets load with 0 console warnings/errors, the World exit returns to root, and all four portfolio targets load.
+- Final evidence: `reports/portfolio-world/portfolio-world-v1-release-closeout.md`.
 
 ## Release Blocker Short Recheck — 2026-09-22
 
