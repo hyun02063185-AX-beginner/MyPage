@@ -3,10 +3,19 @@
 Updated: 2026-09-22
 
 ## Phase
-BATCH 02 COMPLETE / HUMAN ACCEPTED / BATCH 03 INTEGRATION TECHNICALLY VERIFIED / FLEET AUTHENTICITY + FLEET PRESENCE CLOSED / FLEET NATIVE-RESOLUTION QUALITY PASS IMPLEMENTED / HUMAN REVIEW PENDING
+RELEASE READINESS — BATCH 04 COMPLETE / HUMAN ACCEPTED; RELEASE FIXES REQUIRED
 
 ## Current Work Unit
-Fleet Native-Resolution Quality Pass implemented; human review of the remastered Hero, Medium, Brig, and Cutter is next
+Release-readiness remediation: add the optional root World entry and the four required World destination interactions. Do not reopen accepted visual work.
+
+## Batch 04 + Fleet Native Resolution Human Acceptance — 2026-09-22
+
+- Batch 04 Whole-world Environment Completion = **COMPLETE / HUMAN ACCEPTED**.
+- Fleet Native Resolution = **COMPLETE / HUMAN ACCEPTED**. Hero, Medium, Brig, and Cutter remain v03 native-resolution remasters at 1.0 runtime scale with approved apparent size, mixed facings, furled sails, berth layout, and 15° grammar preserved.
+- Whole-world composition, Harbor Square, destination readability, zone transitions, harbor/fleet presence, and density/balance were accepted by Human Review.
+- Acceptance record: `reports/portfolio-world/batch-04-human-acceptance.md`.
+- Current phase: **RELEASE READINESS**. The release audit found two Blockers: the root portfolio lacks the optional World entry CTA/link, and World destination interaction/link handling is absent. This does not reopen the accepted visual milestone.
+- Release gate: `NEEDS_FIX`. Audit: `reports/portfolio-world/release-readiness-audit.md`.
 
 ## Fleet Native-Resolution Quality Pass — 2026-09-22
 
@@ -14,8 +23,8 @@ Fleet Native-Resolution Quality Pass implemented; human review of the remastered
 - Workboat and Dinghy are unchanged. No world geometry, collision, IA, paths, depth, docking, buildings, or waterfront zoning changed.
 - Native-resolved active ship preload is 82,276 bytes. Canonical BootScene production preload is now 31 assets / 561,180 bytes (−42,233 bytes).
 - Automated Harness = PASS (32/32); material vessel overlap = 0; production preview paths return HTTP 200; Blocker/Major = 0.
-- Final gate: `READY_FOR_FLEET_NATIVE_RESOLUTION_HUMAN_REVIEW`.
-- Report: `reports/portfolio-world/fleet-native-resolution-quality-pass.md`.
+- Human Review: **ACCEPTED**; Fleet Native Resolution is **COMPLETE / HUMAN ACCEPTED**.
+- Historical implementation report: `reports/portfolio-world/fleet-native-resolution-quality-pass.md`; acceptance record: `reports/portfolio-world/batch-04-human-acceptance.md`.
 
 ## Batch 04 Production Closeout — 2026-09-21
 
@@ -23,8 +32,8 @@ Fleet Native-Resolution Quality Pass implemented; human review of the remastered
 - Four visual-only reuse placements complete the Guild Hall edge, Academy approach, Workshop transition, and Exhibition promenade. No destination, vessel, berth, path, world dimension, navigation, collision, or depth policy changed.
 - New production assets: 0. Canonical BootScene preload remains 31 assets / 603,413 bytes.
 - Whole-world rendered-material overlap sweep: 0 unintended overlaps. Production QA Blocker = 0, Major = 0; no new Minor or Polish finding. Two historical Minor notes remain deferred.
-- Batch 04 Whole-world Visual QA = PENDING. Human Review = NOT YET.
-- Report: `reports/portfolio-world/batch-04-whole-world-environment-completion.md`.
+- Batch 04 Whole-world Visual QA and Human Review are complete; Batch 04 is **COMPLETE / HUMAN ACCEPTED**.
+- Historical production report: `reports/portfolio-world/batch-04-whole-world-environment-completion.md`; acceptance record: `reports/portfolio-world/batch-04-human-acceptance.md`.
 
 ## Canonical Closeout — 2026-09-21
 
@@ -131,4 +140,4 @@ This closeout supersedes older Fleet Authenticity “human review pending” ref
 - Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Independent Batch 04 Whole-world Visual QA. Do not mark Batch 04 complete or begin a repair loop unless it identifies a Blocker or Major.
+1. Close the two release Blockers documented in `reports/portfolio-world/release-readiness-audit.md`, then rerun production-route, destination-link, asset, and console checks. Do not begin visual polish.
