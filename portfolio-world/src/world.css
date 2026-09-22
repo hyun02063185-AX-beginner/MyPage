@@ -74,6 +74,11 @@ body {
   display: none;
 }
 
+.destination-interaction {
+  min-height: 1em;
+  color: #f5c96a;
+}
+
 @media (pointer: coarse), (max-width: 700px) {
   body {
     overflow: auto;

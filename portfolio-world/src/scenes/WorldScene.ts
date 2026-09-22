@@ -35,11 +35,18 @@ import {
   getNaturalizedBuilding,
   NATURALIZED_SCALE_REVIEW_SPAWNS,
 } from "../world/layoutNaturalization";
+import {
+  getDestinationAtPoint,
+  getActivatedDestinationUrl,
+  getDestinationPrompt,
+} from "../world/destinationNavigation.mjs";
 
 type MovementKeys = Record<
   "up" | "down" | "left" | "right" | "w" | "a" | "s" | "d",
   Phaser.Input.Keyboard.Key
 >;
+
+type InteractionKeys = Record<"enter" | "e", Phaser.Input.Keyboard.Key>;
 
 type ScaleReviewView = "guild" | "academy" | "workshop" | "exhibition" | "tree" | "props" | "world";
 
@@ -136,6 +143,9 @@ const getProductionVisualAsset = (id: string): WorldAssetEntry | undefined =>
 export class WorldScene extends Phaser.Scene {
   private player?: Player;
   private movementKeys?: MovementKeys;
+  private interactionKeys?: InteractionKeys;
+  private activeDestination?: ReturnType<typeof getDestinationAtPoint>;
+  private interactionPrompt?: Phaser.GameObjects.Text;
 
   public constructor() {
     super("WorldScene");
@@ -146,6 +156,7 @@ export class WorldScene extends Phaser.Scene {
     this.createPlayer();
     this.createEnvironmentalCollision();
     this.configureCamera();
+    this.input.on(Phaser.Input.Events.POINTER_DOWN, this.activatePointerDestination, this);
     this.game.events.on(Phaser.Core.Events.BLUR, this.resetMovementKeys, this);
     this.events.on(Phaser.Scenes.Events.POST_UPDATE, this.constrainPlayer, this);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, this.disposeInput, this);
@@ -162,6 +173,7 @@ export class WorldScene extends Phaser.Scene {
       up: this.movementKeys.up.isDown || this.movementKeys.w.isDown,
       down: this.movementKeys.down.isDown || this.movementKeys.s.isDown,
     });
+    this.updateDestinationInteraction();
   }
 
   private createPlayer(): void {
@@ -184,6 +196,67 @@ export class WorldScene extends Phaser.Scene {
       s: Phaser.Input.Keyboard.KeyCodes.S,
       d: Phaser.Input.Keyboard.KeyCodes.D,
     }) as MovementKeys | undefined;
+    this.interactionKeys = this.input.keyboard?.addKeys({
+      enter: Phaser.Input.Keyboard.KeyCodes.ENTER,
+      e: Phaser.Input.Keyboard.KeyCodes.E,
+    }) as InteractionKeys | undefined;
+    this.interactionPrompt = this.add
+      .text(0, 0, "", {
+        align: "center",
+        backgroundColor: "#122033",
+        color: "#f5c96a",
+        fontFamily: "monospace",
+        fontSize: "14px",
+        padding: { x: 6, y: 4 },
+      })
+      .setOrigin(0.5)
+      .setDepth(WORLD_DEPTH.HTML_UI)
+      .setVisible(false);
+  }
+
+  /** Forecourts make a destination available; only an explicit key or click navigates. */
+  private updateDestinationInteraction(): void {
+    if (!this.player) {
+      return;
+    }
+    const nextDestination = getDestinationAtPoint(WORLD_LAYOUT, this.player.gameObject);
+    this.activeDestination = nextDestination;
+    const status = document.getElementById("destination-interaction");
+    if (!nextDestination) {
+      this.interactionPrompt?.setVisible(false);
+      if (status) status.textContent = "";
+      return;
+    }
+
+    const prompt = getDestinationPrompt(nextDestination);
+    this.interactionPrompt
+      ?.setText(prompt)
+      .setPosition(this.player.gameObject.x, this.player.gameObject.y - 36)
+      .setVisible(true);
+    if (status) status.textContent = prompt;
+    if (
+      this.interactionKeys
+      && (Phaser.Input.Keyboard.JustDown(this.interactionKeys.enter) || Phaser.Input.Keyboard.JustDown(this.interactionKeys.e))
+    ) {
+      this.navigateToDestination(nextDestination);
+    }
+  }
+
+  private activatePointerDestination(pointer: Phaser.Input.Pointer): void {
+    const destination = this.activeDestination;
+    if (destination && pointer && pointer.worldX >= destination.interactionRect.x - destination.interactionRect.width / 2
+      && pointer.worldX <= destination.interactionRect.x + destination.interactionRect.width / 2
+      && pointer.worldY >= destination.interactionRect.y - destination.interactionRect.height / 2
+      && pointer.worldY <= destination.interactionRect.y + destination.interactionRect.height / 2) {
+      this.navigateToDestination(destination);
+    }
+  }
+
+  private navigateToDestination(destination: NonNullable<ReturnType<typeof getDestinationAtPoint>>): void {
+    const target = getActivatedDestinationUrl(destination, true, window.location.href);
+    if (target) {
+      window.location.assign(target);
+    }
   }
 
   private createEnvironmentalCollision(): void {
@@ -218,6 +291,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private disposeInput(): void {
+    this.input.off(Phaser.Input.Events.POINTER_DOWN, this.activatePointerDestination, this);
     this.game.events.off(Phaser.Core.Events.BLUR, this.resetMovementKeys, this);
     this.events.off(Phaser.Scenes.Events.POST_UPDATE, this.constrainPlayer, this);
   }
