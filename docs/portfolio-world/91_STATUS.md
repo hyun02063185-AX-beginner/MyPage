@@ -3,10 +3,19 @@
 Updated: 2026-09-22
 
 ## Phase
-RELEASE READINESS — BATCH 04 COMPLETE / HUMAN ACCEPTED; RELEASE FIXES REQUIRED
+RELEASE READINESS — BLOCKER REPAIR IMPLEMENTED; INDEPENDENT SHORT CHECK PENDING
 
 ## Current Work Unit
-Release-readiness remediation: add the optional root World entry and the four required World destination interactions. Do not reopen accepted visual work.
+Release Blocker Verification — PENDING INDEPENDENT SHORT CHECK. Verify the new root entry and all four deliberate World destination activations in production without reopening accepted visual work.
+
+## Release Blocker Repair — 2026-09-22
+
+- RR-01 root World entry and RR-02 World destination navigation are implemented.
+- Root portfolio now provides an optional `world/` entry. Guild Hall, Academy, Workshop, and Exhibition Hall use existing forecourts and intentional E/Enter/click activation to resolve their canonical Pages-safe portfolio targets.
+- No ship, asset, layout, world dimension, collision, zoning, or Batch 04 visual change was made. Preload remains **31 assets / 561,180 bytes**.
+- `npm ci`, typecheck, build, and `git diff --check` pass; tests are **35/35**; production World console errors are 0.
+- Repair report: `reports/portfolio-world/release-blocker-navigation-repair.md`.
+- Next gate: `READY_FOR_RELEASE_BLOCKER_SHORT_RECHECK`.
 
 ## Batch 04 + Fleet Native Resolution Human Acceptance — 2026-09-22
 
@@ -14,8 +23,8 @@ Release-readiness remediation: add the optional root World entry and the four re
 - Fleet Native Resolution = **COMPLETE / HUMAN ACCEPTED**. Hero, Medium, Brig, and Cutter remain v03 native-resolution remasters at 1.0 runtime scale with approved apparent size, mixed facings, furled sails, berth layout, and 15° grammar preserved.
 - Whole-world composition, Harbor Square, destination readability, zone transitions, harbor/fleet presence, and density/balance were accepted by Human Review.
 - Acceptance record: `reports/portfolio-world/batch-04-human-acceptance.md`.
-- Current phase: **RELEASE READINESS**. The release audit found two Blockers: the root portfolio lacks the optional World entry CTA/link, and World destination interaction/link handling is absent. This does not reopen the accepted visual milestone.
-- Release gate: `NEEDS_FIX`. Audit: `reports/portfolio-world/release-readiness-audit.md`.
+- The historical release audit found two Blockers: missing root World entry and missing World destination interaction/link handling. Both are now implemented; this does not reopen the accepted visual milestone.
+- Historical audit: `reports/portfolio-world/release-readiness-audit.md`. Current repair gate: `READY_FOR_RELEASE_BLOCKER_SHORT_RECHECK`.
 
 ## Fleet Native-Resolution Quality Pass — 2026-09-22
 
@@ -140,4 +149,4 @@ This closeout supersedes older Fleet Authenticity “human review pending” ref
 - Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Close the two release Blockers documented in `reports/portfolio-world/release-readiness-audit.md`, then rerun production-route, destination-link, asset, and console checks. Do not begin visual polish.
+1. Independently walk to each destination forecourt and activate Guild Hall → Career, Academy → Teaching, Workshop → Making, Exhibition Hall → Gallery in a production build; confirm the root World entry and World exit again. Do not begin visual polish.

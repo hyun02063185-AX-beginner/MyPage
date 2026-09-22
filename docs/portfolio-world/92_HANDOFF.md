@@ -7,14 +7,14 @@ Batch 02 is COMPLETE / HUMAN ACCEPTED; Batch 03 is COMPLETE; Fleet Authenticity 
 
 ## Release Readiness Handoff — 2026-09-22
 
-Current phase: **RELEASE READINESS**.
+Current phase: **RELEASE READINESS — BLOCKER REPAIR IMPLEMENTED**.
 
-The visual milestone is closed, but release is blocked by two bounded functional omissions recorded in `reports/portfolio-world/release-readiness-audit.md`:
+The visual milestone remains closed. The two functional omissions from `reports/portfolio-world/release-readiness-audit.md` are repaired:
 
-1. The root portfolio has no optional World entry CTA/link to `/MyPage/world/`.
-2. WorldScene has no destination interaction/navigation mapping for Guild Hall → `career.html`, Academy → `teaching.html`, Workshop → `making.html`, or Exhibition Hall → `gallery.html`.
+1. Root portfolio now exposes the optional `world/` entry.
+2. WorldScene now resolves Guild Hall → `career.html`, Academy → `teaching.html`, Workshop → `making.html`, and Exhibition Hall → `gallery.html` from canonical forecourt metadata with intentional E/Enter/click activation.
 
-All audited production paths, active v03 fleet assets, build/typecheck/tests, World exit, shell accessibility, small-screen fallback, and World console checks pass. The release gate is `NEEDS_FIX`. Fix these interactions, then rerun the release-readiness audit; do not reopen Batch 04 visual work or start a polish pass.
+All audited production paths, active v03 fleet assets, build/typecheck/tests, World exit, shell accessibility, small-screen fallback, and World console checks pass. The repair suite is 35/35 and preload remains 31 assets / 561,180 bytes. Release Blocker Verification is **PENDING INDEPENDENT SHORT CHECK**: manually activate all four forecourt interactions in a production build. Gate: `READY_FOR_RELEASE_BLOCKER_SHORT_RECHECK`. See `reports/portfolio-world/release-blocker-navigation-repair.md`; do not reopen Batch 04 visual work or start a polish pass.
 
 ## Fleet Native-Resolution Human Review Record
 
@@ -115,11 +115,11 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Release-readiness remediation is next: add the optional World entry from the root portfolio and the four required World destination interactions, then rerun the audit. Stop any local `vite preview` server before running `npm ci` on Windows.
+Independent release-blocker short check is next: manually activate all four destination forecourts in a production build, reconfirm the optional root entry and World exit, then decide the final release gate. Stop any local `vite preview` server before running `npm ci` on Windows.
 
 ## Next Recommended Agent
-Release navigation implementation
-Task: Add and verify the optional root World entry plus the four GitHub-Pages-safe destination interactions. Preserve the accepted visual world.
+Independent release-blocker short check
+Task: Verify each deliberate World destination activation in a production build, plus root entry and exit. Preserve the accepted visual world.
 
 ## Visual Pass 1 Status
 
