@@ -3,12 +3,21 @@
 Updated: 2026-09-24
 
 ## Phase
-PORTFOLIO WORLD V1 — RELEASED BASELINE; ENVIRONMENT ART COMPLETION — IMPLEMENTED
+PORTFOLIO WORLD V1 — RELEASED BASELINE; ENVIRONMENT ART COMPLETION — VISUAL QA RETURNED FOR MAJOR REPAIR
 
 ## Current Work Unit
-Environment Art Completion — IMPLEMENTED. Automated Harness = PASS (35/35). Independent Whole-world Visual QA = PENDING. Human Review = NOT YET. Portfolio World v1.0.0 remains the released baseline; its tag and main branch are unchanged. Gate: `READY_FOR_ENVIRONMENT_ART_WHOLE_WORLD_VISUAL_QA`.
+Environment Art Completion — IMPLEMENTED. Automated Harness = PASS (35/35). Independent Whole-world Visual QA = COMPLETE (`RETURN_FOR_MAJOR_REPAIR`; Blocker 0, Major 1, Minor 2 new). Human Review = NOT YET; blocked on the Major repair below. Portfolio World v1.0.0 remains the released baseline; its tag and main branch are unchanged. Gate: `READY_FOR_ENVIRONMENT_ART_MAJOR_REPAIR`.
 
-## Environment Art Completion — 2026-09-24
+## Environment Art Completion — Independent Whole-world Visual QA — 2026-09-24
+
+- Independently reviewed the actual running application (Vite dev server, Playwright/Chromium), not source or the production report's own claims: whole-world overview, Harbor Square, Guild Hall, Academy, Workshop, Exhibition promenade, waterfront/fleet, and shoreline/path transitions, using both the project's existing dev-only QA camera framings and real player-driven movement. 15 screenshots captured; 0 console/page errors throughout.
+- **1 Major finding**: `drawHarborEdgeTreatment()` in `harborVisualCatalog.ts` draws each world-edge accent as a corner-to-corner `lineBetween`, producing a long diagonal streak across the full length of each edge (2048 px at north/south, 1152 px at west/east) instead of a border highlight. Clearly visible in the whole-world overview and directly behind the Academy (north) and Guild Hall (west) approaches. The function itself predates this batch's diff, but it directly contradicts this pass's own "remove grid/mockup-like ground artifacts" goal and was not caught by the pass's own production visual inspection.
+- **2 new Minor findings**: the Workshop/waterfront compacted-ground patches (`drawHarborGround`, two `fillRoundedRect` calls) read as visibly rectangular/hard-cornered rather than organically blended at gameplay zoom; the pre-existing ground-detail flecks first noted in the Batch 04 Whole-world Visual QA remain present and unchanged (no new action, carried forward).
+- No layout, collision, route, building, or fleet data was touched or found changed from the accepted V1 baseline; no file was modified by this review.
+- **Verdict: not yet ready for Human Review.** A scoped repair of the Major finding (edge-treatment diagonal line), plus optional repair of the ground-patch Minor, followed by a short re-check, is recommended before Human Review.
+- Official record: `reports/portfolio-world/environment-art-completion-whole-world-visual-qa.md`.
+
+## Environment Art Completion — Production — 2026-09-24
 
 - Replaced the visible grass grid and flat ground treatment with static macro terrain masses, quiet grass clusters, workshop/waterfront compacted-ground patches, material paths, and worn Harbor Square paving.
 - Replaced flat/repeated water treatment with deep/shallow layered water, offset ripples, foam highlights, and explicit shoreline contact. No shader, animation, binary asset, collision, berth, route, camera, building, or fleet change was made.
@@ -172,4 +181,4 @@ This closeout supersedes older Fleet Authenticity “human review pending” ref
 - Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Release closeout decision. The short recheck above already independently confirmed all four forecourt activations, the root World entry, and the World exit in a production build. Do not begin visual polish.
+1. Repair the Environment Art Completion Major finding (world-edge diagonal-line defect in `drawHarborEdgeTreatment()`; see `reports/portfolio-world/environment-art-completion-whole-world-visual-qa.md`), optionally repair the ground-patch Minor, then run a short independent re-check before Human Review. Do not reopen the released V1 architecture/collision/routes/buildings/fleet, and do not begin unrelated polish.

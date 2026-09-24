@@ -3,7 +3,19 @@
 Updated: 2026-09-24
 
 ## State
-**PORTFOLIO WORLD V1.0.0 = RELEASED BASELINE. Environment Art Completion = IMPLEMENTED. Automated Harness = PASS. Independent Whole-world Visual QA = PENDING. Human Review = NOT YET.** The 2026-09-24 material pass replaces flat terrain/water/shoreline reads using static Phaser material layers while retaining accepted buildings, fleet, berths, collision, routes, camera, depth architecture, and navigation. Asset count and production preload remain **31 / 561,180 bytes**; `npm test` passes **35/35**. See `reports/portfolio-world/environment-art-completion-production.md`. Active core sailing textures remain v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0.
+**PORTFOLIO WORLD V1.0.0 = RELEASED BASELINE. Environment Art Completion = IMPLEMENTED. Automated Harness = PASS. Independent Whole-world Visual QA = COMPLETE, RETURNED FOR MAJOR REPAIR (Blocker 0 / Major 1 / Minor 2 new). Human Review = NOT YET; blocked on that repair.** The 2026-09-24 material pass replaces flat terrain/water/shoreline reads using static Phaser material layers while retaining accepted buildings, fleet, berths, collision, routes, camera, depth architecture, and navigation. Asset count and production preload remain **31 / 561,180 bytes**; `npm test` passes **35/35**. See `reports/portfolio-world/environment-art-completion-production.md`. Active core sailing textures remain v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0.
+
+## Environment Art Completion — Independent Whole-world Visual QA — 2026-09-24
+
+Independent review of the actual running application (Vite dev server + Playwright/Chromium; both the project's existing dev-only QA camera framings and real player-driven movement were used — no new query params or debug code were added). Covered whole-world composition, Harbor Square, all four destinations, the exhibition promenade, waterfront/fleet, and shoreline/path transitions. 15 screenshots captured; 0 console/page errors throughout; no source, layout, collision, route, building, or fleet data was modified by this review.
+
+Result: **Blocker 0, Major 1, Minor 2 new** (plus 1 pre-existing Minor carried forward unchanged, and the long-standing Vite chunk-size Minor). The whole-world composition, all four destinations, and the improved layered water/shoreline are cohesive and read well.
+
+The Major finding: `drawHarborEdgeTreatment()` in `portfolio-world/src/world/harborVisualCatalog.ts` draws each world-edge accent line corner-to-corner (`lineBetween(topLeft, bottomRight)` of a very wide/tall thin rect) instead of as a border/highlight, producing a long diagonal streak the full length of each world edge (2048 px north/south, 1152 px west/east). This is clearly visible in the whole-world overview and directly behind the Academy (north) and Guild Hall (west) approaches, and it reproduces exactly the "grid/mockup-like ground artifact" impression this pass was chartered to remove. The function predates this batch's diff (not introduced by commit `3e31b27`) but was not caught by this pass's own production visual inspection.
+
+Two new Minor findings: the Workshop/waterfront compacted-ground patches (`drawHarborGround`, two `fillRoundedRect` calls at 0.22 alpha with a 20–22 px corner radius) read as visibly rectangular/hard-edged rather than organically blended at gameplay zoom; and the pre-existing ground-detail flecks first noted in the Batch 04 Whole-world Visual QA (`batch-04-whole-world-visual-qa.md`) remain present and visually unchanged — carried forward, no new action needed.
+
+**Verdict: not yet ready for Human Review.** Recommended next step: a scoped repair of the Major finding (edge-treatment diagonal line; the ground-patch Minor is optional/at implementer's discretion), then a short independent re-check, before Human Review. Full detail: `reports/portfolio-world/environment-art-completion-whole-world-visual-qa.md`. Next gate: `READY_FOR_ENVIRONMENT_ART_MAJOR_REPAIR`.
 
 ## Production Release Closeout — 2026-09-22
 
@@ -125,11 +137,11 @@ HUMAN FEEL TEST PENDING
 
 ## Next
 
-Release closeout decision. The independent release-blocker short check is complete: all four destination forecourts were manually activated in a production build, and the optional root entry and World exit were reconfirmed. Stop any local `vite preview` server before running `npm ci` on Windows.
+Repair the Environment Art Completion Major finding (world-edge diagonal-line defect; see the Independent Whole-world Visual QA section above and `reports/portfolio-world/environment-art-completion-whole-world-visual-qa.md`), then run a short independent re-check before Human Review. Stop any local `vite preview`/`vite` dev server before running `npm ci` on Windows.
 
 ## Next Recommended Agent
-Release closeout
-Task: Decide the final release gate given `READY_FOR_RELEASE_CLOSEOUT`. Preserve the accepted visual world; do not reopen Batch 04 or start a polish pass.
+Environment Art Major Repair
+Task: Fix `drawHarborEdgeTreatment()` in `portfolio-world/src/world/harborVisualCatalog.ts` so the world-edge accent renders as a border/highlight instead of a corner-to-corner diagonal line, per Finding 1 of `reports/portfolio-world/environment-art-completion-whole-world-visual-qa.md`. Visual-only change; do not touch collision, routes, buildings, fleet, or any other accepted V1 geometry. Then request a short independent re-check before Human Review.
 
 ## Visual Pass 1 Status
 
