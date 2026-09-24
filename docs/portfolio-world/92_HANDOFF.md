@@ -3,7 +3,15 @@
 Updated: 2026-09-24
 
 ## State
-**PORTFOLIO WORLD V1.0.0 = RELEASED BASELINE. Environment Art Completion = IMPLEMENTED. Automated Harness = PASS. Independent Whole-world Visual QA = COMPLETE, RETURNED FOR MAJOR REPAIR (Blocker 0 / Major 1 / Minor 2 new). Human Review = NOT YET; blocked on that repair.** The 2026-09-24 material pass replaces flat terrain/water/shoreline reads using static Phaser material layers while retaining accepted buildings, fleet, berths, collision, routes, camera, depth architecture, and navigation. Asset count and production preload remain **31 / 561,180 bytes**; `npm test` passes **35/35**. See `reports/portfolio-world/environment-art-completion-production.md`. Active core sailing textures remain v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0.
+**PORTFOLIO WORLD V1.0.0 = RELEASED BASELINE. Environment Art Completion Major Repair + short visual re-check = COMPLETE (Blocker 0 / Major 0). Human Review = NOT YET; ready for it.** The repair removes the world-edge diagonal-line defect and safely closes the optional compacted-ground-patch Minor while retaining accepted buildings, fleet, berths, collision, routes, camera, depth architecture, navigation, and world dimensions. Asset count and production preload remain **31 / 561,180 bytes**; `npm test` passes **35/35**. See `reports/portfolio-world/environment-art-major-repair-short-visual-recheck.md`. Active core sailing textures remain v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0.
+
+## Environment Art Major Repair + Short Visual Re-check — 2026-09-24
+
+`drawHarborEdgeTreatment()` now draws each world-edge rectangle with an axis-aligned perimeter `strokeRect()` instead of a top-left-to-bottom-right `lineBetween()`, eliminating the 2048 px north/south and 1152 px east/west diagonal streaks. The optional Workshop/waterfront compacted-ground Minor was safely improved in the same visual-only renderer using three low-alpha, large-radius inset layers per patch.
+
+Fresh actual-running-app inspection covered the whole-world overview and Academy, Guild Hall, Workshop, and waterfront. The Major artifact was absent in all required views; the compacted-ground transition no longer reads as a large hard-edged rounded rectangle. Typecheck, `npm test` **35/35**, production build, and `git diff --check` pass. No asset, layout, collision, route, building, fleet, berth, navigation, or world-dimension data changed. The V1 tag and `main` remain untouched. Gate: `READY_FOR_ENVIRONMENT_ART_HUMAN_REVIEW`.
+
+Full evidence: `reports/portfolio-world/environment-art-major-repair-short-visual-recheck.md`.
 
 ## Environment Art Completion — Independent Whole-world Visual QA — 2026-09-24
 

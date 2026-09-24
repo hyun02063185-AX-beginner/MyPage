@@ -3,10 +3,18 @@
 Updated: 2026-09-24
 
 ## Phase
-PORTFOLIO WORLD V1 — RELEASED BASELINE; ENVIRONMENT ART COMPLETION — VISUAL QA RETURNED FOR MAJOR REPAIR
+PORTFOLIO WORLD V1 — RELEASED BASELINE; ENVIRONMENT ART COMPLETION — MAJOR REPAIR + SHORT VISUAL RE-CHECK COMPLETE
 
 ## Current Work Unit
-Environment Art Completion — IMPLEMENTED. Automated Harness = PASS (35/35). Independent Whole-world Visual QA = COMPLETE (`RETURN_FOR_MAJOR_REPAIR`; Blocker 0, Major 1, Minor 2 new). Human Review = NOT YET; blocked on the Major repair below. Portfolio World v1.0.0 remains the released baseline; its tag and main branch are unchanged. Gate: `READY_FOR_ENVIRONMENT_ART_MAJOR_REPAIR`.
+Environment Art Completion — Major repair and fresh short visual re-check = COMPLETE. Automated Harness = PASS (35/35). Blocker 0, Major 0; the optional compacted-ground Minor is closed, while only the explicitly carried-forward ground flecks and Vite chunk-size Minor remain deferred. Human Review = NOT YET. Portfolio World v1.0.0 remains the released baseline; its tag and main branch are unchanged. Gate: `READY_FOR_ENVIRONMENT_ART_HUMAN_REVIEW`.
+
+## Environment Art Major Repair + Short Visual Re-check — 2026-09-24
+
+- Replaced the world-edge rectangle's corner-to-corner `lineBetween()` accent with an axis-aligned `strokeRect()` perimeter highlight. The north/south/east/west edge treatment no longer creates an across-world diagonal streak.
+- Safely closed the optional Workshop/waterfront compacted-ground Minor in the same visual-only renderer: three low-alpha, large-radius inset layers replace each hard-edged rounded rectangle. No geometry, collision, routes, buildings, fleet, berths, navigation, or world dimensions changed.
+- Fresh inspection of the actual running app covered the whole-world overview plus Academy, Guild Hall, Workshop, and waterfront framings. The diagonal artifact was absent in every required view; the compacted-ground transition no longer reads as a large hard-edged block.
+- Typecheck, `npm test` **35/35**, production build, and `git diff --check` pass. Production preload is unchanged at **31 assets / 561,180 bytes**; only the generated application bundle hash changed for the visual code update.
+- Official re-check: `reports/portfolio-world/environment-art-major-repair-short-visual-recheck.md`.
 
 ## Environment Art Completion — Independent Whole-world Visual QA — 2026-09-24
 

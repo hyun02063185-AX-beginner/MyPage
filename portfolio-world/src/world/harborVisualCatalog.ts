@@ -112,11 +112,18 @@ export function drawHarborGround(scene: Phaser.Scene): void {
     graphics.fillEllipse(x, y, width, height);
   }
 
-  // Workshop and waterfront receive restrained compacted-ground patches rather
-  // than a new palette or a high-frequency texture map.
-  graphics.fillStyle(COLORS.groundDry, 0.22);
-  graphics.fillRoundedRect(1440, 704, 408, 184, 22);
-  graphics.fillRoundedRect(112, 826, 548, 166, 20);
+  // Workshop and waterfront receive softly layered compacted-ground patches
+  // rather than a new palette or a high-frequency texture map. The staggered
+  // insets keep the material transition from reading as a hard-edged block.
+  graphics.fillStyle(COLORS.groundDry, 0.06);
+  graphics.fillRoundedRect(1424, 694, 440, 204, 88);
+  graphics.fillRoundedRect(88, 814, 596, 190, 84);
+  graphics.fillStyle(COLORS.groundDry, 0.10);
+  graphics.fillRoundedRect(1432, 700, 424, 192, 76);
+  graphics.fillRoundedRect(100, 820, 572, 178, 72);
+  graphics.fillStyle(COLORS.groundDry, 0.12);
+  graphics.fillRoundedRect(1448, 710, 392, 172, 62);
+  graphics.fillRoundedRect(124, 832, 524, 154, 60);
   graphics.fillStyle(COLORS.groundGravel, 0.28);
   for (const [x, y, width] of [[1392, 734, 70], [1508, 808, 96], [1668, 756, 82], [212, 924, 76], [408, 866, 92]] as const) {
     graphics.fillRoundedRect(x, y, width, 7, 3);
@@ -126,17 +133,22 @@ export function drawHarborGround(scene: Phaser.Scene): void {
 export function drawHarborEdgeTreatment(scene: Phaser.Scene, edges: readonly WorldRect[]): void {
   const graphics = scene.add.graphics().setDepth(getBackgroundEdgeDepth("harbor-edge-treatment"));
   for (const edge of edges) {
+    const left = edge.x - edge.width / 2;
+    const top = edge.y - edge.height / 2;
     graphics.fillStyle(COLORS.greenery, 0.85).fillRect(
-      edge.x - edge.width / 2,
-      edge.y - edge.height / 2,
+      left,
+      top,
       edge.width,
       edge.height,
     );
-    graphics.lineStyle(3, COLORS.greeneryLight, 0.72).lineBetween(
-      edge.x - edge.width / 2,
-      edge.y - edge.height / 2,
-      edge.x + edge.width / 2,
-      edge.y + edge.height / 2,
+    // A perimeter stroke makes this read as a world boundary highlight. Do not
+    // connect opposing corners: wide/tall edge rectangles turn that into a
+    // map-spanning diagonal streak.
+    graphics.lineStyle(3, COLORS.greeneryLight, 0.72).strokeRect(
+      left,
+      top,
+      edge.width,
+      edge.height,
     );
   }
 }
