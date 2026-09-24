@@ -5,19 +5,22 @@ Updated: 2026-09-24
 ## State
 **PORTFOLIO WORLD V1.0.0 = RELEASED BASELINE.** The Post-v1 Environment Surface Pass remains a valid, closed technical milestone and is not reopened. `main` and the v1.0.0 tag remain untouched.
 
-**Concept Quality Lock (ART-01) is COMPLETE; Harbor Vertical Slice Production (ART-02) is IMPLEMENTED; Independent Visual QA (ART-03) is COMPLETE and returned MAJOR REPAIR** on `feature/portfolio-world-concept-vertical-slice`. ART-02's production report claimed Blocker 0/Major 0/all 8 gates PASS; an independent re-review of the actual running application did not confirm that claim.
+**Concept Quality Lock (ART-01) is COMPLETE; Harbor Vertical Slice Production (ART-02) and its Major Repair (ART-04) are IMPLEMENTED.** ART-03 remains the independent evidence record that identified the three repaired Majors. ART-04 changes visual compositing only: shared aspect-correct paving coordinates close the promenade seam, the approved shoreline raster now covers the exposed Exhibition east-basin vertical edge, and tier-aware separated raster shadow/ripple plus lower-hull occlusion layers replace the prior reused contact oval for every visible vessel tier.
 
 ```text
 POST_V1_ENVIRONMENT_SURFACE_PASS = TECHNICALLY_COMPLETE
 CONCEPT_QUALITY_LOCK             = COMPLETE
 HARBOR_VERTICAL_SLICE            = IMPLEMENTED (ART-02)
 AUTOMATED_HARNESS                = PASS (35/35, per ART-02; structural lock independently re-confirmed)
-INDEPENDENT_VISUAL_QA            = COMPLETE — Blocker 0 / Major 3 / Minor 2 (ART-03)
-HUMAN_REVIEW                     = DEFERRED — not ready
-GATE                             = READY_FOR_HARBOR_VERTICAL_SLICE_MAJOR_REPAIR
+INDEPENDENT_VISUAL_QA            = COMPLETE — Blocker 0 / Major 3 / Minor 2 (ART-03 evidence)
+HARBOR_VERTICAL_SLICE_MAJOR_REPAIR = IMPLEMENTED (ART-04; all 3 Majors closed)
+AUTOMATED_HARNESS                = PASS (35/35)
+INDEPENDENT_SHORT_RECHECK        = PENDING
+HUMAN_REVIEW                     = DEFERRED
+GATE                             = READY_FOR_HARBOR_VERTICAL_SLICE_SHORT_RECHECK
 ```
 
-ART-02 measurement: preload changed from 31 assets / 561,180 bytes to 38 assets / 1,235,511 bytes (+7 / +674,331). ART-03 independently confirmed terrain materiality, water believability, and Exhibition Hall foundation grounding as genuine, concept-level improvements — these do not need to be redone. It also confirmed, directly in the running app (fresh install, live screenshots, a CDP console check showing 0 errors), 3 Major findings the production report missed: (1) a visible rectangular seam where the new promenade texture is stretched onto the narrow south path at a mismatched aspect ratio, directly north of the Exhibition Hall roofline; (2) a completely untreated hard rectangular water/land corner beside the Exhibition Hall's east edge, with no shoreline module coverage; (3) a ship-water contact treatment (`WorldScene.drawVesselWaterComposite`, reusing one texture twice as both "shadow" and "occlusion") that reads as a visibly applied effect image on secondary/small vessels rather than genuine hull submersion, and is applied inconsistently (some rowboats get no treatment at all). Full evidence: `reports/portfolio-world/art-production/harbor-concept-vertical-slice-independent-visual-qa.md`. Repair is scoped to these three items plus the two recorded Minors — the underlying terrain/water/paving/foundation art itself is not being reopened.
+Preload is now **40 assets / 1,292,542 bytes**, from ART-02's 38 / 1,235,511 (+2 / +57,031). ART-04 preserves the independently-confirmed terrain, water, Exhibition foundation, and prop improvements and does not change a protected structural file. The repair's live-app evidence, alpha audit, regression results, remaining out-of-scope material-adjacency Minor, and next gate are recorded in `reports/portfolio-world/art-production/harbor-concept-vertical-slice-major-repair.md`.
 
 Active core sailing textures remain v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0. None of this design is reopened by the Concept Quality Lock — only how these locked assets meet the ground and water is in scope for ART-02.
 
