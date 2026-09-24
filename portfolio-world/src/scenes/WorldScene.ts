@@ -16,11 +16,19 @@ import {
   drawHarborVisual,
 } from "../world/harborVisualCatalog";
 import {
+  drawHarborVerticalSliceBuildingGrounding,
+  drawHarborVerticalSlicePaving,
+  drawHarborVerticalSliceShoreline,
+  drawHarborVerticalSliceTerrain,
+  drawHarborVerticalSliceWater,
+  isHarborVerticalSlicePath,
+} from "../world/harborVerticalSliceArt";
+import {
   getCalibrationAssets,
   getHeroShipAsset,
   WORLD_ASSETS,
 } from "../world/worldAssetManifest";
-import type { WorldAssetEntry } from "../world/worldAssetManifest";
+import type { WorldAsset, WorldAssetEntry } from "../world/worldAssetManifest";
 import {
   getBuildingDepth,
   getHeroShipWaterlineY,
@@ -40,6 +48,7 @@ import {
   getActivatedDestinationUrl,
   getDestinationPrompt,
 } from "../world/destinationNavigation.mjs";
+import type { HarborVisualPlacement } from "../world/worldTypes";
 
 type MovementKeys = Record<
   "up" | "down" | "left" | "right" | "w" | "a" | "s" | "d",
@@ -138,6 +147,37 @@ const getBatch04VisualAsset = (id: string): WorldAssetEntry | undefined => ({
 
 const getProductionVisualAsset = (id: string): WorldAssetEntry | undefined =>
   getBatch04VisualAsset(id) ?? getBatch03VisualAsset(id) ?? getBatch02VisualAsset(id) ?? getBatch01VisualAsset(id);
+
+const VERTICAL_SLICE_PROP_ASSETS: Partial<Record<HarborVisualPlacement["type"], WorldAssetEntry>> = {
+  crate: WORLD_ASSETS.cargoCrate,
+  barrel: WORLD_ASSETS.harborBarrelCluster,
+  bench: WORLD_ASSETS.harborBench,
+  lamp: WORLD_ASSETS.harborLamp,
+  "notice-board": WORLD_ASSETS.harborNoticeBoard,
+  "rope-coil": WORLD_ASSETS.harborRopeCoil,
+  "safety-rail": WORLD_ASSETS.harborSafetyRail,
+  "mooring-bollard": WORLD_ASSETS.harborMooringBollard,
+  "service-marker": WORLD_ASSETS.harborServiceMarker,
+  tree: WORLD_ASSETS.harborTree02,
+  planter: WORLD_ASSETS.harborShrubPlanter,
+  "display-board": WORLD_ASSETS.harborNoticeBoard,
+  "viewing-terrace": WORLD_ASSETS.harborViewingTerrace,
+  "cargo-shed": WORLD_ASSETS.harborWarehouseAnnex,
+  "market-kiosk": WORLD_ASSETS.harborServiceHut,
+};
+
+const isHarborVerticalSliceVisual = (visual: HarborVisualPlacement): boolean =>
+  visual.zone === "gallery" || (visual.zone === "plaza" && visual.y >= 700);
+
+const getHarborVerticalSliceVisualAsset = (visual: HarborVisualPlacement): WorldAssetEntry | undefined =>
+  getProductionVisualAsset(visual.id)
+  ?? (isHarborVerticalSliceVisual(visual) ? VERTICAL_SLICE_PROP_ASSETS[visual.type] : undefined);
+
+const getHarborVesselAsset = (visual: HarborVisualPlacement): WorldAssetEntry | undefined => {
+  if (visual.type === "secondary-sailing-ship") return getSecondarySailingAsset(visual.id);
+  if (visual.type === "small-boat") return visual.width >= 90 ? WORLD_ASSETS.smallWorkboat : WORLD_ASSETS.harborDinghy;
+  return undefined;
+};
 
 /** Orchestrates layout, focused harbor visuals, collision, input, and camera. */
 export class WorldScene extends Phaser.Scene {
@@ -357,17 +397,38 @@ export class WorldScene extends Phaser.Scene {
   private renderWorld(): void {
     const calibration = getCalibrationAssets(window.location.search);
     drawHarborGround(this);
-    for (const visual of WORLD_LAYOUT.harborVisuals.filter((item) => item.type === "water")) {
-      drawHarborVisual(this, visual);
+    drawHarborVerticalSliceTerrain(this);
+    const waterVisuals = WORLD_LAYOUT.harborVisuals.filter((item) => item.type === "water");
+    const hasVerticalSliceWater = drawHarborVerticalSliceWater(this, waterVisuals);
+    if (!hasVerticalSliceWater) {
+      for (const visual of waterVisuals) {
+        drawHarborVisual(this, visual);
+      }
     }
+    drawHarborVerticalSliceShoreline(this, waterVisuals);
     drawHarborEdgeTreatment(this, WORLD_LAYOUT.edgeDecorations);
     for (const path of WORLD_LAYOUT.paths) {
+      if (isHarborVerticalSlicePath(path) && this.textures.exists(WORLD_ASSETS.harborVerticalSlicePromenade.textureKey)) {
+        continue;
+      }
       drawHarborPath(this, path);
     }
     for (const forecourt of WORLD_LAYOUT.forecourts) {
+      if (isHarborVerticalSlicePath(forecourt) && this.textures.exists(WORLD_ASSETS.harborVerticalSlicePromenade.textureKey)) {
+        continue;
+      }
       drawHarborPath(this, forecourt, true);
     }
-    drawHarborPlaza(this, WORLD_LAYOUT.centralPlaza);
+    const hasVerticalSlicePaving = drawHarborVerticalSlicePaving(
+      this,
+      WORLD_LAYOUT.centralPlaza,
+      [...WORLD_LAYOUT.paths, ...WORLD_LAYOUT.forecourts].filter(isHarborVerticalSlicePath),
+    );
+    if (!hasVerticalSlicePaving) {
+      drawHarborPlaza(this, WORLD_LAYOUT.centralPlaza);
+    }
+    // Keep the accepted, non-slice ground detail pass active; ART-02 only replaces
+    // the primary paving material in its bounded south-Harbor placements.
     drawHarborNaturalizedGroundDetails(this);
     for (const building of WORLD_LAYOUT.buildings) {
       const visualBuilding = getNaturalizedBuilding(building);
@@ -383,7 +444,7 @@ export class WorldScene extends Phaser.Scene {
       drawHarborBuilding(this, visualBuilding);
     }
     for (const visual of WORLD_LAYOUT.harborVisuals.filter((item) => item.type !== "water")) {
-      const batchVisualAsset = getProductionVisualAsset(visual.id);
+      const batchVisualAsset = getHarborVerticalSliceVisualAsset(visual);
       if (batchVisualAsset && this.textures.exists(batchVisualAsset.textureKey)) {
         continue;
       }
@@ -395,9 +456,7 @@ export class WorldScene extends Phaser.Scene {
       if (visual.type === "warehouse" && calibration && this.textures.exists(calibration.warehouse.textureKey)) {
         continue;
       }
-      const secondaryAsset = visual.type === "secondary-sailing-ship"
-        ? getSecondarySailingAsset(visual.id)
-        : undefined;
+      const secondaryAsset = getHarborVesselAsset(visual);
       if (secondaryAsset && this.textures.exists(secondaryAsset.textureKey)) {
         continue;
       }
@@ -421,11 +480,13 @@ export class WorldScene extends Phaser.Scene {
       if (!asset || !this.textures.exists(asset.textureKey)) {
         continue;
       }
+      const buildingDepth = getBuildingDepth(visualBuilding);
+      drawHarborVerticalSliceBuildingGrounding(this, visualBuilding, buildingDepth);
       this.add
         .image(visualBuilding.x, visualBuilding.y + visualBuilding.height / 2, asset.textureKey)
         .setOrigin(0.5, asset.originY)
         .setDisplaySize(asset.displayWidth, asset.displayHeight)
-        .setDepth(getBuildingDepth(visualBuilding));
+        .setDepth(buildingDepth);
       this.add
         .text(visualBuilding.x, visualBuilding.y + visualBuilding.height / 2 - 16, building.label, {
           align: "center",
@@ -441,15 +502,13 @@ export class WorldScene extends Phaser.Scene {
 
     if (ship && this.textures.exists(heroShipAsset.textureKey)) {
       const presentation = getFleetPresentation(ship.id);
-      this.add
-        .image(ship.x, getHeroShipWaterlineY(ship), heroShipAsset.textureKey)
-        .setOrigin(0.5, heroShipAsset.originY)
-        .setDisplaySize(
-          heroShipAsset.displayWidth * (presentation?.scale ?? 1),
-          heroShipAsset.displayHeight * (presentation?.scale ?? 1),
-        )
-        .setFlipX(presentation?.facing === "left")
-        .setDepth(getVesselDepth(getHeroShipWaterlineY(ship), ship.id));
+      this.drawVesselWaterComposite(
+        ship,
+        heroShipAsset,
+        getHeroShipWaterlineY(ship),
+        presentation?.scale ?? 1,
+        presentation?.facing === "left",
+      );
     }
 
     const warehouse = WORLD_LAYOUT.harborVisuals.find((visual) => visual.type === "warehouse");
@@ -463,26 +522,24 @@ export class WorldScene extends Phaser.Scene {
     }
 
     for (const vessel of WORLD_LAYOUT.harborVisuals.filter(
-      (visual) => visual.type === "secondary-sailing-ship",
+      (visual) => visual.type === "secondary-sailing-ship" || visual.type === "small-boat",
     )) {
-      const asset = getSecondarySailingAsset(vessel.id);
+      const asset = getHarborVesselAsset(vessel);
       if (!asset || !this.textures.exists(asset.textureKey)) {
         continue;
       }
       const presentation = getFleetPresentation(vessel.id);
-      this.add
-        .image(vessel.x, vessel.y + vessel.height / 2, asset.textureKey)
-        .setOrigin(0.5, asset.originY)
-        .setDisplaySize(
-          asset.displayWidth * (presentation?.scale ?? 1),
-          asset.displayHeight * (presentation?.scale ?? 1),
-        )
-        .setFlipX(presentation?.facing === "left")
-        .setDepth(getVesselDepth(vessel.y + vessel.height / 2, vessel.id));
+      this.drawVesselWaterComposite(
+        vessel,
+        asset,
+        vessel.y + vessel.height / 2,
+        presentation?.scale ?? 1,
+        presentation?.facing === "left",
+      );
     }
 
     for (const visual of WORLD_LAYOUT.harborVisuals) {
-      const asset = getProductionVisualAsset(visual.id);
+      const asset = getHarborVerticalSliceVisualAsset(visual);
       if (!asset || !this.textures.exists(asset.textureKey)) {
         continue;
       }
@@ -491,6 +548,54 @@ export class WorldScene extends Phaser.Scene {
         .setOrigin(0.5, asset.originY)
         .setDisplaySize(asset.displayWidth, asset.displayHeight)
         .setDepth(getHarborVisualDepth(visual));
+    }
+  }
+
+  /**
+   * ART-02 keeps each locked vessel sprite intact while composing its contact
+   * shadow beneath it and a waterline occlusion/ripple over its lowest hull.
+   * The Container has exactly the existing waterline-derived vessel depth.
+   */
+  private drawVesselWaterComposite(
+    vessel: HarborVisualPlacement,
+    asset: WorldAsset,
+    waterlineY: number,
+    scale: number,
+    flipX: boolean,
+  ): void {
+    const displayWidth = asset.displayWidth * scale;
+    const displayHeight = asset.displayHeight * scale;
+    const contactHeight = Math.max(18, Math.min(64, Math.round(displayHeight * 0.2)));
+    const contactWidth = Math.max(vessel.width + 20, Math.round(displayWidth * 1.12));
+    const composite = this.add
+      .container(vessel.x, waterlineY)
+      .setDepth(getVesselDepth(waterlineY, vessel.id));
+    const contactTexture = WORLD_ASSETS.harborShipWaterContact.textureKey;
+
+    if (this.textures.exists(contactTexture)) {
+      composite.add(
+        this.add
+          .image(0, contactHeight * 0.36, contactTexture)
+          .setDisplaySize(contactWidth, Math.round(contactHeight * 0.72))
+          .setAlpha(0.38),
+      );
+    }
+
+    composite.add(
+      this.add
+        .image(0, 0, asset.textureKey)
+        .setOrigin(0.5, asset.originY)
+        .setDisplaySize(displayWidth, displayHeight)
+        .setFlipX(flipX),
+    );
+
+    if (this.textures.exists(contactTexture)) {
+      composite.add(
+        this.add
+          .image(0, contactHeight * 0.32, contactTexture)
+          .setDisplaySize(contactWidth, contactHeight)
+          .setAlpha(0.9),
+      );
     }
   }
 
