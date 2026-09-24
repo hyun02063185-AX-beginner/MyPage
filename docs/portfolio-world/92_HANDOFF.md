@@ -5,19 +5,19 @@ Updated: 2026-09-24
 ## State
 **PORTFOLIO WORLD V1.0.0 = RELEASED BASELINE.** The Post-v1 Environment Surface Pass remains a valid, closed technical milestone and is not reopened. `main` and the v1.0.0 tag remain untouched.
 
-**Concept Quality Lock (ART-01) is COMPLETE; Harbor Vertical Slice Production (ART-02) is IMPLEMENTED** on `feature/portfolio-world-concept-vertical-slice`. ART-02 implements only the locked south Harbor scope: new illustrated terrain, water, promenade, shoreline, vessel-contact, Exhibition foundation, and terrace raster assets; existing `GAME_READY` props are wired into applicable slice fallbacks. The released world geometry, destination/route/forecourt contracts, collision, camera/movement, depth formula, berths, locked building art, and locked vessel designs were not changed.
+**Concept Quality Lock (ART-01) is COMPLETE; Harbor Vertical Slice Production (ART-02) is IMPLEMENTED; Independent Visual QA (ART-03) is COMPLETE and returned MAJOR REPAIR** on `feature/portfolio-world-concept-vertical-slice`. ART-02's production report claimed Blocker 0/Major 0/all 8 gates PASS; an independent re-review of the actual running application did not confirm that claim.
 
 ```text
 POST_V1_ENVIRONMENT_SURFACE_PASS = TECHNICALLY_COMPLETE
 CONCEPT_QUALITY_LOCK             = COMPLETE
 HARBOR_VERTICAL_SLICE            = IMPLEMENTED (ART-02)
-AUTOMATED_HARNESS                = PASS (35/35)
-INDEPENDENT_VISUAL_QA            = PENDING
-HUMAN_REVIEW                     = DEFERRED
-GATE                             = READY_FOR_HARBOR_VERTICAL_SLICE_VISUAL_QA
+AUTOMATED_HARNESS                = PASS (35/35, per ART-02; structural lock independently re-confirmed)
+INDEPENDENT_VISUAL_QA            = COMPLETE — Blocker 0 / Major 3 / Minor 2 (ART-03)
+HUMAN_REVIEW                     = DEFERRED — not ready
+GATE                             = READY_FOR_HARBOR_VERTICAL_SLICE_MAJOR_REPAIR
 ```
 
-ART-02 measurement: preload changed from 31 assets / 561,180 bytes to 38 assets / 1,235,511 bytes (+7 / +674,331). Final production QA is Blocker 0, Major 0, new ART-02 Minor 0; typecheck, test, production build, manifest-path validation, alpha hidden-RGB audit, and `git diff --check` pass. The only deferred non-art note is the existing Vite chunk-size warning. The official handoff evidence is `reports/portfolio-world/art-production/harbor-concept-vertical-slice-production.md`; it records seven actual-running-app frames and all eight production quality gates as PASS.
+ART-02 measurement: preload changed from 31 assets / 561,180 bytes to 38 assets / 1,235,511 bytes (+7 / +674,331). ART-03 independently confirmed terrain materiality, water believability, and Exhibition Hall foundation grounding as genuine, concept-level improvements — these do not need to be redone. It also confirmed, directly in the running app (fresh install, live screenshots, a CDP console check showing 0 errors), 3 Major findings the production report missed: (1) a visible rectangular seam where the new promenade texture is stretched onto the narrow south path at a mismatched aspect ratio, directly north of the Exhibition Hall roofline; (2) a completely untreated hard rectangular water/land corner beside the Exhibition Hall's east edge, with no shoreline module coverage; (3) a ship-water contact treatment (`WorldScene.drawVesselWaterComposite`, reusing one texture twice as both "shadow" and "occlusion") that reads as a visibly applied effect image on secondary/small vessels rather than genuine hull submersion, and is applied inconsistently (some rowboats get no treatment at all). Full evidence: `reports/portfolio-world/art-production/harbor-concept-vertical-slice-independent-visual-qa.md`. Repair is scoped to these three items plus the two recorded Minors — the underlying terrain/water/paving/foundation art itself is not being reopened.
 
 Active core sailing textures remain v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0. None of this design is reopened by the Concept Quality Lock — only how these locked assets meet the ground and water is in scope for ART-02.
 

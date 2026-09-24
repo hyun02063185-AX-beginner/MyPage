@@ -3,20 +3,19 @@
 Updated: 2026-09-24
 
 ## Phase
-PORTFOLIO WORLD V1 — RELEASED BASELINE; POST-V1 ENVIRONMENT SURFACE PASS — TECHNICALLY COMPLETE; CONCEPT QUALITY LOCK — COMPLETE; HARBOR VERTICAL SLICE PRODUCTION — IMPLEMENTED
+PORTFOLIO WORLD V1 — RELEASED BASELINE; POST-V1 ENVIRONMENT SURFACE PASS — TECHNICALLY COMPLETE; CONCEPT QUALITY LOCK — COMPLETE; HARBOR VERTICAL SLICE PRODUCTION — IMPLEMENTED; INDEPENDENT VISUAL QA — RETURNED MAJOR REPAIR
 
 ## Current Work Unit
 
-ART-02 is implemented on `feature/portfolio-world-concept-vertical-slice`. It turns the ART-01 Hybrid production specification into a deliberately bounded south Harbor Vertical Slice without reopening the released V1.0.0 baseline or any Human-Accepted history.
+Independent Visual QA (ART-03) reviewed ART-02 on the actual running app (fresh `npm ci` + `npm run dev`, headless-browser screenshots, CDP console check — 0 errors) and did **not** confirm the production report's all-PASS claim. Terrain materiality, water believability, and Exhibition Hall grounding are genuine, confirmed improvements. But 3 Major findings were confirmed directly in the primary slice view: a visible rectangular seam where the promenade texture is stretched onto the narrow south path (north of the Exhibition Hall roofline), a completely untreated hard water/land corner beside the Exhibition Hall's east edge, and a ship-water contact treatment that reads as an applied effect image on secondary/small vessels (visible round blur, inconsistently applied — some rowboats get no treatment at all). 4 of 8 quality gates fail (`ENVIRONMENT_COHESION`, `SHIP_WATER_GROUNDING`, `SHORELINE_INTEGRATION`, `CONCEPT_LEVEL_READ`). Full evidence: `reports/portfolio-world/art-production/harbor-concept-vertical-slice-independent-visual-qa.md`.
 
 - Post-v1 Environment Surface Pass = **TECHNICALLY COMPLETE** (unchanged historical verdict; not reopened).
 - Concept Quality Lock = **COMPLETE**. Production specification: `reports/portfolio-world/art-direction/concept-quality-lock-harbor-vertical-slice.md`.
-- Harbor Vertical Slice Production = **IMPLEMENTED**: seven generated-original raster environment/contact assets (674,331 bytes), terrain/water/shoreline/promenade/Exhibition grounding, vessel water-contact composition, and existing `GAME_READY` prop wiring.
-- Canonical preload = **38 assets / 1,235,511 bytes** (from 31 / 561,180); no collision, routes, navigation, camera/movement, depth formula, world dimension, berth, locked building, or locked ship design changed.
-- Automated Harness = **PASS 35/35**; typecheck, build, and `git diff --check` pass. Production visual inspection covered the seven ART-02 frames in the actual running app; Blocker 0 / Major 0 / new ART-02 Minor 0.
-- Independent Visual QA = **PENDING**. Human Review = **DEFERRED**.
-- Official production record: `reports/portfolio-world/art-production/harbor-concept-vertical-slice-production.md`.
-- Gate: `READY_FOR_HARBOR_VERTICAL_SLICE_VISUAL_QA`.
+- Harbor Vertical Slice Production (ART-02) = **IMPLEMENTED**; production report claimed Blocker 0/Major 0/all gates PASS — **not confirmed by independent QA** (see above).
+- Structural lock re-confirmed independently: world dimensions, collision, routes/navigation, berths, depth formula, and every locked building/ship PNG are unchanged in the ART-02 diff.
+- Independent Visual QA (ART-03) = **COMPLETE**: Blocker 0, Major 3, Minor 2.
+- Human Review = **DEFERRED** — not ready; a scoped Major repair is required first.
+- Gate: `READY_FOR_HARBOR_VERTICAL_SLICE_MAJOR_REPAIR`.
 
 ## Environment Art Major Repair + Short Visual Re-check — 2026-09-24 (historical, superseded above)
 
