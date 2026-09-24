@@ -3,10 +3,23 @@
 Updated: 2026-09-24
 
 ## Phase
-PORTFOLIO WORLD V1 — RELEASED BASELINE; ENVIRONMENT ART COMPLETION — MAJOR REPAIR + SHORT VISUAL RE-CHECK COMPLETE
+PORTFOLIO WORLD V1 — RELEASED BASELINE; POST-V1 ENVIRONMENT SURFACE PASS — TECHNICALLY COMPLETE; FINAL ART TARGET — NOT YET REACHED; CONCEPT QUALITY LOCK — COMPLETE
 
 ## Current Work Unit
-Environment Art Completion — Major repair and fresh short visual re-check = COMPLETE. Automated Harness = PASS (35/35). Blocker 0, Major 0; the optional compacted-ground Minor is closed, while only the explicitly carried-forward ground flecks and Vite chunk-size Minor remain deferred. Human Review = NOT YET. Portfolio World v1.0.0 remains the released baseline; its tag and main branch are unchanged. Gate: `READY_FOR_ENVIRONMENT_ART_HUMAN_REVIEW`.
+
+Concept Quality Lock (ART-01) is COMPLETE on `feature/portfolio-world-concept-vertical-slice` (from `feature/portfolio-world-environment-art-completion` @ `8fb9bf2`). New Human feedback determined that the technically-complete Post-v1 Environment Surface Pass (Blocker 0 / Major 0, 35/35, gate `READY_FOR_ENVIRONMENT_ART_HUMAN_REVIEW`) has **not** reached the originally intended concept-image-level final art quality: terrain and water are flat procedural fills with no illustrated material, ships show no waterline/hull-submersion/contact-ripple integration, and buildings/props read as PNGs placed on a flat plane rather than one continuous illustrated world. This does not reopen any structural/functional/Human-Accepted milestone; it raises the bar for a new, explicitly scoped Harbor Vertical Slice final-art pass.
+
+- Post-v1 Environment Surface Pass = **TECHNICALLY COMPLETE** (unchanged verdict; not reopened).
+- Final Art Target = **NOT YET REACHED**.
+- Concept Quality Lock = **COMPLETE**. Full specification: `reports/portfolio-world/art-direction/concept-quality-lock-harbor-vertical-slice.md`.
+- No original concept-image reference file exists in the repository (searched exhaustively across working tree and all branch history); the provisional quality target in the lock report is derived from the locked Visual Grammar/Scale Bible plus fresh Human feedback instead.
+- Harbor Vertical Slice = **NEXT** (ART-02, not yet started; no art asset was generated and no runtime file was changed by this lock).
+- Human Review = **DEFERRED UNTIL VERTICAL SLICE QA COMPLETE**.
+- Gate: `READY_FOR_CONCEPT_VERTICAL_SLICE_PRODUCTION`.
+
+## Environment Art Major Repair + Short Visual Re-check — 2026-09-24 (historical, superseded above)
+
+Automated Harness = PASS (35/35). Blocker 0, Major 0; the optional compacted-ground Minor is closed, while only the explicitly carried-forward ground flecks and Vite chunk-size Minor remain deferred. This remains a valid, closed technical milestone; it is the pass that the new Concept Quality Lock determines is not yet final-art quality (see Current Work Unit above).
 
 ## Environment Art Major Repair + Short Visual Re-check — 2026-09-24
 
@@ -189,4 +202,5 @@ This closeout supersedes older Fleet Authenticity “human review pending” ref
 - Destination-building art (330–338 px wide) is wider than the shared 256 px collision footprint for all four destinations (Guild Hall, Academy, Workshop, Exhibition Hall); safe under current footprint-blocked collision, but a player standing beside one can be partially hidden by the art's overhang (independent review Finding BR-03).
 
 ## Next
-1. Repair the Environment Art Completion Major finding (world-edge diagonal-line defect in `drawHarborEdgeTreatment()`; see `reports/portfolio-world/environment-art-completion-whole-world-visual-qa.md`), optionally repair the ground-patch Minor, then run a short independent re-check before Human Review. Do not reopen the released V1 architecture/collision/routes/buildings/fleet, and do not begin unrelated polish.
+1. (Superseded — repair completed, see Environment Art Major Repair section above.)
+2. Begin ART-02 — Harbor Concept-quality Vertical Slice Production per `reports/portfolio-world/art-direction/concept-quality-lock-harbor-vertical-slice.md` (Section U). One grouped pass: terrain/water/shoreline illustrated art for the Harbor Square/Exhibition Hall/waterfront slice, ship-water grounding (occlusion mask + contact shadow + contact ripple) for Hero Ship and in-slice secondary vessels, building-foundation grounding, wiring the already-produced but unused prop PNGs (crate/barrel/bench/lamp/rope-coil/safety-rail/mooring-bollard/service-marker/tree/planter) to their existing textures, manifest updates, build, and QA. Do not reopen locked ship/building designs, collision, routes, navigation, or world dimensions. No Human Review until Vertical Slice QA is complete.
