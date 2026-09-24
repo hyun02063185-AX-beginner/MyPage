@@ -3,18 +3,21 @@
 Updated: 2026-09-24
 
 ## State
-**PORTFOLIO WORLD V1.0.0 = RELEASED BASELINE.** The Post-v1 Environment Surface Pass (production + Major repair + short re-check, Blocker 0 / Major 0, 35/35) is **TECHNICALLY COMPLETE** and remains a valid closed milestone — it is not reopened. New Human feedback has determined that this pass has **not yet reached the originally intended concept-image-level final art quality**: terrain and water are flat procedural fills with no illustrated material, ships show no waterline/hull-submersion/contact-ripple integration, and buildings/props read as PNGs placed on a flat plane rather than one continuous illustrated world.
+**PORTFOLIO WORLD V1.0.0 = RELEASED BASELINE.** The Post-v1 Environment Surface Pass remains a valid, closed technical milestone and is not reopened. `main` and the v1.0.0 tag remain untouched.
 
-**Concept Quality Lock (ART-01) is COMPLETE** on `feature/portfolio-world-concept-vertical-slice` (branched from `feature/portfolio-world-environment-art-completion` @ `8fb9bf2`; `main`/v1.0.0 tag untouched). Full specification, current-runtime-gap evidence (including a confirmed prop-PNG wiring gap — many illustrated, `GAME_READY` prop textures already exist on disk but are unused by most in-world instances), the Harbor Vertical Slice production architecture, and the ART-02 work-unit definition are in `reports/portfolio-world/art-direction/concept-quality-lock-harbor-vertical-slice.md`. No original concept-image reference file exists anywhere in the repository (working tree or history, all branches) — the provisional final-art target was constructed from the already-locked Visual Grammar v1.0 / Scale Bible plus the fresh Human feedback, per the task's own fallback rule.
+**Concept Quality Lock (ART-01) is COMPLETE; Harbor Vertical Slice Production (ART-02) is IMPLEMENTED** on `feature/portfolio-world-concept-vertical-slice`. ART-02 implements only the locked south Harbor scope: new illustrated terrain, water, promenade, shoreline, vessel-contact, Exhibition foundation, and terrace raster assets; existing `GAME_READY` props are wired into applicable slice fallbacks. The released world geometry, destination/route/forecourt contracts, collision, camera/movement, depth formula, berths, locked building art, and locked vessel designs were not changed.
 
 ```text
 POST_V1_ENVIRONMENT_SURFACE_PASS = TECHNICALLY_COMPLETE
-FINAL_ART_TARGET                 = NOT_YET_REACHED
 CONCEPT_QUALITY_LOCK             = COMPLETE
-HARBOR_VERTICAL_SLICE            = NEXT (ART-02, not started; no art asset generated, no runtime file changed)
-HUMAN_REVIEW                     = DEFERRED_UNTIL_VERTICAL_SLICE_QA_COMPLETE
-GATE                             = READY_FOR_CONCEPT_VERTICAL_SLICE_PRODUCTION
+HARBOR_VERTICAL_SLICE            = IMPLEMENTED (ART-02)
+AUTOMATED_HARNESS                = PASS (35/35)
+INDEPENDENT_VISUAL_QA            = PENDING
+HUMAN_REVIEW                     = DEFERRED
+GATE                             = READY_FOR_HARBOR_VERTICAL_SLICE_VISUAL_QA
 ```
+
+ART-02 measurement: preload changed from 31 assets / 561,180 bytes to 38 assets / 1,235,511 bytes (+7 / +674,331). Final production QA is Blocker 0, Major 0, new ART-02 Minor 0; typecheck, test, production build, manifest-path validation, alpha hidden-RGB audit, and `git diff --check` pass. The only deferred non-art note is the existing Vite chunk-size warning. The official handoff evidence is `reports/portfolio-world/art-production/harbor-concept-vertical-slice-production.md`; it records seven actual-running-app frames and all eight production quality gates as PASS.
 
 Active core sailing textures remain v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0. None of this design is reopened by the Concept Quality Lock — only how these locked assets meet the ground and water is in scope for ART-02.
 
