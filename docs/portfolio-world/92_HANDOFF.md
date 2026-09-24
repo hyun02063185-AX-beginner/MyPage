@@ -1,9 +1,9 @@
 # 92. Portfolio World — Handoff
 
-Updated: 2026-09-22
+Updated: 2026-09-24
 
 ## State
-**PORTFOLIO WORLD V1 = RELEASED.** Batch 02 = COMPLETE; Batch 03 = COMPLETE; Fleet Authenticity = COMPLETE; Fleet Presence = COMPLETE; Fleet Native Resolution = COMPLETE; Batch 04 = COMPLETE / HUMAN ACCEPTED; Release Readiness = PASS; Release Blockers = CLOSED; GitHub Pages Production = VERIFIED; Deferred Minor = 1 RELEASE-SAFE. Active core sailing textures remain v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0. Normal BootScene production preload is 561,180 bytes across 31 assets.
+**PORTFOLIO WORLD V1.0.0 = RELEASED BASELINE. Environment Art Completion = IMPLEMENTED. Automated Harness = PASS. Independent Whole-world Visual QA = PENDING. Human Review = NOT YET.** The 2026-09-24 material pass replaces flat terrain/water/shoreline reads using static Phaser material layers while retaining accepted buildings, fleet, berths, collision, routes, camera, depth architecture, and navigation. Asset count and production preload remain **31 / 561,180 bytes**; `npm test` passes **35/35**. See `reports/portfolio-world/environment-art-completion-production.md`. Active core sailing textures remain v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0.
 
 ## Production Release Closeout — 2026-09-22
 

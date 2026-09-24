@@ -1,12 +1,19 @@
 # 91. Portfolio World — Project Status
 
-Updated: 2026-09-22
+Updated: 2026-09-24
 
 ## Phase
-PORTFOLIO WORLD V1 — RELEASED
+PORTFOLIO WORLD V1 — RELEASED BASELINE; ENVIRONMENT ART COMPLETION — IMPLEMENTED
 
 ## Current Work Unit
-Release Closeout — COMPLETE. Batch 02 = COMPLETE; Batch 03 = COMPLETE; Fleet Authenticity = COMPLETE; Fleet Presence = COMPLETE; Fleet Native Resolution = COMPLETE; Batch 04 = COMPLETE / HUMAN ACCEPTED; Release Readiness = PASS; Release Blockers = CLOSED; GitHub Pages Production = VERIFIED; Deferred Minor = 1 RELEASE-SAFE. Gate: `PORTFOLIO_WORLD_V1_RELEASED`.
+Environment Art Completion — IMPLEMENTED. Automated Harness = PASS (35/35). Independent Whole-world Visual QA = PENDING. Human Review = NOT YET. Portfolio World v1.0.0 remains the released baseline; its tag and main branch are unchanged. Gate: `READY_FOR_ENVIRONMENT_ART_WHOLE_WORLD_VISUAL_QA`.
+
+## Environment Art Completion — 2026-09-24
+
+- Replaced the visible grass grid and flat ground treatment with static macro terrain masses, quiet grass clusters, workshop/waterfront compacted-ground patches, material paths, and worn Harbor Square paving.
+- Replaced flat/repeated water treatment with deep/shallow layered water, offset ripples, foam highlights, and explicit shoreline contact. No shader, animation, binary asset, collision, berth, route, camera, building, or fleet change was made.
+- Production source and runtime were inspected locally; no Blocker or Major was observed. Automated suite passes **35/35**. Production preload remains **31 assets / 561,180 bytes** (delta 0).
+- Official record: `reports/portfolio-world/environment-art-completion-production.md`.
 
 ## Production Release Closeout — 2026-09-22
 
