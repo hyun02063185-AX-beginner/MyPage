@@ -1,6 +1,10 @@
 /** Shared Retro Harbor Campus colors. This is deliberately a small static palette, not a theme system. */
 export const HARBOR_PALETTE = {
   ground: 0x789b76,
+  groundLight: 0x89aa78,
+  groundDark: 0x58785c,
+  groundDry: 0xa99b78,
+  groundGravel: 0x8c856e,
   groundGrid: 0x5c7f63,
   stone: 0xd9ccb0,
   plazaStone: 0xc5b79a,
@@ -8,6 +12,8 @@ export const HARBOR_PALETTE = {
   path: 0xb8ab91,
   pathEdge: 0x746957,
   water: 0x287f9f,
+  waterShallow: 0x4b9faf,
+  waterFoam: 0xc0e3d6,
   waterHighlight: 0x8bd5d2,
   waterDeep: 0x185d7c,
   dockWood: 0xa56c3f,

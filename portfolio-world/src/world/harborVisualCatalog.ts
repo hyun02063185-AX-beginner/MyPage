@@ -88,12 +88,38 @@ export const HARBOR_VISUAL_CATALOG: Readonly<Record<HarborVisualType, string>> =
 export function drawHarborGround(scene: Phaser.Scene): void {
   const graphics = scene.add.graphics().setDepth(WORLD_DEPTH.BACKGROUND_GROUND);
   graphics.fillStyle(COLORS.ground).fillRect(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
-  graphics.lineStyle(1, COLORS.groundGrid, 0.22);
-  for (let x = 0; x <= WORLD_WIDTH; x += LOGICAL_UNIT) {
-    graphics.lineBetween(x, 0, x, WORLD_HEIGHT);
+
+  // Macro material masses replace the prototype grid. Their deliberately fixed
+  // placement keeps the world legible and avoids procedural/noisy decoration.
+  graphics.fillStyle(COLORS.groundLight, 0.34);
+  graphics.fillEllipse(990, 228, 690, 300);
+  graphics.fillEllipse(480, 620, 650, 390);
+  graphics.fillEllipse(1570, 610, 730, 410);
+  graphics.fillStyle(COLORS.groundDark, 0.18);
+  graphics.fillEllipse(224, 230, 410, 220);
+  graphics.fillEllipse(1750, 300, 500, 280);
+  graphics.fillEllipse(1660, 860, 690, 230);
+
+  // Calm, plan-view grass clusters: large enough to read as a material, sparse
+  // enough that buildings and routes retain hierarchy.
+  graphics.fillStyle(COLORS.greenery, 0.17);
+  const grassClusters = [
+    [112, 152, 124, 26], [342, 314, 168, 22], [600, 188, 130, 24],
+    [720, 830, 170, 30], [1228, 190, 154, 24], [1384, 466, 190, 26],
+    [1760, 854, 196, 28], [1900, 318, 112, 22], [1870, 760, 144, 26],
+  ] as const;
+  for (const [x, y, width, height] of grassClusters) {
+    graphics.fillEllipse(x, y, width, height);
   }
-  for (let y = 0; y <= WORLD_HEIGHT; y += LOGICAL_UNIT) {
-    graphics.lineBetween(0, y, WORLD_WIDTH, y);
+
+  // Workshop and waterfront receive restrained compacted-ground patches rather
+  // than a new palette or a high-frequency texture map.
+  graphics.fillStyle(COLORS.groundDry, 0.22);
+  graphics.fillRoundedRect(1440, 704, 408, 184, 22);
+  graphics.fillRoundedRect(112, 826, 548, 166, 20);
+  graphics.fillStyle(COLORS.groundGravel, 0.28);
+  for (const [x, y, width] of [[1392, 734, 70], [1508, 808, 96], [1668, 756, 82], [212, 924, 76], [408, 866, 92]] as const) {
+    graphics.fillRoundedRect(x, y, width, 7, 3);
   }
 }
 
@@ -116,10 +142,28 @@ export function drawHarborEdgeTreatment(scene: Phaser.Scene, edges: readonly Wor
 }
 
 export function drawHarborPath(scene: Phaser.Scene, path: WorldPath, isForecourt = false): void {
-  scene.add
-    .rectangle(path.x, path.y, path.width, path.height, isForecourt ? COLORS.plazaStone : COLORS.path)
-    .setStrokeStyle(2, COLORS.pathEdge)
-    .setDepth(WORLD_DEPTH.GROUND_DETAIL + 1);
+  const left = path.x - path.width / 2;
+  const top = path.y - path.height / 2;
+  const graphics = scene.add.graphics().setDepth(WORLD_DEPTH.GROUND_DETAIL + 1);
+  const fill = isForecourt ? COLORS.plazaStone : COLORS.path;
+  graphics.fillStyle(fill).fillRect(left, top, path.width, path.height);
+  graphics.lineStyle(3, COLORS.pathEdge, 0.82).strokeRect(left, top, path.width, path.height);
+  graphics.fillStyle(COLORS.stone, isForecourt ? 0.22 : 0.14).fillRect(left + 5, top + 5, path.width - 10, path.height - 10);
+  graphics.lineStyle(1, COLORS.stoneShade, 0.38);
+  const stride = 32;
+  if (path.width > path.height) {
+    for (let x = left + stride; x < left + path.width - 10; x += stride) {
+      const inset = ((x - left) / stride) % 2 === 0 ? 8 : 16;
+      graphics.lineBetween(x, top + 6 + inset, x, top + path.height - 6);
+    }
+    graphics.lineStyle(1, COLORS.pathEdge, 0.38).lineBetween(left + 6, path.y, left + path.width - 6, path.y);
+  } else {
+    for (let y = top + stride; y < top + path.height - 10; y += stride) {
+      const inset = ((y - top) / stride) % 2 === 0 ? 8 : 16;
+      graphics.lineBetween(left + 6, y, left + path.width - 6 - inset, y);
+    }
+    graphics.lineStyle(1, COLORS.pathEdge, 0.38).lineBetween(path.x, top + 6, path.x, top + path.height - 6);
+  }
 }
 
 export function drawHarborPlaza(scene: Phaser.Scene, plaza: WorldZone): void {
@@ -127,10 +171,10 @@ export function drawHarborPlaza(scene: Phaser.Scene, plaza: WorldZone): void {
   const top = plaza.y - plaza.height / 2;
   const graphics = scene.add.graphics().setDepth(WORLD_DEPTH.GROUND_DETAIL + 2);
   graphics.fillStyle(COLORS.stone).fillRect(left, top, plaza.width, plaza.height);
-  graphics.fillStyle(COLORS.plazaStone, 0.35).fillRect(left + 12, top + 12, plaza.width - 24, plaza.height - 24);
+  graphics.fillStyle(COLORS.plazaStone, 0.46).fillRect(left + 12, top + 12, plaza.width - 24, plaza.height - 24);
   graphics.lineStyle(4, COLORS.stoneShade).strokeRect(left, top, plaza.width, plaza.height);
   graphics.lineStyle(2, COLORS.rope, 0.7).strokeRect(left + 10, top + 10, plaza.width - 20, plaza.height - 20);
-  graphics.lineStyle(1, COLORS.stoneShade, 0.7);
+  graphics.lineStyle(1, COLORS.stoneShade, 0.56);
   for (let x = left + LOGICAL_UNIT; x < left + plaza.width; x += LOGICAL_UNIT) {
     const offset = Math.floor((x - left) / LOGICAL_UNIT) % 2 === 0 ? 0 : LOGICAL_UNIT / 2;
     graphics.lineBetween(x, top, x, top + plaza.height);
@@ -139,6 +183,10 @@ export function drawHarborPlaza(scene: Phaser.Scene, plaza: WorldZone): void {
   }
   for (let y = top + LOGICAL_UNIT; y < top + plaza.height; y += LOGICAL_UNIT) {
     graphics.lineBetween(left, y, left + plaza.width, y);
+  }
+  graphics.fillStyle(COLORS.stoneShade, 0.18);
+  for (const [x, y, width] of [[left + 38, top + 92, 18], [left + 268, top + 56, 26], [left + 330, top + 214, 20], [left + 72, top + 232, 30]] as const) {
+    graphics.fillRoundedRect(x, y, width, 4, 2);
   }
   graphics.lineStyle(2, COLORS.shipTrim, 0.75).strokeCircle(plaza.x, plaza.y, 54);
   graphics.lineStyle(1, COLORS.ink, 0.55).strokeCircle(plaza.x, plaza.y, 42);
@@ -406,18 +454,32 @@ export function drawHarborNaturalizedGroundDetails(scene: Phaser.Scene): void {
 function drawWater(graphics: Phaser.GameObjects.Graphics, visual: HarborVisualPlacement): void {
   const left = visual.x - visual.width / 2;
   const top = visual.y - visual.height / 2;
-  graphics.fillStyle(COLORS.water).fillRect(left, top, visual.width, visual.height);
-  graphics.fillStyle(COLORS.waterDeep, 0.28).fillRect(left + 4, top + visual.height * 0.54, visual.width - 8, visual.height * 0.42);
-  graphics.lineStyle(4, COLORS.waterHighlight, 0.8).lineBetween(left, top + 3, left + visual.width, top + 3);
-  graphics.lineStyle(2, COLORS.waterDeep, 0.65).strokeRect(left + 2, top + 2, visual.width - 4, visual.height - 4);
-  graphics.lineStyle(2, COLORS.waterHighlight, 0.74);
-  const rowGap = visual.height < 112 ? 34 : 42;
-  for (let y = top + 20, row = 0; y < top + visual.height - 10; y += rowGap, row += 1) {
-    const shift = row % 2 === 0 ? 20 : 48;
-    for (let x = left + shift; x < left + visual.width - 18; x += 88) {
-      graphics.lineBetween(x, y, Math.min(x + 26, left + visual.width - 10), y);
-      graphics.lineBetween(x + 34, y + 6, Math.min(x + 48, left + visual.width - 8), y + 6);
+  graphics.fillStyle(COLORS.waterDeep).fillRect(left, top, visual.width, visual.height);
+  graphics.fillStyle(COLORS.water).fillRect(left + 3, top + 10, visual.width - 6, visual.height - 13);
+  graphics.fillStyle(COLORS.waterShallow, 0.64).fillRect(left + 2, top + 3, visual.width - 4, 16);
+  graphics.fillStyle(COLORS.waterHighlight, 0.14).fillRect(left + 5, top + 22, visual.width - 10, Math.max(12, visual.height * 0.22));
+  graphics.lineStyle(2, COLORS.waterFoam, 0.86).lineBetween(left + 4, top + 8, left + visual.width - 4, top + 8);
+  graphics.lineStyle(2, COLORS.waterDeep, 0.7).strokeRect(left + 2, top + 2, visual.width - 4, visual.height - 4);
+
+  // Offset curves and broken highlights avoid a visibly tiled wave stamp.
+  const rows = Math.max(1, Math.floor((visual.height - 20) / 30));
+  for (let row = 0; row < rows; row += 1) {
+    const y = top + 28 + row * 30;
+    const offset = ((row * 37) + Math.round(left / 7)) % 94;
+    graphics.lineStyle(2, row % 2 === 0 ? COLORS.waterHighlight : COLORS.waterShallow, row % 2 === 0 ? 0.58 : 0.48);
+    for (let x = left + 14 + offset; x < left + visual.width - 18; x += 118) {
+      const end = Math.min(x + 34 + ((row + Math.floor(x / 118)) % 3) * 8, left + visual.width - 9);
+      graphics.beginPath();
+      graphics.moveTo(x, y);
+      graphics.lineTo(x + 8, y - 2);
+      graphics.lineTo(end - 7, y - 1);
+      graphics.lineTo(end, y - 3);
+      graphics.strokePath();
     }
+  }
+  graphics.fillStyle(COLORS.waterFoam, 0.52);
+  for (let x = left + 22 + (Math.round(left) % 29); x < left + visual.width - 12; x += 96) {
+    graphics.fillRect(x, top + 15, 12, 2);
   }
 }
 
