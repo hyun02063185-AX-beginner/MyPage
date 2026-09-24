@@ -179,6 +179,29 @@ const getHarborVesselAsset = (visual: HarborVisualPlacement): WorldAssetEntry | 
   return undefined;
 };
 
+type VesselWaterTier = "hero" | "medium" | "workboat" | "rowboat";
+
+const getVesselWaterTier = (displayWidth: number): VesselWaterTier => {
+  if (displayWidth >= 300) return "hero";
+  if (displayWidth >= 160) return "medium";
+  if (displayWidth >= 100) return "workboat";
+  return "rowboat";
+};
+
+const VESSEL_WATER_TREATMENT: Readonly<Record<VesselWaterTier, Readonly<{
+  shadowWidth: number;
+  shadowHeight: number;
+  shadowAlpha: number;
+  occlusionWidth: number;
+  occlusionHeight: number;
+  occlusionY: number;
+}>>> = {
+  hero: { shadowWidth: 1.1, shadowHeight: 20, shadowAlpha: 0.18, occlusionWidth: 1.05, occlusionHeight: 12, occlusionY: 9 },
+  medium: { shadowWidth: 1.08, shadowHeight: 16, shadowAlpha: 0.2, occlusionWidth: 1.04, occlusionHeight: 9, occlusionY: 6 },
+  workboat: { shadowWidth: 1.05, shadowHeight: 10, shadowAlpha: 0.2, occlusionWidth: 1.02, occlusionHeight: 6, occlusionY: 4 },
+  rowboat: { shadowWidth: 1.03, shadowHeight: 8, shadowAlpha: 0.2, occlusionWidth: 1, occlusionHeight: 5, occlusionY: 3 },
+};
+
 /** Orchestrates layout, focused harbor visuals, collision, input, and camera. */
 export class WorldScene extends Phaser.Scene {
   private player?: Player;
@@ -552,8 +575,8 @@ export class WorldScene extends Phaser.Scene {
   }
 
   /**
-   * ART-02 keeps each locked vessel sprite intact while composing its contact
-   * shadow beneath it and a waterline occlusion/ripple over its lowest hull.
+   * ART-04 keeps each locked vessel sprite intact while composing separate,
+   * tier-aware raster shadow/ripple and foreground water-occlusion layers.
    * The Container has exactly the existing waterline-derived vessel depth.
    */
   private drawVesselWaterComposite(
@@ -565,19 +588,19 @@ export class WorldScene extends Phaser.Scene {
   ): void {
     const displayWidth = asset.displayWidth * scale;
     const displayHeight = asset.displayHeight * scale;
-    const contactHeight = Math.max(18, Math.min(64, Math.round(displayHeight * 0.2)));
-    const contactWidth = Math.max(vessel.width + 20, Math.round(displayWidth * 1.12));
+    const treatment = VESSEL_WATER_TREATMENT[getVesselWaterTier(displayWidth)];
     const composite = this.add
       .container(vessel.x, waterlineY)
       .setDepth(getVesselDepth(waterlineY, vessel.id));
-    const contactTexture = WORLD_ASSETS.harborShipWaterContact.textureKey;
+    const shadowTexture = WORLD_ASSETS.harborVesselShadowRipple.textureKey;
+    const occlusionTexture = WORLD_ASSETS.harborVesselWaterOcclusion.textureKey;
 
-    if (this.textures.exists(contactTexture)) {
+    if (this.textures.exists(shadowTexture)) {
       composite.add(
         this.add
-          .image(0, contactHeight * 0.36, contactTexture)
-          .setDisplaySize(contactWidth, Math.round(contactHeight * 0.72))
-          .setAlpha(0.38),
+          .image(0, treatment.shadowHeight * 0.3, shadowTexture)
+          .setDisplaySize(Math.round(displayWidth * treatment.shadowWidth), treatment.shadowHeight)
+          .setAlpha(treatment.shadowAlpha),
       );
     }
 
@@ -589,12 +612,12 @@ export class WorldScene extends Phaser.Scene {
         .setFlipX(flipX),
     );
 
-    if (this.textures.exists(contactTexture)) {
+    if (this.textures.exists(occlusionTexture)) {
       composite.add(
         this.add
-          .image(0, contactHeight * 0.32, contactTexture)
-          .setDisplaySize(contactWidth, contactHeight)
-          .setAlpha(0.9),
+          .image(0, treatment.occlusionY, occlusionTexture)
+          .setDisplaySize(Math.round(displayWidth * treatment.occlusionWidth), treatment.occlusionHeight)
+          .setAlpha(0.88),
       );
     }
   }

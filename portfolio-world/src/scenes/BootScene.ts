@@ -47,6 +47,7 @@ export class BootScene extends Phaser.Scene {
       WORLD_ASSETS.harborVerticalSlicePromenade, WORLD_ASSETS.harborOpenShoreline,
       WORLD_ASSETS.harborShipWaterContact, WORLD_ASSETS.harborExhibitionFoundationContact,
       WORLD_ASSETS.harborViewingTerrace,
+      WORLD_ASSETS.harborVesselShadowRipple, WORLD_ASSETS.harborVesselWaterOcclusion,
       ...(calibration ? [
         calibration.heroShipD,
         calibration.exhibitionHall,

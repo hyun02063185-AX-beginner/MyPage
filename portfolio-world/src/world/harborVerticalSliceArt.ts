@@ -55,6 +55,23 @@ export function drawHarborVerticalSliceShoreline(
       .setAlpha(0.72)
       .setDepth(WORLD_DEPTH.GROUND_WATER + 1);
   }
+
+  // The east basin's land-facing top-left corner is exposed beside Exhibition Hall.
+  // Continue the already-approved shoreline raster down that visible vertical edge so
+  // its deliberately soft horizontal end never leaves a hard rectangular corner.
+  const eastBasin = waterVisuals.find((water) => water.id === "harbor-east-basin");
+  if (eastBasin) {
+    scene.add
+      .image(
+        eastBasin.x - eastBasin.width / 2 + 20,
+        eastBasin.y - eastBasin.height / 2 + 64,
+        WORLD_ASSETS.harborOpenShoreline.textureKey,
+      )
+      .setDisplaySize(128, 76)
+      .setRotation(-Math.PI / 2)
+      .setAlpha(0.72)
+      .setDepth(WORLD_DEPTH.GROUND_WATER + 2);
+  }
 }
 
 export const isHarborVerticalSlicePath = (path: WorldPath): boolean =>
@@ -66,15 +83,22 @@ export function drawHarborVerticalSlicePaving(
   paths: readonly WorldPath[],
 ): boolean {
   if (!scene.textures.exists(WORLD_ASSETS.harborVerticalSlicePromenade.textureKey)) return false;
-  scene.add
-    .image(plaza.x, plaza.y, WORLD_ASSETS.harborVerticalSlicePromenade.textureKey)
-    .setDisplaySize(plaza.width, plaza.height)
-    .setDepth(WORLD_DEPTH.GROUND_DETAIL + 2);
-  for (const path of paths) {
-    scene.add
-      .image(path.x, path.y, WORLD_ASSETS.harborVerticalSlicePromenade.textureKey)
-      .setDisplaySize(path.width, path.height)
+  const drawAlignedPavingRegion = (region: WorldZone | WorldPath): void => {
+    const left = region.x - region.width / 2;
+    const top = region.y - region.height / 2;
+    const paving = scene.add
+      .tileSprite(region.x, region.y, region.width, region.height, WORLD_ASSETS.harborVerticalSlicePromenade.textureKey)
       .setDepth(WORLD_DEPTH.GROUND_DETAIL + 2);
+    // Each rectangle samples the same 0.9× raster coordinate system. This preserves
+    // stone-joint scale and lets the plaza, narrow path, and overlapping forecourt
+    // meet as one material instead of independently stretched texture cards.
+    paving.setTileScale(0.9, 0.9);
+    paving.tilePositionX = -left;
+    paving.tilePositionY = -top;
+  };
+  drawAlignedPavingRegion(plaza);
+  for (const path of paths) {
+    drawAlignedPavingRegion(path);
   }
   scene.add
     .text(plaza.x, plaza.y - plaza.height / 2 + 18, plaza.label, {
