@@ -204,7 +204,9 @@ const VESSEL_WATER_TREATMENT: Readonly<Record<VesselWaterTier, Readonly<{
   hero: { shadowWidth: 1.12, shadowHeight: 16, shadowAlpha: 0.1, occlusionWidth: 1.08, occlusionHeight: 128, occlusionY: -2, occlusionAlpha: 0.95 },
   medium: { shadowWidth: 1.09, shadowHeight: 12, shadowAlpha: 0.11, occlusionWidth: 1.07, occlusionHeight: 84, occlusionY: -1, occlusionAlpha: 0.93 },
   workboat: { shadowWidth: 1.05, shadowHeight: 8, shadowAlpha: 0.12, occlusionWidth: 1.05, occlusionHeight: 38, occlusionY: -1, occlusionAlpha: 0.91 },
-  rowboat: { shadowWidth: 1.03, shadowHeight: 6, shadowAlpha: 0.12, occlusionWidth: 1.03, occlusionHeight: 28, occlusionY: -1, occlusionAlpha: 0.88 },
+  // Dinghy artwork ends above its high origin; lift the raster's opaque middle
+  // over that real alpha bound instead of enlarging an effect below the hull.
+  rowboat: { shadowWidth: 1.03, shadowHeight: 6, shadowAlpha: 0.12, occlusionWidth: 1.03, occlusionHeight: 28, occlusionY: -11, occlusionAlpha: 0.88 },
 };
 
 /** Orchestrates layout, focused harbor visuals, collision, input, and camera. */
