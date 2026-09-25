@@ -5,7 +5,7 @@ Updated: 2026-09-25
 ## State
 **PORTFOLIO WORLD V1.0.0 = RELEASED BASELINE.** The Post-v1 Environment Surface Pass remains a valid, closed technical milestone and is not reopened. `main` and the v1.0.0 tag remain untouched.
 
-**Concept Quality Lock (ART-01), Harbor Vertical Slice Production (ART-02), its Major Repair (ART-04), the Independent Short Re-check (ART-05), Human Review #1 (ART-06), ART-07 Human-feedback Polish, the Independent Polish Review (ART-08), and Human Review #2 are all COMPLETE. ART-09 Focused Refinement is PARTIALLY implemented and the Independent Final Re-check (ART-10) returned it for one more focused repair.** ART-03 remains the independent evidence record that identified the three repaired Majors. ART-09 changed only Human Review #2's two remaining refinement notes: foreground-water raster occlusion height per vessel tier, and the shared Harbor paving tile scale (`0.72` → `0.42`). ART-10 independently confirmed the pavement change and the Hero/Medium/Workboat vessel change are both genuine, screen-verified improvements — but found, via pixel-diffed before/after screenshots of two separate instances (including the service-jetty dinghy specifically named in the original Major 3 finding), that the Rowboat/Dinghy tier's enlarged occlusion band renders entirely below the hull and never actually covers a hull pixel, unlike the other three tiers. Typography is human-accepted and locked; its font family, size, stroke, position, depth, and hierarchy are byte-unchanged through ART-09/ART-10. No raster/font asset or dependency was added; no protected layout, collision, route, camera, navigation, berth, fleet, PNG, or depth rule changed.
+**Concept Quality Lock (ART-01), Harbor Vertical Slice Production (ART-02), its Major Repair (ART-04), the Independent Short Re-check (ART-05), Human Review #1 (ART-06), ART-07 Human-feedback Polish, the Independent Polish Review (ART-08), Human Review #2, and ART-11 Rowboat/Dinghy Waterline Focused Repair are all COMPLETE.** ART-03 remains the independent evidence record that identified the three repaired Majors. ART-10 independently returned the Rowboat/Dinghy tier because its larger occlusion layer rendered below, not over, its hull. ART-11 changes only that tier's foreground-water local Y (`-1` → `-11`), aligning the existing raster's opaque middle with the Dinghy asset's practical lower-alpha bound. Actual running-app close captures confirm hull-pixel occlusion on the service-jetty dinghy and mid-basin rowboat. Hero/Medium/Workboat treatment, pavement, typography, ships, assets, layout, collision, routes, camera, navigation, berth, fleet, and depth formula are unchanged.
 
 ```text
 POST_V1_ENVIRONMENT_SURFACE_PASS = TECHNICALLY_COMPLETE
@@ -21,14 +21,18 @@ INDEPENDENT_POLISH_REVIEW        = COMPLETE (ART-08) — Blocker 0 / Major 0 / M
 HUMAN_REVIEW_2                   = COMPLETED_WITH_2_REFINEMENT_NOTES
 TYPOGRAPHY                        = HUMAN_ACCEPTED_LOCKED
 ART_09_FOCUSED_REFINEMENT         = IMPLEMENTED — PARTIAL (pavement PASS; Hero/Medium/Workboat PASS; Rowboat/Dinghy FAIL)
-INDEPENDENT_FINAL_RECHECK         = COMPLETE (ART-10) — Blocker 0 / Major 1 / Minor 1
-FINAL_HUMAN_REVIEW               = NOT_READY
+ROWBOAT_DINGHY_WATERLINE_REPAIR   = IMPLEMENTED
+HERO_MEDIUM_WORKBOAT              = LOCKED_PASS
+PAVEMENT                          = LOCKED_PASS
+TYPOGRAPHY                        = HUMAN_ACCEPTED_LOCKED
+INDEPENDENT_SHORT_RECHECK         = PENDING
+FINAL_HUMAN_REVIEW               = PENDING INDEPENDENT SHORT RECHECK
 FINAL_ART_DIRECTION              = ACCEPTED_WITH_POLISH
-NEXT                             = HARBOR_VERTICAL_SLICE_FOCUSED_REPAIR (Rowboat/Dinghy tier only)
-GATE                             = RETURN_FOR_HARBOR_VERTICAL_SLICE_FOCUSED_REPAIR
+NEXT                             = INDEPENDENT_SHORT_RECHECK
+GATE                             = READY_FOR_HARBOR_ROWBOAT_SHORT_RECHECK
 ```
 
-Preload remains **40 assets / 1,292,542 bytes**; neither ART-09 nor ART-10 add any asset or font payload. ART-04 preserves the independently-confirmed terrain, water, Exhibition foundation, and prop improvements and does not change a protected structural file; ART-05, ART-08, and ART-10 all re-confirmed this via delta. ART-09 implementation and live-app evidence are recorded in `reports/portfolio-world/art-production/harbor-vertical-slice-human-review-2-refinement.md`; the independent final-recheck evidence, the per-tier vessel verdicts, and the Rowboat/Dinghy Major finding are recorded in `reports/portfolio-world/art-production/harbor-vertical-slice-final-independent-recheck.md`.
+Preload remains **40 assets / 1,292,542 bytes**; ART-11 adds no asset or font payload. ART-11 implementation and close-view evidence are recorded in `reports/portfolio-world/art-production/harbor-rowboat-dinghy-waterline-focused-repair.md`.
 
 Active core sailing textures remain v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0. None of this design is reopened by the Concept Quality Lock — only how these locked assets meet the ground and water is in scope for ART-02.
 
