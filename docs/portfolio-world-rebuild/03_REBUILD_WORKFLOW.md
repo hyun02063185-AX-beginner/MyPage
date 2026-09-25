@@ -1,7 +1,7 @@
 # 03. Portfolio World Rebuild — Workflow
 
-Status: **PROPOSED — takes effect after Human Gate 1**
-Updated: 2026-09-25
+Status: **PROPOSED — takes effect after Human Gate 1 (revised in R1.1)**
+Updated: 2026-09-26
 
 ## Human Review Policy
 
@@ -19,11 +19,17 @@ Between the two gates, agents judge against the *approved* brief and bible direc
    Approve 00_VISUAL_BRIEF.md + 01_ART_BIBLE.md as written, or send back
    with named revisions. Nothing below starts before this gate passes.
 
-2. phaser-architect (vendored)
+2. Architecture planning — official Phaser skills + project architecture contract
    Scene/state/asset-loading plan for Phaser 4, written against the
    approved brief/bible — not ahead of them, and not shaped by engine
-   convenience over art direction (this ordering is the R0 qualification
-   report's own stated purpose for this skill).
+   convenience over art direction. This is Codex/Claude working directly
+   from this project's own architecture-contract docs plus the vendored
+   official `game-setup-and-config`, `scenes`, and `cameras` skills
+   (`tools/agent-skills/vendor/phaserjs-phaser/`) and the project's
+   installed Phaser TypeScript type definitions — not a specialized
+   external "architect agent." (R1.1: the previously-planned third-party
+   `phaser-architect`/`phaser-coder` agents were removed for lacking a
+   license; see `02_SKILL_STACK.md`.)
 
 3. create-game-assets (vendored), driven by the Art Bible
    Approve ONE representative visual target — a single harbor composition
@@ -32,23 +38,37 @@ Between the two gates, agents judge against the *approved* brief and bible direc
    history skipped in Visual Pass 1 and paid for across three later
    polish rounds (00_VISUAL_BRIEF.md §12–13).
 
-4. phaser-coder (vendored)
-   Implement against the architect's plan and the one approved visual
-   target from step 3.
+4. Implementation — official Phaser skills + project architecture contract
+   Implement against step 2's plan and the one approved visual target from
+   step 3, using the vendored `loading-assets`, `sprites-and-images`, and
+   `input-keyboard-mouse-touch` skills as the API reference. Same
+   preference as step 2: official API skill + architecture contract, not a
+   specialized external coder agent.
 
-5. phaser-playtest (vendored)
+5. Project-owned runtime QA harness (not yet implemented)
    Automated functional runtime verification after every implementation
-   change: page load, canvas, boot, FPS, exceptions, asset load. This is
-   necessary and never sufficient — it proves the game runs, not that it
-   looks right. Requires an explicitly approved one-time Playwright/
-   Chromium install (02_SKILL_STACK.md).
+   change, using a project-owned Playwright/browser harness (not a vendored
+   third-party script — see `02_SKILL_STACK.md`'s "REMOVED in R1.1").
+   Minimum check goals:
+   - page boot
+   - Phaser canvas existence
+   - active scene
+   - console error (0 required)
+   - asset load failure (0 required)
+   - screenshot capture
+   - fixed viewport (deterministic, reproducible captures)
+   This is necessary and never sufficient — it proves the game runs, not
+   that it looks right. Requires an explicitly approved one-time
+   Playwright/browser-binary install when it is built.
 
 6. portfolio-world-visual-qa (project profile)
-   Post-render visual audit against 00_VISUAL_BRIEF.md, using
-   phaser-playtest's own screenshot output (or an equivalent capture) as
-   Level A/C evidence. Run BEFORE calling any pass "PASS" — this is where
-   the anti-pass rule (00_VISUAL_BRIEF.md §13.3) is actually enforced, not
-   left to whoever happens to remember it that day.
+   Post-render **visual PASS** audit against 00_VISUAL_BRIEF.md, using step
+   5's own screenshot output (or an equivalent capture) as Level A/C
+   evidence. This is the only step that grants a visual PASS — step 5
+   never does, no matter how clean its checks are. Run BEFORE calling any
+   pass "PASS" — this is where the anti-pass rule (00_VISUAL_BRIEF.md
+   §13.3) is actually enforced, not left to whoever happens to remember it
+   that day.
 
 7. Repeat 3–6 for the harbor hub until it independently passes step 6,
    THEN repeat 3–6 per destination zone.
