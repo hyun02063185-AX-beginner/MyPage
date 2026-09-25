@@ -92,10 +92,10 @@ export function drawHarborVerticalSlicePaving(
     const paving = scene.add
       .tileSprite(region.x, region.y, region.width, region.height, WORLD_ASSETS.harborVerticalSlicePromenade.textureKey)
       .setDepth(WORLD_DEPTH.GROUND_DETAIL + 2);
-    // Each rectangle samples the same 0.72× raster coordinate system. This preserves
+    // Each rectangle samples the same 0.42× raster coordinate system. This preserves
     // stone-joint scale and lets the plaza, narrow path, and overlapping forecourt
     // meet as one material instead of independently stretched texture cards.
-    paving.setTileScale(0.72, 0.72);
+    paving.setTileScale(0.42, 0.42);
     paving.tilePositionX = -left;
     paving.tilePositionY = -top;
   };

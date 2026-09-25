@@ -198,10 +198,13 @@ const VESSEL_WATER_TREATMENT: Readonly<Record<VesselWaterTier, Readonly<{
   occlusionY: number;
   occlusionAlpha: number;
 }>>> = {
-  hero: { shadowWidth: 1.14, shadowHeight: 18, shadowAlpha: 0.14, occlusionWidth: 1.07, occlusionHeight: 16, occlusionY: 5, occlusionAlpha: 0.86 },
-  medium: { shadowWidth: 1.11, shadowHeight: 14, shadowAlpha: 0.15, occlusionWidth: 1.06, occlusionHeight: 12, occlusionY: 3, occlusionAlpha: 0.84 },
-  workboat: { shadowWidth: 1.07, shadowHeight: 9, shadowAlpha: 0.15, occlusionWidth: 1.04, occlusionHeight: 7, occlusionY: 3, occlusionAlpha: 0.82 },
-  rowboat: { shadowWidth: 1.04, shadowHeight: 7, shadowAlpha: 0.15, occlusionWidth: 1.02, occlusionHeight: 6, occlusionY: 2, occlusionAlpha: 0.8 },
+  // The same foreground-water raster now spans the actual lower hull rather than
+  // only its foot: the opaque water band hides the submerged contour while the
+  // upper hull remains locked and fully readable.
+  hero: { shadowWidth: 1.12, shadowHeight: 16, shadowAlpha: 0.1, occlusionWidth: 1.08, occlusionHeight: 128, occlusionY: -2, occlusionAlpha: 0.95 },
+  medium: { shadowWidth: 1.09, shadowHeight: 12, shadowAlpha: 0.11, occlusionWidth: 1.07, occlusionHeight: 84, occlusionY: -1, occlusionAlpha: 0.93 },
+  workboat: { shadowWidth: 1.05, shadowHeight: 8, shadowAlpha: 0.12, occlusionWidth: 1.05, occlusionHeight: 38, occlusionY: -1, occlusionAlpha: 0.91 },
+  rowboat: { shadowWidth: 1.03, shadowHeight: 6, shadowAlpha: 0.12, occlusionWidth: 1.03, occlusionHeight: 28, occlusionY: -1, occlusionAlpha: 0.88 },
 };
 
 /** Orchestrates layout, focused harbor visuals, collision, input, and camera. */
