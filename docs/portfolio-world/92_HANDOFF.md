@@ -5,7 +5,7 @@ Updated: 2026-09-25
 ## State
 **PORTFOLIO WORLD V1.0.0 = RELEASED BASELINE.** The Post-v1 Environment Surface Pass remains a valid, closed technical milestone and is not reopened. `main` and the v1.0.0 tag remain untouched.
 
-**Concept Quality Lock (ART-01), Harbor Vertical Slice Production (ART-02), its Major Repair (ART-04), the Independent Short Re-check (ART-05), Human Review #1 (ART-06), and ART-07 Human-feedback Polish are COMPLETE.** ART-03 remains the independent evidence record that identified the three repaired Majors. ART-07 changes only the accepted Human Review #1 Polish notes: existing tier-aware vessel contact rasters are tuned for slightly more submerged lower hulls without changing ships or water art; all shared Harbor paving regions retain one coordinate system at a smaller `0.72` scale; and Harbor Square plus the four destination labels share a legible system-sans stack and subtle contrast stroke. No raster/font asset or dependency was added; no protected layout, collision, route, camera, navigation, berth, fleet, PNG, or depth rule changed.
+**Concept Quality Lock (ART-01), Harbor Vertical Slice Production (ART-02), its Major Repair (ART-04), the Independent Short Re-check (ART-05), Human Review #1 (ART-06), ART-07 Human-feedback Polish, and the Independent Polish Review (ART-08) are all COMPLETE.** ART-03 remains the independent evidence record that identified the three repaired Majors. ART-07 changed only the accepted Human Review #1 Polish notes: existing tier-aware vessel contact rasters are tuned for slightly more submerged lower hulls without changing ships or water art; all shared Harbor paving regions retain one coordinate system at a smaller `0.72` scale; and Harbor Square plus the four destination labels share a legible system-sans stack and subtle contrast stroke. No raster/font asset or dependency was added; no protected layout, collision, route, camera, navigation, berth, fleet, PNG, or depth rule changed. ART-08 independently re-verified all three notes against the actual running application, including pixel-diffing before/after screenshots at identical coordinates, and found Blocker 0 / Major 0.
 
 ```text
 POST_V1_ENVIRONMENT_SURFACE_PASS = TECHNICALLY_COMPLETE
@@ -14,17 +14,17 @@ HARBOR_VERTICAL_SLICE            = IMPLEMENTED (ART-02)
 INDEPENDENT_VISUAL_QA            = COMPLETE — Blocker 0 / Major 3 / Minor 2 (ART-03 evidence)
 HARBOR_VERTICAL_SLICE_MAJOR_REPAIR = IMPLEMENTED (ART-04; all 3 Majors closed)
 INDEPENDENT_SHORT_RECHECK        = COMPLETE (ART-05) — Blocker 0 / Major 0 / 8 of 8 gates PASS
-AUTOMATED_HARNESS                = PASS (35/35, independently reproduced by ART-05)
+AUTOMATED_HARNESS                = PASS (35/35, independently reproduced by ART-05 and ART-08)
 HUMAN_REVIEW_1                   = COMPLETED_WITH_3_POLISH_NOTES (ART-06)
 ART_07_HUMAN_POLISH              = IMPLEMENTED
-INDEPENDENT_POLISH_REVIEW        = PENDING
-HUMAN_REVIEW_2                   = DEFERRED
+INDEPENDENT_POLISH_REVIEW        = COMPLETE (ART-08) — Blocker 0 / Major 0 / Minor 2, all 3 Polish notes PASS
+HUMAN_REVIEW_2                   = READY
 FINAL_ART_DIRECTION              = ACCEPTED_WITH_POLISH
-NEXT                             = INDEPENDENT_POLISH_REVIEW
-GATE                             = READY_FOR_HARBOR_VERTICAL_SLICE_POLISH_REVIEW
+NEXT                             = HUMAN_REVIEW_2
+GATE                             = READY_FOR_HARBOR_VERTICAL_SLICE_HUMAN_REVIEW_2
 ```
 
-Preload remains **40 assets / 1,292,542 bytes**; ART-07 adds no asset or font payload. ART-04 preserves the independently-confirmed terrain, water, Exhibition foundation, and prop improvements and does not change a protected structural file; ART-05 re-confirmed this via delta. ART-07 implementation and live-app evidence are recorded in `reports/portfolio-world/art-production/harbor-vertical-slice-human-polish-production.md`; the review scope is recorded in `reports/portfolio-world/art-direction/harbor-vertical-slice-human-polish-pre-review.md`.
+Preload remains **40 assets / 1,292,542 bytes**; neither ART-07 nor ART-08 add any asset or font payload. ART-04 preserves the independently-confirmed terrain, water, Exhibition foundation, and prop improvements and does not change a protected structural file; ART-05 re-confirmed this via delta, and ART-08 re-confirmed it again through ART-07. ART-07 implementation and live-app evidence are recorded in `reports/portfolio-world/art-production/harbor-vertical-slice-human-polish-production.md`; the review scope is recorded in `reports/portfolio-world/art-direction/harbor-vertical-slice-human-polish-pre-review.md`; the independent polish-review evidence and corrected findings are recorded in `reports/portfolio-world/art-production/harbor-vertical-slice-human-polish-independent-review.md`.
 
 Active core sailing textures remain v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0. None of this design is reopened by the Concept Quality Lock — only how these locked assets meet the ground and water is in scope for ART-02.
 
