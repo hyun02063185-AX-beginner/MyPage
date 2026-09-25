@@ -69,6 +69,13 @@ Evidence files (actual built-preview captures, opened during implementation):
 
 The entry, overview, Hero Quay, and scale PNGs were opened after rereading the brief. They visibly show the broad basin, bent spine with offset square, quay physically reaching the Hero Ship, and calibration references. This is evidence supplied to the next independent visual-QA pass, not a `VISUAL_PASS` or approval of final materials, scale, or composition. Functional QA remains separate from the eight qualitative blockout conditions in `07_RUNTIME_QA_PLAN.md`.
 
+## Known Limitations
+
+- This is deliberately a flat-shape blockout: there are no production assets, finished materials, final paving, or final destination interiors.
+- Guild Hall, Academy, and Workshop are spatial markers, not implemented destinations or interaction targets.
+- Basin exclusion is intentionally simple and does not replace a future navigation/collision system.
+- Low/Mid/High are evidence variants only. No projection winner or visual approval was selected in R2B.
+
 ## Skill Discovery Record
 
 The repository's `.codex/skills/` contained the nine intended materialized skills: `environment-art`, `create-game-assets`, six official Phaser skills, and `portfolio-world-visual-qa`. They were not dynamically listed as active session skills, so implementation read canonical vendored/project profile sources under `tools/agent-skills/` directly. Relevant guidance applied: readable Hero-vs-secondary hierarchy, protected negative water space, human-scale references, fixed Phaser config/scenes/camera/input, and opened-render evidence discipline.
