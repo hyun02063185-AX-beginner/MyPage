@@ -1,0 +1,12 @@
+:root {
+  background: #172b37;
+  color: #f4e5bf;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #portfolio-world-root { width: 100%; min-height: 100%; margin: 0; }
+body { min-height: 100vh; overflow: hidden; background: #172b37; }
+#portfolio-world-root { display: grid; place-items: center; }
+canvas { display: block; max-width: 100%; max-height: 100vh; image-rendering: auto; }

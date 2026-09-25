@@ -1,10 +1,10 @@
 # 91. Portfolio World Rebuild — Project Status
 
-Updated: 2026-09-26 (R2A.1)
+Updated: 2026-09-26 (R2B)
 
 ## Phase
 
-PORTFOLIO WORLD REBUILD — R0/R1/R1.1 COMPLETE; HUMAN GATE 1 = APPROVED; R2A COMPLETE; R2A.1 (DIRECTOR LAYOUT CORRECTION) COMPLETE
+PORTFOLIO WORLD REBUILD — R0/R1/R1.1 COMPLETE; HUMAN GATE 1 = APPROVED; R2A/R2A.1 COMPLETE; R2B BLOCKOUT IMPLEMENTATION COMPLETE
 
 ```text
 R0_SKILL_QUALIFICATION   = COMPLETE
@@ -14,12 +14,22 @@ R2A_1_LAYOUT_CORRECTION  = COMPLETE
 R2A_BLOCKOUT_SPEC        = COMPLETE — Candidate A+ "Crescent Harbor with Hero Quay" selected (supersedes Candidate A)
 R2A_CALIBRATION_PLAN     = COMPLETE — camera terminology corrected (illustrated projection elevation, not a Phaser camera property)
 R2A_RUNTIME_QA_PLAN      = COMPLETE — Blockout PASS conditions expanded to 8
-R2_RUNTIME               = NOT_STARTED (explicitly out of scope through R2A.1)
-NEXT                     = R2B_BLOCKOUT_IMPLEMENTATION
-GATE                     = READY_FOR_R2B_BLOCKOUT_IMPLEMENTATION
+R2B_BLOCKOUT_RUNTIME     = COMPLETE — isolated Candidate A+ Graphics blockout in portfolio-world-v2/ and world-v2/
+R2B_FUNCTIONAL_QA        = COMPLETE — dev + build fixed-viewport harness clean; deterministic evidence captured
+R2B_VISUAL_QA            = NOT_STARTED — functional evidence is not a visual verdict
+NEXT                     = R2B_INDEPENDENT_VISUAL_QA
+GATE                     = READY_FOR_R2B_INDEPENDENT_VISUAL_QA
 ```
 
 ## Current Work Unit
+
+R2B created the first v2 runtime without touching v1: `portfolio-world-v2/` is the source project and `world-v2/` is its committed Pages artifact. It implements Candidate A+ as a flat-shape, one-basin harbor blockout with a bent walking spine, off-center Harbor Square, Exhibition Hall mass, Hero Quay/ship relationship, calibration placeholders, WASD/arrow movement, and simple main-basin exclusion.
+
+The project-owned Node/CDP Edge harness now captures fixed 1280 × 720 dev and built-preview evidence at deterministic entry, overview, Hero Quay, scale, and low/mid/high projection states. Canvas, `WorldScene`, console/exception, and failed-request checks are clean. Required screenshots are in `reports/portfolio-world-rebuild/evidence/r2b/` and the implementation report is `reports/portfolio-world-rebuild/r2b-blockout-implementation.md`.
+
+The actual captures were opened during implementation, but R2B does **not** grant `VISUAL_PASS`: the next independent visual-QA owner must judge Candidate A+ against the Visual Brief and the eight qualitative conditions in `07_RUNTIME_QA_PLAN.md` §2.
+
+## Prior Work Unit
 
 R2A.1 (Director Layout Correction) corrected four design contradictions found in R2A, on `feature/portfolio-world-rebuild-v2`, still ahead of any runtime creation. No runtime, asset, or v1 file was touched.
 
@@ -35,4 +45,4 @@ Files updated: `05_HARBOR_BLOCKOUT_SPEC.md`, `06_SCALE_CAMERA_CALIBRATION_PLAN.m
 
 ## Next
 
-R2B: implement the visual blockout per `05_HARBOR_BLOCKOUT_SPEC.md` §8 (Candidate A+, with calibration placeholders), using `04_ARCHITECTURE_V2.md`'s scene/path proposal, tested against `06_SCALE_CAMERA_CALIBRATION_PLAN.md` (corrected terminology) and `07_RUNTIME_QA_PLAN.md` (8-condition PASS contract). This remains the first phase permitted to create `portfolio-world-v2/`/`world-v2/`.
+Run independent R2B visual QA against the actual evidence, `00_VISUAL_BRIEF.md`, `01_ART_BIBLE.md`, and the eight-condition contract in `07_RUNTIME_QA_PLAN.md` §2. Keep its visual verdict separate from the completed functional harness result.

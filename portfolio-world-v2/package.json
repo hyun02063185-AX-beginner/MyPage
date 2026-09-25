@@ -1,0 +1,24 @@
+{
+  "name": "portfolio-world-v2",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --base /MyPage/world-v2/",
+    "typecheck": "tsc --noEmit",
+    "qa:runtime": "node qa/r2b-runtime-qa.mjs",
+    "test": "npm run typecheck && npm run build && npm run qa:runtime -- --mode build"
+  },
+  "dependencies": {
+    "phaser": "4.2.1"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "vite": "8.3.0"
+  }
+}
