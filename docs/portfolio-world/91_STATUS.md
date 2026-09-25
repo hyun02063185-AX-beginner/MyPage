@@ -1,24 +1,25 @@
 # 91. Portfolio World — Project Status
 
-Updated: 2026-09-24
+Updated: 2026-09-25
 
 ## Phase
-PORTFOLIO WORLD V1 — RELEASED BASELINE; POST-V1 ENVIRONMENT SURFACE PASS — TECHNICALLY COMPLETE; CONCEPT QUALITY LOCK — COMPLETE; HARBOR VERTICAL SLICE PRODUCTION — IMPLEMENTED; HARBOR VERTICAL SLICE MAJOR REPAIR — IMPLEMENTED
+PORTFOLIO WORLD V1 — RELEASED BASELINE; POST-V1 ENVIRONMENT SURFACE PASS — TECHNICALLY COMPLETE; CONCEPT QUALITY LOCK — COMPLETE; HARBOR VERTICAL SLICE PRODUCTION — IMPLEMENTED; HARBOR VERTICAL SLICE MAJOR REPAIR — IMPLEMENTED; HARBOR VERTICAL SLICE INDEPENDENT SHORT RE-CHECK — COMPLETE, READY FOR HUMAN REVIEW
 
 ## Current Work Unit
 
-ART-04 is implemented on `feature/portfolio-world-concept-vertical-slice` as the strictly scoped repair of ART-03's three Major findings. Actual-running-app checks confirm: the promenade now uses shared aspect-correct raster coordinates rather than a stretched card; the Exhibition east basin's exposed top-left corner continues the approved shoreline down its visible vertical edge; and every vessel tier now uses separated raster shadow/ripple and foreground lower-hull occlusion instead of one reused oval effect. Terrain, water material, Exhibition foundation grounding, and prop cohesion remain untouched.
+ART-05 (independent short re-check) is complete on `feature/portfolio-world-concept-vertical-slice`. Fresh actual-running-app inspection (headless Edge, Vite dev server, CDP console/exception check, Pillow pixel-level crops) confirms all three ART-03 Majors are CLOSED in commit `ed1db9f`: the promenade plaza/path/forecourt now shares one continuous tile-coordinate paving surface with no rectangular seam; the Exhibition east basin's exposed corner now has continuous rock/foam shoreline treatment on both edges; and every vessel tier (Hero, medium, workboat, rowboat/dinghy) shows a restrained, tier-scaled shadow/ripple + foreground occlusion with no round-oval effect and no untreated hull. Terrain, water material, Exhibition foundation grounding, and prop cohesion sanity-checked with no regression. 0 console/page errors; `npm test` 35/35 independently reproduced; structural lock re-confirmed via delta.
 
 - Post-v1 Environment Surface Pass = **TECHNICALLY COMPLETE** (unchanged historical verdict; not reopened).
 - Concept Quality Lock = **COMPLETE**. Production specification: `reports/portfolio-world/art-direction/concept-quality-lock-harbor-vertical-slice.md`.
 - Harbor Vertical Slice Production (ART-02) = **IMPLEMENTED**; ART-03's independent findings remain historical evidence.
-- Structural lock re-confirmed independently: world dimensions, collision, routes/navigation, berths, depth formula, and every locked building/ship PNG are unchanged in the ART-02 diff.
-- Independent Visual QA (ART-03) = **COMPLETE**: Blocker 0, Major 3, Minor 2.
+- Structural lock re-confirmed independently: world dimensions, collision, routes/navigation, berths, depth formula, and every locked building/ship PNG are unchanged through ART-04/ART-05.
+- Independent Visual QA (ART-03) = **COMPLETE**: Blocker 0, Major 3, Minor 2. (Its own Section P table recorded 5 FAIL / 3 PASS; its prose summary line undercounted this as "4 of 8 fail" — corrected in the ART-05 report, table itself was already correct.)
 - Harbor Vertical Slice Major Repair (ART-04) = **IMPLEMENTED**: Major 1/2/3 closed in the actual running app; two new generated-original contact layers add 57,031 bytes.
-- Automated Harness = **PASS 35/35**; typecheck, build, manifest validation, alpha hidden-RGB audit, and `git diff --check` pass.
-- Independent Short Re-check = **PENDING**. Human Review = **DEFERRED**.
-- Official repair record: `reports/portfolio-world/art-production/harbor-concept-vertical-slice-major-repair.md`.
-- Gate: `READY_FOR_HARBOR_VERTICAL_SLICE_SHORT_RECHECK`.
+- Independent Short Re-check (ART-05) = **COMPLETE**: Blocker 0, Major 0, all three Majors independently confirmed CLOSED, 8/8 quality gates PASS.
+- Automated Harness = **PASS 35/35**, independently reproduced.
+- Human Review = **READY**.
+- Official re-check record: `reports/portfolio-world/art-production/harbor-concept-vertical-slice-short-recheck.md`.
+- Gate: `READY_FOR_HARBOR_VERTICAL_SLICE_HUMAN_REVIEW`.
 
 ## Environment Art Major Repair + Short Visual Re-check — 2026-09-24 (historical, superseded above)
 

@@ -1,26 +1,25 @@
 # 92. Portfolio World — Handoff
 
-Updated: 2026-09-24
+Updated: 2026-09-25
 
 ## State
 **PORTFOLIO WORLD V1.0.0 = RELEASED BASELINE.** The Post-v1 Environment Surface Pass remains a valid, closed technical milestone and is not reopened. `main` and the v1.0.0 tag remain untouched.
 
-**Concept Quality Lock (ART-01) is COMPLETE; Harbor Vertical Slice Production (ART-02) and its Major Repair (ART-04) are IMPLEMENTED.** ART-03 remains the independent evidence record that identified the three repaired Majors. ART-04 changes visual compositing only: shared aspect-correct paving coordinates close the promenade seam, the approved shoreline raster now covers the exposed Exhibition east-basin vertical edge, and tier-aware separated raster shadow/ripple plus lower-hull occlusion layers replace the prior reused contact oval for every visible vessel tier.
+**Concept Quality Lock (ART-01) is COMPLETE; Harbor Vertical Slice Production (ART-02), its Major Repair (ART-04), and the Independent Short Re-check (ART-05) are all COMPLETE.** ART-03 remains the independent evidence record that identified the three repaired Majors. ART-04 changed visual compositing only: shared aspect-correct paving coordinates close the promenade seam, the approved shoreline raster now covers the exposed Exhibition east-basin vertical edge, and tier-aware separated raster shadow/ripple plus lower-hull occlusion layers replace the prior reused contact oval for every visible vessel tier. ART-05 independently re-verified all three fixes against the actual running application and found all 8 quality gates now PASS.
 
 ```text
 POST_V1_ENVIRONMENT_SURFACE_PASS = TECHNICALLY_COMPLETE
 CONCEPT_QUALITY_LOCK             = COMPLETE
 HARBOR_VERTICAL_SLICE            = IMPLEMENTED (ART-02)
-AUTOMATED_HARNESS                = PASS (35/35, per ART-02; structural lock independently re-confirmed)
 INDEPENDENT_VISUAL_QA            = COMPLETE — Blocker 0 / Major 3 / Minor 2 (ART-03 evidence)
 HARBOR_VERTICAL_SLICE_MAJOR_REPAIR = IMPLEMENTED (ART-04; all 3 Majors closed)
-AUTOMATED_HARNESS                = PASS (35/35)
-INDEPENDENT_SHORT_RECHECK        = PENDING
-HUMAN_REVIEW                     = DEFERRED
-GATE                             = READY_FOR_HARBOR_VERTICAL_SLICE_SHORT_RECHECK
+INDEPENDENT_SHORT_RECHECK        = COMPLETE (ART-05) — Blocker 0 / Major 0 / 8 of 8 gates PASS
+AUTOMATED_HARNESS                = PASS (35/35, independently reproduced by ART-05)
+HUMAN_REVIEW                     = READY
+GATE                             = READY_FOR_HARBOR_VERTICAL_SLICE_HUMAN_REVIEW
 ```
 
-Preload is now **40 assets / 1,292,542 bytes**, from ART-02's 38 / 1,235,511 (+2 / +57,031). ART-04 preserves the independently-confirmed terrain, water, Exhibition foundation, and prop improvements and does not change a protected structural file. The repair's live-app evidence, alpha audit, regression results, remaining out-of-scope material-adjacency Minor, and next gate are recorded in `reports/portfolio-world/art-production/harbor-concept-vertical-slice-major-repair.md`.
+Preload is **40 assets / 1,292,542 bytes**, from ART-02's 38 / 1,235,511 (+2 / +57,031); unchanged by ART-05 (review only, no runtime/asset diff). ART-04 preserves the independently-confirmed terrain, water, Exhibition foundation, and prop improvements and does not change a protected structural file; ART-05 re-confirmed this via delta. The repair's live-app evidence is recorded in `reports/portfolio-world/art-production/harbor-concept-vertical-slice-major-repair.md`; the re-check's live-app evidence, corrected 8-gate count, and next gate are recorded in `reports/portfolio-world/art-production/harbor-concept-vertical-slice-short-recheck.md`.
 
 Active core sailing textures remain v03 native-resolution furled-sail Age-of-Sail merchant/exploration art. The accepted presence contract retains the Hero / Medium / Brig / Cutter visible hierarchy, mixed facings, zero vessel material overlap, waterfront work zoning, and Harbor Square landscape zoning; core ship runtime multipliers are 1.0. None of this design is reopened by the Concept Quality Lock — only how these locked assets meet the ground and water is in scope for ART-02.
 
