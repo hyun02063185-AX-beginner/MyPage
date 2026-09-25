@@ -31,9 +31,11 @@ tools/agent-skills/
 | --- | --- | --- | --- |
 | `omer-metin/skills-for-antigravity` | Apache-2.0 | `e8dcf4e` | `skills/environment-art/` (skill + all 3 references) |
 | `gamedev-skills/awesome-gamedev-agent-skills` | Apache-2.0 | `b105e1c` | `skills/disciplines/create-game-assets/` only |
-| `Yakoub-ai/phaser4-gamedev` | **none detected — reference-only, see its PROVENANCE.md** | `1c1bf45` | `skills/phaser-architect/`, `skills/phaser-coder/`, `skills/phaser-playtest/`, `skills/phaser-asset-advisor/` only |
+| `phaserjs/phaser` (official) | MIT | `02d8931` | `skills/game-setup-and-config/`, `skills/scenes/`, `skills/cameras/`, `skills/loading-assets/`, `skills/sprites-and-images/`, `skills/input-keyboard-mouse-touch/` only |
 
 `frontend-visual-qa` (`daymade/claude-code-skills`, MIT) is **not vendored**. Its discipline is written directly into `profiles/portfolio-world-visual-qa/SKILL.md` as project-authored content, per the R1 brief's ADAPT instruction — its DOM-sweep script does not apply to Phaser canvas content.
+
+**Removed in R1.1**: `Yakoub-ai/phaser4-gamedev` (`phaser-architect`, `phaser-coder`, `phaser-playtest`, `phaser-asset-advisor`) was vendored in R1 and removed once its repository was confirmed to have no detected open-source license — a public repository should not hold a copy of unlicensed third-party source, "reference-only" framing notwithstanding. Replaced by the official `phaserjs/phaser` skills above; its `PROVENANCE.md` under `vendor/yakoub-ai-phaser4-gamedev/` records the source, the evaluation, and why it was not adopted, with no copied file remaining. The "architect"/"coder" agent roles are not replaced 1:1 — see `docs/portfolio-world-rebuild/03_REBUILD_WORKFLOW.md` for the official-Phaser-skills-plus-architecture-contract approach used instead.
 
 ## Running the sync script
 

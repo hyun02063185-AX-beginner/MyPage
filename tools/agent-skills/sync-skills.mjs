@@ -37,23 +37,33 @@ const SKILLS = [
     kind: "vendor",
   },
   {
-    name: "phaser-architect",
-    src: "vendor/yakoub-ai-phaser4-gamedev/skills/phaser-architect",
+    name: "phaser-game-setup-and-config",
+    src: "vendor/phaserjs-phaser/skills/game-setup-and-config",
     kind: "vendor",
   },
   {
-    name: "phaser-coder",
-    src: "vendor/yakoub-ai-phaser4-gamedev/skills/phaser-coder",
+    name: "phaser-scenes",
+    src: "vendor/phaserjs-phaser/skills/scenes",
     kind: "vendor",
   },
   {
-    name: "phaser-playtest",
-    src: "vendor/yakoub-ai-phaser4-gamedev/skills/phaser-playtest",
+    name: "phaser-cameras",
+    src: "vendor/phaserjs-phaser/skills/cameras",
     kind: "vendor",
   },
   {
-    name: "phaser-asset-advisor",
-    src: "vendor/yakoub-ai-phaser4-gamedev/skills/phaser-asset-advisor",
+    name: "phaser-loading-assets",
+    src: "vendor/phaserjs-phaser/skills/loading-assets",
+    kind: "vendor",
+  },
+  {
+    name: "phaser-sprites-and-images",
+    src: "vendor/phaserjs-phaser/skills/sprites-and-images",
+    kind: "vendor",
+  },
+  {
+    name: "phaser-input-keyboard-mouse-touch",
+    src: "vendor/phaserjs-phaser/skills/input-keyboard-mouse-touch",
     kind: "vendor",
   },
   {
@@ -62,6 +72,13 @@ const SKILLS = [
     kind: "project-authored",
   },
 ];
+
+// NOTE: the yakoub-ai/phaser4-gamedev vendor (phaser-architect/phaser-coder/
+// phaser-playtest/phaser-asset-advisor) was removed in R1.1 — that source had
+// no detected license. It is replaced above by the official phaserjs/phaser
+// repository's own (MIT) skills. See
+// tools/agent-skills/vendor/yakoub-ai-phaser4-gamedev/PROVENANCE.md and
+// tools/agent-skills/vendor/phaserjs-phaser/PROVENANCE.md.
 
 // Target roots a local agent CLI reads project skills from. Both are written
 // when present-or-creatable; adjust here if your local Codex CLI uses a
