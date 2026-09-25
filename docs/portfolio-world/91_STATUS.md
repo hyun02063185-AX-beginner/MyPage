@@ -3,7 +3,7 @@
 Updated: 2026-09-25
 
 ## Phase
-PORTFOLIO WORLD V1 — RELEASED BASELINE; POST-V1 ENVIRONMENT SURFACE PASS — TECHNICALLY COMPLETE; CONCEPT QUALITY LOCK — COMPLETE; HARBOR VERTICAL SLICE PRODUCTION — IMPLEMENTED; HARBOR VERTICAL SLICE MAJOR REPAIR — IMPLEMENTED; HARBOR VERTICAL SLICE INDEPENDENT SHORT RE-CHECK — COMPLETE; HUMAN REVIEW #1 — COMPLETED WITH 3 POLISH NOTES; ART-07 HUMAN POLISH — IMPLEMENTED; INDEPENDENT POLISH REVIEW — COMPLETE; HUMAN REVIEW #2 — COMPLETED WITH 2 REFINEMENT NOTES; ART-11 ROWBOAT/DINGHY WATERLINE FOCUSED REPAIR — IMPLEMENTED
+PORTFOLIO WORLD V1 — RELEASED BASELINE; POST-V1 ENVIRONMENT SURFACE PASS — TECHNICALLY COMPLETE; CONCEPT QUALITY LOCK — COMPLETE; HARBOR VERTICAL SLICE PRODUCTION — IMPLEMENTED; HARBOR VERTICAL SLICE MAJOR REPAIR — IMPLEMENTED; HARBOR VERTICAL SLICE INDEPENDENT SHORT RE-CHECK — COMPLETE; HUMAN REVIEW #1 — COMPLETED WITH 3 POLISH NOTES; ART-07 HUMAN POLISH — IMPLEMENTED; INDEPENDENT POLISH REVIEW — COMPLETE; HUMAN REVIEW #2 — COMPLETED WITH 2 REFINEMENT NOTES; ART-11 ROWBOAT/DINGHY WATERLINE FOCUSED REPAIR — IMPLEMENTED; INDEPENDENT SHORT RE-CHECK (ART-12) — COMPLETE, READY FOR FINAL HUMAN REVIEW
 
 ```text
 HUMAN_REVIEW_1             = COMPLETED_WITH_3_POLISH_NOTES
@@ -15,31 +15,32 @@ ART_09_FOCUSED_REFINEMENT   = IMPLEMENTED — PARTIAL (pavement PASS; vessel Her
 ROWBOAT_DINGHY_WATERLINE_REPAIR = IMPLEMENTED
 HERO_MEDIUM_WORKBOAT        = LOCKED_PASS
 PAVEMENT                    = LOCKED_PASS
-INDEPENDENT_SHORT_RECHECK   = PENDING
-FINAL_HUMAN_REVIEW          = PENDING INDEPENDENT SHORT RECHECK
+INDEPENDENT_SHORT_RECHECK   = COMPLETE (ART-12) — Blocker 0 / Major 0, both rowboat-tier instances PASS
+FINAL_HUMAN_REVIEW          = READY
 FINAL_ART_DIRECTION         = ACCEPTED_WITH_POLISH
-NEXT                        = INDEPENDENT_SHORT_RECHECK
-GATE                        = READY_FOR_HARBOR_ROWBOAT_SHORT_RECHECK
+NEXT                        = FINAL_HUMAN_REVIEW
+GATE                        = READY_FOR_HARBOR_VERTICAL_SLICE_FINAL_HUMAN_REVIEW
 ```
 
 ## Current Work Unit
 
-ART-11 (Rowboat/Dinghy Waterline Focused Repair) is implemented on `feature/portfolio-world-concept-vertical-slice`, starting from `7064346e3eda566aae91e31a1c6cc658de8493e6`. ART-10's Major root cause was the small Dinghy asset's practical alpha bottom ending above its high origin while the shared occlusion raster's opaque band remained below it. The Rowboat tier alone now lifts that same raster from `occlusionY: -1` to `-11`, placing its opaque middle over real cream/teal lower-hull pixels without increasing the layer, regenerating art, or changing other tiers. Fresh headless Edge close captures confirm actual hull-pixel occlusion on both the service-jetty dinghy and mid-basin rowboat; Hero, Medium, and Workboat remain code- and visually unchanged. 0 console/page errors. Full evidence: `reports/portfolio-world/art-production/harbor-rowboat-dinghy-waterline-focused-repair.md`.
+ART-12 (independent short re-check) is complete on `feature/portfolio-world-concept-vertical-slice`. ART-11 (Rowboat/Dinghy Waterline Focused Repair, starting from `7064346e3eda566aae91e31a1c6cc658de8493e6`) changed exactly one value — `VESSEL_WATER_TREATMENT.rowboat.occlusionY` from `-1` to `-11` — to lift the shared occlusion raster's opaque band onto the small Dinghy/Rowboat sprites' real lower-hull pixels. Fresh actual-running-app inspection (headless Edge, CDP console check, pixel-diffing against the ART-10 baseline at identical world coordinates) in commit `1859bee` confirms both previously-open instances — the service-jetty dinghy and a mid-basin rowboat — now show real, visible hull-pixel occlusion: the cream/teal lower-hull stripe is genuinely interrupted by the wave crest on both boats, not merely a larger ripple beneath them. Hero and the plaza/pavement region were pixel-diffed against ART-10 and returned **zero difference**, confirming no regression in any previously-locked area. 0 console/page errors; `npm test` 35/35 independently reproduced; the only runtime file touched is `WorldScene.ts`, with a single-value diff. Full evidence: `reports/portfolio-world/art-production/harbor-rowboat-dinghy-waterline-short-recheck.md`.
 
 - Post-v1 Environment Surface Pass = **TECHNICALLY COMPLETE** (unchanged historical verdict; not reopened).
 - Concept Quality Lock = **COMPLETE**. Production specification: `reports/portfolio-world/art-direction/concept-quality-lock-harbor-vertical-slice.md`.
 - Harbor Vertical Slice Production (ART-02) = **IMPLEMENTED**; ART-03's independent findings remain historical evidence.
-- Structural lock re-confirmed independently: world dimensions, collision, routes/navigation, berths, depth formula, and every locked building/ship PNG are unchanged through ART-04/ART-05/ART-06/ART-07/ART-08/ART-09/ART-10.
+- Structural lock re-confirmed independently: world dimensions, collision, routes/navigation, berths, depth formula, and every locked building/ship PNG are unchanged through ART-04 → ART-12.
 - Independent Visual QA (ART-03) = **COMPLETE**: Blocker 0, Major 3, Minor 2. (Its own Section P table recorded 5 FAIL / 3 PASS; its prose summary line undercounted this as "4 of 8 fail" — corrected in the ART-05 report, table itself was already correct.)
 - Harbor Vertical Slice Major Repair (ART-04) = **IMPLEMENTED**: Major 1/2/3 closed in the actual running app; two new generated-original contact layers add 57,031 bytes.
 - Independent Short Re-check (ART-05) = **COMPLETE**: Blocker 0, Major 0, all three Majors independently confirmed CLOSED, 8/8 quality gates PASS.
 - Human Review #1 (ART-06) = **COMPLETED_WITH_3_POLISH_NOTES**; ART-07 Human Polish = **IMPLEMENTED**; Human Review #2 = **COMPLETED_WITH_2_REFINEMENT_NOTES**; `TYPOGRAPHY = HUMAN_ACCEPTED_LOCKED`.
 - Independent Polish Review (ART-08) = **COMPLETE**: Blocker 0, Major 0, Minor 2, all three Polish notes independently confirmed PASS.
 - ART-09 Focused Refinement = **IMPLEMENTED, PARTIAL**: pavement fine-grain and Hero/Medium/Workboat vessel occlusion resolved; ART-10 returned only Rowboat/Dinghy for repair.
-- ART-11 Rowboat/Dinghy Waterline Focused Repair = **IMPLEMENTED**: existing raster's opaque band is aligned to real lower-hull pixels for both rowboat-tier instances. Hero/Medium/Workboat = LOCKED PASS; pavement = LOCKED PASS; typography remains human-accepted and locked.
-- Automated Harness = **PASS 35/35**, independently reproduced (ART-05, ART-08, ART-10); unchanged by ART-06 (docs only).
-- Official records: `reports/portfolio-world/art-production/harbor-vertical-slice-final-independent-recheck.md` and `reports/portfolio-world/art-production/harbor-rowboat-dinghy-waterline-focused-repair.md`.
-- Gate: `READY_FOR_HARBOR_ROWBOAT_SHORT_RECHECK`.
+- ART-11 Rowboat/Dinghy Waterline Focused Repair = **IMPLEMENTED**: existing raster's opaque band is aligned to real lower-hull pixels for both rowboat-tier instances.
+- Independent Short Re-check (ART-12) = **COMPLETE**: Blocker 0, Major 0, Minor 1 (carried forward). Service-jetty dinghy = PASS, mid-basin rowboat = PASS, both with real hull-pixel occlusion pixel-confirmed. Hero/Medium/Workboat = LOCKED PASS (Hero pixel-identical to ART-10); Pavement = LOCKED PASS (pixel-identical to ART-10); Typography = HUMAN_ACCEPTED_LOCKED.
+- Automated Harness = **PASS 35/35**, independently reproduced (ART-05, ART-08, ART-10, ART-12); unchanged by ART-06 (docs only).
+- Official records: `reports/portfolio-world/art-production/harbor-vertical-slice-final-independent-recheck.md`, `reports/portfolio-world/art-production/harbor-rowboat-dinghy-waterline-focused-repair.md`, and `reports/portfolio-world/art-production/harbor-rowboat-dinghy-waterline-short-recheck.md`.
+- Gate: `READY_FOR_HARBOR_VERTICAL_SLICE_FINAL_HUMAN_REVIEW`.
 
 ## Environment Art Major Repair + Short Visual Re-check — 2026-09-24 (historical, superseded above)
 
