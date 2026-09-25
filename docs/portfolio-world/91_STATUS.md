@@ -3,21 +3,24 @@
 Updated: 2026-09-25
 
 ## Phase
-PORTFOLIO WORLD V1 — RELEASED BASELINE; POST-V1 ENVIRONMENT SURFACE PASS — TECHNICALLY COMPLETE; CONCEPT QUALITY LOCK — COMPLETE; HARBOR VERTICAL SLICE PRODUCTION — IMPLEMENTED; HARBOR VERTICAL SLICE MAJOR REPAIR — IMPLEMENTED; HARBOR VERTICAL SLICE INDEPENDENT SHORT RE-CHECK — COMPLETE; HUMAN REVIEW #1 — COMPLETED WITH 3 POLISH NOTES; ART-07 HUMAN POLISH — IMPLEMENTED; INDEPENDENT POLISH REVIEW — COMPLETE, READY FOR HUMAN REVIEW #2
+PORTFOLIO WORLD V1 — RELEASED BASELINE; POST-V1 ENVIRONMENT SURFACE PASS — TECHNICALLY COMPLETE; CONCEPT QUALITY LOCK — COMPLETE; HARBOR VERTICAL SLICE PRODUCTION — IMPLEMENTED; HARBOR VERTICAL SLICE MAJOR REPAIR — IMPLEMENTED; HARBOR VERTICAL SLICE INDEPENDENT SHORT RE-CHECK — COMPLETE; HUMAN REVIEW #1 — COMPLETED WITH 3 POLISH NOTES; ART-07 HUMAN POLISH — IMPLEMENTED; INDEPENDENT POLISH REVIEW — COMPLETE; HUMAN REVIEW #2 — COMPLETED WITH 2 REFINEMENT NOTES; ART-09 FOCUSED REFINEMENT — IMPLEMENTED
 
 ```text
 HUMAN_REVIEW_1             = COMPLETED_WITH_3_POLISH_NOTES
 ART_07_HUMAN_POLISH         = IMPLEMENTED
 INDEPENDENT_POLISH_REVIEW   = COMPLETE
-HUMAN_REVIEW_2             = READY
+HUMAN_REVIEW_2             = COMPLETED_WITH_2_REFINEMENT_NOTES
+TYPOGRAPHY                  = HUMAN_ACCEPTED_LOCKED
+ART_09_FOCUSED_REFINEMENT   = IMPLEMENTED
+INDEPENDENT_RECHECK         = PENDING
 FINAL_ART_DIRECTION         = ACCEPTED_WITH_POLISH
-NEXT                        = HUMAN_REVIEW_2
-GATE                        = READY_FOR_HARBOR_VERTICAL_SLICE_HUMAN_REVIEW_2
+NEXT                        = INDEPENDENT_RECHECK
+GATE                        = READY_FOR_HARBOR_VERTICAL_SLICE_FINAL_RECHECK
 ```
 
 ## Current Work Unit
 
-ART-08 (independent short polish review) is complete on `feature/portfolio-world-concept-vertical-slice`. Fresh actual-running-app inspection (headless Edge, Vite dev server, CDP console/exception check, and pixel-diffing ART-05's saved screenshots against fresh captures at identical coordinates) confirms all three ART-07 Human Review #1 Polish notes are addressed in commit `1fb70a6`: Hero/Medium/Workboat/dinghy vessel water contact shows a real, pixel-confirmed softer/more-submerged waterline (one mid-basin rowboat instance showed no confirmed on-screen change, noted as Minor); the Harbor Square pavement's stone-joint grain is visibly finer at the new `0.72` tile scale with the ART-04 seam fix intact; and all five world labels (Harbor Square, Guild Hall, Academy, Workshop, Exhibition Hall) read instantly under one shared system-sans typography system. 0 console/page errors; `npm test` 35/35 independently reproduced; structural lock re-confirmed via delta. Full evidence: `reports/portfolio-world/art-production/harbor-vertical-slice-human-polish-independent-review.md`.
+ART-09 (Human Review #2 Focused Visual Refinement) is implemented on `feature/portfolio-world-concept-vertical-slice`, starting from `770d1b439a932768f04cf13ac18d86f2f1b305b2`. It changes exactly two visual parameters sets: the existing foreground-water occlusion raster now spans the actual lower-hull range for Hero, Medium, Workboat, and Rowboat tiers while the background shadow/ripple is further reduced; and the one shared plaza/path/forecourt paving scale is reduced from `0.72` to `0.42`. Typography is untouched and locked as human accepted. No new raster/font asset or dependency was added. Full evidence: `reports/portfolio-world/art-production/harbor-vertical-slice-human-review-2-refinement.md`.
 
 - Post-v1 Environment Surface Pass = **TECHNICALLY COMPLETE** (unchanged historical verdict; not reopened).
 - Concept Quality Lock = **COMPLETE**. Production specification: `reports/portfolio-world/art-direction/concept-quality-lock-harbor-vertical-slice.md`.
@@ -26,11 +29,11 @@ ART-08 (independent short polish review) is complete on `feature/portfolio-world
 - Independent Visual QA (ART-03) = **COMPLETE**: Blocker 0, Major 3, Minor 2. (Its own Section P table recorded 5 FAIL / 3 PASS; its prose summary line undercounted this as "4 of 8 fail" — corrected in the ART-05 report, table itself was already correct.)
 - Harbor Vertical Slice Major Repair (ART-04) = **IMPLEMENTED**: Major 1/2/3 closed in the actual running app; two new generated-original contact layers add 57,031 bytes.
 - Independent Short Re-check (ART-05) = **COMPLETE**: Blocker 0, Major 0, all three Majors independently confirmed CLOSED, 8/8 quality gates PASS.
-- Human Review #1 (ART-06) = **COMPLETED_WITH_3_POLISH_NOTES**; ART-07 Human Polish = **IMPLEMENTED**; `FINAL_ART_DIRECTION = ACCEPTED_WITH_POLISH`.
+- Human Review #1 (ART-06) = **COMPLETED_WITH_3_POLISH_NOTES**; ART-07 Human Polish = **IMPLEMENTED**; Human Review #2 = **COMPLETED_WITH_2_REFINEMENT_NOTES**; ART-09 Focused Refinement = **IMPLEMENTED**; `TYPOGRAPHY = HUMAN_ACCEPTED_LOCKED`.
 - Independent Polish Review (ART-08) = **COMPLETE**: Blocker 0, Major 0, Minor 2, all three Polish notes independently confirmed PASS.
 - Automated Harness = **PASS 35/35**, independently reproduced (ART-05 and ART-08); unchanged by ART-06 (docs only).
-- Official records: `reports/portfolio-world/art-direction/harbor-vertical-slice-human-polish-pre-review.md`, `reports/portfolio-world/art-production/harbor-vertical-slice-human-polish-production.md`, and `reports/portfolio-world/art-production/harbor-vertical-slice-human-polish-independent-review.md`.
-- Gate: `READY_FOR_HARBOR_VERTICAL_SLICE_HUMAN_REVIEW_2`.
+- Official records: `reports/portfolio-world/art-direction/harbor-vertical-slice-human-polish-pre-review.md`, `reports/portfolio-world/art-production/harbor-vertical-slice-human-polish-production.md`, `reports/portfolio-world/art-production/harbor-vertical-slice-human-polish-independent-review.md`, and `reports/portfolio-world/art-production/harbor-vertical-slice-human-review-2-refinement.md`.
+- Gate: `READY_FOR_HARBOR_VERTICAL_SLICE_FINAL_RECHECK`.
 
 ## Environment Art Major Repair + Short Visual Re-check — 2026-09-24 (historical, superseded above)
 
