@@ -16,6 +16,9 @@ const hasSliceArt = (scene: Phaser.Scene): boolean => scene.textures.exists(
   WORLD_ASSETS.harborVerticalSliceTerrain.textureKey,
 );
 
+/** Shared system-sans rule keeps destination labels legible without a font payload. */
+export const WORLD_LABEL_FONT_FAMILY = '"Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif';
+
 /** ART-02 keeps its final raster treatment bounded to the south harbor slice. */
 export function drawHarborVerticalSliceTerrain(scene: Phaser.Scene): void {
   if (!hasSliceArt(scene)) return;
@@ -89,10 +92,10 @@ export function drawHarborVerticalSlicePaving(
     const paving = scene.add
       .tileSprite(region.x, region.y, region.width, region.height, WORLD_ASSETS.harborVerticalSlicePromenade.textureKey)
       .setDepth(WORLD_DEPTH.GROUND_DETAIL + 2);
-    // Each rectangle samples the same 0.9× raster coordinate system. This preserves
+    // Each rectangle samples the same 0.72× raster coordinate system. This preserves
     // stone-joint scale and lets the plaza, narrow path, and overlapping forecourt
     // meet as one material instead of independently stretched texture cards.
-    paving.setTileScale(0.9, 0.9);
+    paving.setTileScale(0.72, 0.72);
     paving.tilePositionX = -left;
     paving.tilePositionY = -top;
   };
@@ -103,9 +106,11 @@ export function drawHarborVerticalSlicePaving(
   scene.add
     .text(plaza.x, plaza.y - plaza.height / 2 + 18, plaza.label, {
       color: "#213840",
-      fontFamily: "monospace",
-      fontSize: "16px",
+      fontFamily: WORLD_LABEL_FONT_FAMILY,
+      fontSize: "17px",
       fontStyle: "bold",
+      stroke: "#f3ead8",
+      strokeThickness: 1,
     })
     .setOrigin(0.5)
     .setDepth(getWorldLabelDepth(plaza.id));

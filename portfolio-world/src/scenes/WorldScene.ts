@@ -22,6 +22,7 @@ import {
   drawHarborVerticalSliceTerrain,
   drawHarborVerticalSliceWater,
   isHarborVerticalSlicePath,
+  WORLD_LABEL_FONT_FAMILY,
 } from "../world/harborVerticalSliceArt";
 import {
   getCalibrationAssets,
@@ -195,11 +196,12 @@ const VESSEL_WATER_TREATMENT: Readonly<Record<VesselWaterTier, Readonly<{
   occlusionWidth: number;
   occlusionHeight: number;
   occlusionY: number;
+  occlusionAlpha: number;
 }>>> = {
-  hero: { shadowWidth: 1.1, shadowHeight: 20, shadowAlpha: 0.18, occlusionWidth: 1.05, occlusionHeight: 12, occlusionY: 9 },
-  medium: { shadowWidth: 1.08, shadowHeight: 16, shadowAlpha: 0.2, occlusionWidth: 1.04, occlusionHeight: 9, occlusionY: 6 },
-  workboat: { shadowWidth: 1.05, shadowHeight: 10, shadowAlpha: 0.2, occlusionWidth: 1.02, occlusionHeight: 6, occlusionY: 4 },
-  rowboat: { shadowWidth: 1.03, shadowHeight: 8, shadowAlpha: 0.2, occlusionWidth: 1, occlusionHeight: 5, occlusionY: 3 },
+  hero: { shadowWidth: 1.14, shadowHeight: 18, shadowAlpha: 0.14, occlusionWidth: 1.07, occlusionHeight: 16, occlusionY: 5, occlusionAlpha: 0.86 },
+  medium: { shadowWidth: 1.11, shadowHeight: 14, shadowAlpha: 0.15, occlusionWidth: 1.06, occlusionHeight: 12, occlusionY: 3, occlusionAlpha: 0.84 },
+  workboat: { shadowWidth: 1.07, shadowHeight: 9, shadowAlpha: 0.15, occlusionWidth: 1.04, occlusionHeight: 7, occlusionY: 3, occlusionAlpha: 0.82 },
+  rowboat: { shadowWidth: 1.04, shadowHeight: 7, shadowAlpha: 0.15, occlusionWidth: 1.02, occlusionHeight: 6, occlusionY: 2, occlusionAlpha: 0.8 },
 };
 
 /** Orchestrates layout, focused harbor visuals, collision, input, and camera. */
@@ -514,9 +516,11 @@ export class WorldScene extends Phaser.Scene {
         .text(visualBuilding.x, visualBuilding.y + visualBuilding.height / 2 - 16, building.label, {
           align: "center",
           color: "#213840",
-          fontFamily: "monospace",
-          fontSize: "14px",
+          fontFamily: WORLD_LABEL_FONT_FAMILY,
+          fontSize: "15px",
           fontStyle: "bold",
+          stroke: "#f3ead8",
+          strokeThickness: 1,
           wordWrap: { width: building.width - 32 },
         })
         .setOrigin(0.5)
@@ -617,7 +621,7 @@ export class WorldScene extends Phaser.Scene {
         this.add
           .image(0, treatment.occlusionY, occlusionTexture)
           .setDisplaySize(Math.round(displayWidth * treatment.occlusionWidth), treatment.occlusionHeight)
-          .setAlpha(0.88),
+          .setAlpha(treatment.occlusionAlpha),
       );
     }
   }
