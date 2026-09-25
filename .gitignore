@@ -11,3 +11,9 @@ portfolio-world/dist/
 portfolio-world/.vite/
 .portfolio-work-context.local.json
 .DS_Store
+
+# Portfolio World Rebuild — materialized agent skills are generated copies.
+# Source of truth is tools/agent-skills/{vendor,profiles}/; do not track the
+# copies sync-skills.mjs writes here, to avoid two committed copies drifting.
+.claude/skills/
+.codex/skills/

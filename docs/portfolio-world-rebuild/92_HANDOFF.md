@@ -4,43 +4,44 @@ Updated: 2026-09-26
 
 ## State
 
-**PHASE R0 (Skill Qualification), PHASE R1 (Visual Brief + Skill Foundation), and PHASE R1.1 (Director Correction Pass) are all COMPLETE.** No runtime, asset, or v1 file was created or modified by any of the three. `feature/portfolio-world-concept-vertical-slice` (v1's full history) is untouched and preserved as reference.
+**PHASE R0, R1, R1.1 are COMPLETE. HUMAN GATE 1 = APPROVED. PHASE R2A (Architecture + Visual Blockout Design) is COMPLETE.** No runtime, asset, or v1 file was created or modified by any phase through R2A. `feature/portfolio-world-concept-vertical-slice` (v1's full history) is untouched and preserved as reference.
 
 ```text
 R0_SKILL_QUALIFICATION = COMPLETE
-R1_VISUAL_BRIEF         = DRAFT — AWAITING_HUMAN_GATE_1
-R1_ART_BIBLE            = DRAFT — AWAITING_HUMAN_GATE_1 (revised in R1.1)
+HUMAN_GATE_1            = APPROVED
 R1_1_CORRECTION         = COMPLETE
-R1_SKILL_STACK          = PREPARED, project-local, not yet activated into .claude/skills or .codex/skills
-NEXT                    = HUMAN_GATE_1
-GATE                    = READY_FOR_REBUILD_VISUAL_BRIEF_HUMAN_REVIEW
+R2A_ARCHITECTURE        = COMPLETE
+NEXT                    = R2B_BLOCKOUT_IMPLEMENTATION
+GATE                    = READY_FOR_R2B_BLOCKOUT_IMPLEMENTATION
 ```
 
-## What R1.1 Actually Changed (on top of R1)
+## What R2A Actually Produced
 
-No new top-level tree — same three as R1 (`docs/portfolio-world-rebuild/`, `tools/agent-skills/`, `reports/portfolio-world-rebuild/`), with:
+- 4 new architecture/design docs (`04_ARCHITECTURE_V2.md` through `07_RUNTIME_QA_PLAN.md`) — see `91_STATUS.md` for what each contains.
+- `90_DECISIONS.md`/`91_STATUS.md`/`92_HANDOFF.md` updated.
+- `.gitignore` updated (materialized skill copies excluded from tracking).
+- `reports/portfolio-world-rebuild/r2a-architecture-blockout-design.md`.
+- **No code, no `portfolio-world-v2/`, no `world-v2/`.** R2A is architecture-and-plan only, per its own Architecture Gate.
 
-- **Deletions**: `tools/agent-skills/vendor/yakoub-ai-phaser4-gamedev/skills/` and `agents/` (the actual copied third-party files — removed for lacking a detected license).
-- **Additions**: `tools/agent-skills/vendor/phaserjs-phaser/` (6 official Phaser skills, MIT, with `PROVENANCE.md` and `LICENSE.md`).
-- **Edits**: `01_ART_BIBLE.md` (priority-language fix; Color System + Lighting System added; Good References populated), `02_SKILL_STACK.md`, `03_REBUILD_WORKFLOW.md`, `90_DECISIONS.md`, `91_STATUS.md`, `92_HANDOFF.md` (this file), `tools/agent-skills/README.md`, `tools/agent-skills/sync-skills.mjs`, and the surviving `tools/agent-skills/vendor/yakoub-ai-phaser4-gamedev/PROVENANCE.md` (rewritten as a not-adopted record only).
+## Key Decisions R2B Needs Before Writing Code
 
-## Key Decisions a Reader Needs Before Continuing
-
-1. **v1's cardinal cross layout is not the v2 baseline.** Asymmetry is the default, bounded by a hard navigability requirement (`00_VISUAL_BRIEF.md` §8).
-2. **v1's water-contact fix does not carry forward.** Its jagged wave-crest treatment was acceptable under v1's own direction but is explicitly incompatible with v2's sheltered-harbor water rule (`00_VISUAL_BRIEF.md` §11). This is a named example, not an implication that v1's other work is invalid.
-3. **No numeric tuning value from v1 is reused.** Camera angle, tile scale, water/vessel parameters, color HEX, light angle are all deliberately unlocked pending native-scale validation against the qualitative rules (`01_ART_BIBLE.md` §11, `90_DECISIONS.md` item 2).
-4. **`Yakoub-ai/phaser4-gamedev` is no longer in this repository.** It was vendored in R1 and removed in R1.1 for lacking a detected license — replaced by the official `phaserjs/phaser` project's own MIT skills (`90_DECISIONS.md`, `02_SKILL_STACK.md`). Do not re-vendor it without a confirmed license.
-5. **The original Concept Image #1 was searched for and not found** anywhere in this repository's history; the written v1 art-direction description is the canonical fallback, now recorded as Reference 1 in `01_ART_BIBLE.md` §15 (`00_VISUAL_BRIEF.md` §2, `90_DECISIONS.md` item 1).
-6. **Human review is two gates, not per-asset**, by explicit instruction — see `03_REBUILD_WORKFLOW.md` for why this is safe given the new pre/post validation steps.
-7. **Architecture/coding is official-Phaser-skills-plus-architecture-contract, not a specialized external coder agent.** Playtest is a project-owned harness, not yet built (`03_REBUILD_WORKFLOW.md` steps 2, 4, 5).
+1. **Selected macro layout: Candidate A, "Crescent Harbor."** One enclosed crescent basin, Harbor Square set back from its inner arc, Hero Ship at a pier on the diagonal sightline from the square, four destinations strung unevenly along the arc. Not a cardinal cross, not evenly spaced. Full rationale and the two rejected alternatives: `05_HARBOR_BLOCKOUT_SPEC.md`.
+2. **First blockout = Harbor Square + basin + waterfront + Hero Ship + Exhibition Hall only.** No other destination, no polished art, flat shapes are correct at this stage (`05_HARBOR_BLOCKOUT_SPEC.md` §7).
+3. **Camera elevation is not decided — a 3-point test matrix is** (`06_SCALE_CAMERA_CALIBRATION_PLAN.md` §1). Do not default to v1's 15°; render the low/mid/high candidates against Candidate A's actual composition and pick from the render.
+4. **Scale is judged qualitatively first, numerically second** — the exact ordering mistake v1 made three times over (`06_SCALE_CAMERA_CALIBRATION_PLAN.md` §2). Two specific calibration screenshots are required before any size number is treated as final.
+5. **v2 source/output = `portfolio-world-v2/` / `world-v2/`**, verified against v1's actual build config, not guessed (`04_ARCHITECTURE_V2.md`). No root `package.json`. Root `index.html`'s link to v1's `world/` is untouched — whether/when `world-v2/` replaces it is a later, separate decision (`90_DECISIONS.md` item 6).
+6. **Scene model stays minimal: `BootScene` + `WorldScene`.** Destination pages stay external HTML, reached by leaving the canvas — unless a new requirement says otherwise (`04_ARCHITECTURE_V2.md` §3).
+7. **Functional PASS ≠ Visual PASS, structurally.** `07_RUNTIME_QA_PLAN.md` §1 (not yet implemented as code) only proves the game runs. `07_RUNTIME_QA_PLAN.md` §2 + `tools/agent-skills/profiles/portfolio-world-visual-qa/` is the only thing that can grant a visual PASS, against 6 named conditions and 4 required, opened, inspected screenshots.
+8. **Vendored skills are materialized on disk (`.claude/skills/`, `.codex/skills/`) but were not discovered by the R2A session's own Skill tool.** Start a fresh Claude Code/Codex session in this repository for live skill discovery, or continue reading the vendored `SKILL.md` files directly as R2A did. These materialized copies are gitignored — edit `tools/agent-skills/{vendor,profiles}/` and re-run `sync-skills.mjs --write`, never the copies directly.
 
 ## Next Recommended Step
 
-Human Gate 1 review of `00_VISUAL_BRIEF.md` + `01_ART_BIBLE.md` (both current as of R1.1). On approval, proceed to `03_REBUILD_WORKFLOW.md` step 2 (architecture planning against the official Phaser skills + project contract). On requested revision, update the two documents in place and re-request Gate 1 — do not start R2 implementation against an unapproved brief.
+R2B: implement the blockout. Start from `04_ARCHITECTURE_V2.md` (where/how), `05_HARBOR_BLOCKOUT_SPEC.md` (what it looks like), `06_SCALE_CAMERA_CALIBRATION_PLAN.md` (what to test), `07_RUNTIME_QA_PLAN.md` (what counts as PASS) — these should answer every layout/architecture question R2B would otherwise have to invent.
 
 ## Do Not
 
 - Modify `portfolio-world/**`, `world/**`, or any v1 asset/runtime source from this branch.
-- Copy a v1 implementation tuning value into `00_VISUAL_BRIEF.md` or `01_ART_BIBLE.md` "to save time" — that is the exact process failure these documents exist to prevent (`00_VISUAL_BRIEF.md` §13).
-- Run any vendored skill source's own installer (each pulls in far more than the specifically-vendored skill folders).
-- Re-vendor `Yakoub-ai/phaser4-gamedev` (or any other source) without first confirming an explicit open-source license.
+- Default to v1's numeric values (15° camera, 32px logical unit, any prior tile/water/vessel tuning) — they are historical evidence only, not defaults (`90_DECISIONS.md` item 2).
+- Create a root `package.json`, or touch root `index.html`'s existing `world/` link.
+- Grant a visual PASS from a functional harness result, a code value, or an unopened screenshot.
+- Hand-edit `.claude/skills/`/`.codex/skills/` directly — edit `tools/agent-skills/` and re-sync.
