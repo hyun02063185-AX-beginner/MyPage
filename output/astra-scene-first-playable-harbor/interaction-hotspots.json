@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "coordinate_space": "environment-plate source pixels; origin top-left; x right; y down",
+  "source_size": [
+    1672,
+    941
+  ],
+  "logical_viewport": [
+    1280,
+    720
+  ],
+  "routes_implemented": false,
+  "start": [
+    330,
+    628
+  ],
+  "hotspots": [
+    {
+      "id": "exhibition-hall-entrance",
+      "semantic_role": "Exhibition Hall entrance approach",
+      "polygon": [
+        [
+          134,
+          474
+        ],
+        [
+          148,
+          474
+        ],
+        [
+          148,
+          488
+        ],
+        [
+          134,
+          488
+        ]
+      ],
+      "approach_point": [
+        145,
+        480
+      ],
+      "intended_future_action": {
+        "type": "open-portfolio-route",
+        "route": "gallery.html"
+      },
+      "note": "Accessible foot of entrance steps. Stair/door traversal is outside this slice."
+    },
+    {
+      "id": "hero-quay-inspection",
+      "semantic_role": "Hero Quay inspection / portfolio hotspot",
+      "polygon": [
+        [
+          312,
+          620
+        ],
+        [
+          349,
+          630
+        ],
+        [
+          349,
+          647
+        ],
+        [
+          312,
+          637
+        ]
+      ],
+      "approach_point": [
+        335,
+        633
+      ],
+      "intended_future_action": {
+        "type": "inspect-hero-ship",
+        "route": null
+      },
+      "note": "Land-side inspection only; no boarding route."
+    },
+    {
+      "id": "harbor-square-return",
+      "semantic_role": "Return / transition toward Harbor Square",
+      "polygon": [
+        [
+          18,
+          505
+        ],
+        [
+          40,
+          505
+        ],
+        [
+          40,
+          527
+        ],
+        [
+          18,
+          527
+        ]
+      ],
+      "approach_point": [
+        28,
+        514
+      ],
+      "intended_future_action": {
+        "type": "transition",
+        "destination": "Harbor Square",
+        "route": "index.html"
+      },
+      "note": "Approach marker inside west boundary; future scene transition is not implemented."
+    }
+  ]
+}

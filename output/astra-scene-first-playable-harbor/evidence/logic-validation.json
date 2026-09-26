@@ -1,0 +1,110 @@
+{
+  "status": "PASS technical mask/recomposition checks only; visual gate remains NO-GO",
+  "source_dimensions": [
+    1672,
+    941
+  ],
+  "logical_viewport": [
+    1280,
+    720
+  ],
+  "walkable_pixels": 181869,
+  "allowed_pixels": 131004,
+  "reachable_pixels": 130433,
+  "reachable_fraction_of_allowed": 0.9956413544624592,
+  "hotspots": {
+    "exhibition-hall-entrance": {
+      "approach_reachable": true,
+      "accessible_region_fraction": 1.0
+    },
+    "hero-quay-inspection": {
+      "approach_reachable": true,
+      "accessible_region_fraction": 1.0
+    },
+    "harbor-square-return": {
+      "approach_reachable": true,
+      "accessible_region_fraction": 1.0
+    }
+  },
+  "placements_reachable": true,
+  "water_and_architecture_sample_points_blocked": true,
+  "water_samples": [
+    [
+      850,
+      750
+    ],
+    [
+      1200,
+      850
+    ],
+    [
+      1500,
+      650
+    ],
+    [
+      450,
+      570
+    ],
+    [
+      600,
+      580
+    ]
+  ],
+  "architecture_samples": [
+    [
+      160,
+      350
+    ],
+    [
+      320,
+      300
+    ],
+    [
+      500,
+      300
+    ],
+    [
+      700,
+      350
+    ]
+  ],
+  "reconstruction_max_pixel_error": 0,
+  "foreground_opaque_pixels": 2727,
+  "foreground_is_exact_source_pixels": true,
+  "limitations": [
+    "Static source-pixel QA, no moving-character runtime test",
+    "Collision boundary band samples cardinal directions at 10px; full swept-body collider deferred",
+    "Hand-authored navigable domain, not automated semantic segmentation",
+    "Foreground validation limited to lamp shaft corridor"
+  ],
+  "files": {
+    "collision-mask.png": {
+      "bytes": 15376,
+      "sha256": "942be4d720e098485e19c0c90efd5510edcf03091fe4864d8cb9aa0b0ffe6f09"
+    },
+    "environment-plate.png": {
+      "bytes": 3179460,
+      "sha256": "a30448175b14d451d305afd743e3a67922303e885b91c52491693dabea2593e5"
+    },
+    "foreground-occlusion.png": {
+      "bytes": 16245,
+      "sha256": "5430e9b6d4d9e5e062602b2663d9c624bfe306d163310730815ef77be738e856"
+    },
+    "layer-reconstruction-proof.png": {
+      "bytes": 4903594,
+      "sha256": "94e915e00cec695d7ee91b348f715785e479131d7752fdb16ac17138830251f4"
+    },
+    "scene-first-playability-proof.png": {
+      "bytes": 2992526,
+      "sha256": "20d76574dafff31152ff2ef588fa90334aab6dd1c368e87e15d85e5bfe1d9dce"
+    },
+    "scene-first-vertical-slice-final.png": {
+      "bytes": 2884390,
+      "sha256": "70bcad73fff0c39ad22b74afb2d3ca4901c76084592aba4b28dc75f834775dd3"
+    },
+    "walkable-mask.png": {
+      "bytes": 13016,
+      "sha256": "e88b7428212309041f4b4618d28b49ff771e321b44603f20ff94740a85e1adab"
+    }
+  }
+}
