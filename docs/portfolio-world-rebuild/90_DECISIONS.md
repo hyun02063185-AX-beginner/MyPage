@@ -1,6 +1,6 @@
 # 90. Portfolio World Rebuild — Decisions
 
-Updated: 2026-09-26 (R2E)
+Updated: 2026-09-26 (R3A)
 
 Chronological decision log. Once a decision is recorded here, later documents reference it rather than re-litigating it. Open items are not deferred silently — they are named below so the next phase inherits them explicitly.
 
@@ -59,6 +59,14 @@ Chronological decision log. Once a decision is recorded here, later documents re
 - **Condition 1 downgraded to PARTIAL (Minor, not Major).** `B` reads as a harbor at once, but the actual spawn frame `A-entry` is land-dominant after the Square moved west (water ~lower-right quarter, no ship visible). Fix belongs to spawn/entry camera framing, not the layout.
 - **Counts:** Blocker 0, Major 0, Minor 4, Polish 2. Level B was independently re-run (build-mode harness into a scratch set, exit 0, all seven captures byte-identical to the committed R2D set; scratch set deleted).
 - **R2E Final Gate: `READY_FOR_REPRESENTATIVE_VISUAL_TARGET`.** Not Human Gate 2.
+
+### R3A representative visual target decisions (2026-09-26)
+
+- **Hero Ship is the sole R3A production asset.** The Graphics placeholder was replaced by `world.ship.hero.r3a`, a generated-and-normalized 1024 × 1024 transparent raster rendered at 460 × 460 world px, bottom-center waterline pivot. Medium Vessel and Small Boat deliberately remain Graphics placeholders.
+- **Technical/art frame:** Hybrid Orthographic 2.5D and MID are the working baseline; this does not permanently lock MID. Warm wood, cream sail fabric, deep blue and muted gold are the locked palette roles for this asset. Asset manifest and provenance live under `portfolio-world-v2/public/assets/world/`.
+- **Entry framing fixed without moving Candidate A+.** Spawn remains at Harbor Square; the first camera view is `(1350,950)` at `0.62` zoom, presenting basin water, waterfront, Quay and Hero Ship. Movement transitions to smooth follow.
+- **Waterline treatment is target-only.** Three low-alpha rounded teal ellipses make calm sheltered-harbor contact under the Hero Ship; no full water system, quay pass, or crest/foam treatment was introduced.
+- **R3A evidence is a new protected set** at `reports/portfolio-world-rebuild/evidence/r3a/`; R2B/R2D evidence is preserved. Functional QA is clean, but no visual approval is granted by this implementation.
 
 ## Open — carried forward, not resolved through R2A.1
 

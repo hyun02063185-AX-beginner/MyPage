@@ -1,9 +1,13 @@
 import Phaser from "phaser";
 
-/** The blockout intentionally registers no image assets: all geometry is native Phaser Graphics. */
 export class BootScene extends Phaser.Scene {
   public constructor() {
     super("BootScene");
+  }
+
+  public preload(): void {
+    // R3A's only production asset. Keep placeholders as native Graphics until their own art passes.
+    this.load.image("hero-ship-r3a", "assets/world/ships/hero/hero-ship-r3a.png");
   }
 
   public create(): void {

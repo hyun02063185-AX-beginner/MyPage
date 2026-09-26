@@ -1,0 +1,18 @@
+{
+  "schema": "portfolio-world-v2-r3a",
+  "assets": [
+    {
+      "id": "world.ship.hero.r3a",
+      "role": "Tier 1 Hero Ship landmark",
+      "file": "assets/world/ships/hero/hero-ship-r3a.png",
+      "sourceDimensions": [1024, 1024],
+      "intendedGameplayDisplay": [460, 460],
+      "projection": "Hybrid Orthographic 2.5D, MID working baseline",
+      "pivot": "bottom-center (0.5, 1.0), waterline contact at origin",
+      "alpha": true,
+      "paletteFamily": ["warm wood", "cream sail fabric", "deep blue", "muted gold"],
+      "productionStatus": "representative visual target; awaiting independent R3A visual QA",
+      "provenance": "assets/world/ships/hero/hero-ship-r3a-provenance.md"
+    }
+  ]
+}

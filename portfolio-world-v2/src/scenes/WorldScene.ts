@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import { PLAYER_SPEED, WORLD_HEIGHT, WORLD_WIDTH } from "../config";
 
 type Projection = "low" | "mid" | "high";
-type QaState = "entry" | "overview" | "hero" | "scale";
+type QaState = "entry" | "overview" | "hero" | "native" | "scale";
 type MovementKeys = Record<"up" | "down" | "left" | "right" | "w" | "a" | "s" | "d", Phaser.Input.Keyboard.Key>;
 
 const DEPTH = {
@@ -81,9 +81,11 @@ const PROJECTION_PROFILE: Record<Projection, ProjectionProfile> = {
 };
 
 const QA_VIEWS: Record<QaState, { player: Phaser.Math.Vector2; camera: Phaser.Math.Vector2; zoom: number }> = {
-  entry: { player: new Phaser.Math.Vector2(SPAWN[0], SPAWN[1]), camera: new Phaser.Math.Vector2(SPAWN[0], SPAWN[1]), zoom: 0.78 },
+  // Entry framing preserves the Square spawn but offsets the visitor view toward the waterfront/Quay.
+  entry: { player: new Phaser.Math.Vector2(SPAWN[0], SPAWN[1]), camera: new Phaser.Math.Vector2(1350, 950), zoom: 0.62 },
   overview: { player: new Phaser.Math.Vector2(SPAWN[0], SPAWN[1]), camera: new Phaser.Math.Vector2(1300, 830), zoom: 0.46 },
   hero: { player: new Phaser.Math.Vector2(1620, 830), camera: new Phaser.Math.Vector2(1840, 960), zoom: 0.83 },
+  native: { player: new Phaser.Math.Vector2(1620, 830), camera: new Phaser.Math.Vector2(2010, 920), zoom: 1.2 },
   // Player stands on the forecourt beside the door (door centre x=1400), same ground line, not overlapping it.
   scale: { player: new Phaser.Math.Vector2(HALL.x + 64, HALL.baseY - 20), camera: new Phaser.Math.Vector2(1450, 770), zoom: 0.92 },
 };
@@ -107,7 +109,7 @@ function pickProjection(value: string | null): Projection {
 }
 
 function pickQaState(value: string | null): QaState | undefined {
-  return value === "entry" || value === "overview" || value === "hero" || value === "scale" ? value : undefined;
+  return value === "entry" || value === "overview" || value === "hero" || value === "native" || value === "scale" ? value : undefined;
 }
 
 /** Candidate A+ flat-shape blockout. Water is one calm basin; the built settlement stays deliberately asymmetric. */
@@ -117,6 +119,7 @@ export class WorldScene extends Phaser.Scene {
   private player = new Phaser.Math.Vector2(SPAWN[0], SPAWN[1]);
   private playerGraphic?: Phaser.GameObjects.Graphics;
   private movementKeys?: MovementKeys;
+  private entryFraming = false;
 
   public constructor() {
     super("WorldScene");
@@ -148,6 +151,11 @@ export class WorldScene extends Phaser.Scene {
     if (this.movementKeys.up.isDown || this.movementKeys.w.isDown) dy -= 1;
     if (this.movementKeys.down.isDown || this.movementKeys.s.isDown) dy += 1;
     if (dx === 0 && dy === 0) return;
+    if (this.entryFraming) {
+      // Start navigation from the harbor-first vista without stranding the camera when movement begins.
+      this.cameras.main.startFollow(this.playerGraphic!, true, 0.06, 0.06);
+      this.entryFraming = false;
+    }
     const magnitude = Math.hypot(dx, dy);
     const next = new Phaser.Math.Vector2(
       Phaser.Math.Clamp(this.player.x + (dx / magnitude) * PLAYER_SPEED * (delta / 1000), 56, WORLD_WIDTH - 56),
@@ -295,7 +303,8 @@ export class WorldScene extends Phaser.Scene {
     lower.lineStyle(7, COLORS.dockEdge, 1).strokeRoundedRect(190, 1080, 410, 100, 12);
     if (profile.quaySide > 0) lower.fillStyle(0x5c4331, 1).fillRect(202, 1180, 386, Math.round(profile.quaySide * 0.6));
 
-    this.drawHeroShip(structures, upper, 2010, 1070, profile);
+    this.drawHeroShipTarget(2010, 1180);
+    this.drawHeroShipWaterlineContact(2010, 1180);
     this.drawMediumVessel(structures, upper, 1110, 1115, profile);
     this.drawSmallBoat(structures, 860, 1230, profile);
   }
@@ -317,25 +326,20 @@ export class WorldScene extends Phaser.Scene {
     }
   }
 
-  private drawHeroShip(body: Phaser.GameObjects.Graphics, upper: Phaser.GameObjects.Graphics, x: number, y: number, profile: ProjectionProfile): void {
-    const gunwale = y + 48;
-    const deckBase = gunwale - profile.topsides;
-    // Hull below the gunwale, then topsides, then the visible deck plane.
-    body.fillStyle(COLORS.hull, 1).fillTriangle(x - 210, gunwale, x + 210, gunwale, x + 130, gunwale + profile.hullDepth);
-    body.lineStyle(7, COLORS.dark, 0.85).strokeTriangle(x - 210, gunwale, x + 210, gunwale, x + 130, gunwale + profile.hullDepth);
-    if (profile.topsides > 0) {
-      body.fillStyle(0x8a5740, 1).fillRect(x - 205, deckBase, 410, profile.topsides + 2);
-      body.lineStyle(4, COLORS.dark, 0.7).strokeRect(x - 205, deckBase, 410, profile.topsides + 2);
-    }
-    this.drawDeckPlane(body, x, deckBase, 205, profile.deck, profile.deck > 40);
+  private drawHeroShipTarget(x: number, waterlineY: number): void {
+    // Source 1024², rendered 460² world px. Bottom-centre origin is the documented waterline pivot.
+    this.add.image(x, waterlineY, "hero-ship-r3a")
+      .setDisplaySize(460, 460)
+      .setOrigin(0.5, 1)
+      .setDepth(DEPTH.structures + 2);
+  }
 
-    const mast = deckBase - profile.deck * 0.45;
-    const s = profile.mastScale;
-    upper.lineStyle(12, COLORS.dark, 1).strokeLineShape(new Phaser.Geom.Line(x - 20, mast + 6, x - 20, mast - 226 * s));
-    upper.lineStyle(9, COLORS.dark, 1).strokeLineShape(new Phaser.Geom.Line(x + 92, mast + 8, x + 92, mast - 172 * s));
-    upper.fillStyle(COLORS.sail, 1).fillTriangle(x - 12, mast - 218 * s, x - 12, mast - 18, x - 150, mast - 26);
-    upper.fillStyle(0xf7e8be, 0.94).fillTriangle(x + 100, mast - 166 * s, x + 100, mast - 14, x + 210, mast - 8);
-    upper.lineStyle(5, COLORS.dark, 0.75).strokeTriangle(x - 12, mast - 218 * s, x - 12, mast - 18, x - 150, mast - 26);
+  private drawHeroShipWaterlineContact(x: number, waterlineY: number): void {
+    // R3A-only contact: broad, rounded, low-energy sheltered-water disturbance; no crest geometry.
+    const contact = this.add.graphics().setDepth(DEPTH.structures + 3);
+    contact.fillStyle(0xa9d0c3, 0.34).fillEllipse(x, waterlineY - 2, 474, 34);
+    contact.fillStyle(0x74ada9, 0.38).fillEllipse(x + 8, waterlineY + 3, 390, 18);
+    contact.lineStyle(3, 0xc7dfd2, 0.38).strokeEllipse(x - 22, waterlineY + 2, 314, 13);
   }
 
   private drawMediumVessel(body: Phaser.GameObjects.Graphics, upper: Phaser.GameObjects.Graphics, x: number, y: number, profile: ProjectionProfile): void {
@@ -396,9 +400,8 @@ export class WorldScene extends Phaser.Scene {
       this.player.copy(view.player);
       this.redrawPlayer();
       camera.setZoom(view.zoom);
-      // The entry evidence deliberately uses the same follow behavior as normal play.
       camera.centerOn(view.camera.x, view.camera.y);
-      camera.startFollow(this.playerGraphic!, true, 0.12, 0.12);
+      // This is the real entry framing: the Square remains the spawn, while water, quay and ship enter the first view.
       return;
     }
     if (qa) {
@@ -409,9 +412,10 @@ export class WorldScene extends Phaser.Scene {
       camera.centerOn(view.camera.x, view.camera.y);
       return;
     }
-    camera.setZoom(0.78);
-    camera.centerOn(this.player.x, this.player.y);
-    camera.startFollow(this.playerGraphic!, true, 0.12, 0.12);
+    const entry = QA_VIEWS.entry;
+    camera.setZoom(entry.zoom);
+    camera.centerOn(entry.camera.x, entry.camera.y);
+    this.entryFraming = true;
   }
 
   private installInput(): void {

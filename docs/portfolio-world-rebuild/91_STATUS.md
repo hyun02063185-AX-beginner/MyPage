@@ -1,10 +1,10 @@
 # 91. Portfolio World Rebuild — Project Status
 
-Updated: 2026-09-26 (R2E)
+Updated: 2026-09-26 (R3A)
 
 ## Phase
 
-PORTFOLIO WORLD REBUILD — R0/R1/R1.1 COMPLETE; HUMAN GATE 1 = APPROVED; R2A/R2A.1 COMPLETE; R2B BLOCKOUT IMPLEMENTATION COMPLETE; R2C INDEPENDENT VISUAL QA COMPLETE; R2D BLOCKOUT REPAIR COMPLETE; R2E INDEPENDENT RECHECK COMPLETE — READY FOR REPRESENTATIVE VISUAL TARGET
+PORTFOLIO WORLD REBUILD — R0/R1/R1.1 COMPLETE; HUMAN GATE 1 = APPROVED; R2A/R2A.1 COMPLETE; R2B BLOCKOUT IMPLEMENTATION COMPLETE; R2C INDEPENDENT VISUAL QA COMPLETE; R2D BLOCKOUT REPAIR COMPLETE; R2E INDEPENDENT RECHECK COMPLETE; R3A HERO SHIP TARGET IMPLEMENTED — READY FOR R3A INDEPENDENT VISUAL QA
 
 ```text
 R0_SKILL_QUALIFICATION   = COMPLETE
@@ -18,11 +18,20 @@ R2B_BLOCKOUT_RUNTIME     = COMPLETE — isolated Candidate A+ Graphics blockout 
 R2B_FUNCTIONAL_QA        = COMPLETE — dev + build fixed-viewport harness clean; deterministic evidence captured
 R2B_VISUAL_QA            = COMPLETE — independent R2C review; 3/8 conditions carry a Major failure
 R2D_BLOCKOUT_REPAIR      = COMPLETE — junction separation, door/player scale fix, widened projection variants; dev + build functional QA clean
+R3A_HERO_SHIP_TARGET     = IMPLEMENTED — one production raster, R3A evidence and build QA complete; no visual approval claimed
 R2E_VISUAL_RECHECK       = COMPLETE — independent; all three R2C Majors closed; 0 Blocker / 0 Major / 4 Minor / 2 Polish
-PROJECTION               = MID selected (blockout value, not locked)
-NEXT                     = REPRESENTATIVE_VISUAL_TARGET (Hero Ship first; spawn-frame framing fix beforehand)
-GATE                     = READY_FOR_REPRESENTATIVE_VISUAL_TARGET
+PROJECTION               = MID working baseline (not locked)
+NEXT                     = R3A_INDEPENDENT_VISUAL_QA
+GATE                     = READY_FOR_R3A_INDEPENDENT_VISUAL_QA
 ```
+
+## Current Work Unit (R3A)
+
+One representative production target is implemented: `world.ship.hero.r3a`, a generated and normalized transparent 1024 × 1024 Hero Ship raster at 460 × 460 world px with bottom-center waterline pivot. The Hero Ship is the only replaced blockout object; all other vessels and world art remain placeholders. The first visitor frame keeps the Harbor Square spawn but now includes harbor water, waterfront, Hero Quay, and the ship. R3A's calm rounded waterline contact is target-only.
+
+Build-mode functional QA and the 1280 × 720 evidence set (`reports/portfolio-world-rebuild/evidence/r3a/`) are complete and opened. Raster alpha/dimension QA passed. The implementation report is `reports/portfolio-world-rebuild/r3a-hero-ship-visual-target-implementation.md`.
+
+**No `VISUAL_PASS`, `PRODUCTION_APPROVED`, or `HUMAN_GATE_2` is claimed.** Independent R3A visual QA owns the aesthetic Tier-1, silhouette, and water-contact judgment.
 
 ## Current Work Unit (R2E)
 

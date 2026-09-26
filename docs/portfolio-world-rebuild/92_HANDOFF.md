@@ -1,10 +1,10 @@
 # 92. Portfolio World Rebuild — Handoff
 
-Updated: 2026-09-26 (R2E)
+Updated: 2026-09-26 (R3A)
 
 ## State
 
-**R0/R1/R1.1 COMPLETE. HUMAN GATE 1 = APPROVED. R2A/R2A.1 COMPLETE. R2B BLOCKOUT IMPLEMENTATION COMPLETE. R2C INDEPENDENT VISUAL QA COMPLETE. R2D BLOCKOUT REPAIR COMPLETE. R2E INDEPENDENT RECHECK COMPLETE — READY FOR REPRESENTATIVE VISUAL TARGET.** R2B created only the isolated v2 source/output trees; v1 source, v1 artifact, v1 assets, and root site link are untouched. R2C made no runtime or asset changes — review only. `feature/portfolio-world-concept-vertical-slice` (v1's full history) remains preserved as reference.
+**R0/R1/R1.1 COMPLETE. HUMAN GATE 1 = APPROVED. R2A/R2A.1 COMPLETE. R2B BLOCKOUT IMPLEMENTATION COMPLETE. R2C INDEPENDENT VISUAL QA COMPLETE. R2D BLOCKOUT REPAIR COMPLETE. R2E INDEPENDENT RECHECK COMPLETE. R3A HERO SHIP TARGET IMPLEMENTED — READY FOR R3A INDEPENDENT VISUAL QA.** R3A changes only the isolated v2 source/output trees; v1 source, v1 artifact, v1 assets, and root site link remain untouched. `feature/portfolio-world-concept-vertical-slice` (v1's full history) remains preserved as reference.
 
 ```text
 R0_SKILL_QUALIFICATION = COMPLETE
@@ -16,10 +16,21 @@ R2B_FUNCTIONAL_QA       = COMPLETE (dev + build; no visual verdict)
 R2C_VISUAL_QA           = COMPLETE — 3/8 conditions carry a Major failure
 R2D_BLOCKOUT_REPAIR     = COMPLETE (dev + build functional QA clean)
 R2E_VISUAL_RECHECK      = COMPLETE — all three R2C Majors closed; 0 Blocker / 0 Major / 4 Minor / 2 Polish
-PROJECTION              = MID (blockout value, not locked)
-NEXT                    = REPRESENTATIVE_VISUAL_TARGET
-GATE                    = READY_FOR_REPRESENTATIVE_VISUAL_TARGET
+R3A_HERO_SHIP_TARGET    = IMPLEMENTED — functional QA complete; visual approval pending
+PROJECTION              = MID working baseline (not locked)
+NEXT                    = R3A_INDEPENDENT_VISUAL_QA
+GATE                    = READY_FOR_R3A_INDEPENDENT_VISUAL_QA
 ```
+
+## R3A delivery (implementation only — no visual verdict)
+
+- Production target: `portfolio-world-v2/public/assets/world/ships/hero/hero-ship-r3a.png` (1024 × 1024 RGBA), rendered at 460 × 460 world px with bottom-center waterline pivot. Manifest: `portfolio-world-v2/public/assets/world/asset-manifest.r3a.json`; provenance: beside the asset.
+- Only the Hero Ship Graphics placeholder was replaced. Medium Vessel, Small Boat, quay, Exhibition Hall and all other world art remain intentionally unfinished placeholders.
+- Entry framing preserves the Harbor Square spawn but opens at camera `(1350,950)`, zoom `0.62`; `A-entry-target.png` now includes basin water, waterfront, Hero Quay and the Hero Ship.
+- The Hero Ship alone has a minimal broad/rounded calm-water contact treatment. No harbor-water rewrite or sharp foam was added.
+- Evidence: `reports/portfolio-world-rebuild/evidence/r3a/` (`A-entry-target.png`, `B-overview-target.png`, `C-hero-target.png`, `D-hero-native-scale.png`, `hero-target-contact-sheet.png`), all 1280 × 720 runtime captures except the asset sheet. All opened during implementation.
+- Functional QA passed: `npm run typecheck`, `npm run build`, `npm run qa:runtime -- --mode build --set r3a`; no asset load, console, exception, or failed-network errors.
+- Report: `reports/portfolio-world-rebuild/r3a-hero-ship-visual-target-implementation.md`. **No `VISUAL_PASS`, `PRODUCTION_APPROVED`, or `HUMAN_GATE_2` is claimed.**
 
 ## R2E Independent Recheck Result
 

@@ -183,13 +183,10 @@ async function main() {
     });
 
     const captures = [
-      ["A-entry.png", "entry", "mid"],
-      ["B-overview.png", "overview", "mid"],
-      ["C-hero-quay.png", "hero", "mid"],
-      ["D-scale-calibration.png", "scale", "mid"],
-      ["projection-low.png", "overview", "low"],
-      ["projection-mid.png", "overview", "mid"],
-      ["projection-high.png", "overview", "high"],
+      ["A-entry-target.png", "entry", "mid"],
+      ["B-overview-target.png", "overview", "mid"],
+      ["C-hero-target.png", "hero", "mid"],
+      ["D-hero-native-scale.png", "native", "mid"],
     ];
     const results = [];
     for (const [fileName, qa, projection] of captures) results.push(await runCapture(client, origin, relativePath, fileName, qa, projection));
