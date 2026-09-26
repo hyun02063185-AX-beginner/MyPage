@@ -328,7 +328,7 @@ export class WorldScene extends Phaser.Scene {
 
   private drawHeroShipTarget(x: number, waterlineY: number): void {
     // Source 1024², rendered 460² world px. Bottom-centre origin is the documented waterline pivot.
-    this.add.image(x, waterlineY, "hero-ship-r3a")
+    this.add.image(x, waterlineY, "hero-ship-r3a1")
       .setDisplaySize(460, 460)
       .setOrigin(0.5, 1)
       .setDepth(DEPTH.structures + 2);

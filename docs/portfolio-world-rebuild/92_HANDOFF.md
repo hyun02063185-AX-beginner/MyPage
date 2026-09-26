@@ -22,7 +22,15 @@ NEXT                    = R3A_INDEPENDENT_VISUAL_QA
 GATE                    = READY_FOR_R3A_INDEPENDENT_VISUAL_QA
 ```
 
-## R3A delivery (implementation only — no visual verdict)
+## R3A.1 delivery (implementation only — no visual verdict)
+
+- Active production target: `portfolio-world-v2/public/assets/world/ships/hero/hero-ship-r3a1.png` (1024 × 1024 RGBA), rendered at the preserved 460 × 460 world-px target with the preserved bottom-center waterline pivot. It is a three-mast Age-of-Sail merchant/exploration ship: foremast, mainmast, and mizzenmast are readable with yards, rigging, and tied/rolled furled cream canvas bundles; raised stern cabin and bowsprit remain visible. Manifest: `portfolio-world-v2/public/assets/world/asset-manifest.r3a1.json`; provenance: beside the asset.
+- R3A.1 replaces only R3A's runtime texture mapping. The previous R3A deployed-sail target, source, manifest, provenance, and `evidence/r3a/` are retained as historical evidence. Hero Quay position, Candidate A+ layout, entry camera, MID working baseline, calm water-contact treatment, Exhibition Hall placeholder, Medium Vessel, and Small Boat are unchanged.
+- Evidence: `reports/portfolio-world-rebuild/evidence/r3a1/` (`A-entry-target.png`, `B-overview-target.png`, `C-hero-target.png`, `D-hero-native-scale.png`, `hero-target-contact-sheet.png`). The runtime frames are fixed 1280 × 720 captures; C/D are the review frames for furled canvas, no broad deployed sail surface, three-mast legibility, Tier-1 scale, berth relationship, and calm water contact.
+- Functional QA passed: `npm run typecheck`, `npm run build`, `npm run qa:runtime -- --mode build --set r3a1`; no asset-load, console, exception, or failed-network errors. Raster QA confirmed 1024 × 1024 RGBA, alpha, and bottom-aligned content bounds.
+- Report: `reports/portfolio-world-rebuild/r3a1-hero-ship-moored-state-correction.md`. **No `VISUAL_PASS`, `PRODUCTION_APPROVED`, or `HUMAN_GATE_2` is claimed.**
+
+## R3A delivery (historical implementation record — no visual verdict)
 
 - Production target: `portfolio-world-v2/public/assets/world/ships/hero/hero-ship-r3a.png` (1024 × 1024 RGBA), rendered at 460 × 460 world px with bottom-center waterline pivot. Manifest: `portfolio-world-v2/public/assets/world/asset-manifest.r3a.json`; provenance: beside the asset.
 - Only the Hero Ship Graphics placeholder was replaced. Medium Vessel, Small Boat, quay, Exhibition Hall and all other world art remain intentionally unfinished placeholders.

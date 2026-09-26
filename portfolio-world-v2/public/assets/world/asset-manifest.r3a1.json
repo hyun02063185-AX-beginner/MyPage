@@ -1,0 +1,20 @@
+{
+  "schema": "portfolio-world-v2-r3a1",
+  "assets": [
+    {
+      "id": "world.ship.hero.r3a1",
+      "role": "Tier 1 Hero Ship landmark; moored sailing vessel",
+      "file": "assets/world/ships/hero/hero-ship-r3a1.png",
+      "sourceDimensions": [1024, 1024],
+      "intendedGameplayDisplay": [460, 460],
+      "projection": "Hybrid Orthographic 2.5D, MID working baseline",
+      "pivot": "bottom-center (0.5, 1.0), waterline contact at origin",
+      "alpha": true,
+      "paletteFamily": ["warm wood", "cream furled canvas", "deep blue", "muted gold"],
+      "sailState": "furled/stowed tied bundles along yards and booms; no broad deployed canvas",
+      "mastRead": "three distinguishable mast groups: foremast, mainmast, mizzenmast",
+      "productionStatus": "representative visual target; awaiting independent R3A.1 visual QA",
+      "provenance": "assets/world/ships/hero/hero-ship-r3a1-provenance.md"
+    }
+  ]
+}

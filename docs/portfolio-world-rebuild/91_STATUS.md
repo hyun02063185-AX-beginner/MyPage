@@ -25,13 +25,13 @@ NEXT                     = R3A_INDEPENDENT_VISUAL_QA
 GATE                     = READY_FOR_R3A_INDEPENDENT_VISUAL_QA
 ```
 
-## Current Work Unit (R3A)
+## Current Work Unit (R3A.1)
 
-One representative production target is implemented: `world.ship.hero.r3a`, a generated and normalized transparent 1024 × 1024 Hero Ship raster at 460 × 460 world px with bottom-center waterline pivot. The Hero Ship is the only replaced blockout object; all other vessels and world art remain placeholders. The first visitor frame keeps the Harbor Square spawn but now includes harbor water, waterfront, Hero Quay, and the ship. R3A's calm rounded waterline contact is target-only.
+The active representative production target is `world.ship.hero.r3a1`, a generated and normalized transparent 1024 × 1024 Hero Ship raster at 460 × 460 world px with bottom-center waterline pivot. It corrects R3A's deployed sail state to tied/rolled furled cream canvas bundles while preserving the warm-wood merchant/exploration hull, raised stern cabin, bowsprit, calm water contact, and existing Hero Quay berth. Three readable mast groups (foremast, mainmast, mizzenmast) retain yards and rigging. The Hero Ship is the only replaced blockout object; all other vessels and world art remain placeholders. The first visitor frame keeps the Harbor Square spawn but includes harbor water, waterfront, Hero Quay, and the ship.
 
-Build-mode functional QA and the 1280 × 720 evidence set (`reports/portfolio-world-rebuild/evidence/r3a/`) are complete and opened. Raster alpha/dimension QA passed. The implementation report is `reports/portfolio-world-rebuild/r3a-hero-ship-visual-target-implementation.md`.
+Build-mode functional QA and the 1280 × 720 evidence set (`reports/portfolio-world-rebuild/evidence/r3a1/`) are complete and opened. Raster alpha/dimension QA passed. The implementation report is `reports/portfolio-world-rebuild/r3a1-hero-ship-moored-state-correction.md`. R3A's asset, manifest, provenance, and evidence remain historical evidence.
 
-**No `VISUAL_PASS`, `PRODUCTION_APPROVED`, or `HUMAN_GATE_2` is claimed.** Independent R3A visual QA owns the aesthetic Tier-1, silhouette, and water-contact judgment.
+**No `VISUAL_PASS`, `PRODUCTION_APPROVED`, or `HUMAN_GATE_2` is claimed.** Independent R3A.1 visual QA owns the aesthetic Tier-1, moored-sail-state, silhouette, and water-contact judgment.
 
 ## Current Work Unit (R2E)
 

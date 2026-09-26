@@ -49,6 +49,8 @@ Governed by `00_VISUAL_BRIEF.md` §11 (calm, low-energy, broad, soft, rounded; n
 
 Governed by `00_VISUAL_BRIEF.md` §10. In art-bible terms: the three tiers must be distinguishable by silhouette and scale alone, without needing a label — a viewer should be able to sort ships into Hero/Medium/Small by eye. Vessel material/rigging detail should scale with tier (Hero gets the most distinct detail; Small working boats the least) — mirroring environment-art's "hero areas get 80% of the detail budget" ratio in spirit, not as a literal percentage requirement for a 2D sprite project.
 
+Sailing vessels shown berthed or moored use furled/stowed sails. Canvas must read as tied or rolled bundles along yards and booms; broad deployed or billowing sails are not valid at a static harbor berth. Mast, yard, and rigging structure must remain visually interesting after the sails are furled.
+
 ## 7. Architecture Language
 
 Each destination building keeps its v1 semantic identity (Guild Hall = strong/historical/trustworthy, Academy = bright/open/vertical emphasis, Workshop = wood/craft/working, Exhibition Hall = clean/elegant/waterfront — from `retro-harbor-campus-art-direction-v1.0.md` §10–13) as a *brief*, to be redesigned visually rather than re-implemented at v1's scale/proportions. Each building must clear the Building-to-Ship rule in spirit: a primary destination building must remain comparable in scene importance to the Hero Ship (visual mass/silhouette/route importance — not literal pixel dimensions).

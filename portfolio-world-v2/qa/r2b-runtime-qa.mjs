@@ -12,7 +12,7 @@ const repoRoot = path.resolve(projectRoot, "..");
 // unless `--allow-overwrite-historical` is passed explicitly.
 const argValue = (flag, fallback) => (process.argv.includes(flag) ? process.argv[process.argv.indexOf(flag) + 1] : fallback);
 const evidenceSet = argValue("--set", "r2d");
-if (!/^r\d+[a-z]?$/.test(evidenceSet)) throw new Error(`Invalid --set "${evidenceSet}"; expected a phase id like r2d.`);
+if (!/^r\d+[a-z]\d*$/.test(evidenceSet)) throw new Error(`Invalid --set "${evidenceSet}"; expected a phase id like r2d or r3a1.`);
 if (evidenceSet === "r2b" && !process.argv.includes("--allow-overwrite-historical")) {
   throw new Error("Refusing to overwrite historical r2b evidence. Use --set r2d (default) or pass --allow-overwrite-historical.");
 }

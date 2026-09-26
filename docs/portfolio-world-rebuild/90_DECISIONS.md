@@ -1,6 +1,6 @@
 # 90. Portfolio World Rebuild — Decisions
 
-Updated: 2026-09-26 (R3A)
+Updated: 2026-09-26 (R3A.1)
 
 Chronological decision log. Once a decision is recorded here, later documents reference it rather than re-litigating it. Open items are not deferred silently — they are named below so the next phase inherits them explicitly.
 
@@ -67,6 +67,13 @@ Chronological decision log. Once a decision is recorded here, later documents re
 - **Entry framing fixed without moving Candidate A+.** Spawn remains at Harbor Square; the first camera view is `(1350,950)` at `0.62` zoom, presenting basin water, waterfront, Quay and Hero Ship. Movement transitions to smooth follow.
 - **Waterline treatment is target-only.** Three low-alpha rounded teal ellipses make calm sheltered-harbor contact under the Hero Ship; no full water system, quay pass, or crest/foam treatment was introduced.
 - **R3A evidence is a new protected set** at `reports/portfolio-world-rebuild/evidence/r3a/`; R2B/R2D evidence is preserved. Functional QA is clean, but no visual approval is granted by this implementation.
+
+### R3A.1 Hero Ship moored-state correction (2026-09-26)
+
+- **Berth rule restored:** a sailing vessel shown berthed or moored must use furled/stowed canvas; tied or rolled bundles along yards/booms replace broad deployed or billowing sail surfaces. Masts, yards, and rigging must carry the sailing-vessel read after canvas is furled.
+- **R3A.1 replaces the active runtime mapping, not the historical record.** `world.ship.hero.r3a1` is a new generated-and-normalized transparent 1024 × 1024 revision, rendered at the existing 460 × 460 world-px target with the existing bottom-center waterline pivot. R3A's deployed-sail raster, manifest, provenance, and evidence remain intact as historical evidence.
+- **Hero identity is explicit in the replacement target:** a three-mast Age-of-Sail merchant/exploration ship with readable foremast, mainmast, and mizzenmast; raised stern cabin; bowsprit; yards/rigging; and furled cream bundles. It is neither a pirate/warship nor an actively sailing/two-mast generic boat.
+- **No layout scope reopened.** Hero Quay placement, Candidate A+ geometry, entry camera, MID working baseline, calm water contact, Exhibition Hall placeholder, and Medium Vessel/Small Boat placeholders remain unchanged. R3A.1 evidence is a distinct protected set at `reports/portfolio-world-rebuild/evidence/r3a1/`; independent visual approval remains pending.
 
 ## Open — carried forward, not resolved through R2A.1
 
