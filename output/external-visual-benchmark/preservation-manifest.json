@@ -1,0 +1,64 @@
+{
+  "recorded_date": "2026-09-27",
+  "source_directory": "C:\\Users\\user\\Downloads",
+  "numbering": "Ascending download creation time within each service; Leonardo unsuffixed file, (1), (2) map to candidates 01, 02, 03. Archival numbering is not quality ranking.",
+  "artwork_modified": false,
+  "files": [
+    {
+      "original_filename": "75ddf773-221e-47e1-9bbb-04ef3d664017.png",
+      "archive_path": "krea-free-f1/candidate-01.png",
+      "bytes": 1824236,
+      "source_download_time": "2026-09-26T23:27:27+09:00",
+      "sha256": "78eaea562c7819c48c09ea927c747f91ba0cd85f1933d0846ad62431c0342f58",
+      "copy_verified": true
+    },
+    {
+      "original_filename": "959d896e-c5df-4f9e-a92a-28bc03df584a.png",
+      "archive_path": "krea-free-f1/candidate-02.png",
+      "bytes": 1865175,
+      "source_download_time": "2026-09-26T23:27:31+09:00",
+      "sha256": "453fb3fd6cb857a291e4c06d75e06283f9bf53349fccd0933dafc7ab3002f3b0",
+      "copy_verified": true
+    },
+    {
+      "original_filename": "9052e744-670e-4df9-985e-c384dae90743.png",
+      "archive_path": "krea-free-f1/candidate-03.png",
+      "bytes": 1773916,
+      "source_download_time": "2026-09-26T23:27:31+09:00",
+      "sha256": "9140984b8d4f8fc0c183b931f39b9b1a8827b2ff3cd7c889a4334bfce32c9318",
+      "copy_verified": true
+    },
+    {
+      "original_filename": "img.webp",
+      "archive_path": "krea-free-f1/candidate-04.webp",
+      "bytes": 317728,
+      "source_download_time": "2026-09-26T23:29:45+09:00",
+      "sha256": "5cc6c587e12210bb4c5641c43ca8a14567a5be58e8cee1f2415c0a6b5855d1a6",
+      "copy_verified": true
+    },
+    {
+      "original_filename": "gemini-2.5-flash-image_Create_a_new_production-oriented_gameplay_scene_from_the_supplied_Master_Harbor_-0.jpg",
+      "archive_path": "leonardo-nano-banana-f1/candidate-01.jpg",
+      "bytes": 578737,
+      "source_download_time": "2026-09-26T23:45:31+09:00",
+      "sha256": "9f086eb945c85411eb29ec9323227b790375170a3449cb014d72b6046aaeac5f",
+      "copy_verified": true
+    },
+    {
+      "original_filename": "gemini-2.5-flash-image_Create_a_new_production-oriented_gameplay_scene_from_the_supplied_Master_Harbor_-0 (1).jpg",
+      "archive_path": "leonardo-nano-banana-f1/candidate-02.jpg",
+      "bytes": 518152,
+      "source_download_time": "2026-09-26T23:45:46+09:00",
+      "sha256": "ad1efc3e5b18f667bd3bc6d80670d3543e35da36c427a928430ab7e4ecc5c69f",
+      "copy_verified": true
+    },
+    {
+      "original_filename": "gemini-2.5-flash-image_Create_a_new_production-oriented_gameplay_scene_from_the_supplied_Master_Harbor_-0 (2).jpg",
+      "archive_path": "leonardo-nano-banana-f1/candidate-03.jpg",
+      "bytes": 590518,
+      "source_download_time": "2026-09-26T23:47:05+09:00",
+      "sha256": "593ae90e7e4b8f50c93c03c1b2813b67204c7273b1c2c01af81b6f1413af6d81",
+      "copy_verified": true
+    }
+  ]
+}
