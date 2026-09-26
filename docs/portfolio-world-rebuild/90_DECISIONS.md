@@ -1,6 +1,6 @@
 # 90. Portfolio World Rebuild — Decisions
 
-Updated: 2026-09-26 (R2C)
+Updated: 2026-09-26 (R2E)
 
 Chronological decision log. Once a decision is recorded here, later documents reference it rather than re-litigating it. Open items are not deferred silently — they are named below so the next phase inherits them explicitly.
 
@@ -51,6 +51,15 @@ Chronological decision log. Once a decision is recorded here, later documents re
 - **QA harness takes `--set <phase>` (default `r2d`).** `r2b` is historical evidence and is refused unless `--allow-overwrite-historical` is passed. One harness, no copy.
 - **R2D self-grades nothing visual.** Evidence is in `reports/portfolio-world-rebuild/evidence/r2d/`; the three R2C Majors are addressed in code but are judged by the independent recheck. Final Gate: `READY_FOR_R2D_INDEPENDENT_RECHECK`. Report: `reports/portfolio-world-rebuild/r2d-blockout-repair.md`.
 
+### R2E independent recheck decisions (2026-09-26)
+
+- **R2E** independently rechecked the R2D repair from a fresh session started at the repository root: `environment-art`, `portfolio-world-visual-qa` and `create-game-assets` were all discoverable and natively invoked via the Skill tool (this closes the R2C discovery gap; open item 7 is now resolved by starting from the repo root). All seven `evidence/r2d/` PNGs were opened. Report: `reports/portfolio-world-rebuild/r2e-independent-blockout-recheck.md`.
+- **All three R2C Majors are closed.** Junction structure: `B-overview` now reads as one spine (working dock -> Guild stub -> Square as a widening -> long open road -> Academy branch -> hall -> quay) with two separated branches, not four roads from one area (conditions 3 and 4 -> PASS). Door/player: player beside a plausible human door, bench and lamp in believable relation (condition 7 -> PASS). Projection: LOW/MID/HIGH are now describable by eye without a diff.
+- **Illustrated projection selected: MID.** Chosen on the plan's five acceptance questions, not as a default. LOW is too side-on against the plan-view ground (no deck on the Hero Ship, quay reads as a wall, hall roof lost); HIGH drifts map-like (hall facade collapses, Hero Ship loses mast height and hull side, terracotta roof plane competes with the ship). HIGH is a credible runner-up and should be re-tested when a real Hero Ship silhouette and hall facade exist. The value stays a blockout number, not a locked production value.
+- **Condition 1 downgraded to PARTIAL (Minor, not Major).** `B` reads as a harbor at once, but the actual spawn frame `A-entry` is land-dominant after the Square moved west (water ~lower-right quarter, no ship visible). Fix belongs to spawn/entry camera framing, not the layout.
+- **Counts:** Blocker 0, Major 0, Minor 4, Polish 2. Level B was independently re-run (build-mode harness into a scratch set, exit 0, all seven captures byte-identical to the committed R2D set; scratch set deleted).
+- **R2E Final Gate: `READY_FOR_REPRESENTATIVE_VISUAL_TARGET`.** Not Human Gate 2.
+
 ## Open — carried forward, not resolved through R2A.1
 
 1. **The original "Concept Image #1" binary was not found.** A full search of the current working tree and `git log --all --diff-filter=A --name-only` across this repository found no concept-art image file. `00_VISUAL_BRIEF.md` §2 records the v1 art-direction document's written description as the canonical fallback. If the original image surfaces later (design tool export, external asset store, a contributor's local copy), attach it to `00_VISUAL_BRIEF.md` as a supplement — it does not retroactively invalidate decisions made from the written fallback.
@@ -59,7 +68,7 @@ Chronological decision log. Once a decision is recorded here, later documents re
 4. **No license audit was performed beyond the top-level repository license field** for any vendored source. Before reusing more than the currently-vendored file lists from any of the three sources, re-check licensing for the additional files.
 5. ~~The project-owned runtime QA harness is not yet implemented as code.~~ **Resolved in R2B, confirmed in R2C.** `portfolio-world-v2/qa/r2b-runtime-qa.mjs` exists and is wired into `npm run qa:runtime`/`npm test`; it produced the R2B evidence set. This item is closed — see the R2C entry above.
 6. **Whether/how `world-v2/` eventually relates to v1's `world/` and root `index.html`'s link** is explicitly not decided. R2B builds `portfolio-world-v2`/`world-v2` alongside v1 with zero interference; a future merge/replacement decision is out of scope for both R1 and R2A.
-7. **Live skill discovery requires a fresh session.** This session's Skill tool did not discover the newly-materialized project skills (see the R2A entry above). Whoever runs R2B should start a fresh Claude Code/Codex session in this repository to get live skill discovery, or continue applying the vendored skill content by direct reading as R2A did.
+7. ~~**Live skill discovery requires a fresh session.**~~ **Resolved in R2D/R2E:** starting a fresh session from the repository root makes all nine skills discoverable; R2E natively invoked the three it needed. Original note follows for history. **Live skill discovery requires a fresh session.** This session's Skill tool did not discover the newly-materialized project skills (see the R2A entry above). Whoever runs R2B should start a fresh Claude Code/Codex session in this repository to get live skill discovery, or continue applying the vendored skill content by direct reading as R2A did.
 
 ## Superseded / Not Reopened
 

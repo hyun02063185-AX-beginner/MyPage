@@ -1,10 +1,10 @@
 # 92. Portfolio World Rebuild — Handoff
 
-Updated: 2026-09-26 (R2D)
+Updated: 2026-09-26 (R2E)
 
 ## State
 
-**R0/R1/R1.1 COMPLETE. HUMAN GATE 1 = APPROVED. R2A/R2A.1 COMPLETE. R2B BLOCKOUT IMPLEMENTATION COMPLETE. R2C INDEPENDENT VISUAL QA COMPLETE. R2D BLOCKOUT REPAIR IMPLEMENTED — AWAITING INDEPENDENT RECHECK.** R2B created only the isolated v2 source/output trees; v1 source, v1 artifact, v1 assets, and root site link are untouched. R2C made no runtime or asset changes — review only. `feature/portfolio-world-concept-vertical-slice` (v1's full history) remains preserved as reference.
+**R0/R1/R1.1 COMPLETE. HUMAN GATE 1 = APPROVED. R2A/R2A.1 COMPLETE. R2B BLOCKOUT IMPLEMENTATION COMPLETE. R2C INDEPENDENT VISUAL QA COMPLETE. R2D BLOCKOUT REPAIR COMPLETE. R2E INDEPENDENT RECHECK COMPLETE — READY FOR REPRESENTATIVE VISUAL TARGET.** R2B created only the isolated v2 source/output trees; v1 source, v1 artifact, v1 assets, and root site link are untouched. R2C made no runtime or asset changes — review only. `feature/portfolio-world-concept-vertical-slice` (v1's full history) remains preserved as reference.
 
 ```text
 R0_SKILL_QUALIFICATION = COMPLETE
@@ -14,10 +14,24 @@ R2A_1_CORRECTION        = COMPLETE
 R2B_BLOCKOUT            = COMPLETE
 R2B_FUNCTIONAL_QA       = COMPLETE (dev + build; no visual verdict)
 R2C_VISUAL_QA           = COMPLETE — 3/8 conditions carry a Major failure
-R2D_BLOCKOUT_REPAIR     = IMPLEMENTED (dev + build functional QA clean; no Visual PASS claimed)
-NEXT                    = R2D_INDEPENDENT_RECHECK
-GATE                    = READY_FOR_R2D_INDEPENDENT_RECHECK
+R2D_BLOCKOUT_REPAIR     = COMPLETE (dev + build functional QA clean)
+R2E_VISUAL_RECHECK      = COMPLETE — all three R2C Majors closed; 0 Blocker / 0 Major / 4 Minor / 2 Polish
+PROJECTION              = MID (blockout value, not locked)
+NEXT                    = REPRESENTATIVE_VISUAL_TARGET
+GATE                    = READY_FOR_REPRESENTATIVE_VISUAL_TARGET
 ```
+
+## R2E Independent Recheck Result
+
+Full report: `reports/portfolio-world-rebuild/r2e-independent-blockout-recheck.md`. Fresh session from the repo root; the three needed skills were discoverable and natively invoked. All seven `evidence/r2d/` PNGs opened.
+
+- **Closed:** junction structure (reads as spine + separated branches), door/player scale (player beside a human-plausible door), projection judgeability (**MID selected**; LOW too side-on, HIGH drifts map-like and weakens the Hero Ship).
+- **Conditions:** 1 PARTIAL, 2 PARTIAL, 3–8 PASS.
+- **Open Minors to carry into the visual target:** (1) Hero Ship Tier-1 read is scale-led, generic hull; (2) `A-entry` spawn frame is land-dominant, water only ~lower-right quarter, no ship visible — fix entry camera/spawn framing first; (3) west-side clustering (Workshop leg + Guild fork + Square); (4) schematic road look, forecourt over basin edge, dark void at the overview's right edge. Polish: hull waterline contact; label collisions/clipping.
+- **Do not** lock MID or any blockout number as production values; re-test HIGH vs MID once a real Hero Ship silhouette and hall facade exist.
+- Level B was re-run independently into a scratch set (exit 0, byte-identical to R2D captures) and the scratch set was deleted; `evidence/r2b/` and `evidence/r2d/` are untouched.
+
+**Next scope:** entry-camera framing fix, then one approved Hero Ship visual target at gameplay scale (`create-game-assets`), before any asset family.
 
 ## R2D Delivery (implementer — not a visual verdict)
 

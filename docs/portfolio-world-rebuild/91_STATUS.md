@@ -1,10 +1,10 @@
 # 91. Portfolio World Rebuild — Project Status
 
-Updated: 2026-09-26 (R2D)
+Updated: 2026-09-26 (R2E)
 
 ## Phase
 
-PORTFOLIO WORLD REBUILD — R0/R1/R1.1 COMPLETE; HUMAN GATE 1 = APPROVED; R2A/R2A.1 COMPLETE; R2B BLOCKOUT IMPLEMENTATION COMPLETE; R2C INDEPENDENT VISUAL QA COMPLETE; R2D BLOCKOUT REPAIR IMPLEMENTED — AWAITING INDEPENDENT RECHECK
+PORTFOLIO WORLD REBUILD — R0/R1/R1.1 COMPLETE; HUMAN GATE 1 = APPROVED; R2A/R2A.1 COMPLETE; R2B BLOCKOUT IMPLEMENTATION COMPLETE; R2C INDEPENDENT VISUAL QA COMPLETE; R2D BLOCKOUT REPAIR COMPLETE; R2E INDEPENDENT RECHECK COMPLETE — READY FOR REPRESENTATIVE VISUAL TARGET
 
 ```text
 R0_SKILL_QUALIFICATION   = COMPLETE
@@ -17,13 +17,27 @@ R2A_RUNTIME_QA_PLAN      = COMPLETE — Blockout PASS conditions expanded to 8
 R2B_BLOCKOUT_RUNTIME     = COMPLETE — isolated Candidate A+ Graphics blockout in portfolio-world-v2/ and world-v2/
 R2B_FUNCTIONAL_QA        = COMPLETE — dev + build fixed-viewport harness clean; deterministic evidence captured
 R2B_VISUAL_QA            = COMPLETE — independent R2C review; 3/8 conditions carry a Major failure
-R2D_BLOCKOUT_REPAIR      = IMPLEMENTED — junction separation, door/player scale fix, widened projection variants; dev + build functional QA clean
-R2D_VISUAL_QA            = NOT DONE — no Visual PASS claimed by the implementer
-NEXT                     = R2D_INDEPENDENT_RECHECK
-GATE                     = READY_FOR_R2D_INDEPENDENT_RECHECK
+R2D_BLOCKOUT_REPAIR      = COMPLETE — junction separation, door/player scale fix, widened projection variants; dev + build functional QA clean
+R2E_VISUAL_RECHECK       = COMPLETE — independent; all three R2C Majors closed; 0 Blocker / 0 Major / 4 Minor / 2 Polish
+PROJECTION               = MID selected (blockout value, not locked)
+NEXT                     = REPRESENTATIVE_VISUAL_TARGET (Hero Ship first; spawn-frame framing fix beforehand)
+GATE                     = READY_FOR_REPRESENTATIVE_VISUAL_TARGET
 ```
 
-## Current Work Unit (R2D)
+## Current Work Unit (R2E)
+
+R2E independently rechecked the R2D repair (`reports/portfolio-world-rebuild/r2e-independent-blockout-recheck.md`). Fresh session at repo root; `environment-art`, `portfolio-world-visual-qa`, `create-game-assets` discoverable and natively invoked. All seven `evidence/r2d/` PNGs opened, plus a door crop and a LOW|MID|HIGH side-by-side crop.
+
+- **R2C Major 1 (junctions): closed.** `B-overview` reads as a spine with separated branches; conditions 3 and 4 PASS.
+- **R2C Major 2 (door/player scale): closed.** Player beside a plausible human door; condition 7 PASS.
+- **R2C Major 3 (projection): closed.** Variants are describable by eye; **MID selected**.
+- Conditions: 1 PARTIAL (spawn frame land-dominant), 2 PARTIAL (Hero Ship scale-led), 3–8 PASS.
+- Minors: Hero Ship silhouette; spawn-frame water share; west-side clustering; schematic look/world-edge void. Polish: waterline contact; label collisions.
+- Level B re-run independently (build harness, scratch set, exit 0, captures byte-identical to R2D; scratch deleted).
+
+**Final Gate: `READY_FOR_REPRESENTATIVE_VISUAL_TARGET`.** Not Human Gate 2.
+
+## Prior Work Unit (R2D)
 
 R2D repaired the three R2C Majors without redesigning Candidate A+ (`reports/portfolio-world-rebuild/r2d-blockout-repair.md`):
 
@@ -70,4 +84,4 @@ Files updated: `05_HARBOR_BLOCKOUT_SPEC.md`, `06_SCALE_CAMERA_CALIBRATION_PLAN.m
 
 ## Next
 
-Independent R2D recheck (not self-graded): open all seven `evidence/r2d/` frames, judge Blockout PASS conditions 3, 4 and 7 and the LOW/MID/HIGH comparison against `00_VISUAL_BRIEF.md`, and only then decide whether to proceed to `READY_FOR_REPRESENTATIVE_VISUAL_TARGET`.
+Representative visual target, scoped by R2E: (1) fix spawn/entry camera framing so the first frame shows the basin (Minor 2); (2) approve one Hero Ship visual target at gameplay scale per `create-game-assets` before any family work, which also addresses Minor 1 and the waterline-contact Polish; (3) re-test HIGH vs MID once a real Hero Ship silhouette and hall facade exist. Minors 3–4 are watch items, not blockers.
