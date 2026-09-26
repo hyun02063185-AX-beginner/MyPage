@@ -71,6 +71,16 @@
   "reconstruction_max_pixel_error": 0,
   "foreground_opaque_pixels": 2727,
   "foreground_is_exact_source_pixels": true,
+  "navigation_unchanged_since": "1774d5af6c513d2a01de0725987d8081e3245e88",
+  "unchanged_navigation_sha256": {
+    "walkable-mask.png": "e88b7428212309041f4b4618d28b49ff771e321b44603f20ff94740a85e1adab",
+    "collision-mask.png": "942be4d720e098485e19c0c90efd5510edcf03091fe4864d8cb9aa0b0ffe6f09",
+    "interaction-hotspots.json": "079d3be4d23b352df62077ba71923adafc4446bebb8f4b02403646f54055d211"
+  },
+  "selected_player_height_source": 84,
+  "selected_player_height_logical": 64.2720510095643,
+  "foreground_scale_test_reachable": true,
+  "director_review_jpegs_under_1mb": true,
   "limitations": [
     "Static source-pixel QA, no moving-character runtime test",
     "Collision boundary band samples cardinal directions at 10px; full swept-body collider deferred",
@@ -83,24 +93,24 @@
       "sha256": "942be4d720e098485e19c0c90efd5510edcf03091fe4864d8cb9aa0b0ffe6f09"
     },
     "environment-plate.png": {
-      "bytes": 3179460,
-      "sha256": "a30448175b14d451d305afd743e3a67922303e885b91c52491693dabea2593e5"
+      "bytes": 3030696,
+      "sha256": "c32149e0a526af409cc9f2e413d7af7f46e0e9049715da1424abfafcef7f8bf4"
     },
     "foreground-occlusion.png": {
-      "bytes": 16245,
-      "sha256": "5430e9b6d4d9e5e062602b2663d9c624bfe306d163310730815ef77be738e856"
+      "bytes": 16310,
+      "sha256": "92e1750ae04803514e2788fd2410115ac263eb53b0517f28b99d43ce8e48b15a"
     },
     "layer-reconstruction-proof.png": {
-      "bytes": 4903594,
-      "sha256": "94e915e00cec695d7ee91b348f715785e479131d7752fdb16ac17138830251f4"
+      "bytes": 4868517,
+      "sha256": "f429a976d64f1529c4566c245bb38a87e6c82c73fe08e5d07e43f8cb1982286d"
     },
     "scene-first-playability-proof.png": {
-      "bytes": 2992526,
-      "sha256": "20d76574dafff31152ff2ef588fa90334aab6dd1c368e87e15d85e5bfe1d9dce"
+      "bytes": 2987240,
+      "sha256": "616f1d6ba4203b98df56fa1f92257aef8c5f50689eb1c55947813813ee1d8ebe"
     },
     "scene-first-vertical-slice-final.png": {
-      "bytes": 2884390,
-      "sha256": "70bcad73fff0c39ad22b74afb2d3ca4901c76084592aba4b28dc75f834775dd3"
+      "bytes": 2876927,
+      "sha256": "490899d8002b4e201ee747711a27d363b3b0ec0950b22a3842f32610fec1465c"
     },
     "walkable-mask.png": {
       "bytes": 13016,

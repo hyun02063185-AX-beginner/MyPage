@@ -1,0 +1,60 @@
+{
+  "baseline": "1774d5af6c513d2a01de0725987d8081e3245e88",
+  "source_dimensions": [
+    1672,
+    941
+  ],
+  "regions": {
+    "exhibition_hall": {
+      "bounds": [
+        0,
+        0,
+        650,
+        480
+      ],
+      "mean_absolute_channel_delta_0_255": 10.6522,
+      "fraction_pixels_mean_rgb_delta_gt_20": 0.131019
+    },
+    "foreground_planter_paving": {
+      "bounds": [
+        0,
+        600,
+        550,
+        941
+      ],
+      "mean_absolute_channel_delta_0_255": 13.3106,
+      "fraction_pixels_mean_rgb_delta_gt_20": 0.183183
+    },
+    "open_water": {
+      "bounds": [
+        1120,
+        720,
+        1672,
+        941
+      ],
+      "mean_absolute_channel_delta_0_255": 5.6306,
+      "fraction_pixels_mean_rgb_delta_gt_20": 0.023018
+    },
+    "hero_hull": {
+      "bounds": [
+        720,
+        535,
+        1400,
+        690
+      ],
+      "mean_absolute_channel_delta_0_255": 7.4397,
+      "fraction_pixels_mean_rgb_delta_gt_20": 0.066338
+    },
+    "removed_mast_and_restored_background": {
+      "bounds": [
+        1240,
+        125,
+        1470,
+        550
+      ],
+      "mean_absolute_channel_delta_0_255": 25.5762,
+      "fraction_pixels_mean_rgb_delta_gt_20": 0.380184
+    }
+  },
+  "interpretation": "Localized structural change: fourth mast removed. Unmasked non-target texture drift remains; the output is not pixel-identical outside the ship. Visual inspection found preserved composition and architecture, but sail-furling requirement still fails."
+}

@@ -313,7 +313,7 @@
                   330,
                   628
               ],
-    "player_height":  64,
+    "player_height":  84,
     "player_foot_radius":  10,
     "placements":  [
                        [
@@ -410,7 +410,7 @@
                                           560
                                       ]
                                   ],
-                      "actor_minimum_foot_y":  554
+                      "actor_minimum_foot_y":  563
                   },
     "planter_polygon":  [
                             [

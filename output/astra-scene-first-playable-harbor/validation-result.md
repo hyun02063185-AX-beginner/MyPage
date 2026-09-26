@@ -1,59 +1,83 @@
 # Astra Scene-First Playable Harbor Validation: COMPLETE
 
+Final bounded repair gate. Starting HEAD: `1774d5af6c513d2a01de0725987d8081e3245e88`.
+
 Master Reference:
 `output/astra-master-harbor-benchmark/master-harbor-scene-final.png`
 
 Scene-First Final:
 `output/astra-scene-first-playable-harbor/scene-first-vertical-slice-final.png`
 
+**The localized edit completed successfully and removed the fourth mast. The gate still fails because hanging scalloped canvas remains and no tested constant player scale is convincing across the entire foreground route. This is not a capacity-blocked result.**
+
 Assessment:
 
-| Criterion | Result | Evidence and limit |
+| Criterion | Result | Current evidence |
 | --- | --- | --- |
-| Master visual continuity | PASS | Warm limestone, terracotta, navy/gold, timber and teal water retain the same visual family. The sky and distant fortified waterfront introduce camera/context drift; the result is not a pixel-identical continuation. |
-| Whole-scene cohesion | PASS | Quay turns, contact shadows, localized planting, hull reflection and continuous ground read as one authored place, substantially closer to A than the repeated surfaces and pasted structures of B. |
-| Hero Ship quality | **FAIL** | Landmark rendering and water contact are strong, but **four visible deck-rooted masts violate the required three-mast identity**. Cream bundles also retain conspicuous hanging scallops. Requested correction was blocked before generation. |
-| Environment integration | PASS | Water, masonry, timber, roofs and foliage share lighting and detail treatment. No primary water/paving tiles or copied trees were assembled. Large foreground paving units remain a scale concern. |
-| Projection consistency | PASS | Buildings and hull share a coherent illustrated scene with upright structures and strong elevations. More perspective recession than the Master means a fixed-size actor needs broader scale validation. No numeric-angle test was used. |
-| Foreground occlusion viability | PASS | Limited static lamp corridor: original opaque scene pixels cover part of the proxy naturally. Recomposition has zero pixel error. This proves a static redraw stencil, not a removable-object/clean-background pipeline. |
-| Player integration viability | **FAIL** | Three local placements show contact and partial lamp occlusion, but the fixed 49-logical-pixel proxy is small against the large foreground bollards/paving; convincing scale over the entire lower playable promenade is not established. No moving-player test was performed. |
-| Navigation-mask viability | PASS | Start, all three proof placements and every pixel of all three hotspot polygons share a connected legal route. Water and major architecture sample points are blocked. This is mask-level viability only. |
+| Master visual continuity | PASS | The established warm stone, timber, navy/gold and sheltered teal-water world survives the edit. |
+| Whole-scene cohesion | PASS | No modular assembly was introduced; continuous quay, lighting and reflections retain the previous scene's cohesion. |
+| Hero Ship mast count | PASS | Exactly three deck-rooted groups at approximately source x=827,941,1177. Extra bow-side mast near x=1340 removed, with natural waterfront restoration behind it. |
+| Hero Ship furled sails | **FAIL** | Several yards retain deep scalloped hanging cream fabric instead of compact rolls directly on spars. New prominent gathered cloth on the bowsprit also fails the strict compact-bundle requirement. No broad deployed sail is present, but that alone is insufficient. |
+| Hero Ship overall quality | **FAIL** | Landmark hull and three-mast silhouette are retained; required sail semantics remain wrong. |
+| Environment integration | PASS | Waterline, berth, water, quay and architecture remain integrated; no visible patch seam found at the removed mast. |
+| Projection consistency | PASS | No substantial camera, perspective or composition change. Existing foreground depth scaling remains relevant to player calibration. |
+| Foreground occlusion viability | PASS | Same lamp alpha selection, refreshed with repaired source RGB. Proxy is naturally partly behind the shaft; static reconstruction is exact. |
+| Player integration viability | **FAIL** | Approximately 64 logical px is the best tested scale at Hall and middle quay, but the nearest bollards/paving still make the actor appear undersized. The 49 and 56 px candidates are worse. No tested constant scale clears the full-route requirement. |
+| Navigation-mask viability | PASS | Existing masks and hotspot data unchanged; all required routes, hotspot polygons and four scale-test positions remain accessible. |
+
+## Bounded edit and locality
+
+One completed localized image edit was performed in this final repair gate. The prior attempt at starting HEAD had returned HTTP 429 before producing an image; capacity was available for this attempt. No new complete scene, new harbor design, new character or further art iteration was generated.
+
+The before image remains `evidence/authored-initial.png`; the returned repair is `evidence/authored-repair.png`. The environment plate is an exact copy of the latter. Actual inspection found retained layouts of the Hall, quay, hull, water, vegetation and secondary vessel. Texture-level drift outside the target is measurable, so this is not claimed as a pixel-locked masked edit.
+
+`evidence/repair-comparison.json` records mean absolute RGB-channel differences on a 0–255 scale: Hall 10.65, foreground 13.31, open water 5.63, hull 7.44, removed-mast/background area 25.58. These numbers document drift, not a stand-alone quality pass. The largest structural change is where intended; unrelated architecture/water/quay composition did not change substantially enough to reject the entire returned image. The visible sail defects still prevent acceptance.
 
 Refinement cycles used:
-**1 / 2 attempted; 0 completed art refinements.** One initial whole-scene generation succeeded. The first localized correction returned HTTP 429 `usage_limit_reached`; no correction image exists. The result does not demonstrate that successful refinement would require more than two cycles.
+**1 completed bounded repair in this gate.** Across the original validation plus repair: two edit requests, one capacity-blocked and one completed. No further visual repair was attempted.
 
-## Visual inspection performed
+## Player-scale selection
 
-Opened the actual Master and failed modular reference before production. Opened the authored candidate, final 1280 × 720 gameplay-like frame, labeled three-placement proof, full static reconstruction, foreground PNG, walkable PNG and collision PNG. Inspected the lamp crop and proxy source. Final output contains one natural frame with one temporary player and no debug labels or masks.
+The existing temporary proxy was rendered at 64, 73 and 84 source pixels: approximately 49, 56 and 64 logical pixels. All three were compared at Hall (145,480), middle quay (330,628), lamp (128,612) and foreground promenade (720,880). See `evidence/player-scale-comparison.png`.
 
-The strongest improvement over B is authored continuity: the water has localized reflections, the quay bends without repeating wall modules, and vegetation belongs to the architecture and ground. The hard ship error is visible in the actual image: mast groups at approximately source x=827, 941, 1177 and 1340. No amount of successful mask testing overrides that failure.
+Selected review-frame height: **84 source px = 64.27 logical px**, called the 64 px candidate. The larger candidate gives the most credible door/body and mid-quay furniture relationship and keeps useful path width. It is the best available candidate, not an approved final character scale: the foreground still reads too large around it. Increasing the tested range indefinitely or introducing perspective scaling would exceed this bounded evaluation. No character art was generated or changed.
 
-The foreground-hidden plate was inspected: it remains the original complete scene because this workflow deliberately retains the baked lamp below the identical foreground redraw. There is no repaired patch, smear or hole. This avoids unnecessary background regeneration but does not prove clean-background extraction behind a movable object.
+## Actual visual QA
 
-## Gameplay logic evidence
+Opened the original plate, returned repair, 12-panel scale comparison, native Hero review crop, rebuilt final gameplay frame, three-position proof and full layer reconstruction. Examined the revised ship's mast bases and retained yards, restored shoreline behind the removed mast, hull/water contact and player contact at the four positions. The final frame and Director JPEG have no labels, masks or debug marks.
 
-`evidence/logic-validation.json` records the reproducible assertions from `python output/astra-scene-first-playable-harbor/evidence/validate.py`:
+The three-mast correction visibly succeeded. The sail correction visibly did not. The contact and lamp occlusion mechanism works, while whole-route scale remains unconvincing. These findings govern the gate independently of successful scripts.
 
-- Native masks: 1672 × 941; binary values; foreground alpha is real 0/255.
-- Start (330,628), Hall (145,480), Quay (335,633), Square return (28,514): accessible and connected.
-- All hotspot polygon pixels are accessible, not only their centers.
-- 130,433 reachable pixels of 131,004 legal pixels (99.564%); 571 isolated nonessential pixels remain outside the start component. No required route depends on those pockets.
-- Water and major-architecture test samples are not legal movement positions. The hand-authored ground boundary also excludes their visible regions.
-- Static recomposition maximum channel difference: **0**. Foreground contains **2,727** opaque pixels, all copied exactly from the same source coordinates.
-- The initial start-near-edge failure and return-polygon-boundary failure were corrected by moving the QA start and shrinking the transition polygon. The navigation surface was not expanded into water to make tests pass.
+## Technical QA
 
-## Major risks
+Commands completed successfully:
 
-1. Four-mast Hero Ship and loose furled-canvas treatment remain uncorrected due to image-service quota. This is the decisive semantic failure.
-2. Foreground object/paving scale versus a fixed-size actor needs a resolved camera/scale decision and continuous-motion validation. Broadening the scene-first claim from three still frames would be premature.
-3. Occlusion covers a single bounded lamp shaft corridor. Full-scene depth switching, diagonal/swept collision, entrance traversal and tiny isolated mask pockets require future implementation decisions only after a new visual gate passes.
-4. Generation introduced a sky/horizon and fortified distant waterfront absent from the Master's tighter crop. The visual family survives, but continuity should be judged at scene level rather than inferred from palette alone.
+```text
+powershell -NoProfile -ExecutionPolicy Bypass -File output/astra-scene-first-playable-harbor/evidence/repair-review.ps1
+python output/astra-scene-first-playable-harbor/evidence/validate.py
+python output/astra-scene-first-playable-harbor/evidence/compare-repair.py
+```
 
-## Scope and disposition
+- Walkable/collision PNGs are byte-identical to starting HEAD; hotspot JSON is unchanged (Git line-ending normalization accounted for). No navigation edits were necessary.
+- Start, all three hotspot centers, every pixel of their polygons and all four scale-test positions are reachable.
+- Water and architecture samples remain blocked; no route regression.
+- Reachable legal area remains 130,433 / 131,004 pixels (99.564%); 571 nonessential isolated pixels remain an existing limitation.
+- Foreground uses the same 2,727 opaque source coordinates, now sampled from the repaired plate. Maximum reconstruction channel difference: **0**.
+- Exact 1280 × 720 Director JPEG: 437,931 bytes; Hero crop 1012 × 750: 319,067 bytes. Both below 1 MB, JPEG quality 92.
 
-All work is new evidence under `output/astra-scene-first-playable-harbor/`. No runtime, public game assets, root portfolio files or previous Astra evidence were modified. No individual asset approval was requested. No routes or water animation were implemented.
+Director files:
 
-The scene-first method retains substantially more visual cohesion than the failed modular reconstruction, but **this delivered candidate does not pass**. Preserve the evidence; do not begin Codex integration from it. This report is a completed failed-candidate validation, not a claim that the game or art pipeline is production-ready.
+- `evidence/director-review-1280x720.jpg`
+- `evidence/director-review-hero-crop.jpg`
+
+## Major remaining risks
+
+1. Sail bundles still violate the explicit no-deep-scallops rule; the generated correction only partially satisfies the ship request.
+2. Player scale improves locally but fails across the closest foreground cues at all three tested constant heights.
+3. The edit introduces non-target texture drift, though spatial layout is preserved. General pixel-locked edit repeatability is not established.
+4. Occlusion is proven only for one bounded static lamp corridor; movement, swept collisions, entrance traversal and tiny isolated mask pockets remain outside this static validation.
+
+Only the existing scene-first output directory was changed. Runtime, prior benchmarks, root portfolio files, masks and hotspot definitions were left untouched. This commit records a completed failed repair, not visual success or production readiness. Do not begin Codex scene-first integration from this candidate.
 
 FINAL GATE:
 **ASTRA_SCENE_FIRST_NO_GO**

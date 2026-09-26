@@ -2,7 +2,7 @@ $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
 $root = Split-Path $PSScriptRoot -Parent
 $platePath = Join-Path $root 'environment-plate.png'
-Copy-Item (Join-Path $PSScriptRoot 'authored-initial.png') $platePath -Force
+Copy-Item (Join-Path $PSScriptRoot 'authored-repair.png') $platePath -Force
 $src = [Drawing.Bitmap]::FromFile($platePath)
 $w=$src.Width; $h=$src.Height
 function Bitmap { return [Drawing.Bitmap]::new($w,$h,[Drawing.Imaging.PixelFormat]::Format32bppArgb) }
@@ -24,19 +24,7 @@ $obstacles=@(
  @(@(774,768),@(824,768),@(825,834),@(770,834)),
  @(@(967,858),@(1025,858),@(1027,922),@(963,922))
 )
-$walk=Bitmap; $g=[Drawing.Graphics]::FromImage($walk); $g.Clear([Drawing.Color]::Black); Poly $g '#FFFFFF' $ground; Poly $g '#000000' $planter
-foreach($p in $obstacles){ Poly $g '#000000' $p }; $g.Dispose(); Save $walk 'walkable-mask.png'
-# Collision = explicit footprints and a simple 10px exclusion band inside the navigable domain.
-# Black elsewhere is NOT permission: future movement must require walkable AND !collision.
-$collision=Bitmap
-for($y=0;$y -lt $h;$y++){for($x=0;$x -lt $w;$x++){
- $blocked=$false
- if($walk.GetPixel($x,$y).R -gt 0){
-  foreach($d in @(@(-10,0),@(10,0),@(0,-10),@(0,10))){$xx=$x+$d[0];$yy=$y+$d[1]; if($xx -lt 0 -or $xx -ge $w -or $yy -lt 0 -or $yy -ge $h -or $walk.GetPixel($xx,$yy).R -eq 0){$blocked=$true;break}}
- }
- $collision.SetPixel($x,$y,$(if($blocked){[Drawing.Color]::White}else{[Drawing.Color]::Black}))
-}}
-$g=[Drawing.Graphics]::FromImage($collision); Poly $g '#FFFFFF' $planter; foreach($p in $obstacles){Poly $g '#FFFFFF' $p}; $g.Dispose(); Save $collision 'collision-mask.png'
+# Existing navigation masks are read-only during the ship repair.
 # Exact source-pixel occlusion redraw of the playable-height lamp shaft and base.
 # Decorative lamp crown remains baked: every allowed actor head is below source y=480.
 # Restrict this overlay to actors behind the lamp base; this is not a reusable prop sprite.
@@ -49,12 +37,12 @@ $reconstruction=Bitmap; $g=[Drawing.Graphics]::FromImage($reconstruction); $g.Dr
 $workerPath=Join-Path $root '../astra-vertical-slice-validation/assets/props/scale-worker.png'
 $worker=[Drawing.Bitmap]::FromFile([IO.Path]::GetFullPath($workerPath))
 Copy-Item ([IO.Path]::GetFullPath($workerPath)) (Join-Path $PSScriptRoot 'temporary-player-proxy.png') -Force
-function Frame($px,$py,$behind){
+function Frame($px,$py,$behind,$actorHeight=84){
  $im=Bitmap; $g=[Drawing.Graphics]::FromImage($im); $g.DrawImageUnscaled($src,0,0)
  $g.SmoothingMode=[Drawing.Drawing2D.SmoothingMode]::AntiAlias
  $shadow=[Drawing.SolidBrush]::new([Drawing.Color]::FromArgb(52,49,39,24)); $g.FillEllipse($shadow,($px-12),($py-4),25,7); $shadow.Dispose()
  $g.InterpolationMode=[Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
- $g.DrawImage($worker,[Drawing.Rectangle]::new(($px-12),($py-64),24,64))
+ $g.DrawImage($worker,[Drawing.Rectangle]::new(($px-[int]($actorHeight*0.183)),($py-$actorHeight),([int]($actorHeight*0.366)),$actorHeight))
  if($behind){$g.DrawImageUnscaled($fg,0,0)}
  $g.Dispose(); return $im
 }
@@ -72,14 +60,14 @@ for($i=0;$i -lt 3;$i++){
  $rect=[Drawing.Rectangle]::new([Math]::Max(0,$cx-100),($cy-160),250,190)
  $g.DrawImage($frames[$i],[Drawing.Rectangle]::new(605,($yy+35),414,315),$rect,[Drawing.GraphicsUnit]::Pixel)
  $g.DrawString('Source detail / temporary scale proxy',$small,$ink,1040,($yy+50))
- $g.DrawString("Feet: ($cx, $cy) source pixels`nHeight: 64 source px / 49 logical px",$small,$ink,1040,($yy+84))
+ $g.DrawString("Feet: ($cx, $cy) source pixels`nHeight: 84 source px / 64.3 logical px",$small,$ink,1040,($yy+84))
 }
 $g.Dispose();Save $proof 'scene-first-playability-proof.png'
 $compare=[Drawing.Bitmap]::new(1280,1190);$g=[Drawing.Graphics]::FromImage($compare);$g.Clear([Drawing.Color]::FromArgb(238,234,221));$g.InterpolationMode=[Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
 $refs=@((Join-Path $root '../astra-master-harbor-benchmark/master-harbor-scene-final.png'),(Join-Path $root '../astra-vertical-slice-validation/vertical-slice-reconstruction-final.png'),(Join-Path $root 'scene-first-vertical-slice-final.png'))
-$titles=@('A / Master Harbor reference','B / Failed modular reconstruction','C / Scene-first candidate - NO-GO: four masts')
+$titles=@('A / Master Harbor reference','B / Failed modular reconstruction','C / Scene-first candidate - NO-GO: sail furling')
 for($i=0;$i -lt 3;$i++){$im=[Drawing.Image]::FromFile([IO.Path]::GetFullPath($refs[$i]));$yy=10+$i*395;$g.DrawString($titles[$i],$font,$ink,15,$yy);$g.DrawImage($im,15,($yy+34),620,349);$im.Dispose()}
-$g.DrawString("Scene-level observations`n`nC retains integrated stone, water and lighting.`nNo repeated surface tiles or asset assembly.`n`nHard failure: four visible hero masts.`nRefinement request blocked by image-service quota.`n`nStatic evidence only. No Phaser runtime changes.",$font,$ink,665,450);$g.Dispose();Save $compare 'evidence/reference-comparison.png'
-$geo=@{source_size=@($w,$h);logical_viewport=@(1280,720);start=@(330,628);player_height=64;player_foot_radius=10;placements=@(@(330,628),@(128,612),@(145,480));ground_polygon=$ground;planter_polygon=$planter;obstacle_polygons=$obstacles;occlusion=@{polygon=$shaft;depth_foot_y=652;actor_minimum_foot_y=554;rule='Render above actor only when feet y < 652, and head y >= 479. Lamp crown stays baked.'}}
+$g.DrawString("Scene-level observations`n`nC retains integrated stone, water and lighting.`nNo repeated surface tiles or asset assembly.`n`nThree masts fixed; scalloped canvas remains.`nLocalized image edit succeeded.`n`nStatic evidence only. No Phaser runtime changes.",$font,$ink,665,450);$g.Dispose();Save $compare 'evidence/reference-comparison.png'
+$geo=@{source_size=@($w,$h);logical_viewport=@(1280,720);start=@(330,628);player_height=84;player_foot_radius=10;placements=@(@(330,628),@(128,612),@(145,480));ground_polygon=$ground;planter_polygon=$planter;obstacle_polygons=$obstacles;occlusion=@{polygon=$shaft;depth_foot_y=652;actor_minimum_foot_y=563;rule='Render above actor only when feet y < 652, and head y >= 479. Lamp crown stays baked.'}}
 $geo|ConvertTo-Json -Depth 12|Set-Content (Join-Path $PSScriptRoot 'geometry.json') -Encoding utf8
 Write-Output 'Evidence, masks, layer and frames saved.'
