@@ -1,0 +1,10 @@
+{
+  "water-tile": {
+    "opposite_edge_mean_absolute_error_x": 0.0,
+    "opposite_edge_mean_absolute_error_y": 0.0
+  },
+  "paving-tile": {
+    "opposite_edge_mean_absolute_error_x": 0.0,
+    "opposite_edge_mean_absolute_error_y": 0.0
+  }
+}

@@ -1,0 +1,57 @@
+# Master Harbor Scene — generation record
+
+Date: 2026-09-26
+Tool: built-in image_gen.imagegen. Generated-original. No external image references used for initial generation.
+Scope: one complete scene; initial generation plus two edits. Selected revision: internal revision 2, delivered as Master Harbor Scene v1.
+Selected final candidate: [master-harbor-scene-final.png](master-harbor-scene-final.png), at output/astra-master-harbor-benchmark/master-harbor-scene-final.png (1672 × 941 pixels).
+Finalization: byte-for-byte copy of master-harbor-scene-v1.png; no regeneration, new visual variant, or artwork modification.
+Verified final SHA-256: A0652831DE4E284DC45EF755603AC49BC81A443512E0988F0843DCE5D5711787.
+The Astra label identifies this benchmark workflow; no claim is made about the image tool's underlying model identity.
+
+## Initial generation
+
+Use case: stylized-concept.
+Create ONE finished Master Harbor Scene visual benchmark for Portfolio World, a refined retro harbor campus. One cohesive, exceptionally polished environment illustration, wide landscape 16:9, preferably 3840x2160. Full bleed scene, no title, no labels, no UI, no panels, no border. This is a visual upper-bound candidate, not an asset sheet or a mockup.
+
+Art direction: bright welcoming sophisticated hand-painted 2.5D adventure-game environment, precise crafted forms, richly observed but restrained material texture, clean readable silhouettes. Warm limestone and softly weathered plaster, reddish-brown timber and terracotta/slate roofs, muted teal-blue harbor water, olive/sage vegetation, warm ivory bundled canvas, small brass accents. Everything from the ships to masonry, water, foliage and tiny props must have the SAME rendering finish, brushwork scale, edge softness and shared warm daylight from upper left. Never a highly rendered ship pasted onto a simple flat game background. Not photorealistic, not toy-like, not chibi, not generic low-poly.
+
+Projection is a crucial requirement: hybrid orthographic 2.5D grammar, camera yaw 0 degrees, object elevation grammar 15 degrees ABOVE HORIZONTAL, only shallow top-surface visibility. Ground and water use readable plan-style spatial staging while buildings, ships and props use camera-facing illustrated elevations. Facades and hull sides dominate; roofs and decks are narrow secondary visible surfaces. Verticals remain vertical, no converging lens perspective, no bird's-eye or conventional 30/45 degree isometric view, no horizon/sky panorama. Organic shoreline and angled berth layout, not a compass-aligned symmetric grid. All objects share the same shallow-elevation grammar; changing a ship's heading must not change camera elevation.
+
+Composition: a richly finished sheltered harbor basin occupying a substantial lower/right region with generous calm open water. An organically curving stone quay connects the working waterfront to a quieter, partially framed Harbor Square with fine paving and planted trees. Build an asymmetric continuous town behind the quay with several modest warehouses, dock offices and part of a handsome campus/guild or exhibition building. The waterfront is the densest, most worked area; the square stays open and breathable. No castle or towering fantasy skyline. Include convincing transitions between stone quay, low tidal staining, some natural shoreline, grass, soil paths, plaza and garden edges; no blank flat filler surfaces.
+
+Hero ship: ONE commanding Age-of-Sail wooden merchant/exploration sailing ship, the clear focal point occupying about 35-40 percent of image width INCLUDING bowsprit. Moored alongside a suitable berth with believable visible ropes to bollards. Entire hull, bowsprit, masts and rigging fit comfortably in the frame. Handsome merchant proportions, three properly spaced masts, slender coherent rigging, plausible shrouds, ratlines, yards and compact cream sail bundles tied tightly to the yards. ALL sails FULLY FURLED: NO deployed square sails, NO spread triangular jibs, NO inflated canvas. Rich wood hull construction, restrained stern gallery, modest brass detailing; no gunport battery, pirate decoration, warship aggression or excessive gold. Hull side is dominant and deck shallowly visible. Hull floats at a plausible load waterline: keel and underwater belly hidden by opaque water, narrow dark contact band and subtle broken reflection, no huge dark cutout shadow, no wake or foam ring.
+
+Fleet: a secondary medium two-masted trading vessel at another berth facing the OPPOSITE direction to the Hero, all its sails tightly furled; a small working sailing cutter with furled sail and one rowboat. Give each boat a clearly separate berth/water area, clear visible water gaps, no overlapping hulls, masts, rigging or bowsprits with other vessels. Secondary vessels share the hero's material language and finish but lower contrast. Ships are not identical copies.
+
+Water: sheltered and nearly still, rich translucent-looking teal color variation but opaque enough to hide submerged hulls, gentle wide soft ripples, restrained broken reflections matching nearby hulls and masonry, subtle shallow-water color by shore. No rough waves, sharp wave peaks, whitewater, splashes, giant ripple ellipses, or repeated procedural pattern.
+
+Paving: tightly laid small-scale stone setts with very fine low-contrast joints, individual setts smaller than a human foot; paving reads as a continuous gently mottled surface before individual stones. Never giant boulders or oversized plaza blocks. Quay retaining-wall stones may be larger because structurally distinct. Consistent human scale shown by a few unobtrusive small dock workers and pedestrians.
+
+Environmental storytelling: sensible clusters of coiled ropes, barrels, sacks, crates, handcart and modest cargo hoist close to working waterfront only; tiny people loading or walking, no crowd. Trees, planters and benches around the square, not spread across docks. Objects grounded with consistent soft contact shadows. Clear accessible circulation between square and working quay.
+
+Highest priorities: unified believable world, beautiful dominant furled-sail merchant ship, shared shallow 15-degree object elevation, calm natural hull-water contact, fine ground texture, thoughtful density and negative space. Final-quality art direction and finished scene, not individual assets, not an infographic.
+
+## Internal revision 1
+
+Use case: precise-object-edit / stylized-concept.
+Revise this complete Master Harbor Scene as ONE cohesive final illustration, retaining its beautiful warm stone, timber, teal water, unified light and finish, working quay, smaller fine paving, open square and foliage. Preserve the overall quality and environment identity. Correct the BENCHMARK CAMERA AND FLEET STAGING. Wide 16:9, high resolution. No typography or UI.
+
+1. Reframe wider and lower the viewing elevation markedly to 15 degrees ABOVE HORIZONTAL, yaw zero, hybrid orthographic 2.5D. Broad front-facing facade and hull elevations, only shallow narrow roof and deck visibility; do NOT keep this current high three-quarter camera. Ground/water use plan-style staging while upright objects follow shallow 15-degree illustrated elevations. No vanishing-point panorama or sky; full continuous environment fills the image. Shift to a refined illustrated adventure-game finish rather than photorealistic rendering while preserving all material richness. Every object follows the same projection.
+2. The entire hero ship including ALL three mastheads, bowsprit and rigging must fit in frame with a generous clear margin above the tallest mast. Reduce its footprint to about 40-45 percent of image width INCLUDING bowsprit so the full rig is visible, yet it remains the clearly dominant vessel. Stage it in a broadside shallow-deck view, bow pointing RIGHT. Show a credible moored Age-of-Sail merchant/exploration ship; retain handsome wooden construction, restrained brass, dignified stern. Replace the repetitive cannon-port-like white stripe with natural plank courses and only a few small practical openings; avoid warship mass and lavish gold. No keel below the opaque water.
+3. All canvas must be tightly FURLED directly ON the yards: compact rope-tied rolls, no deep hanging scallops, no partly unfurled canvas. This applies to every ship. Preserve coherent standing rigging and mast structure.
+4. Reverse ONLY the secondary medium trading ship at its own upper-right berth: its BOW and bowsprit point LEFT, stern cabin at RIGHT, physically rerendered in the shared camera rather than mirror-flipping scene lighting. Its entire silhouette and rigging stay visibly separate from the hero. Retain one small cutter and one dinghy in clearly separate water pockets, no vessel overlap. Believable mooring ropes to appropriate bollards.
+5. Keep water calm but reduce busy high-frequency bright ripples; broad soft gently varying teal water, quiet broken reflections immediately beneath ships, soft natural hull contact, no wakes, white foam rings or transparent underwater hulls. Retain a generous clear-water interval between all boats.
+6. Keep the square open, small individual pavers subordinate to human feet; all cargo clusters at waterfront, trees and benches at square. Keep structural quay masonry clearly distinct from fine square paving.
+
+These are corrections to the same cohesive harbor scene. Preserve quality, welcoming retro harbor-campus mood, shared material/edge/detail language, organic urban layout and believable human scale. Do not produce an asset sheet.
+
+## Internal revision 2 — selected
+
+Use case: precise-object-edit.
+FINAL restrained correction of this cohesive Master Harbor Scene. Preserve the composition, all buildings, their warm stone and roofs, planted open square, small-scale paving, organic quay, dock cargo, figures, coherent daylight, rich painterly material finish, shallow facade-dominant camera, waterline positions, all four boats, complete uncropped mastheads and the clear negative-water gaps. Hero bow points RIGHT, upper-right medium trader bow points LEFT. Do not change these invariants.
+
+Change ONLY these two details:
+A. Correct ALL furled sails on the three sailing vessels. Currently the ivory cloth hangs in deep decorative scalloped swags BELOW the spars. Replace EVERY such swag with a very slim compact tightly packed rolled/bunched canvas bundle lying directly ALONG AND ON TOP OF its wooden yard or boom, with small rope gaskets tied around it at regular intervals. Small irregular cream cloth rolls, approximately the thickness of the spar or at most twice its thickness. No visible hanging sail area, no scallops, no curtains, no partly lowered panels, no filled sails. Leave the thin visible wooden yard beneath the roll and preserve coherent fine rigging. Real Age-of-Sail harbor furling, including the cutter's boom. Keep each ship convincing, beautifully crafted and merchant/exploration in character.
+B. Soften the bright tightly repeated zigzag reflections in the open central water. Make them subdued broken vertical reflections close under the ships and quay, merging into broad calm softly varied teal water farther away. Preserve convincing natural buoyancy, opaque water hiding lower hull, delicate waterline contact and small low-energy rounded ripples. No white foam, wakes, radiating ellipse rings or sharp wave crests.
+
+Everything else is already intentional and should remain unchanged. One polished full-bleed landscape illustration, no text or borders.

@@ -1,0 +1,262 @@
+{
+  "hero-ship": {
+    "path": "assets/ships/hero-ship.png",
+    "source": "C:\\Users\\user\\.codex\\generated_images\\01a0dcae-5479-76f3-aaf6-1dc708eb65cb\\exec-b5c42783-b1fd-489f-95e5-0f03dcf9200a.png",
+    "source_size": [
+      1536,
+      1024
+    ],
+    "trim_box": [
+      55,
+      14,
+      1512,
+      968
+    ],
+    "size": [
+      1457,
+      954
+    ],
+    "bytes": 2108882,
+    "sha256": "dea327287715f3e37aeb883da6dc31df14b7e88316b97e346958c5760adb57d9",
+    "transparent_fraction": 0.5443,
+    "anchor": [
+      0.5,
+      1.0
+    ],
+    "repeat": false,
+    "normalization": "alpha-bounds trim; source alpha retained"
+  },
+  "secondary-vessel": {
+    "path": "assets/ships/secondary-vessel.png",
+    "source": "C:\\Users\\user\\.codex\\generated_images\\01a0dcae-5479-76f3-aaf6-1dc708eb65cb\\exec-8f631e3f-123b-4ffd-add2-2d73c2f81ba8.png",
+    "source_size": [
+      1536,
+      1024
+    ],
+    "trim_box": [
+      100,
+      23,
+      1436,
+      980
+    ],
+    "size": [
+      1336,
+      957
+    ],
+    "bytes": 1493504,
+    "sha256": "b2aa3f9f7978252b7e2319eca0d8f7a181a2b87e82310c1cc0795c60a9bc7214",
+    "transparent_fraction": 0.6779,
+    "anchor": [
+      0.5,
+      1.0
+    ],
+    "repeat": false,
+    "normalization": "alpha-bounds trim; source alpha retained"
+  },
+  "warehouse": {
+    "path": "assets/buildings/warehouse.png",
+    "source": "C:\\Users\\user\\.codex\\generated_images\\01a0dcae-5479-76f3-aaf6-1dc708eb65cb\\exec-55f7b83a-f681-4c79-8c5e-7dbe4209453d.png",
+    "source_size": [
+      1774,
+      887
+    ],
+    "trim_box": [
+      33,
+      138,
+      1744,
+      699
+    ],
+    "size": [
+      1711,
+      561
+    ],
+    "bytes": 1655197,
+    "sha256": "ab4a8f01fb374c24f51e453dbdc1ec78455f672c626a797da8aed25dbe537f2d",
+    "transparent_fraction": 0.1385,
+    "anchor": [
+      0.5,
+      1.0
+    ],
+    "repeat": false,
+    "normalization": "alpha-bounds trim; source alpha retained"
+  },
+  "quay-wall": {
+    "path": "assets/environment/quay-wall.png",
+    "source": "C:\\Users\\user\\.codex\\generated_images\\01a0dcae-5479-76f3-aaf6-1dc708eb65cb\\exec-ff4ee43e-ab91-458c-92b6-194b084b5136.png",
+    "source_size": [
+      1983,
+      793
+    ],
+    "trim_box": [
+      51,
+      269,
+      1936,
+      558
+    ],
+    "size": [
+      1885,
+      289
+    ],
+    "bytes": 1068730,
+    "sha256": "67bc840a4c3080ea19d6ba863729868b94f3d43042b7d26ea192268230ff8cc1",
+    "transparent_fraction": 0.0098,
+    "anchor": [
+      0.5,
+      1.0
+    ],
+    "repeat": false,
+    "normalization": "alpha-bounds trim; source alpha retained"
+  },
+  "timber-dock": {
+    "path": "assets/environment/timber-dock.png",
+    "source": "C:\\Users\\user\\.codex\\generated_images\\01a0dcae-5479-76f3-aaf6-1dc708eb65cb\\exec-8dc8428e-1f8d-49f0-b659-e6f6218224e2.png",
+    "source_size": [
+      2172,
+      724
+    ],
+    "trim_box": [
+      69,
+      181,
+      2103,
+      606
+    ],
+    "size": [
+      2034,
+      425
+    ],
+    "bytes": 1138472,
+    "sha256": "4cfc233165877b09b889526a6068c57ea9ced307a557f26a3d295caf3c7219a6",
+    "transparent_fraction": 0.3519,
+    "anchor": [
+      0.5,
+      1.0
+    ],
+    "repeat": false,
+    "normalization": "alpha-bounds trim; source alpha retained"
+  },
+  "tree-planter": {
+    "path": "assets/environment/tree-planter.png",
+    "source": "C:\\Users\\user\\.codex\\generated_images\\01a0dcae-5479-76f3-aaf6-1dc708eb65cb\\exec-0977ff9f-915f-45fb-9d4b-d15d059ce597.png",
+    "source_size": [
+      1374,
+      1145
+    ],
+    "trim_box": [
+      114,
+      22,
+      1270,
+      1107
+    ],
+    "size": [
+      1156,
+      1085
+    ],
+    "bytes": 1822220,
+    "sha256": "c10602c8bca99816c68189698cdf6e236f0e998c98a651515b4cb39361cff826",
+    "transparent_fraction": 0.4114,
+    "anchor": [
+      0.5,
+      1.0
+    ],
+    "repeat": false,
+    "normalization": "alpha-bounds trim; source alpha retained"
+  },
+  "harbor-banner": {
+    "path": "assets/props/harbor-banner.png",
+    "source": "C:\\Users\\user\\.codex\\generated_images\\01a0dcae-5479-76f3-aaf6-1dc708eb65cb\\exec-2d07812b-9003-44f4-8c48-c56fabcdb814.png",
+    "source_size": [
+      1024,
+      1536
+    ],
+    "trim_box": [
+      279,
+      33,
+      745,
+      1478
+    ],
+    "size": [
+      466,
+      1445
+    ],
+    "bytes": 902447,
+    "sha256": "c9625f94f3e382b42f93d729ae363518858a484e901ba7e929ebd3dbeed48ca1",
+    "transparent_fraction": 0.5651,
+    "anchor": [
+      0.5,
+      1.0
+    ],
+    "repeat": false,
+    "normalization": "alpha-bounds trim; source alpha retained"
+  },
+  "water-tile": {
+    "path": "assets/environment/water-tile.png",
+    "source": "C:\\Users\\user\\.codex\\generated_images\\01a0dcae-5479-76f3-aaf6-1dc708eb65cb\\exec-6ef97368-e17f-47c3-988a-11f9108bc23b.png",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "trim_box": null,
+    "size": [
+      512,
+      512
+    ],
+    "bytes": 321041,
+    "sha256": "50baa610bccad5e3c3eb3f51ad1ea17f2c7311bc3eca970e729b76a3d13dd4f9",
+    "transparent_fraction": 0.0,
+    "anchor": [
+      0.5,
+      1.0
+    ],
+    "repeat": true,
+    "normalization": "2x2 mirrored edge-compatible periodic tile; no generated repaint"
+  },
+  "paving-tile": {
+    "path": "assets/environment/paving-tile.png",
+    "source": "C:\\Users\\user\\.codex\\generated_images\\01a0dcae-5479-76f3-aaf6-1dc708eb65cb\\exec-19781456-acca-4866-ac5a-17c0e06cfba7.png",
+    "source_size": [
+      1254,
+      1254
+    ],
+    "trim_box": null,
+    "size": [
+      512,
+      512
+    ],
+    "bytes": 466310,
+    "sha256": "98fd0fd7fff7bdce7422cca1417019cbb95f897dc3594afca6445a2b0598bf8c",
+    "transparent_fraction": 0.0,
+    "anchor": [
+      0.5,
+      1.0
+    ],
+    "repeat": true,
+    "normalization": "2x2 mirrored edge-compatible periodic tile; no generated repaint"
+  },
+  "scale-worker": {
+    "path": "assets/props/scale-worker.png",
+    "source": "C:\\Users\\user\\.codex\\generated_images\\01a0dcae-5479-76f3-aaf6-1dc708eb65cb\\exec-e0300c2f-6ba9-4acb-b45b-46ea1b28ffa7.png",
+    "source_size": [
+      1024,
+      1536
+    ],
+    "trim_box": [
+      263,
+      96,
+      751,
+      1430
+    ],
+    "size": [
+      488,
+      1334
+    ],
+    "bytes": 961151,
+    "sha256": "4bcba1103b8b350024606783e68a0554b8c9659b37f0eb53537566fb1a999b69",
+    "transparent_fraction": 0.3861,
+    "anchor": [
+      0.5,
+      1.0
+    ],
+    "repeat": false,
+    "normalization": "alpha-bounds trim; source alpha retained"
+  }
+}

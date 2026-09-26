@@ -1,0 +1,229 @@
+{
+  "canvas": [
+    1920,
+    1080
+  ],
+  "master_used_as_background": false,
+  "source_of_scene": "Only assets in assets/ plus procedural contact, reflections, shadows, scale people and mooring lines",
+  "placements": [
+    {
+      "asset": "warehouse",
+      "x": 530,
+      "y": -75,
+      "width": 690,
+      "height": 226,
+      "anchor": "top-left",
+      "ground_shadow": true
+    },
+    {
+      "asset": "warehouse",
+      "x": 1100,
+      "y": 135,
+      "width": 780,
+      "height": 256,
+      "anchor": "top-left",
+      "ground_shadow": true
+    },
+    {
+      "asset": "tree-planter",
+      "x": -70,
+      "y": -60,
+      "width": 330,
+      "height": 310,
+      "anchor": "top-left",
+      "ground_shadow": true
+    },
+    {
+      "asset": "tree-planter",
+      "x": 245,
+      "y": -90,
+      "width": 320,
+      "height": 300,
+      "anchor": "top-left",
+      "ground_shadow": true
+    },
+    {
+      "asset": "tree-planter",
+      "x": 60,
+      "y": 260,
+      "width": 314,
+      "height": 295,
+      "anchor": "top-left",
+      "ground_shadow": true
+    },
+    {
+      "asset": "tree-planter",
+      "x": 1695,
+      "y": -120,
+      "width": 309,
+      "height": 290,
+      "anchor": "top-left",
+      "ground_shadow": true
+    },
+    {
+      "asset": "harbor-banner",
+      "x": 370,
+      "y": 264,
+      "width": 58,
+      "height": 180,
+      "anchor": "top-left",
+      "ground_shadow": true
+    },
+    {
+      "asset": "harbor-banner",
+      "x": 1770,
+      "y": 356,
+      "width": 56,
+      "height": 175,
+      "anchor": "top-left",
+      "ground_shadow": true
+    },
+    {
+      "asset": "quay-wall",
+      "segment": [
+        0.0,
+        744.0,
+        370.0,
+        744.0
+      ],
+      "wall_height": 58
+    },
+    {
+      "asset": "quay-wall",
+      "segment": [
+        370.0,
+        744.0,
+        680.0,
+        524.0
+      ],
+      "wall_height": 58
+    },
+    {
+      "asset": "quay-wall",
+      "segment": [
+        680.0,
+        524.0,
+        1093.3333333333333,
+        524.0
+      ],
+      "wall_height": 58
+    },
+    {
+      "asset": "quay-wall",
+      "segment": [
+        1093.3333333333333,
+        524.0,
+        1506.6666666666665,
+        524.0
+      ],
+      "wall_height": 58
+    },
+    {
+      "asset": "quay-wall",
+      "segment": [
+        1506.6666666666665,
+        524.0,
+        1920.0,
+        524.0
+      ],
+      "wall_height": 58
+    },
+    {
+      "asset": "timber-dock",
+      "x": 285,
+      "y": 727,
+      "width": 270,
+      "height": 56,
+      "anchor": "top-left",
+      "ground_shadow": false
+    },
+    {
+      "asset": "timber-dock",
+      "x": 548,
+      "y": 727,
+      "width": 270,
+      "height": 56,
+      "anchor": "top-left",
+      "ground_shadow": false
+    },
+    {
+      "asset": "hero-ship",
+      "x": 420,
+      "y": 283,
+      "width": 950,
+      "height": 622,
+      "waterline_y": 905
+    },
+    {
+      "asset": "secondary-vessel",
+      "x": 1535,
+      "y": 519,
+      "width": 315,
+      "height": 226,
+      "waterline_y": 745
+    },
+    {
+      "asset": "scale-worker",
+      "x": 337,
+      "y": 626,
+      "width": 16,
+      "height": 44,
+      "anchor": "top-left",
+      "ground_shadow": true
+    },
+    {
+      "asset": "scale-worker",
+      "x": 1467,
+      "y": 415,
+      "width": 16,
+      "height": 44,
+      "anchor": "top-left",
+      "ground_shadow": true
+    },
+    {
+      "asset": "scale-worker",
+      "x": 1712,
+      "y": 424,
+      "width": 16,
+      "height": 44,
+      "anchor": "top-left",
+      "ground_shadow": true
+    },
+    {
+      "asset": "scale-worker",
+      "x": 327,
+      "y": 206,
+      "width": 16,
+      "height": 44,
+      "anchor": "top-left",
+      "ground_shadow": true
+    },
+    {
+      "asset": "scale-worker",
+      "x": 1082,
+      "y": 401,
+      "width": 16,
+      "height": 44,
+      "anchor": "top-left",
+      "ground_shadow": true
+    }
+  ],
+  "surface_layers": [
+    {
+      "asset": "water-tile",
+      "repeat_size": [
+        600,
+        390
+      ],
+      "mask": "full canvas beneath land and objects"
+    },
+    {
+      "asset": "paving-tile",
+      "repeat_size": [
+        224,
+        116
+      ],
+      "mask": "land polygon above quay"
+    }
+  ]
+}

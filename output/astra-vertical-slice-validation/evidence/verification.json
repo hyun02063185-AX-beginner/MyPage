@@ -1,0 +1,20 @@
+{
+  "master_sha256": "A0652831DE4E284DC45EF755603AC49BC81A443512E0988F0843DCE5D5711787",
+  "master_unchanged": true,
+  "required_files_present": [
+    "style-extraction.md",
+    "generation-record.md",
+    "validation-result.md",
+    "representative-asset-sheet.png",
+    "vertical-slice-reconstruction-final.png"
+  ],
+  "asset_count": 10,
+  "required_categories": 9,
+  "optional_scale_worker": true,
+  "all_asset_hashes_verified": true,
+  "all_assets_used_in_scene": true,
+  "master_used_as_scene_background": false,
+  "motion_frame_count": 12,
+  "motion_frames_differ": true,
+  "runtime_tests": "not applicable; runtime unchanged"
+}
