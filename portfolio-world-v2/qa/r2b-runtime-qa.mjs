@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, stat, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -8,13 +8,21 @@ import { tmpdir } from "node:os";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(here, "..");
 const repoRoot = path.resolve(projectRoot, "..");
-const reportsDir = path.join(repoRoot, "reports", "portfolio-world-rebuild", "evidence", "r2b");
+// `--set <name>` picks the evidence directory (default r2d). r2b is historical evidence and is never overwritten
+// unless `--allow-overwrite-historical` is passed explicitly.
+const argValue = (flag, fallback) => (process.argv.includes(flag) ? process.argv[process.argv.indexOf(flag) + 1] : fallback);
+const evidenceSet = argValue("--set", "r2d");
+if (!/^r\d+[a-z]?$/.test(evidenceSet)) throw new Error(`Invalid --set "${evidenceSet}"; expected a phase id like r2d.`);
+if (evidenceSet === "r2b" && !process.argv.includes("--allow-overwrite-historical")) {
+  throw new Error("Refusing to overwrite historical r2b evidence. Use --set r2d (default) or pass --allow-overwrite-historical.");
+}
+const reportsDir = path.join(repoRoot, "reports", "portfolio-world-rebuild", "evidence", evidenceSet);
 const edgePaths = [
   "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
   "C:/Program Files/Microsoft/Edge/Application/msedge.exe",
 ];
 const edgePath = edgePaths.find((candidate) => BunOrNodeFileExists(candidate));
-const mode = process.argv.includes("--mode") ? process.argv[process.argv.indexOf("--mode") + 1] : "dev";
+const mode = argValue("--mode", "dev");
 
 function BunOrNodeFileExists(candidate) {
   try {
@@ -115,7 +123,10 @@ async function runCapture(client, origin, relativePath, fileName, qa, projection
     throw new Error(`${fileName}: deterministic state mismatch: ${state.result.value}`);
   }
   const screenshot = await client.command("Page.captureScreenshot", { format: "png" });
-  await writeFile(path.join(reportsDir, fileName), Buffer.from(screenshot.data, "base64"));
+  const outputPath = path.join(reportsDir, fileName);
+  await writeFile(outputPath, Buffer.from(screenshot.data, "base64"));
+  const { size } = await stat(outputPath);
+  if (size === 0) throw new Error(`${fileName}: screenshot written with zero bytes`);
 
   const errors = client.events.slice(errorsBefore).filter((event) => {
     if (event.method === "Runtime.exceptionThrown") return true;
@@ -126,7 +137,7 @@ async function runCapture(client, origin, relativePath, fileName, qa, projection
     return false;
   });
   if (errors.length) throw new Error(`${fileName}: browser errors: ${JSON.stringify(errors, null, 2)}`);
-  return { fileName, state: status.qa };
+  return { fileName, bytes: size, state: status.qa };
 }
 
 async function main() {
@@ -184,7 +195,7 @@ async function main() {
     for (const [fileName, qa, projection] of captures) results.push(await runCapture(client, origin, relativePath, fileName, qa, projection));
     await client.command("Browser.close");
     await client.close();
-    console.log(JSON.stringify({ mode, viewport: "1280x720", results }, null, 2));
+    console.log(JSON.stringify({ mode, evidenceSet, viewport: "1280x720", results }, null, 2));
   } finally {
     vite.kill();
     edge.kill();
