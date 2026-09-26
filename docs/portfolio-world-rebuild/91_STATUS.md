@@ -1,10 +1,10 @@
 # 91. Portfolio World Rebuild — Project Status
 
-Updated: 2026-09-26 (R2C)
+Updated: 2026-09-26 (R2D)
 
 ## Phase
 
-PORTFOLIO WORLD REBUILD — R0/R1/R1.1 COMPLETE; HUMAN GATE 1 = APPROVED; R2A/R2A.1 COMPLETE; R2B BLOCKOUT IMPLEMENTATION COMPLETE; R2C INDEPENDENT VISUAL QA COMPLETE — REPAIR NEEDED
+PORTFOLIO WORLD REBUILD — R0/R1/R1.1 COMPLETE; HUMAN GATE 1 = APPROVED; R2A/R2A.1 COMPLETE; R2B BLOCKOUT IMPLEMENTATION COMPLETE; R2C INDEPENDENT VISUAL QA COMPLETE; R2D BLOCKOUT REPAIR IMPLEMENTED — AWAITING INDEPENDENT RECHECK
 
 ```text
 R0_SKILL_QUALIFICATION   = COMPLETE
@@ -17,11 +17,25 @@ R2A_RUNTIME_QA_PLAN      = COMPLETE — Blockout PASS conditions expanded to 8
 R2B_BLOCKOUT_RUNTIME     = COMPLETE — isolated Candidate A+ Graphics blockout in portfolio-world-v2/ and world-v2/
 R2B_FUNCTIONAL_QA        = COMPLETE — dev + build fixed-viewport harness clean; deterministic evidence captured
 R2B_VISUAL_QA            = COMPLETE — independent R2C review; 3/8 conditions carry a Major failure
-NEXT                     = R2B_BLOCKOUT_REPAIR (layout junction separation, door/player scale fix, projection-delta widening)
-GATE                     = NEEDS_R2B_BLOCKOUT_REPAIR
+R2D_BLOCKOUT_REPAIR      = IMPLEMENTED — junction separation, door/player scale fix, widened projection variants; dev + build functional QA clean
+R2D_VISUAL_QA            = NOT DONE — no Visual PASS claimed by the implementer
+NEXT                     = R2D_INDEPENDENT_RECHECK
+GATE                     = READY_FOR_R2D_INDEPENDENT_RECHECK
 ```
 
-## Current Work Unit
+## Current Work Unit (R2D)
+
+R2D repaired the three R2C Majors without redesigning Candidate A+ (`reports/portfolio-world-rebuild/r2d-blockout-repair.md`):
+
+1. **Junctions** — branch origins are now spine vertices in shared route constants. Order: working dock -> Guild stub -> Harbor Square (moved west, a widening on the spine) -> Academy branch (275 px past the Square) -> Exhibition Hall -> Hero Quay. Guild->Academy origin gap 386 -> 555 px; Academy origin no longer touches the Square.
+2. **Door/player** — door 38 x 68 px (~1.26x the 54 px player), fixed; player stands beside it on the same ground line in the `scale` state.
+3. **Projection** — LOW/MID/HIGH exchange facade/hull side for roof/deck top plane on the hall, Hero Ship and quay; pixel change vs R2B rose from <1% to 2–4% (Level C only).
+
+Also fixed: the drawn route was not walkable through the basin edge in R2B; corridors now derive from the route constants. Harness gained `--set <phase>` (default `r2d`, `r2b` protected).
+
+Evidence: `reports/portfolio-world-rebuild/evidence/r2d/` (7 PNGs, 1280 x 720, build-mode run, all opened). Functional QA: typecheck, build, dev QA, build QA all pass. **No Visual PASS.** Independent CC recheck owns whether the layout now reads as a spine with branches, whether the door reads as a human doorway, and whether the variants are judgeable.
+
+## Prior Work Unit (R2C)
 
 R2C performed independent visual QA of the R2B blockout evidence (`reports/portfolio-world-rebuild/r2c-independent-blockout-visual-qa.md`). All seven evidence PNGs were opened and inspected. Result: 5 of 8 Blockout PASS conditions pass or partially pass; **3 carry a documented Major failure** —
 
@@ -56,4 +70,4 @@ Files updated: `05_HARBOR_BLOCKOUT_SPEC.md`, `06_SCALE_CAMERA_CALIBRATION_PLAN.m
 
 ## Next
 
-Repair the R2B blockout per the R2C findings (§ Current Work Unit above): separate the destination-branch junctions, fix the scale-calibration door/player overlap and proportion, and widen the projection-elevation delta. Re-capture evidence with `npm run qa:runtime -- --mode build` and re-run visual QA before returning to `READY_FOR_REPRESENTATIVE_VISUAL_TARGET`.
+Independent R2D recheck (not self-graded): open all seven `evidence/r2d/` frames, judge Blockout PASS conditions 3, 4 and 7 and the LOW/MID/HIGH comparison against `00_VISUAL_BRIEF.md`, and only then decide whether to proceed to `READY_FOR_REPRESENTATIVE_VISUAL_TARGET`.

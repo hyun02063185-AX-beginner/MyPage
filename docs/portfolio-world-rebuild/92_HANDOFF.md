@@ -1,10 +1,10 @@
 # 92. Portfolio World Rebuild — Handoff
 
-Updated: 2026-09-26 (R2C)
+Updated: 2026-09-26 (R2D)
 
 ## State
 
-**R0/R1/R1.1 COMPLETE. HUMAN GATE 1 = APPROVED. R2A/R2A.1 COMPLETE. R2B BLOCKOUT IMPLEMENTATION COMPLETE. R2C INDEPENDENT VISUAL QA COMPLETE — BLOCKOUT REPAIR NEEDED.** R2B created only the isolated v2 source/output trees; v1 source, v1 artifact, v1 assets, and root site link are untouched. R2C made no runtime or asset changes — review only. `feature/portfolio-world-concept-vertical-slice` (v1's full history) remains preserved as reference.
+**R0/R1/R1.1 COMPLETE. HUMAN GATE 1 = APPROVED. R2A/R2A.1 COMPLETE. R2B BLOCKOUT IMPLEMENTATION COMPLETE. R2C INDEPENDENT VISUAL QA COMPLETE. R2D BLOCKOUT REPAIR IMPLEMENTED — AWAITING INDEPENDENT RECHECK.** R2B created only the isolated v2 source/output trees; v1 source, v1 artifact, v1 assets, and root site link are untouched. R2C made no runtime or asset changes — review only. `feature/portfolio-world-concept-vertical-slice` (v1's full history) remains preserved as reference.
 
 ```text
 R0_SKILL_QUALIFICATION = COMPLETE
@@ -14,9 +14,23 @@ R2A_1_CORRECTION        = COMPLETE
 R2B_BLOCKOUT            = COMPLETE
 R2B_FUNCTIONAL_QA       = COMPLETE (dev + build; no visual verdict)
 R2C_VISUAL_QA           = COMPLETE — 3/8 conditions carry a Major failure
-NEXT                    = R2D_BLOCKOUT_REPAIR
-GATE                    = NEEDS_R2B_BLOCKOUT_REPAIR
+R2D_BLOCKOUT_REPAIR     = IMPLEMENTED (dev + build functional QA clean; no Visual PASS claimed)
+NEXT                    = R2D_INDEPENDENT_RECHECK
+GATE                    = READY_FOR_R2D_INDEPENDENT_RECHECK
 ```
+
+## R2D Delivery (implementer — not a visual verdict)
+
+Report: `reports/portfolio-world-rebuild/r2d-blockout-repair.md`. Evidence: `reports/portfolio-world-rebuild/evidence/r2d/` (7 PNGs; `evidence/r2b/` preserved untouched).
+
+- **Junctions:** `SPINE`/`GUILD_BRANCH`/`ACADEMY_BRANCH`/`SQUARE` are shared constants in `portfolio-world-v2/src/scenes/WorldScene.ts`; branch origins are spine vertices. Order: working dock -> Guild stub (560,835) -> Harbor Square (centre 695,585) -> Academy branch (1085,656) -> Exhibition Hall -> Hero Quay. Guild/Academy are 284/396 px from the Square centre (deliberately not equidistant) and 555 px apart.
+- **Scale:** door 38 x 68 px (~1.26x the 54 px player), fixed; `scale` QA state puts the player beside it. Forecourt paving now sits under the hall; bench/lamp share the ground line.
+- **Projection:** LOW/MID/HIGH exchange facade/hull side for roof/deck top plane on hall, Hero Ship and quay. Camera identical. Nothing selected.
+- **Also:** route corridors are now walkable through the basin edge; harness takes `--set <phase>` (default `r2d`; `r2b` needs `--allow-overwrite-historical`).
+
+**For the independent recheck:** judge screenshot B at squint distance (spine with branches, or four roads from one area?), screenshot D directly (door as a human doorway, player beside it), and the three projection frames by eye. Things to look at critically: the Guild road still runs near the Square's west side; Academy's origin is 153 px from the hall roof edge (hall was fixed by the preserve list); forecourt/Square still overlap the basin edge. Do not accept the pixel-diff percentage as evidence.
+
+Run: from `portfolio-world-v2/`, `npm run typecheck`, `npm run build`, `npm run qa:runtime` and `npm run qa:runtime -- --mode build` (both write `evidence/r2d/`).
 
 ## R2B Delivery
 
@@ -40,7 +54,7 @@ The Low/Mid/High illustrated-projection comparison also produced no visually dif
 
 **Final Gate: `NEEDS_R2B_BLOCKOUT_REPAIR`.**
 
-## Next Owner: R2D Blockout Repair
+## R2D Scope (completed — kept as the brief R2D worked from)
 
 Do not redesign Candidate A+ — its relational rules (`05_HARBOR_BLOCKOUT_SPEC.md` §6) are sound and not in question. Fix only:
 
@@ -73,7 +87,7 @@ No new top-level tree. Edits only:
 
 ## Next Recommended Step (superseded by R2C above — kept as historical record of the R2A.1→R2B handoff)
 
-~~R2B: implement the blockout from `05_HARBOR_BLOCKOUT_SPEC.md` §8...~~ Done in R2B. See "Next Owner: R2D Blockout Repair" above for the current next step.
+~~R2B: implement the blockout from `05_HARBOR_BLOCKOUT_SPEC.md` §8...~~ Done in R2B. See "R2D Delivery" above for the current state.
 
 ## Do Not
 
