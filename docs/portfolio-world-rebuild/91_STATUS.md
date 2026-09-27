@@ -1,10 +1,10 @@
 # 91. Portfolio World Rebuild — Project Status
 
-Updated: 2026-09-27 (R4.2 closeout)
+Updated: 2026-09-27 (R5A portfolio interaction layer v1)
 
 ## Phase
 
-PORTFOLIO WORLD REBUILD — R4.2 GOLDEN MASTER PLAYABLE SLICE APPROVED
+PORTFOLIO WORLD REBUILD — R5A PORTFOLIO INTERACTION LAYER v1 IMPLEMENTED
 
 ```text
 R0_SKILL_QUALIFICATION   = COMPLETE
@@ -24,11 +24,18 @@ R4_2_PLAYER_INTEGRATION  = COMPLETE — ground-anchored player, subdued derivati
 R2E_VISUAL_RECHECK       = COMPLETE — independent; all three R2C Majors closed; 0 Blocker / 0 Major / 4 Minor / 2 Polish
 PROJECTION               = MID working baseline (not locked)
 HUMAN_GATE_2             = APPROVED
-NEXT                     = R5A_PORTFOLIO_INTERACTION_LAYER_V1
-GATE                     = VISUAL_PASS__HUMAN_APPROVED
+R5A_INTERACTION_LAYER    = COMPLETE — real MyPage destinations, visitor-facing panels, opt-in debug overlay
+NEXT                     = INDEPENDENT_PRODUCT_VISUAL_REVIEW
+GATE                     = READY_FOR_R5A_INDEPENDENT_PRODUCT_VISUAL_REVIEW
 ```
 
-## Current Work Unit (R4.2 closeout)
+## Current Work Unit (R5A portfolio interaction layer v1)
+
+R5A keeps the locked Golden Master, player, cargo occlusion, camera clamp, and navigation geometry intact. It adds three reachable, real-content interactions: Harbor Square → `../#about`, Exhibition Hall → `../gallery.html`, and Hero Quay → `../career.html`. The visitor flow is proximity + **E** or a short pointer/touch tap, followed by a compact title/description/action panel with pointer close and Escape close. No permanent route or QA labels appear in normal mode; `?pwDebug=1` is the explicit opt-in calibration overlay.
+
+Built normal-mode evidence is `reports/portfolio-world-rebuild/evidence/r5a/` (9 captures); the separate dev run is `evidence/r5a1/`. Typecheck, build, dev/build runtime QA, route/collision, all hotspot reachability/destinations, keyboard/pointer activation, and browser error checks pass. R5A is implementation-complete, not a final independent visual verdict.
+
+## Previous Work Unit (R4.2 closeout)
 
 The user-supplied Golden Master remains locked as `world.reference.golden-master.r4`; scene plate plus authored Phaser layers is the approved method. R4.2 anchors the player to confirmed plaza, quay, and Hall stair-landing ground pixels, uses a muted local player derivative with contact shadow, preserves cargo occlusion/camera bounds, and retains the Harbor Square → Exhibition Hall → Hero Quay → Hero Ship interaction route. Final 1280 × 720 evidence is `reports/portfolio-world-rebuild/evidence/r4-2/`; the implementation record is `reports/portfolio-world-rebuild/r4-golden-master-representative-vertical-slice.md`.
 

@@ -13,6 +13,9 @@ declare global {
       camera: { x: number; y: number; zoom: number };
       player: { x: number; y: number };
       hotspotActive: boolean;
+      activeHotspotId: "square" | "gallery" | "career" | null;
+      debug: boolean;
+      hotspots: Array<{ id: "square" | "gallery" | "career"; destination: string; reachable: boolean }>;
       walkability: { harborSquareToHall: boolean; hallToHeroQuay: boolean; heroShipApproach: boolean };
     };
   }

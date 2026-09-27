@@ -122,11 +122,16 @@ async function runCapture(client, origin, relativePath, fileName, qa, projection
   if (status.qa.qaState !== qa || status.qa.projection !== projection) {
     throw new Error(`${fileName}: deterministic state mismatch: ${state.result.value}`);
   }
+  if (status.qa.debug) throw new Error(`${fileName}: normal visitor capture unexpectedly enabled debug mode.`);
   if (!status.qa.walkability?.harborSquareToHall || !status.qa.walkability?.hallToHeroQuay || !status.qa.walkability?.heroShipApproach) {
     throw new Error(`${fileName}: representative route/walkability assertion failed: ${state.result.value}`);
   }
-  if (qa === "hotspot" && !status.qa.hotspotActive) {
-    throw new Error(`${fileName}: Exhibition Hall hotspot did not activate: ${state.result.value}`);
+  if (!status.qa.hotspots?.every((hotspot) => hotspot.reachable)) {
+    throw new Error(`${fileName}: a production portfolio hotspot is not reachable: ${state.result.value}`);
+  }
+  const expectedHotspot = qa === "square" ? "square" : qa === "hotspot" || qa === "gallery" ? "gallery" : qa === "career" ? "career" : undefined;
+  if (expectedHotspot && (!status.qa.hotspotActive || status.qa.activeHotspotId !== expectedHotspot)) {
+    throw new Error(`${fileName}: ${expectedHotspot} hotspot did not activate: ${state.result.value}`);
   }
   const screenshot = await client.command("Page.captureScreenshot", { format: "png" });
   const outputPath = path.join(reportsDir, fileName);
@@ -144,6 +149,54 @@ async function runCapture(client, origin, relativePath, fileName, qa, projection
   });
   if (errors.length) throw new Error(`${fileName}: browser errors: ${JSON.stringify(errors, null, 2)}`);
   return { fileName, bytes: size, state: status.qa };
+}
+
+async function readQaState(client) {
+  const evaluated = await client.command("Runtime.evaluate", {
+    expression: "JSON.stringify(window.__PORTFOLIO_WORLD_V2_QA__)",
+    returnByValue: true,
+  });
+  return evaluated.result.value ? JSON.parse(evaluated.result.value) : undefined;
+}
+
+async function waitForQa(client, predicate, label) {
+  for (let attempt = 0; attempt < 40; attempt += 1) {
+    await delay(100);
+    const qa = await readQaState(client);
+    if (predicate(qa)) return qa;
+  }
+  throw new Error(`${label}: expected QA state was not reached.`);
+}
+
+async function assertInteractionInputs(client, origin, relativePath) {
+  const navigate = async () => {
+    await client.command("Page.navigate", { url: `${origin}${relativePath}?qa=entry&projection=mid` });
+    return waitForQa(client, (qa) => qa?.qaState === "entry" && qa?.debug === false, "interaction setup");
+  };
+
+  await navigate();
+  await client.command("Input.dispatchKeyEvent", { type: "keyDown", key: "e", code: "KeyE", windowsVirtualKeyCode: 69 });
+  await client.command("Input.dispatchKeyEvent", { type: "keyUp", key: "e", code: "KeyE", windowsVirtualKeyCode: 69 });
+  const keyboard = await waitForQa(client, (qa) => qa?.activeHotspotId === "square", "keyboard interaction");
+  await client.command("Input.dispatchKeyEvent", { type: "keyDown", key: "Escape", code: "Escape", windowsVirtualKeyCode: 27 });
+  await client.command("Input.dispatchKeyEvent", { type: "keyUp", key: "Escape", code: "Escape", windowsVirtualKeyCode: 27 });
+  await waitForQa(client, (qa) => !qa?.hotspotActive, "keyboard close");
+
+  await navigate();
+  await client.command("Input.dispatchMouseEvent", { type: "mousePressed", x: 90, y: 40, button: "left", clickCount: 1 });
+  await client.command("Input.dispatchMouseEvent", { type: "mouseReleased", x: 90, y: 40, button: "left", clickCount: 1 });
+  const pointer = await waitForQa(client, (qa) => qa?.activeHotspotId === "square", "pointer interaction");
+  const destinations = Object.fromEntries(pointer.hotspots.map((hotspot) => [hotspot.id, hotspot.destination]));
+  if (destinations.square !== "../#about" || destinations.gallery !== "../gallery.html" || destinations.career !== "../career.html") {
+    throw new Error(`portfolio destinations mismatch: ${JSON.stringify(destinations)}`);
+  }
+  return { keyboard: keyboard.activeHotspotId, pointer: pointer.activeHotspotId, destinations };
+}
+
+async function assertDebugMode(client, origin, relativePath) {
+  await client.command("Page.navigate", { url: `${origin}${relativePath}?qa=entry&projection=mid&pwDebug=1` });
+  const debug = await waitForQa(client, (qa) => qa?.qaState === "entry" && qa?.debug === true, "debug mode");
+  return { enabled: debug.debug };
 }
 
 async function main() {
@@ -196,12 +249,16 @@ async function main() {
       ["E-square-to-hall-route.png", "route", "mid"],
       ["F-foreground-occlusion.png", "occlusion", "mid"],
       ["G-exhibition-hotspot.png", "hotspot", "mid"],
+      ["H-portfolio-square-hotspot.png", "square", "mid"],
+      ["I-career-hotspot.png", "career", "mid"],
     ];
     const results = [];
     for (const [fileName, qa, projection] of captures) results.push(await runCapture(client, origin, relativePath, fileName, qa, projection));
+    const interactions = await assertInteractionInputs(client, origin, relativePath);
+    const debug = await assertDebugMode(client, origin, relativePath);
     await client.command("Browser.close");
     await client.close();
-    console.log(JSON.stringify({ mode, evidenceSet, viewport: "1280x720", results }, null, 2));
+    console.log(JSON.stringify({ mode, evidenceSet, viewport: "1280x720", results, interactions, debug }, null, 2));
   } finally {
     vite.kill();
     edge.kill();

@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import { PLAYER_SPEED, WORLD_HEIGHT, WORLD_WIDTH } from "../config";
 
 type Projection = "low" | "mid" | "high";
-type QaState = "entry" | "overview" | "hero" | "native" | "scale" | "route" | "occlusion" | "hotspot";
+type QaState = "entry" | "overview" | "hero" | "native" | "scale" | "route" | "occlusion" | "hotspot" | "square" | "gallery" | "career";
 type MovementKeys = Record<"up" | "down" | "left" | "right" | "w" | "a" | "s" | "d" | "interact", Phaser.Input.Keyboard.Key>;
 
 const DEPTH = {
@@ -43,6 +43,18 @@ const COLORS = {
 
 type Point = readonly [number, number];
 
+type HotspotId = "square" | "gallery" | "career";
+
+interface PortfolioHotspot {
+  id: HotspotId;
+  position: Point;
+  radius: number;
+  title: string;
+  description: string;
+  actionLabel: string;
+  destination: string;
+}
+
 /**
  * R2D route geometry. Branch origins are spine vertices, so a branch can only leave where the spine
  * actually is. Sequence along the spine: working dock -> Guild branch (bend) -> Harbor Square
@@ -62,6 +74,35 @@ const HALL = { x: 1400, baseY: 830 } as const;
 // the plate's 1.5625x scale and x=500 offset: plaza (163,333), Hall stair landing (131,262), quay (570,470).
 const EXHIBITION_HOTSPOT = { x: 705, y: 410, radius: 62 } as const;
 const HERO_QUAY_GROUND: Point = [1390, 735];
+const PORTFOLIO_HOTSPOTS: readonly PortfolioHotspot[] = [
+  {
+    id: "square",
+    position: [755, 520],
+    radius: 66,
+    title: "포트폴리오 안내",
+    description: "AX 전문강사 김현래의 소개와 프로젝트를 둘러볼 수 있습니다.",
+    actionLabel: "소개 보기",
+    destination: "../#about",
+  },
+  {
+    id: "gallery",
+    position: [EXHIBITION_HOTSPOT.x, EXHIBITION_HOTSPOT.y],
+    radius: EXHIBITION_HOTSPOT.radius,
+    title: "AI·AX 개념 갤러리",
+    description: "AI, AX, IT의 어려운 개념을 그림과 쉬운 설명으로 정리한 교육 콘텐츠입니다.",
+    actionLabel: "갤러리 열어보기",
+    destination: "../gallery.html",
+  },
+  {
+    id: "career",
+    position: HERO_QUAY_GROUND,
+    radius: 72,
+    title: "커리어",
+    description: "만드는 사람에서 지키고, 운영하고, 가르치는 사람으로 이어진 커리어를 소개합니다.",
+    actionLabel: "커리어 열어보기",
+    destination: "../career.html",
+  },
+];
 const GOLDEN_SPINE: readonly Point[] = [[755, 520], [810, 525], [825, 540], HERO_QUAY_GROUND];
 const GOLDEN_HALL_BRANCH: readonly Point[] = [[755, 520], [720, 455], [EXHIBITION_HOTSPOT.x, EXHIBITION_HOTSPOT.y]];
 const GOLDEN_PLATE_BOUNDS = { x: 500, y: 0, width: 1600, height: 1600 } as const;
@@ -111,6 +152,9 @@ const QA_VIEWS: Record<QaState, { player: Phaser.Math.Vector2; camera: Phaser.Ma
   route: { player: new Phaser.Math.Vector2(825, 540), camera: new Phaser.Math.Vector2(970, 580), zoom: 0.88 },
   occlusion: { player: new Phaser.Math.Vector2(835, 570), camera: new Phaser.Math.Vector2(855, 570), zoom: 1.02 },
   hotspot: { player: new Phaser.Math.Vector2(EXHIBITION_HOTSPOT.x, EXHIBITION_HOTSPOT.y), camera: new Phaser.Math.Vector2(760, 400), zoom: 0.9 },
+  square: { player: new Phaser.Math.Vector2(755, 520), camera: new Phaser.Math.Vector2(970, 580), zoom: 0.88 },
+  gallery: { player: new Phaser.Math.Vector2(EXHIBITION_HOTSPOT.x, EXHIBITION_HOTSPOT.y), camera: new Phaser.Math.Vector2(760, 400), zoom: 0.9 },
+  career: { player: new Phaser.Math.Vector2(...HERO_QUAY_GROUND), camera: new Phaser.Math.Vector2(1380, 760), zoom: 0.9 },
 };
 
 function distanceToSegment(px: number, py: number, a: Point, b: Point): number {
@@ -132,12 +176,13 @@ function pickProjection(value: string | null): Projection {
 }
 
 function pickQaState(value: string | null): QaState | undefined {
-  return value === "entry" || value === "overview" || value === "hero" || value === "native" || value === "scale" || value === "route" || value === "occlusion" || value === "hotspot" ? value : undefined;
+  return value === "entry" || value === "overview" || value === "hero" || value === "native" || value === "scale" || value === "route" || value === "occlusion" || value === "hotspot" || value === "square" || value === "gallery" || value === "career" ? value : undefined;
 }
 
 /** Candidate A+ flat-shape blockout. Water is one calm basin; the built settlement stays deliberately asymmetric. */
 export class WorldScene extends Phaser.Scene {
   private readonly usesGoldenMasterPlate = true;
+  private debugMode = false;
   private projection: Projection = "mid";
   private qaState: QaState | "normal" = "normal";
   private player = new Phaser.Math.Vector2(SPAWN[0], SPAWN[1]);
@@ -146,9 +191,14 @@ export class WorldScene extends Phaser.Scene {
   private movementKeys?: MovementKeys;
   private entryFraming = false;
   private touchIntent = new Phaser.Math.Vector2();
-  private interactionPrompt?: Phaser.GameObjects.Text;
+  private interactionPrompt?: Phaser.GameObjects.Container;
   private interactionPanel?: Phaser.GameObjects.Container;
-  private hotspotActive = false;
+  private interactionPromptText?: Phaser.GameObjects.Text;
+  private panelTitle?: Phaser.GameObjects.Text;
+  private panelCopy?: Phaser.GameObjects.Text;
+  private panelAction?: Phaser.GameObjects.Text;
+  private activeHotspot?: PortfolioHotspot;
+  private nearbyHotspot?: PortfolioHotspot;
 
   public constructor() {
     super("WorldScene");
@@ -159,6 +209,7 @@ export class WorldScene extends Phaser.Scene {
     this.projection = pickProjection(query.get("projection"));
     const requestedQa = pickQaState(query.get("qa"));
     this.qaState = requestedQa ?? "normal";
+    this.debugMode = query.get("pwDebug") === "1";
 
     if (this.usesGoldenMasterPlate) {
       this.drawGoldenMasterPlate();
@@ -171,17 +222,24 @@ export class WorldScene extends Phaser.Scene {
       this.drawHarborDressing();
     }
     this.drawForegroundOccluders();
-    this.drawLabels();
+    if (this.debugMode) {
+      this.drawDebugGuides();
+      this.drawLabels();
+    }
     this.createPlayer();
     this.configureCamera(requestedQa);
     this.installInput();
     this.createInteractionUi();
-    if (requestedQa === "hotspot") this.activateExhibitionHotspot();
+    const qaHotspot = requestedQa ? this.qaHotspotId(requestedQa) : undefined;
+    if (qaHotspot) this.activateHotspot(this.getHotspot(qaHotspot));
+    this.updateInteractionPrompt();
     this.publishQaState();
   }
 
   public update(_time: number, delta: number): void {
     if (this.qaState !== "normal") return;
+    this.updateInteractionPrompt();
+    if (this.activeHotspot) return;
     let dx = 0;
     let dy = 0;
     if (this.movementKeys) {
@@ -194,7 +252,6 @@ export class WorldScene extends Phaser.Scene {
       dx = this.touchIntent.x;
       dy = this.touchIntent.y;
     }
-    this.updateInteractionPrompt();
     if (dx === 0 && dy === 0) return;
     if (this.entryFraming) {
       // Start navigation from the harbor-first vista without stranding the camera when movement begins.
@@ -279,8 +336,11 @@ export class WorldScene extends Phaser.Scene {
     this.add.image(1300, 800, "golden-master-r4")
       .setDisplaySize(1600, 1600)
       .setDepth(DEPTH.terrain);
+  }
+
+  /** Calibration geometry is intentionally opt-in via `?pwDebug=1`, never visitor-facing. */
+  private drawDebugGuides(): void {
     const route = this.add.graphics().setDepth(DEPTH.shoreline);
-    // Soft route cues are deliberately subtle: spatial readability should come from the plate's quay/plaza first.
     route.lineStyle(5, 0xf4e5bf, 0.34).beginPath().moveTo(GOLDEN_SPINE[0][0], GOLDEN_SPINE[0][1]);
     for (const [x, y] of GOLDEN_SPINE.slice(1)) route.lineTo(x, y);
     route.strokePath();
@@ -581,7 +641,15 @@ export class WorldScene extends Phaser.Scene {
         d: Phaser.Input.Keyboard.KeyCodes.D,
         interact: Phaser.Input.Keyboard.KeyCodes.E,
       }) as MovementKeys;
-      this.movementKeys.interact.on("down", () => this.activateExhibitionHotspot());
+      this.movementKeys.interact.on("down", () => {
+        if (this.activeHotspot) this.openActiveDestination();
+        else this.activateNearbyHotspot();
+      });
+      this.input.keyboard.on("keydown-ESC", () => this.closeInteractionPanel());
+      this.input.keyboard.on("keydown-ENTER", () => {
+        if (this.activeHotspot) this.openActiveDestination();
+        else this.activateNearbyHotspot();
+      });
     }
     // Pointer input is intentionally expressed as world-space movement intent: touch controls can replace
     // this producer without changing movement, collision, or interaction rules.
@@ -589,7 +657,11 @@ export class WorldScene extends Phaser.Scene {
     this.input.on("pointermove", (pointer: Phaser.Input.Pointer) => {
       if (pointer.isDown) this.setTouchIntent(pointer);
     });
-    this.input.on("pointerup", () => this.touchIntent.set(0, 0));
+    this.input.on("pointerup", (pointer: Phaser.Input.Pointer) => {
+      // A short tap while standing at a landmark is the touch equivalent of the E prompt.
+      if (pointer.getDistance() < 12) this.activateNearbyHotspot();
+      this.touchIntent.set(0, 0);
+    });
   }
 
   private setTouchIntent(pointer: Phaser.Input.Pointer): void {
@@ -599,46 +671,114 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private createInteractionUi(): void {
-    this.interactionPrompt = this.add.text(0, 0, "Press E · Exhibition Hall portfolio", {
+    const promptBackground = this.add.rectangle(0, 0, 270, 42, 0x18303a, 0.86)
+      .setOrigin(0, 0)
+      .setScrollFactor(0)
+      .setInteractive({ useHandCursor: true });
+    this.interactionPromptText = this.add.text(11, 10, "", {
       fontFamily: "ui-sans-serif, system-ui, sans-serif",
-      fontSize: "18px",
+      fontSize: "16px",
       color: "#f8e8bd",
-      backgroundColor: "#18303ad9",
-      padding: { x: 10, y: 7 },
-    }).setDepth(DEPTH.interface).setScrollFactor(0).setVisible(false);
+    }).setScrollFactor(0);
+    this.interactionPrompt = this.add.container(18, 18, [promptBackground, this.interactionPromptText])
+      .setDepth(DEPTH.interface)
+      .setScrollFactor(0)
+      .setSize(270, 42)
+      .setVisible(false);
+    promptBackground.on("pointerup", () => this.activateNearbyHotspot());
 
-    const panel = this.add.rectangle(640, 360, 480, 178, 0x173440, 0.95)
+    const panel = this.add.rectangle(640, 360, 480, 194, 0x173440, 0.95)
       .setStrokeStyle(3, 0xe8ca78, 0.9)
       .setScrollFactor(0);
-    const title = this.add.text(420, 292, "EXHIBITION HALL", {
+    this.panelTitle = this.add.text(420, 278, "", {
       fontFamily: "ui-sans-serif, system-ui, sans-serif",
-      fontSize: "25px",
+      fontSize: "23px",
       color: "#f4e5bf",
       fontStyle: "bold",
-    }).setScrollFactor(0);
-    const copy = this.add.text(420, 332, "Gallery portfolio hotspot reached.\nA portfolio detail panel belongs here in the full world.", {
+    }).setScrollFactor(0).setWordWrapWidth(350);
+    this.panelCopy = this.add.text(420, 318, "", {
       fontFamily: "ui-sans-serif, system-ui, sans-serif",
-      fontSize: "17px",
+      fontSize: "16px",
       color: "#d9ebe2",
-      lineSpacing: 8,
-    }).setScrollFactor(0);
-    this.interactionPanel = this.add.container(0, 0, [panel, title, copy]).setDepth(DEPTH.interface).setVisible(false);
+      lineSpacing: 6,
+    }).setScrollFactor(0).setWordWrapWidth(408);
+    const close = this.add.text(803, 279, "닫기 ×", {
+      fontFamily: "ui-sans-serif, system-ui, sans-serif",
+      fontSize: "14px",
+      color: "#d9ebe2",
+    }).setScrollFactor(0).setInteractive({ useHandCursor: true });
+    close.on("pointerup", () => this.closeInteractionPanel());
+    const actionBackground = this.add.rectangle(778, 435, 150, 34, 0xe8ca78, 1)
+      .setScrollFactor(0)
+      .setInteractive({ useHandCursor: true });
+    this.panelAction = this.add.text(0, 0, "", {
+      fontFamily: "ui-sans-serif, system-ui, sans-serif",
+      fontSize: "14px",
+      color: "#18303a",
+      fontStyle: "bold",
+    }).setOrigin(0.5).setPosition(778, 435).setScrollFactor(0);
+    actionBackground.on("pointerup", () => this.openActiveDestination());
+    this.interactionPanel = this.add.container(0, 0, [panel, this.panelTitle, this.panelCopy, close, actionBackground, this.panelAction])
+      .setDepth(DEPTH.interface)
+      .setVisible(false);
   }
 
   private updateInteractionPrompt(): void {
-    if (!this.interactionPrompt || this.hotspotActive) return;
-    const nearby = Phaser.Math.Distance.Between(this.player.x, this.player.y, EXHIBITION_HOTSPOT.x, EXHIBITION_HOTSPOT.y) <= EXHIBITION_HOTSPOT.radius;
-    this.interactionPrompt.setVisible(nearby);
-    if (nearby) this.interactionPrompt.setPosition(18, 18);
+    if (!this.interactionPrompt || !this.interactionPromptText) return;
+    if (this.activeHotspot) {
+      this.interactionPrompt.setVisible(false);
+      return;
+    }
+    this.nearbyHotspot = this.getNearbyHotspot();
+    this.interactionPrompt.setVisible(Boolean(this.nearbyHotspot));
+    if (this.nearbyHotspot) this.interactionPromptText.setText(`E · ${this.nearbyHotspot.title}`);
   }
 
-  private activateExhibitionHotspot(): void {
-    const nearby = Phaser.Math.Distance.Between(this.player.x, this.player.y, EXHIBITION_HOTSPOT.x, EXHIBITION_HOTSPOT.y) <= EXHIBITION_HOTSPOT.radius;
-    if (!nearby || this.hotspotActive) return;
-    this.hotspotActive = true;
+  private getHotspot(id: HotspotId): PortfolioHotspot {
+    const hotspot = PORTFOLIO_HOTSPOTS.find((candidate) => candidate.id === id);
+    if (!hotspot) throw new Error(`Unknown portfolio hotspot: ${id}`);
+    return hotspot;
+  }
+
+  private qaHotspotId(qa: QaState): HotspotId | undefined {
+    if (qa === "square") return "square";
+    if (qa === "hotspot" || qa === "gallery") return "gallery";
+    if (qa === "career") return "career";
+    return undefined;
+  }
+
+  private getNearbyHotspot(): PortfolioHotspot | undefined {
+    return PORTFOLIO_HOTSPOTS.find((hotspot) =>
+      Phaser.Math.Distance.Between(this.player.x, this.player.y, hotspot.position[0], hotspot.position[1]) <= hotspot.radius,
+    );
+  }
+
+  private activateNearbyHotspot(): void {
+    const hotspot = this.getNearbyHotspot();
+    if (hotspot) this.activateHotspot(hotspot);
+  }
+
+  private activateHotspot(hotspot: PortfolioHotspot): void {
+    if (this.activeHotspot) return;
+    this.activeHotspot = hotspot;
     this.interactionPrompt?.setVisible(false);
+    this.panelTitle?.setText(hotspot.title);
+    this.panelCopy?.setText(hotspot.description);
+    this.panelAction?.setText(hotspot.actionLabel);
     this.interactionPanel?.setVisible(true);
     this.publishQaState();
+  }
+
+  private closeInteractionPanel(): void {
+    if (!this.activeHotspot) return;
+    this.activeHotspot = undefined;
+    this.interactionPanel?.setVisible(false);
+    this.updateInteractionPrompt();
+    this.publishQaState();
+  }
+
+  private openActiveDestination(): void {
+    if (this.activeHotspot) window.location.assign(this.activeHotspot.destination);
   }
 
   private isWalkable(x: number, y: number): boolean {
@@ -675,7 +815,14 @@ export class WorldScene extends Phaser.Scene {
         ? { x: restoredView.camera.x, y: restoredView.camera.y, zoom: restoredView.zoom }
         : { x: Math.round(camera.midPoint.x), y: Math.round(camera.midPoint.y), zoom: camera.zoom },
       player: { x: Math.round(this.player.x), y: Math.round(this.player.y) },
-      hotspotActive: this.hotspotActive,
+      hotspotActive: Boolean(this.activeHotspot),
+      activeHotspotId: this.activeHotspot?.id ?? null,
+      debug: this.debugMode,
+      hotspots: PORTFOLIO_HOTSPOTS.map((hotspot) => ({
+        id: hotspot.id,
+        destination: hotspot.destination,
+        reachable: this.isWalkable(hotspot.position[0], hotspot.position[1]),
+      })),
       walkability: {
         harborSquareToHall: this.isWalkable(720, 455) && this.isWalkable(EXHIBITION_HOTSPOT.x, EXHIBITION_HOTSPOT.y),
         hallToHeroQuay: this.isWalkable(825, 540) && this.isWalkable(...HERO_QUAY_GROUND),

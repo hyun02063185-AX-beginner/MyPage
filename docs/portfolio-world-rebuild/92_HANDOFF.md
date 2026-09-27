@@ -1,10 +1,10 @@
 # 92. Portfolio World Rebuild — Handoff
 
-Updated: 2026-09-27 (R4.2 closeout)
+Updated: 2026-09-27 (R5A portfolio interaction layer v1)
 
 ## State
 
-**R4.2 GOLDEN MASTER PLAYABLE SLICE IS APPROVED.** It changes only the isolated v2 source/output trees; v1 source, v1 artifact, v1 assets, and root site link remain untouched. `feature/portfolio-world-concept-vertical-slice` (v1's full history) remains preserved as reference.
+**R5A PORTFOLIO INTERACTION LAYER v1 IS IMPLEMENTED.** It changes only the isolated v2 source/output trees; v1 source, v1 artifact, v1 assets, and root site link remain untouched. `feature/portfolio-world-concept-vertical-slice` (v1's full history) remains preserved as reference.
 
 ```text
 R0_SKILL_QUALIFICATION = COMPLETE
@@ -21,9 +21,18 @@ R4_VERTICAL_SLICE       = COMPLETE — Golden Master plate plus authored interac
 R4_2_PLAYER_INTEGRATION = COMPLETE — valid-ground player anchors, muted derivative, contact shadow
 HUMAN_GATE_2            = APPROVED
 PROJECTION              = MID working baseline (not locked)
-NEXT                    = R5A_PORTFOLIO_INTERACTION_LAYER_V1
-GATE                    = VISUAL_PASS__HUMAN_APPROVED
+R5A_INTERACTION_LAYER   = COMPLETE — three real destinations, visitor panels, opt-in debug overlay
+NEXT                    = INDEPENDENT_PRODUCT_VISUAL_REVIEW
+GATE                    = READY_FOR_R5A_INDEPENDENT_PRODUCT_VISUAL_REVIEW
 ```
+
+## R5A delivery (implementation — independent visual review pending)
+
+- Production mapping: Harbor Square → `../#about` (portfolio introduction), Exhibition Hall → `../gallery.html` (AI·AX concept gallery), Hero Quay → `../career.html` (career). No physical landmark was invented for teaching or making content in this v1 layer.
+- Visitor interaction: approach the valid ground hotspot, then press **E** or short-tap/click; the compact panel has an actual-destination action, pointer close, Escape close, and Enter/E can follow the active action.
+- QA/debug: normal visitor mode contains no persistent labels or route guides. `?pwDebug=1` enables the calibration-only route and location labels.
+- Evidence: normal build `reports/portfolio-world-rebuild/evidence/r5a/` (9 1280 × 720 frames); dev verification `evidence/r5a1/`. The build/dev harness verifies normal mode has debug disabled, production destinations/reachability, keyboard and pointer activation, collision/walkability, and browser errors.
+- Gate: **`READY_FOR_R5A_INDEPENDENT_PRODUCT_VISUAL_REVIEW`**. This is not a self-granted final product visual approval.
 
 ## R4.2 approved closeout
 
