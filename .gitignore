@@ -16,6 +16,12 @@ portfolio-world-v2/.qa-edge-profile/
 .portfolio-work-context.local.json
 .DS_Store
 
+# Codyssey Image API benchmark: generated results and local credentials only.
+output/codyssey-image-benchmark/
+.env
+.env.*
+!.env.example
+
 # Portfolio World Rebuild — materialized agent skills are generated copies.
 # Source of truth is tools/agent-skills/{vendor,profiles}/; do not track the
 # copies sync-skills.mjs writes here, to avoid two committed copies drifting.
