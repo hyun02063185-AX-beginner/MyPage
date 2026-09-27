@@ -1,10 +1,10 @@
 # 91. Portfolio World Rebuild — Project Status
 
-Updated: 2026-09-26 (R3A)
+Updated: 2026-09-27 (R4.2 closeout)
 
 ## Phase
 
-PORTFOLIO WORLD REBUILD — R0/R1/R1.1 COMPLETE; HUMAN GATE 1 = APPROVED; R2A/R2A.1 COMPLETE; R2B BLOCKOUT IMPLEMENTATION COMPLETE; R2C INDEPENDENT VISUAL QA COMPLETE; R2D BLOCKOUT REPAIR COMPLETE; R2E INDEPENDENT RECHECK COMPLETE; R3A HERO SHIP TARGET IMPLEMENTED — READY FOR R3A INDEPENDENT VISUAL QA
+PORTFOLIO WORLD REBUILD — R4.2 GOLDEN MASTER PLAYABLE SLICE APPROVED
 
 ```text
 R0_SKILL_QUALIFICATION   = COMPLETE
@@ -18,12 +18,21 @@ R2B_BLOCKOUT_RUNTIME     = COMPLETE — isolated Candidate A+ Graphics blockout 
 R2B_FUNCTIONAL_QA        = COMPLETE — dev + build fixed-viewport harness clean; deterministic evidence captured
 R2B_VISUAL_QA            = COMPLETE — independent R2C review; 3/8 conditions carry a Major failure
 R2D_BLOCKOUT_REPAIR      = COMPLETE — junction separation, door/player scale fix, widened projection variants; dev + build functional QA clean
-R3A_HERO_SHIP_TARGET     = IMPLEMENTED — one production raster, R3A evidence and build QA complete; no visual approval claimed
+R3A_HERO_SHIP_TARGET     = IMPLEMENTED — historical source asset retained
+R4_VERTICAL_SLICE        = COMPLETE — Golden Master scene plate with authored gameplay/occlusion/hotspot layers
+R4_2_PLAYER_INTEGRATION  = COMPLETE — ground-anchored player, subdued derivative, contact shadow, final evidence
 R2E_VISUAL_RECHECK       = COMPLETE — independent; all three R2C Majors closed; 0 Blocker / 0 Major / 4 Minor / 2 Polish
 PROJECTION               = MID working baseline (not locked)
-NEXT                     = R3A_INDEPENDENT_VISUAL_QA
-GATE                     = READY_FOR_R3A_INDEPENDENT_VISUAL_QA
+HUMAN_GATE_2             = APPROVED
+NEXT                     = R5A_PORTFOLIO_INTERACTION_LAYER_V1
+GATE                     = VISUAL_PASS__HUMAN_APPROVED
 ```
+
+## Current Work Unit (R4.2 closeout)
+
+The user-supplied Golden Master remains locked as `world.reference.golden-master.r4`; scene plate plus authored Phaser layers is the approved method. R4.2 anchors the player to confirmed plaza, quay, and Hall stair-landing ground pixels, uses a muted local player derivative with contact shadow, preserves cargo occlusion/camera bounds, and retains the Harbor Square → Exhibition Hall → Hero Quay → Hero Ship interaction route. Final 1280 × 720 evidence is `reports/portfolio-world-rebuild/evidence/r4-2/`; the implementation record is `reports/portfolio-world-rebuild/r4-golden-master-representative-vertical-slice.md`.
+
+**Functional PASS, Visual PASS, and Human Gate 2 are approved.** Next scope: R5A, an optional portfolio interaction layer over the approved harbor—without reopening the visual direction.
 
 ## Current Work Unit (R3A.1)
 

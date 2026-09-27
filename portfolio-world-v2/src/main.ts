@@ -12,6 +12,8 @@ declare global {
       qaState: string;
       camera: { x: number; y: number; zoom: number };
       player: { x: number; y: number };
+      hotspotActive: boolean;
+      walkability: { harborSquareToHall: boolean; hallToHeroQuay: boolean; heroShipApproach: boolean };
     };
   }
 }

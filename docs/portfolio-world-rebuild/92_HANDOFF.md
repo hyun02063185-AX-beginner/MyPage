@@ -1,10 +1,10 @@
 # 92. Portfolio World Rebuild — Handoff
 
-Updated: 2026-09-26 (R3A)
+Updated: 2026-09-27 (R4.2 closeout)
 
 ## State
 
-**R0/R1/R1.1 COMPLETE. HUMAN GATE 1 = APPROVED. R2A/R2A.1 COMPLETE. R2B BLOCKOUT IMPLEMENTATION COMPLETE. R2C INDEPENDENT VISUAL QA COMPLETE. R2D BLOCKOUT REPAIR COMPLETE. R2E INDEPENDENT RECHECK COMPLETE. R3A HERO SHIP TARGET IMPLEMENTED — READY FOR R3A INDEPENDENT VISUAL QA.** R3A changes only the isolated v2 source/output trees; v1 source, v1 artifact, v1 assets, and root site link remain untouched. `feature/portfolio-world-concept-vertical-slice` (v1's full history) remains preserved as reference.
+**R4.2 GOLDEN MASTER PLAYABLE SLICE IS APPROVED.** It changes only the isolated v2 source/output trees; v1 source, v1 artifact, v1 assets, and root site link remain untouched. `feature/portfolio-world-concept-vertical-slice` (v1's full history) remains preserved as reference.
 
 ```text
 R0_SKILL_QUALIFICATION = COMPLETE
@@ -16,11 +16,23 @@ R2B_FUNCTIONAL_QA       = COMPLETE (dev + build; no visual verdict)
 R2C_VISUAL_QA           = COMPLETE — 3/8 conditions carry a Major failure
 R2D_BLOCKOUT_REPAIR     = COMPLETE (dev + build functional QA clean)
 R2E_VISUAL_RECHECK      = COMPLETE — all three R2C Majors closed; 0 Blocker / 0 Major / 4 Minor / 2 Polish
-R3A_HERO_SHIP_TARGET    = IMPLEMENTED — functional QA complete; visual approval pending
+R3A_HERO_SHIP_TARGET    = IMPLEMENTED — historical source asset retained
+R4_VERTICAL_SLICE       = COMPLETE — Golden Master plate plus authored interaction layers
+R4_2_PLAYER_INTEGRATION = COMPLETE — valid-ground player anchors, muted derivative, contact shadow
+HUMAN_GATE_2            = APPROVED
 PROJECTION              = MID working baseline (not locked)
-NEXT                    = R3A_INDEPENDENT_VISUAL_QA
-GATE                    = READY_FOR_R3A_INDEPENDENT_VISUAL_QA
+NEXT                    = R5A_PORTFOLIO_INTERACTION_LAYER_V1
+GATE                    = VISUAL_PASS__HUMAN_APPROVED
 ```
+
+## R4.2 approved closeout
+
+- Canonical input: `world.reference.golden-master.r4`, with SHA-256 and reference boundary at `portfolio-world-v2/public/assets/world/reference/golden-master-r4-provenance.md`.
+- Runtime approach: scene plate plus independently authored player, constrained routes, water/structure exclusion, cargo occlusion, keyboard/pointer movement, and Exhibition Hall hotspot. The image is not treated as a completed map or a free-walk background.
+- R4.2: player anchors were re-derived from the plate's visible plaza, quay, and Hall stair landing; its source asset is preserved while a muted local derivative and depth-aware contact shadow are used at runtime.
+- Evidence: `reports/portfolio-world-rebuild/evidence/r4-2/` includes normal entry, overview, Hero Quay/Ship, native player scale, Square-to-Hall route, foreground occlusion, and active hotspot states.
+- Validation: typecheck, build, dev/build harness, route/walkability/collision mapping, hotspot, and browser/console checks passed.
+- **Functional PASS, Visual PASS, and Human Gate 2 are approved.** Next: R5A portfolio interaction layer v1.
 
 ## R3A.1 delivery (implementation only — no visual verdict)
 

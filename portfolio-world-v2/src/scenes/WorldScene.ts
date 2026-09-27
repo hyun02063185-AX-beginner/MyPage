@@ -2,8 +2,8 @@ import Phaser from "phaser";
 import { PLAYER_SPEED, WORLD_HEIGHT, WORLD_WIDTH } from "../config";
 
 type Projection = "low" | "mid" | "high";
-type QaState = "entry" | "overview" | "hero" | "native" | "scale";
-type MovementKeys = Record<"up" | "down" | "left" | "right" | "w" | "a" | "s" | "d", Phaser.Input.Keyboard.Key>;
+type QaState = "entry" | "overview" | "hero" | "native" | "scale" | "route" | "occlusion" | "hotspot";
+type MovementKeys = Record<"up" | "down" | "left" | "right" | "w" | "a" | "s" | "d" | "interact", Phaser.Input.Keyboard.Key>;
 
 const DEPTH = {
   terrain: 0,
@@ -12,7 +12,13 @@ const DEPTH = {
   structures: 30,
   player: 40,
   upperStructures: 50,
-  labels: 60,
+  playerShadowBehindForeground: 55,
+  playerBehindForeground: 60,
+  foreground: 70,
+  playerShadowInForeground: 75,
+  playerInForeground: 80,
+  labels: 90,
+  interface: 100,
 } as const;
 
 const COLORS = {
@@ -46,12 +52,26 @@ const SPINE: readonly Point[] = [[345, 1080], [560, 835], [695, 640], [1085, 656
 const GUILD_BRANCH: readonly Point[] = [[560, 835], [430, 680], [445, 470]];
 const ACADEMY_BRANCH: readonly Point[] = [[1085, 656], [1130, 440], [1465, 245]];
 const SQUARE = { x: 580, y: 490, width: 230, height: 190 } as const;
-const SPAWN: Point = [SQUARE.x + SQUARE.width / 2, 590];
+const SPAWN: Point = [755, 520];
 
 /** Placeholder door: ~1.26x the 54px player, fixed regardless of projection (a door does not stretch with the facade). */
 const PLAYER_HEIGHT = 54;
 const DOOR = { width: 38, height: 68 } as const;
 const HALL = { x: 1400, baseY: 830 } as const;
+// R4.2 coordinates are measured from visible ground in the locked 1024² plate, then mapped through
+// the plate's 1.5625x scale and x=500 offset: plaza (163,333), Hall stair landing (131,262), quay (570,470).
+const EXHIBITION_HOTSPOT = { x: 705, y: 410, radius: 62 } as const;
+const HERO_QUAY_GROUND: Point = [1390, 735];
+const GOLDEN_SPINE: readonly Point[] = [[755, 520], [810, 525], [825, 540], HERO_QUAY_GROUND];
+const GOLDEN_HALL_BRANCH: readonly Point[] = [[755, 520], [720, 455], [EXHIBITION_HOTSPOT.x, EXHIBITION_HOTSPOT.y]];
+const GOLDEN_PLATE_BOUNDS = { x: 500, y: 0, width: 1600, height: 1600 } as const;
+const GOLDEN_FOREGROUND_Y = 590;
+const SOLID_FOOTPRINTS = [
+  { x: 1262, y: 548, width: 278, height: 280 },
+  { x: 880, y: 840, width: 250, height: 148 },
+  { x: 1115, y: 912, width: 250, height: 132 },
+  { x: 1840, y: 900, width: 350, height: 280 },
+] as const;
 
 interface ProjectionProfile {
   /** Exhibition Hall front-wall height; LOW favours the facade. */
@@ -82,12 +102,15 @@ const PROJECTION_PROFILE: Record<Projection, ProjectionProfile> = {
 
 const QA_VIEWS: Record<QaState, { player: Phaser.Math.Vector2; camera: Phaser.Math.Vector2; zoom: number }> = {
   // Entry framing preserves the Square spawn but offsets the visitor view toward the waterfront/Quay.
-  entry: { player: new Phaser.Math.Vector2(SPAWN[0], SPAWN[1]), camera: new Phaser.Math.Vector2(1350, 950), zoom: 0.62 },
-  overview: { player: new Phaser.Math.Vector2(SPAWN[0], SPAWN[1]), camera: new Phaser.Math.Vector2(1300, 830), zoom: 0.46 },
-  hero: { player: new Phaser.Math.Vector2(1620, 830), camera: new Phaser.Math.Vector2(1840, 960), zoom: 0.83 },
-  native: { player: new Phaser.Math.Vector2(1620, 830), camera: new Phaser.Math.Vector2(2010, 920), zoom: 1.2 },
-  // Player stands on the forecourt beside the door (door centre x=1400), same ground line, not overlapping it.
-  scale: { player: new Phaser.Math.Vector2(HALL.x + 64, HALL.baseY - 20), camera: new Phaser.Math.Vector2(1450, 770), zoom: 0.92 },
+  entry: { player: new Phaser.Math.Vector2(755, 520), camera: new Phaser.Math.Vector2(1200, 700), zoom: 0.84 },
+  overview: { player: new Phaser.Math.Vector2(755, 520), camera: new Phaser.Math.Vector2(1300, 800), zoom: 0.8 },
+  hero: { player: new Phaser.Math.Vector2(...HERO_QUAY_GROUND), camera: new Phaser.Math.Vector2(1380, 760), zoom: 0.9 },
+  native: { player: new Phaser.Math.Vector2(...HERO_QUAY_GROUND), camera: new Phaser.Math.Vector2(1380, 760), zoom: 1.2 },
+  // Hall entry is the lower stair landing, not the facade/wall pixels above it.
+  scale: { player: new Phaser.Math.Vector2(EXHIBITION_HOTSPOT.x, EXHIBITION_HOTSPOT.y), camera: new Phaser.Math.Vector2(760, 400), zoom: 0.98 },
+  route: { player: new Phaser.Math.Vector2(825, 540), camera: new Phaser.Math.Vector2(970, 580), zoom: 0.88 },
+  occlusion: { player: new Phaser.Math.Vector2(835, 570), camera: new Phaser.Math.Vector2(855, 570), zoom: 1.02 },
+  hotspot: { player: new Phaser.Math.Vector2(EXHIBITION_HOTSPOT.x, EXHIBITION_HOTSPOT.y), camera: new Phaser.Math.Vector2(760, 400), zoom: 0.9 },
 };
 
 function distanceToSegment(px: number, py: number, a: Point, b: Point): number {
@@ -109,17 +132,23 @@ function pickProjection(value: string | null): Projection {
 }
 
 function pickQaState(value: string | null): QaState | undefined {
-  return value === "entry" || value === "overview" || value === "hero" || value === "native" || value === "scale" ? value : undefined;
+  return value === "entry" || value === "overview" || value === "hero" || value === "native" || value === "scale" || value === "route" || value === "occlusion" || value === "hotspot" ? value : undefined;
 }
 
 /** Candidate A+ flat-shape blockout. Water is one calm basin; the built settlement stays deliberately asymmetric. */
 export class WorldScene extends Phaser.Scene {
+  private readonly usesGoldenMasterPlate = true;
   private projection: Projection = "mid";
   private qaState: QaState | "normal" = "normal";
   private player = new Phaser.Math.Vector2(SPAWN[0], SPAWN[1]);
-  private playerGraphic?: Phaser.GameObjects.Graphics;
+  private playerShadow?: Phaser.GameObjects.Graphics;
+  private playerVisual?: Phaser.GameObjects.Image;
   private movementKeys?: MovementKeys;
   private entryFraming = false;
+  private touchIntent = new Phaser.Math.Vector2();
+  private interactionPrompt?: Phaser.GameObjects.Text;
+  private interactionPanel?: Phaser.GameObjects.Container;
+  private hotspotActive = false;
 
   public constructor() {
     super("WorldScene");
@@ -131,29 +160,45 @@ export class WorldScene extends Phaser.Scene {
     const requestedQa = pickQaState(query.get("qa"));
     this.qaState = requestedQa ?? "normal";
 
-    this.drawTerrain();
-    this.drawSpineAndCrescent();
-    this.drawSettlement();
-    this.drawFleetAndQuay();
+    if (this.usesGoldenMasterPlate) {
+      this.drawGoldenMasterPlate();
+    } else {
+      this.drawTerrain();
+      this.drawSpineAndCrescent();
+      this.drawSettlement();
+      this.drawWaterfrontBuildings();
+      this.drawFleetAndQuay();
+      this.drawHarborDressing();
+    }
+    this.drawForegroundOccluders();
     this.drawLabels();
     this.createPlayer();
     this.configureCamera(requestedQa);
     this.installInput();
+    this.createInteractionUi();
+    if (requestedQa === "hotspot") this.activateExhibitionHotspot();
     this.publishQaState();
   }
 
   public update(_time: number, delta: number): void {
-    if (this.qaState !== "normal" || !this.movementKeys) return;
+    if (this.qaState !== "normal") return;
     let dx = 0;
     let dy = 0;
-    if (this.movementKeys.left.isDown || this.movementKeys.a.isDown) dx -= 1;
-    if (this.movementKeys.right.isDown || this.movementKeys.d.isDown) dx += 1;
-    if (this.movementKeys.up.isDown || this.movementKeys.w.isDown) dy -= 1;
-    if (this.movementKeys.down.isDown || this.movementKeys.s.isDown) dy += 1;
+    if (this.movementKeys) {
+      if (this.movementKeys.left.isDown || this.movementKeys.a.isDown) dx -= 1;
+      if (this.movementKeys.right.isDown || this.movementKeys.d.isDown) dx += 1;
+      if (this.movementKeys.up.isDown || this.movementKeys.w.isDown) dy -= 1;
+      if (this.movementKeys.down.isDown || this.movementKeys.s.isDown) dy += 1;
+    }
+    if (dx === 0 && dy === 0 && this.touchIntent.lengthSq() > 0) {
+      dx = this.touchIntent.x;
+      dy = this.touchIntent.y;
+    }
+    this.updateInteractionPrompt();
     if (dx === 0 && dy === 0) return;
     if (this.entryFraming) {
       // Start navigation from the harbor-first vista without stranding the camera when movement begins.
-      this.cameras.main.startFollow(this.playerGraphic!, true, 0.06, 0.06);
+      this.cameras.main.startFollow(this.playerVisual!, true, 0.06, 0.06);
       this.entryFraming = false;
     }
     const magnitude = Math.hypot(dx, dy);
@@ -163,7 +208,7 @@ export class WorldScene extends Phaser.Scene {
     );
     if (this.isWalkable(next.x, next.y)) {
       this.player.copy(next);
-      this.redrawPlayer();
+      this.updatePlayerVisual();
       this.publishQaState();
     }
   }
@@ -180,8 +225,8 @@ export class WorldScene extends Phaser.Scene {
     water.fillStyle(COLORS.waterDeep, 0.62).fillEllipse(1500, 1250, 2020, 790);
     water.lineStyle(18, COLORS.shoreline, 0.8).strokeEllipse(1450, 1160, 2380, 1080);
     water.lineStyle(5, 0x7eb1b0, 0.24);
-    for (let index = 0; index < 7; index += 1) {
-      water.strokeEllipse(1280 + index * 80, 1110 + index * 34, 310 - index * 12, 56 - index * 4);
+    for (let index = 0; index < 9; index += 1) {
+      water.strokeEllipse(1060 + index * 120, 1070 + index * 46, 340 - index * 14, 58 - index * 4);
     }
   }
 
@@ -224,6 +269,90 @@ export class WorldScene extends Phaser.Scene {
     structures.fillStyle(0x805f43, 1).fillRect(1310, 868, 62, 13).fillRect(1318, 853, 11, 18).fillRect(1353, 853, 11, 18);
     structures.fillStyle(0x31444a, 1).fillRect(1556, 796, 9, 92);
     upper.fillStyle(COLORS.accent, 1).fillCircle(1560, 790, 15).lineStyle(4, 0xf3dfaf, 0.7).strokeCircle(1560, 790, 15);
+  }
+
+  /**
+   * The approved Golden Master is a scene plate, not a collision or gameplay layer.
+   * Navigation, player depth, occlusion, input and hotspot state remain authored by this scene.
+   */
+  private drawGoldenMasterPlate(): void {
+    this.add.image(1300, 800, "golden-master-r4")
+      .setDisplaySize(1600, 1600)
+      .setDepth(DEPTH.terrain);
+    const route = this.add.graphics().setDepth(DEPTH.shoreline);
+    // Soft route cues are deliberately subtle: spatial readability should come from the plate's quay/plaza first.
+    route.lineStyle(5, 0xf4e5bf, 0.34).beginPath().moveTo(GOLDEN_SPINE[0][0], GOLDEN_SPINE[0][1]);
+    for (const [x, y] of GOLDEN_SPINE.slice(1)) route.lineTo(x, y);
+    route.strokePath();
+    route.lineStyle(4, 0xf4e5bf, 0.3).beginPath().moveTo(GOLDEN_HALL_BRANCH[0][0], GOLDEN_HALL_BRANCH[0][1]);
+    for (const [x, y] of GOLDEN_HALL_BRANCH.slice(1)) route.lineTo(x, y);
+    route.strokePath();
+  }
+
+  /** Authored Graphics layers: warm-stone waterfront buildings and cargo structures, not a scene-image backdrop. */
+  private drawWaterfrontBuildings(): void {
+    const body = this.add.graphics().setDepth(DEPTH.structures + 1);
+    const roof = this.add.graphics().setDepth(DEPTH.upperStructures + 1);
+    const drawWarehouse = (x: number, y: number, width: number, height: number): void => {
+      body.fillStyle(0xd9c39a, 1).fillRoundedRect(x, y, width, height, 8);
+      body.fillStyle(0xb98f62, 1).fillRect(x, y + height - 32, width, 32);
+      body.lineStyle(4, COLORS.dark, 0.55).strokeRoundedRect(x, y, width, height, 8);
+      roof.fillStyle(COLORS.roof, 1).fillTriangle(x - 20, y + 2, x + width + 20, y + 2, x + width * 0.52, y - 62);
+      roof.lineStyle(4, COLORS.dark, 0.55).strokeTriangle(x - 20, y + 2, x + width + 20, y + 2, x + width * 0.52, y - 62);
+      for (let door = x + 28; door < x + width - 18; door += 54) {
+        body.fillStyle(0x34515a, 1).fillRoundedRect(door, y + height - 66, 28, 42, 4);
+      }
+    };
+    drawWarehouse(880, 840, 250, 148);
+    drawWarehouse(1115, 912, 250, 132);
+
+    // A compact crane and stacked cargo create a working-waterfront reading without becoming collision clutter.
+    roof.lineStyle(9, 0x694d37, 1).strokeLineShape(new Phaser.Geom.Line(1165, 870, 1165, 760));
+    roof.lineStyle(7, 0x694d37, 1).strokeLineShape(new Phaser.Geom.Line(1160, 775, 1270, 805));
+    roof.lineStyle(3, 0x27353b, 0.8).strokeLineShape(new Phaser.Geom.Line(1265, 805, 1265, 878));
+    roof.fillStyle(0xb78952, 1).fillRect(1248, 873, 34, 25).lineStyle(3, 0x684630, 0.9).strokeRect(1248, 873, 34, 25);
+  }
+
+  private drawHarborDressing(): void {
+    const dressing = this.add.graphics().setDepth(DEPTH.upperStructures + 2);
+    // Bollards/rope make the quay readable as berth space, while restrained cargo grounds its working use.
+    for (let index = 0; index < 7; index += 1) {
+      const x = 1535 + index * 67;
+      const y = 858 + index * 41;
+      dressing.fillStyle(0x263840, 1).fillCircle(x, y, 11).fillRect(x - 7, y, 14, 28);
+      if (index < 6) dressing.lineStyle(3, 0xceb17e, 0.75).strokeLineShape(new Phaser.Geom.Line(x + 6, y + 10, x + 70, y + 48));
+    }
+    for (const [x, y] of [[1010, 1005], [1052, 1005], [1088, 1024], [1335, 1050]] as const) {
+      dressing.fillStyle(0xa87545, 1).fillRect(x, y, 28, 25).lineStyle(3, 0x694530, 0.9).strokeRect(x, y, 28, 25);
+      dressing.lineStyle(2, 0xe0bd7d, 0.8).strokeLineShape(new Phaser.Geom.Line(x, y, x + 28, y + 25));
+    }
+    // Lamps, low planters, and modest route signs establish player scale and wayfinding without UI labels.
+    for (const [x, y] of [[742, 520], [1180, 650], [1508, 790], [1685, 975]] as const) {
+      dressing.lineStyle(6, 0x27353b, 1).strokeLineShape(new Phaser.Geom.Line(x, y, x, y - 54));
+      dressing.fillStyle(0xf0d792, 0.95).fillCircle(x, y - 60, 11).lineStyle(3, 0x27353b, 0.8).strokeCircle(x, y - 60, 11);
+    }
+    dressing.fillStyle(0x294b57, 1).fillRoundedRect(820, 610, 52, 82, 5);
+    dressing.fillStyle(COLORS.accent, 1).fillCircle(846, 644, 17).lineStyle(3, 0xf4e5bf, 0.8).strokeCircle(846, 644, 17);
+  }
+
+  private drawForegroundOccluders(): void {
+    if (this.usesGoldenMasterPlate) {
+      // One transparent, painterly cargo cluster supplies a real foreground silhouette; its irregular
+      // alpha edge and integrated contact shadow avoid the rectangular Graphics-mask artefact from R4.
+      this.add.image(850, GOLDEN_FOREGROUND_Y, "harbor-cargo-occluder-r4-1")
+        .setDisplaySize(92, 61)
+        .setOrigin(0.5, 1)
+        .setDepth(DEPTH.foreground);
+      return;
+    }
+    const foreground = this.add.graphics().setDepth(DEPTH.foreground);
+    // This planter/quay edge is a real depth test: a player north of it is covered, south of it draws in front.
+    foreground.fillStyle(0x75634b, 1).fillRoundedRect(1475, 1050, 450, 64, 16);
+    foreground.lineStyle(5, 0x3b4e45, 0.9).strokeRoundedRect(1475, 1050, 450, 64, 16);
+    for (let x = 1510; x < 1900; x += 58) {
+      foreground.fillStyle(0x315d4f, 1).fillCircle(x, 1045, 31).fillCircle(x + 18, 1030, 25);
+      foreground.fillStyle(0x5e8d58, 0.9).fillCircle(x - 12, 1029, 19);
+    }
   }
 
   private drawExhibitionHall(body: Phaser.GameObjects.Graphics, upper: Phaser.GameObjects.Graphics, x: number, baseY: number): void {
@@ -365,40 +494,61 @@ export class WorldScene extends Phaser.Scene {
       stroke: "#18303a",
       strokeThickness: 5,
     };
-    const labels: Array<[string, number, number, number]> = [
-      ["HARBOR SQUARE · spine node", SQUARE.x, SQUARE.y - 48, 20],
-      ["EXHIBITION HALL · representative mass", 1254, 500, 20],
+    const labels: Array<[string, number, number, number]> = this.usesGoldenMasterPlate ? [
+      ["HARBOR SQUARE", 650, 452, 17],
+      ["EXHIBITION HALL", 650, 248, 17],
+      ["HERO QUAY", 915, 645, 17],
+      ["HERO SHIP", 1045, 805, 18],
+    ] : [
+      ["HARBOR SQUARE", SQUARE.x + 8, SQUARE.y - 48, 20],
+      ["EXHIBITION HALL", 1254, 500, 20],
       ["HERO QUAY", 1685, 785, 20],
-      ["HERO SHIP · landmark", 1844, 740, 22],
-      ["Guild Hall · secondary marker", 325, 330, 17],
-      ["Academy · secondary marker", 1380, 100, 17],
-      ["Workshop · secondary marker", 130, 995, 17],
+      ["HERO SHIP", 1844, 740, 22],
+      ["Guild Hall", 325, 330, 17],
+      ["Academy", 1380, 100, 17],
+      ["Workshop", 130, 995, 17],
       ["working dock", 250, 1200, 16],
-      ["calm crescent basin · open water", 1030, 1430, 20],
     ];
     for (const [label, x, y, size] of labels) this.add.text(x, y, label, { ...labelStyle, fontSize: `${size}px` }).setDepth(DEPTH.labels);
   }
 
   private createPlayer(): void {
-    this.playerGraphic = this.add.graphics().setDepth(DEPTH.player);
-    this.redrawPlayer();
+    this.playerShadow = this.add.graphics().setDepth(DEPTH.playerShadowBehindForeground);
+    // R4.2 is a deterministic, non-destructive muted derivative of the approved R4.1 target.
+    this.playerVisual = this.add.image(this.player.x, this.player.y, "harbor-player-r4-2-muted")
+      .setDisplaySize(48, 72)
+      .setOrigin(0.5, 1)
+      .setDepth(DEPTH.player);
+    this.updatePlayerVisual();
   }
 
-  private redrawPlayer(): void {
-    if (!this.playerGraphic) return;
-    this.playerGraphic.clear();
-    this.playerGraphic.fillStyle(0xf8e8bd, 1).fillCircle(this.player.x, this.player.y - 13, 13);
-    this.playerGraphic.fillStyle(0x264d5d, 1).fillRoundedRect(this.player.x - 12, this.player.y, 24, 28, 7);
-    this.playerGraphic.lineStyle(4, COLORS.dark, 1).strokeCircle(this.player.x, this.player.y - 13, 13).strokeRoundedRect(this.player.x - 12, this.player.y, 24, 28, 7);
+  private updatePlayerVisual(): void {
+    if (!this.playerVisual || !this.playerShadow) return;
+    const foregroundLine = this.usesGoldenMasterPlate ? GOLDEN_FOREGROUND_Y : 1140;
+    const inForeground = this.player.y >= foregroundLine;
+    this.playerShadow.clear();
+    this.playerShadow.setDepth(inForeground ? DEPTH.playerShadowInForeground : DEPTH.playerShadowBehindForeground);
+    // Two low-opacity warm-brown ellipses create a soft painted contact, never a hard UI oval.
+    this.playerShadow.fillStyle(0x65503d, 0.09).fillEllipse(this.player.x, this.player.y - 2, 30, 8);
+    this.playerShadow.fillStyle(0x4d3b2d, 0.12).fillEllipse(this.player.x, this.player.y - 2, 20, 5);
+    this.playerVisual
+      .setPosition(this.player.x, this.player.y)
+      .setDepth(inForeground ? DEPTH.playerInForeground : DEPTH.playerBehindForeground);
   }
 
   private configureCamera(qa: QaState | undefined): void {
     const camera = this.cameras.main;
-    camera.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+    if (this.usesGoldenMasterPlate) {
+      // At zoom >= 0.8 the 1280px viewport fits inside the 1600px plate width. Bounds also clamp
+      // follow motion, preventing any raw Phaser canvas from appearing at the plate's edges.
+      camera.setBounds(GOLDEN_PLATE_BOUNDS.x, GOLDEN_PLATE_BOUNDS.y, GOLDEN_PLATE_BOUNDS.width, GOLDEN_PLATE_BOUNDS.height);
+    } else {
+      camera.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+    }
     if (qa === "entry") {
       const view = QA_VIEWS.entry;
       this.player.copy(view.player);
-      this.redrawPlayer();
+      this.updatePlayerVisual();
       camera.setZoom(view.zoom);
       camera.centerOn(view.camera.x, view.camera.y);
       // This is the real entry framing: the Square remains the spawn, while water, quay and ship enter the first view.
@@ -407,7 +557,7 @@ export class WorldScene extends Phaser.Scene {
     if (qa) {
       const view = QA_VIEWS[qa];
       this.player.copy(view.player);
-      this.redrawPlayer();
+      this.updatePlayerVisual();
       camera.setZoom(view.zoom);
       camera.centerOn(view.camera.x, view.camera.y);
       return;
@@ -419,20 +569,88 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private installInput(): void {
-    if (!this.input.keyboard) return;
-    this.movementKeys = this.input.keyboard.addKeys({
-      up: Phaser.Input.Keyboard.KeyCodes.UP,
-      down: Phaser.Input.Keyboard.KeyCodes.DOWN,
-      left: Phaser.Input.Keyboard.KeyCodes.LEFT,
-      right: Phaser.Input.Keyboard.KeyCodes.RIGHT,
-      w: Phaser.Input.Keyboard.KeyCodes.W,
-      a: Phaser.Input.Keyboard.KeyCodes.A,
-      s: Phaser.Input.Keyboard.KeyCodes.S,
-      d: Phaser.Input.Keyboard.KeyCodes.D,
-    }) as MovementKeys;
+    if (this.input.keyboard) {
+      this.movementKeys = this.input.keyboard.addKeys({
+        up: Phaser.Input.Keyboard.KeyCodes.UP,
+        down: Phaser.Input.Keyboard.KeyCodes.DOWN,
+        left: Phaser.Input.Keyboard.KeyCodes.LEFT,
+        right: Phaser.Input.Keyboard.KeyCodes.RIGHT,
+        w: Phaser.Input.Keyboard.KeyCodes.W,
+        a: Phaser.Input.Keyboard.KeyCodes.A,
+        s: Phaser.Input.Keyboard.KeyCodes.S,
+        d: Phaser.Input.Keyboard.KeyCodes.D,
+        interact: Phaser.Input.Keyboard.KeyCodes.E,
+      }) as MovementKeys;
+      this.movementKeys.interact.on("down", () => this.activateExhibitionHotspot());
+    }
+    // Pointer input is intentionally expressed as world-space movement intent: touch controls can replace
+    // this producer without changing movement, collision, or interaction rules.
+    this.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => this.setTouchIntent(pointer));
+    this.input.on("pointermove", (pointer: Phaser.Input.Pointer) => {
+      if (pointer.isDown) this.setTouchIntent(pointer);
+    });
+    this.input.on("pointerup", () => this.touchIntent.set(0, 0));
+  }
+
+  private setTouchIntent(pointer: Phaser.Input.Pointer): void {
+    const target = this.cameras.main.getWorldPoint(pointer.x, pointer.y);
+    this.touchIntent.set(target.x - this.player.x, target.y - this.player.y);
+    if (this.touchIntent.lengthSq() < 20 * 20) this.touchIntent.set(0, 0);
+  }
+
+  private createInteractionUi(): void {
+    this.interactionPrompt = this.add.text(0, 0, "Press E · Exhibition Hall portfolio", {
+      fontFamily: "ui-sans-serif, system-ui, sans-serif",
+      fontSize: "18px",
+      color: "#f8e8bd",
+      backgroundColor: "#18303ad9",
+      padding: { x: 10, y: 7 },
+    }).setDepth(DEPTH.interface).setScrollFactor(0).setVisible(false);
+
+    const panel = this.add.rectangle(640, 360, 480, 178, 0x173440, 0.95)
+      .setStrokeStyle(3, 0xe8ca78, 0.9)
+      .setScrollFactor(0);
+    const title = this.add.text(420, 292, "EXHIBITION HALL", {
+      fontFamily: "ui-sans-serif, system-ui, sans-serif",
+      fontSize: "25px",
+      color: "#f4e5bf",
+      fontStyle: "bold",
+    }).setScrollFactor(0);
+    const copy = this.add.text(420, 332, "Gallery portfolio hotspot reached.\nA portfolio detail panel belongs here in the full world.", {
+      fontFamily: "ui-sans-serif, system-ui, sans-serif",
+      fontSize: "17px",
+      color: "#d9ebe2",
+      lineSpacing: 8,
+    }).setScrollFactor(0);
+    this.interactionPanel = this.add.container(0, 0, [panel, title, copy]).setDepth(DEPTH.interface).setVisible(false);
+  }
+
+  private updateInteractionPrompt(): void {
+    if (!this.interactionPrompt || this.hotspotActive) return;
+    const nearby = Phaser.Math.Distance.Between(this.player.x, this.player.y, EXHIBITION_HOTSPOT.x, EXHIBITION_HOTSPOT.y) <= EXHIBITION_HOTSPOT.radius;
+    this.interactionPrompt.setVisible(nearby);
+    if (nearby) this.interactionPrompt.setPosition(18, 18);
+  }
+
+  private activateExhibitionHotspot(): void {
+    const nearby = Phaser.Math.Distance.Between(this.player.x, this.player.y, EXHIBITION_HOTSPOT.x, EXHIBITION_HOTSPOT.y) <= EXHIBITION_HOTSPOT.radius;
+    if (!nearby || this.hotspotActive) return;
+    this.hotspotActive = true;
+    this.interactionPrompt?.setVisible(false);
+    this.interactionPanel?.setVisible(true);
+    this.publishQaState();
   }
 
   private isWalkable(x: number, y: number): boolean {
+    if (this.usesGoldenMasterPlate) {
+      const onSpine = nearRoute(x, y, GOLDEN_SPINE, 68);
+      const onHallBranch = nearRoute(x, y, GOLDEN_HALL_BRANCH, 58);
+      const onSquare = x > 630 && x < 865 && y > 430 && y < 590;
+      const onHallForecourt = x > 690 && x < 900 && y > 260 && y < 420;
+      const onHeroQuay = x > 1300 && x < 1500 && y > 670 && y < 800;
+      const onDockApron = x > 1320 && x < 1480 && y > 700 && y < 815;
+      return onSpine || onHallBranch || onSquare || onHallForecourt || onHeroQuay || onDockApron;
+    }
     const waterX = (x - 1450) / 1190;
     const waterY = (y - 1160) / 540;
     const inBasin = waterX * waterX + waterY * waterY < 1;
@@ -442,7 +660,8 @@ export class WorldScene extends Phaser.Scene {
     const onRoute = nearRoute(x, y, SPINE, 62) || nearRoute(x, y, GUILD_BRANCH, 36) || nearRoute(x, y, ACADEMY_BRANCH, 38);
     const onSquare = x > SQUARE.x && x < SQUARE.x + SQUARE.width && y > SQUARE.y && y < SQUARE.y + SQUARE.height;
     const onForecourt = x > 1285 && x < 1595 && y > HALL.baseY - 26 && y < HALL.baseY + 114;
-    return !inBasin || onHeroQuay || onWorkingDock || onRoute || onSquare || onForecourt;
+    const insideSolid = SOLID_FOOTPRINTS.some((footprint) => x > footprint.x && x < footprint.x + footprint.width && y > footprint.y && y < footprint.y + footprint.height);
+    return (!inBasin || onHeroQuay || onWorkingDock || onRoute || onSquare || onForecourt) && !insideSolid;
   }
 
   private publishQaState(): void {
@@ -456,6 +675,12 @@ export class WorldScene extends Phaser.Scene {
         ? { x: restoredView.camera.x, y: restoredView.camera.y, zoom: restoredView.zoom }
         : { x: Math.round(camera.midPoint.x), y: Math.round(camera.midPoint.y), zoom: camera.zoom },
       player: { x: Math.round(this.player.x), y: Math.round(this.player.y) },
+      hotspotActive: this.hotspotActive,
+      walkability: {
+        harborSquareToHall: this.isWalkable(720, 455) && this.isWalkable(EXHIBITION_HOTSPOT.x, EXHIBITION_HOTSPOT.y),
+        hallToHeroQuay: this.isWalkable(825, 540) && this.isWalkable(...HERO_QUAY_GROUND),
+        heroShipApproach: this.isWalkable(...HERO_QUAY_GROUND),
+      },
     };
   }
 }

@@ -12,7 +12,7 @@ const repoRoot = path.resolve(projectRoot, "..");
 // unless `--allow-overwrite-historical` is passed explicitly.
 const argValue = (flag, fallback) => (process.argv.includes(flag) ? process.argv[process.argv.indexOf(flag) + 1] : fallback);
 const evidenceSet = argValue("--set", "r2d");
-if (!/^r\d+[a-z]\d*$/.test(evidenceSet)) throw new Error(`Invalid --set "${evidenceSet}"; expected a phase id like r2d or r3a1.`);
+if (!/^r\d+(?:[a-z]\d*|-\d+)?$/.test(evidenceSet)) throw new Error(`Invalid --set "${evidenceSet}"; expected a phase id like r4, r4-1, r2d, or r3a1.`);
 if (evidenceSet === "r2b" && !process.argv.includes("--allow-overwrite-historical")) {
   throw new Error("Refusing to overwrite historical r2b evidence. Use --set r2d (default) or pass --allow-overwrite-historical.");
 }
@@ -122,6 +122,12 @@ async function runCapture(client, origin, relativePath, fileName, qa, projection
   if (status.qa.qaState !== qa || status.qa.projection !== projection) {
     throw new Error(`${fileName}: deterministic state mismatch: ${state.result.value}`);
   }
+  if (!status.qa.walkability?.harborSquareToHall || !status.qa.walkability?.hallToHeroQuay || !status.qa.walkability?.heroShipApproach) {
+    throw new Error(`${fileName}: representative route/walkability assertion failed: ${state.result.value}`);
+  }
+  if (qa === "hotspot" && !status.qa.hotspotActive) {
+    throw new Error(`${fileName}: Exhibition Hall hotspot did not activate: ${state.result.value}`);
+  }
   const screenshot = await client.command("Page.captureScreenshot", { format: "png" });
   const outputPath = path.join(reportsDir, fileName);
   await writeFile(outputPath, Buffer.from(screenshot.data, "base64"));
@@ -187,6 +193,9 @@ async function main() {
       ["B-overview-target.png", "overview", "mid"],
       ["C-hero-target.png", "hero", "mid"],
       ["D-hero-native-scale.png", "native", "mid"],
+      ["E-square-to-hall-route.png", "route", "mid"],
+      ["F-foreground-occlusion.png", "occlusion", "mid"],
+      ["G-exhibition-hotspot.png", "hotspot", "mid"],
     ];
     const results = [];
     for (const [fileName, qa, projection] of captures) results.push(await runCapture(client, origin, relativePath, fileName, qa, projection));
