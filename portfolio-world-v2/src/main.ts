@@ -14,6 +14,7 @@ declare global {
       player: { x: number; y: number };
       hotspotActive: boolean;
       activeHotspotId: "square" | "gallery" | "career" | null;
+      activeDestination: string | null;
       debug: boolean;
       hotspots: Array<{ id: "square" | "gallery" | "career"; destination: string; reachable: boolean }>;
       walkability: { harborSquareToHall: boolean; hallToHeroQuay: boolean; heroShipApproach: boolean };

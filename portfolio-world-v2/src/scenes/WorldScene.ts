@@ -199,6 +199,7 @@ export class WorldScene extends Phaser.Scene {
   private panelAction?: Phaser.GameObjects.Text;
   private activeHotspot?: PortfolioHotspot;
   private nearbyHotspot?: PortfolioHotspot;
+  private suppressTapActivation = false;
 
   public constructor() {
     super("WorldScene");
@@ -658,8 +659,18 @@ export class WorldScene extends Phaser.Scene {
       if (pointer.isDown) this.setTouchIntent(pointer);
     });
     this.input.on("pointerup", (pointer: Phaser.Input.Pointer) => {
+      if (this.activeHotspot) {
+        // Panel controls occupy this compact fixed-screen rectangle. A tap outside closes it; the
+        // action rectangle stays inside, so it cannot be mistaken for a close/destination tap.
+        const insidePanel = pointer.x >= 400 && pointer.x <= 880 && pointer.y >= 263 && pointer.y <= 457;
+        const closeAffordance = pointer.x >= 800 && pointer.x <= 852 && pointer.y >= 267 && pointer.y <= 311;
+        if (closeAffordance || !insidePanel) this.closeInteractionPanel(true);
+        this.touchIntent.set(0, 0);
+        return;
+      }
       // A short tap while standing at a landmark is the touch equivalent of the E prompt.
-      if (pointer.getDistance() < 12) this.activateNearbyHotspot();
+      if (!this.suppressTapActivation && pointer.getDistance() < 12) this.activateNearbyHotspot();
+      this.suppressTapActivation = false;
       this.touchIntent.set(0, 0);
     });
   }
@@ -702,12 +713,16 @@ export class WorldScene extends Phaser.Scene {
       color: "#d9ebe2",
       lineSpacing: 6,
     }).setScrollFactor(0).setWordWrapWidth(408);
+    // A transparent 44px-class hit target keeps the compact visual label usable on touch devices.
+    const closeHitArea = this.add.rectangle(826, 289, 52, 44, 0x000000, 0)
+      .setScrollFactor(0)
+      .setInteractive({ useHandCursor: true });
+    closeHitArea.on("pointerup", () => this.closeInteractionPanel(true));
     const close = this.add.text(803, 279, "닫기 ×", {
       fontFamily: "ui-sans-serif, system-ui, sans-serif",
       fontSize: "14px",
       color: "#d9ebe2",
-    }).setScrollFactor(0).setInteractive({ useHandCursor: true });
-    close.on("pointerup", () => this.closeInteractionPanel());
+    }).setScrollFactor(0);
     const actionBackground = this.add.rectangle(778, 435, 150, 34, 0xe8ca78, 1)
       .setScrollFactor(0)
       .setInteractive({ useHandCursor: true });
@@ -718,7 +733,7 @@ export class WorldScene extends Phaser.Scene {
       fontStyle: "bold",
     }).setOrigin(0.5).setPosition(778, 435).setScrollFactor(0);
     actionBackground.on("pointerup", () => this.openActiveDestination());
-    this.interactionPanel = this.add.container(0, 0, [panel, this.panelTitle, this.panelCopy, close, actionBackground, this.panelAction])
+    this.interactionPanel = this.add.container(0, 0, [panel, this.panelTitle, this.panelCopy, closeHitArea, close, actionBackground, this.panelAction])
       .setDepth(DEPTH.interface)
       .setVisible(false);
   }
@@ -731,7 +746,9 @@ export class WorldScene extends Phaser.Scene {
     }
     this.nearbyHotspot = this.getNearbyHotspot();
     this.interactionPrompt.setVisible(Boolean(this.nearbyHotspot));
-    if (this.nearbyHotspot) this.interactionPromptText.setText(`E · ${this.nearbyHotspot.title}`);
+    if (this.nearbyHotspot) {
+      this.interactionPromptText.setText(this.debugMode ? `E · ${this.nearbyHotspot.title}` : this.nearbyHotspot.title);
+    }
   }
 
   private getHotspot(id: HotspotId): PortfolioHotspot {
@@ -769,8 +786,9 @@ export class WorldScene extends Phaser.Scene {
     this.publishQaState();
   }
 
-  private closeInteractionPanel(): void {
+  private closeInteractionPanel(suppressTapActivation = false): void {
     if (!this.activeHotspot) return;
+    this.suppressTapActivation = suppressTapActivation;
     this.activeHotspot = undefined;
     this.interactionPanel?.setVisible(false);
     this.updateInteractionPrompt();
@@ -817,6 +835,7 @@ export class WorldScene extends Phaser.Scene {
       player: { x: Math.round(this.player.x), y: Math.round(this.player.y) },
       hotspotActive: Boolean(this.activeHotspot),
       activeHotspotId: this.activeHotspot?.id ?? null,
+      activeDestination: this.activeHotspot?.destination ?? null,
       debug: this.debugMode,
       hotspots: PORTFOLIO_HOTSPOTS.map((hotspot) => ({
         id: hotspot.id,

@@ -178,9 +178,21 @@ async function assertInteractionInputs(client, origin, relativePath) {
   await client.command("Input.dispatchKeyEvent", { type: "keyDown", key: "e", code: "KeyE", windowsVirtualKeyCode: 69 });
   await client.command("Input.dispatchKeyEvent", { type: "keyUp", key: "e", code: "KeyE", windowsVirtualKeyCode: 69 });
   const keyboard = await waitForQa(client, (qa) => qa?.activeHotspotId === "square", "keyboard interaction");
+  if (keyboard.activeDestination !== "../#about") throw new Error(`action destination mismatch: ${keyboard.activeDestination}`);
   await client.command("Input.dispatchKeyEvent", { type: "keyDown", key: "Escape", code: "Escape", windowsVirtualKeyCode: 27 });
   await client.command("Input.dispatchKeyEvent", { type: "keyUp", key: "Escape", code: "Escape", windowsVirtualKeyCode: 27 });
   await waitForQa(client, (qa) => !qa?.hotspotActive, "keyboard close");
+
+  await navigate();
+  await client.command("Input.dispatchKeyEvent", { type: "keyDown", key: "e", code: "KeyE", windowsVirtualKeyCode: 69 });
+  await client.command("Input.dispatchKeyEvent", { type: "keyUp", key: "e", code: "KeyE", windowsVirtualKeyCode: 69 });
+  await waitForQa(client, (qa) => qa?.activeHotspotId === "square", "touch-close setup");
+  await client.command("Input.dispatchMouseEvent", { type: "mousePressed", x: 500, y: 390, button: "left", clickCount: 1 });
+  await client.command("Input.dispatchMouseEvent", { type: "mouseReleased", x: 500, y: 390, button: "left", clickCount: 1 });
+  await waitForQa(client, (qa) => qa?.activeHotspotId === "square", "non-action panel tap");
+  await client.command("Input.dispatchMouseEvent", { type: "mousePressed", x: 826, y: 289, button: "left", clickCount: 1 });
+  await client.command("Input.dispatchMouseEvent", { type: "mouseReleased", x: 826, y: 289, button: "left", clickCount: 1 });
+  await waitForQa(client, (qa) => !qa?.hotspotActive, "close affordance tap");
 
   await navigate();
   await client.command("Input.dispatchMouseEvent", { type: "mousePressed", x: 90, y: 40, button: "left", clickCount: 1 });
@@ -190,7 +202,7 @@ async function assertInteractionInputs(client, origin, relativePath) {
   if (destinations.square !== "../#about" || destinations.gallery !== "../gallery.html" || destinations.career !== "../career.html") {
     throw new Error(`portfolio destinations mismatch: ${JSON.stringify(destinations)}`);
   }
-  return { keyboard: keyboard.activeHotspotId, pointer: pointer.activeHotspotId, destinations };
+  return { keyboard: keyboard.activeHotspotId, pointer: pointer.activeHotspotId, pointerClose: true, destinations };
 }
 
 async function assertDebugMode(client, origin, relativePath) {
