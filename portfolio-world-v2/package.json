@@ -13,6 +13,7 @@
     "typecheck": "tsc --noEmit",
     "qa:runtime": "node qa/r2b-runtime-qa.mjs",
     "qa:graybox": "node qa/r3a-graybox-qa.mjs",
+    "qa:foundation": "node qa/r3a-graybox-qa.mjs --r3c-foundation",
     "test": "npm run typecheck && npm run build && npm run qa:runtime -- --mode build"
   },
   "dependencies": {

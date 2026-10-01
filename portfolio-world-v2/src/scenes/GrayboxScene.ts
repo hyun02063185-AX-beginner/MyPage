@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 
 type Facing = "up" | "down" | "left" | "right";
-type QaState = "normal" | "upper" | "hall" | "stairs-top" | "stairs-bottom" | "workshop" | "quay" | "gangway" | "movement";
+type QaState = "normal" | "upper" | "hall" | "stairs-top" | "stairs-bottom" | "workshop" | "quay" | "gangway" | "movement" | "movement-reverse";
 type Rect = Readonly<{ x: number; y: number; width: number; height: number }>;
 
 const WORLD = { width: 1600, height: 1000 } as const;
@@ -33,7 +33,7 @@ const WALKABLE: readonly Rect[] = [
   { x: 1110, y: 705, width: 105, height: 120 }, // Gangway target apron.
 ] as const;
 
-const QA_POSITIONS: Record<Exclude<QaState, "normal" | "movement">, Readonly<{ x: number; y: number }>> = {
+const QA_POSITIONS: Record<Exclude<QaState, "normal" | "movement" | "movement-reverse">, Readonly<{ x: number; y: number }>> = {
   upper: { x: 700, y: 350 },
   hall: { x: 760, y: 180 },
   "stairs-top": { x: 780, y: 515 },
@@ -43,7 +43,7 @@ const QA_POSITIONS: Record<Exclude<QaState, "normal" | "movement">, Readonly<{ x
   gangway: { x: 1135, y: 760 },
 };
 
-/** R3A's deliberately flat, explicit, art-free playable harbor. */
+/** R3A geometry with R3C's deterministic, collision-independent foundation art. */
 export class GrayboxScene extends Phaser.Scene {
   private player!: Phaser.Physics.Arcade.Sprite;
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -78,53 +78,73 @@ export class GrayboxScene extends Phaser.Scene {
   }
 
   public update(time: number): void {
-    const direction = this.qaState === "movement" ? this.updateMovementDemo(time) : this.readInput();
+    const direction = this.qaState === "movement" || this.qaState === "movement-reverse" ? this.updateMovementDemo(time) : this.readInput();
     this.applyMovement(direction.x, direction.y);
     this.publishQa();
   }
 
   private pickQaState(value: string | null): QaState {
-    return value === "upper" || value === "hall" || value === "stairs-top" || value === "stairs-bottom" || value === "workshop" || value === "quay" || value === "gangway" || value === "movement" ? value : "normal";
+    return value === "upper" || value === "hall" || value === "stairs-top" || value === "stairs-bottom" || value === "workshop" || value === "quay" || value === "gangway" || value === "movement" || value === "movement-reverse" ? value : "normal";
   }
 
   private drawGraybox(): void {
     const graphics = this.add.graphics();
-    graphics.fillStyle(COLORS.water, 1).fillRect(0, 0, WORLD.width, WORLD.height);
-    graphics.lineStyle(3, COLORS.waterLine, 0.55);
-    for (let y = 40; y < WORLD.height; y += 42) graphics.strokeLineShape(new Phaser.Geom.Line(0, y, WORLD.width, y));
+    // L0: procedural water remains independent of the R3C visual studies.
+    graphics.fillStyle(0x176d7b, 1).fillRect(0, 0, WORLD.width, WORLD.height);
+    graphics.lineStyle(2, 0x65b8ba, 0.32);
+    for (let y = 34; y < WORLD.height; y += 38) {
+      for (let x = (Math.floor(y / 38) % 2) * 26; x < WORLD.width; x += 96) graphics.strokeLineShape(new Phaser.Geom.Line(x, y, x + 48, y));
+    }
 
-    const drawSurface = (rect: Rect, color: number, label: string): void => {
-      graphics.fillStyle(color, 1).fillRect(rect.x, rect.y, rect.width, rect.height);
-      graphics.lineStyle(5, COLORS.buildingEdge, 0.75).strokeRect(rect.x, rect.y, rect.width, rect.height);
-      this.add.text(rect.x + 18, rect.y + 16, label, { fontFamily: "monospace", fontSize: "20px", color: "#1b252a", backgroundColor: "#d9dad6", padding: { x: 8, y: 4 } }).setDepth(5);
+    // L1: deterministic treatment derived from R3C Study A's broad limestone slabs.
+    // Study B's terracotta accent is restricted to the plaza perimeter so it cannot imply a route barrier.
+    const drawPaving = (rect: Rect, base: number, joint: number, tileWidth: number, tileHeight: number, accent = false): void => {
+      graphics.fillStyle(base, 1).fillRect(rect.x, rect.y, rect.width, rect.height);
+      graphics.lineStyle(1, joint, 0.55);
+      for (let y = rect.y + tileHeight; y < rect.y + rect.height; y += tileHeight) graphics.strokeLineShape(new Phaser.Geom.Line(rect.x, y, rect.x + rect.width, y));
+      for (let row = 0, y = rect.y; y < rect.y + rect.height; row += 1, y += tileHeight) {
+        const offset = row % 2 === 0 ? tileWidth : tileWidth / 2;
+        for (let x = rect.x + offset; x < rect.x + rect.width; x += tileWidth) graphics.strokeLineShape(new Phaser.Geom.Line(x, y, x, Math.min(y + tileHeight, rect.y + rect.height)));
+      }
+      graphics.lineStyle(4, 0x7d6548, 0.9).strokeRect(rect.x, rect.y, rect.width, rect.height);
+      if (accent) {
+        graphics.lineStyle(3, 0x9d6345, 0.48).strokeRect(rect.x + 12, rect.y + 12, rect.width - 24, rect.height - 24);
+      }
     };
-    drawSurface(WALKABLE[0], COLORS.plaza, "UPPER PLAZA");
-    drawSurface(WALKABLE[1], COLORS.stairs, "MAIN STAIRS");
-    drawSurface(WALKABLE[2], COLORS.quay, "LOWER QUAY");
-    drawSurface(WALKABLE[3], COLORS.quay, "WORKSHOP APPROACH");
-    drawSurface(WALKABLE[4], COLORS.target, "GANGWAY");
+    drawPaving(WALKABLE[0], 0xe1cda4, 0xb69a70, 130, 86, true);
+    drawPaving(WALKABLE[2], 0xcdb78d, 0x9c805d, 145, 76);
+    // The western approach remains the same existing lower-quay route; this only extends its material.
+    graphics.fillStyle(0xcdb78d, 1).fillRect(260, 710, 40, 170).lineStyle(4, 0x7d6548, 0.9).strokeRect(260, 710, 130, 170);
+    graphics.lineStyle(1, 0x9c805d, 0.55);
+    for (let y = 748; y < 880; y += 38) graphics.strokeLineShape(new Phaser.Geom.Line(260, y, 300, y));
 
-    graphics.lineStyle(3, 0x777b7c, 0.8);
-    for (let y = 495; y < 665; y += 22) graphics.strokeLineShape(new Phaser.Geom.Line(650, y, 910, y));
-    graphics.lineStyle(10, COLORS.railing, 1).strokeLineShape(new Phaser.Geom.Line(638, 490, 638, 675)).strokeLineShape(new Phaser.Geom.Line(922, 490, 922, 675));
+    // The eight actual stair bands are the only step lines in the scene.
+    graphics.fillStyle(0xd9c49b, 1).fillRect(650, 480, 260, 190);
+    for (let step = 0; step < 8; step += 1) {
+      const y = 480 + step * (190 / 8);
+      graphics.fillStyle(step % 2 === 0 ? 0xe5d1aa : 0xd7bf93, 1).fillRect(650, y, 260, 190 / 8);
+      graphics.lineStyle(3, 0x82694d, 0.72).strokeLineShape(new Phaser.Geom.Line(650, y, 910, y));
+    }
+    graphics.lineStyle(4, 0x6d5842, 0.95).strokeRect(650, 480, 260, 190);
+    graphics.lineStyle(10, 0x40545a, 1).strokeLineShape(new Phaser.Geom.Line(638, 490, 638, 675)).strokeLineShape(new Phaser.Geom.Line(922, 490, 922, 675));
 
-    const drawFootprint = (x: number, y: number, width: number, height: number, label: string, color: number = COLORS.building): void => {
-      graphics.fillStyle(color, 1).fillRect(x, y, width, height).lineStyle(6, COLORS.buildingEdge, 1).strokeRect(x, y, width, height);
-      this.add.text(x + 16, y + 16, label, { fontFamily: "monospace", fontSize: "18px", color: "#ffffff", backgroundColor: "#343b40", padding: { x: 7, y: 4 } }).setDepth(5);
+    // The shallow face makes the exact existing quay edge legible without adding a walkable strip.
+    graphics.fillStyle(0x8b704f, 1).fillRect(300, 935, 890, 25);
+    graphics.lineStyle(2, 0x5c4936, 0.75).strokeLineShape(new Phaser.Geom.Line(300, 935, 1190, 935));
+    for (let x = 300; x < 1190; x += 74) graphics.lineStyle(1, 0x5c4936, 0.55).strokeLineShape(new Phaser.Geom.Line(x, 935, x, 960));
+
+    // Unchanged graybox footprints remain deliberately neutral until Batch B/C.
+    const drawFootprint = (x: number, y: number, width: number, height: number, color: number): void => {
+      graphics.fillStyle(color, 1).fillRect(x, y, width, height).lineStyle(6, 0x4d4238, 1).strokeRect(x, y, width, height);
     };
-    drawFootprint(500, 18, 190, 145, "EXHIBITION HALL");
-    drawFootprint(790, 18, 150, 145, "EXHIBITION HALL");
-    graphics.fillStyle(0x202a2f, 1).fillRect(690, 68, 100, 95).lineStyle(4, 0xe4e4dd, 0.85).strokeRect(690, 68, 100, 95);
-    this.add.text(700, 98, "ENTRY", { fontFamily: "monospace", fontSize: "16px", color: "#ffffff" }).setDepth(6);
-    drawFootprint(80, 650, 180, 230, "WORKSHOP", COLORS.workshop);
-    drawFootprint(1215, 610, 300, 335, "HERO SHIP\nEXCLUSION", COLORS.ship);
-    graphics.fillStyle(COLORS.gangway, 1).fillRect(1145, 720, 120, 78).lineStyle(4, COLORS.buildingEdge, 1).strokeRect(1145, 720, 120, 78);
-    this.add.text(1151, 744, "SHIP\nTARGET", { fontFamily: "monospace", fontSize: "15px", color: "#1b252a" }).setDepth(6);
+    drawFootprint(500, 18, 190, 145, 0xa88963); drawFootprint(790, 18, 150, 145, 0xa88963);
+    graphics.fillStyle(0x514637, 1).fillRect(690, 68, 100, 95).lineStyle(4, 0xe0c99d, 0.75).strokeRect(690, 68, 100, 95);
+    drawFootprint(80, 650, 180, 230, 0x806a54); drawFootprint(1215, 610, 300, 335, 0x5c6460);
+    graphics.fillStyle(0xb58a50, 1).fillRect(1145, 720, 120, 78).lineStyle(4, 0x4d4238, 1).strokeRect(1145, 720, 120, 78);
 
-    // Visible neutral collision treatments, deliberately not decorative art.
-    graphics.lineStyle(8, COLORS.railing, 1).strokeLineShape(new Phaser.Geom.Line(300, 940, 1190, 940)).strokeLineShape(new Phaser.Geom.Line(1190, 650, 1190, 940));
-    graphics.lineStyle(6, COLORS.railing, 0.9).strokeLineShape(new Phaser.Geom.Line(300, 650, 300, 940));
-    this.add.text(28, 30, "R3A PLAYABLE GRAYBOX — SPACE / MOVEMENT / COLLISION / CAMERA", { fontFamily: "monospace", fontSize: "21px", color: "#e5e7e2", backgroundColor: "#1b252a", padding: { x: 10, y: 7 } }).setScrollFactor(0).setDepth(100);
+    // Existing visible collision limits, now styled as fixed rail/edge treatments only.
+    graphics.lineStyle(8, 0x40545a, 1).strokeLineShape(new Phaser.Geom.Line(300, 940, 1190, 940)).strokeLineShape(new Phaser.Geom.Line(1190, 650, 1190, 940));
+    graphics.lineStyle(6, 0x40545a, 0.9).strokeLineShape(new Phaser.Geom.Line(300, 650, 300, 940));
   }
 
   private createPlayerTextures(): void {
@@ -194,9 +214,12 @@ export class GrayboxScene extends Phaser.Scene {
 
   private applyQaPosition(): void {
     if (this.qaState === "normal") return;
-    if (this.qaState === "movement") {
-      this.player.setPosition(520, 350);
-      this.movementPath = [new Phaser.Math.Vector2(520, 350), new Phaser.Math.Vector2(800, 350), new Phaser.Math.Vector2(780, 530), new Phaser.Math.Vector2(780, 810)];
+    if (this.qaState === "movement" || this.qaState === "movement-reverse") {
+      const reverse = this.qaState === "movement-reverse";
+      this.player.setPosition(reverse ? 780 : 520, reverse ? 810 : 350);
+      this.movementPath = reverse
+        ? [new Phaser.Math.Vector2(780, 810), new Phaser.Math.Vector2(780, 530), new Phaser.Math.Vector2(800, 350)]
+        : [new Phaser.Math.Vector2(520, 350), new Phaser.Math.Vector2(800, 350), new Phaser.Math.Vector2(780, 530), new Phaser.Math.Vector2(780, 810)];
       this.movementIndex = 1;
       this.movementDemoStartedAt = this.time.now;
       return;

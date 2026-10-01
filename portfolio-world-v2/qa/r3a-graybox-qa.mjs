@@ -8,7 +8,8 @@ import { tmpdir } from "node:os";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(here, "..");
 const repoRoot = path.resolve(projectRoot, "..");
-const evidenceDir = path.join(repoRoot, "reports", "portfolio-world-rebuild", "evidence", "r3a1-graybox-motion");
+const foundationBatch = process.argv.includes("--r3c-foundation");
+const evidenceDir = path.join(repoRoot, "reports", "portfolio-world-rebuild", "evidence", foundationBatch ? "r3c-foundation" : "r3a1-graybox-motion");
 const edgePaths = ["C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe", "C:/Program Files/Microsoft/Edge/Application/msedge.exe"];
 const edgePath = edgePaths.find((candidate) => process.getBuiltinModule("node:fs").existsSync(candidate));
 
@@ -48,16 +49,23 @@ async function main() {
     const client = new CdpClient(page.webSocketDebuggerUrl); await client.open();
     await client.command("Runtime.enable"); await client.command("Log.enable"); await client.command("Network.enable"); await client.command("Page.enable");
     await client.command("Emulation.setDeviceMetricsOverride", { width: 1280, height: 720, deviceScaleFactor: 1, mobile: false });
-    const states = [["A-upper-plaza.png", "upper"], ["B-exhibition-entrance.png", "hall"], ["C-top-of-stairs.png", "stairs-top"], ["D-bottom-of-stairs.png", "stairs-bottom"], ["E-workshop-approach.png", "workshop"], ["F-hero-quay.png", "quay"], ["G-hero-ship-gangway.png", "gangway"]];
+    const states = foundationBatch
+      ? [["A-upper-plaza.png", "upper"], ["B-stairs-top.png", "stairs-top"], ["C-stairs-bottom.png", "stairs-bottom"], ["D-lower-quay.png", "quay"]]
+      : [["A-upper-plaza.png", "upper"], ["B-exhibition-entrance.png", "hall"], ["C-top-of-stairs.png", "stairs-top"], ["D-bottom-of-stairs.png", "stairs-bottom"], ["E-workshop-approach.png", "workshop"], ["F-hero-quay.png", "quay"], ["G-hero-ship-gangway.png", "gangway"]];
     const captures = [];
     for (const [fileName, stateName] of states) { const state = await navigateAndWait(client, `${origin}/?graybox=1&qa=${stateName}`, stateName); assertState(state, fileName); captures.push({ ...(await screenshot(client, fileName)), state }); }
     await navigateAndWait(client, `${origin}/?graybox=1&qa=movement`, "movement");
     const framesDir = path.join(evidenceDir, "movement-frames"); await mkdir(framesDir, { recursive: true });
-    const movementStates = []; const captureFps = 30; const frameCount = 210; const screencastFrames = [];
+    const movementStates = []; const movementSnapshots = []; const captureFps = 30; const frameCount = 210; const screencastFrames = [];
     const removeScreencastListener = client.on("Page.screencastFrame", (event) => { screencastFrames.push({ data: event.params.data, timestamp: event.params.metadata.timestamp }); client.command("Page.screencastFrameAck", { sessionId: event.params.sessionId }).catch(() => {}); });
     const captureStartedAt = performance.now();
     await client.command("Page.startScreencast", { format: "png", maxWidth: 1280, maxHeight: 720, everyNthFrame: 1 });
-    for (let index = 0; index < 14; index += 1) { await delay(500); movementStates.push(await qaState(client)); }
+    for (let index = 0; index < 14; index += 1) {
+      await delay(500); const state = await qaState(client); movementStates.push(state);
+      if (foundationBatch && index === 2) movementSnapshots.push({ ...(await screenshot(client, "E-player-plaza.png")), state });
+      if (foundationBatch && index === 4) movementSnapshots.push({ ...(await screenshot(client, "F-player-stairs.png")), state });
+      if (foundationBatch && index === 5) movementSnapshots.push({ ...(await screenshot(client, "G-player-quay.png")), state });
+    }
     await client.command("Page.stopScreencast"); removeScreencastListener();
     const captureElapsedSeconds = (performance.now() - captureStartedAt) / 1000;
     const firstTimestamp = screencastFrames[0]?.timestamp;
@@ -76,11 +84,17 @@ async function main() {
     if (!movementStates.some((state) => state?.camera?.deadzone?.width === 300 && state.camera.deadzone.height === 180)) throw new Error("Camera dead-zone was not active during motion evidence.");
     if (new Set(movementStates.map((state) => `${state?.camera?.x},${state?.camera?.y}`)).size < 2) throw new Error("Camera did not follow after the player crossed the dead-zone.");
     if (movementEnd?.player?.animation !== `gb-idle-${movementEnd.player.facing}`) throw new Error("Movement evidence did not return the player to the matching idle animation.");
+    await navigateAndWait(client, `${origin}/?graybox=1&qa=movement-reverse`, "movement-reverse");
+    const reverseStates = [];
+    for (let index = 0; index < 9; index += 1) { await delay(500); reverseStates.push(await qaState(client)); }
+    if (!reverseStates.some((state) => state?.player?.moving && state.player.animation === "gb-walk-up")) throw new Error("Reverse stair traversal did not expose an upward walk animation.");
+    if (!reverseStates.some((state) => state?.player?.y < 650)) throw new Error("Reverse stair traversal did not reach the upper level.");
     const gif = path.join(evidenceDir, "movement-plaza-stairs-quay-30fps.gif"); const mp4 = path.join(evidenceDir, "movement-plaza-stairs-quay-30fps.mp4");
     await run("ffmpeg", ["-y", "-framerate", "30", "-i", path.join(framesDir, "frame-%03d.png"), "-vf", "fps=30,scale=1280:-2:flags=lanczos", gif], evidenceDir);
     await run("ffmpeg", ["-y", "-framerate", "30", "-i", path.join(framesDir, "frame-%03d.png"), "-c:v", "libx264", "-pix_fmt", "yuv420p", mp4], evidenceDir);
     assertNoBrowserErrors(client.events);
-    await writeFile(path.join(evidenceDir, "qa-result.json"), `${JSON.stringify({ gate: "READY_FOR_GRAYBOX_MOTION_HUMAN_GATE", viewport: "1280x720", captures: captures.map(({ fileName, bytes, state }) => ({ fileName, bytes, qaState: state.qaState, player: state.player, camera: state.camera })), movement: { gif: path.basename(gif), mp4: path.basename(mp4), frames: frameCount, encodedFps: 30, encodedDurationSeconds: frameCount / 30, sampledCaptureFps: Number(sampledFps.toFixed(3)), sampledCaptureSeconds: Number(sampledDurationSeconds.toFixed(3)), realTimeCaptureSeconds: Number(captureElapsedSeconds.toFixed(3)), walkAnimationObserved: true, directionalWalkAnimationsObserved: ["right", "down"], idleAnimationRestored: true, cameraDeadzone: { width: 300, height: 180 }, cameraFollowObserved: true }, browserErrors: 0 }, null, 2)}\n`, "utf8");
+    if (foundationBatch && movementSnapshots.length !== 3) throw new Error("R3C foundation evidence did not capture all three moving-player views.");
+    await writeFile(path.join(evidenceDir, "qa-result.json"), `${JSON.stringify({ gate: foundationBatch ? "READY_FOR_ENVIRONMENT_ART_BATCH_A_HUMAN_GATE" : "READY_FOR_GRAYBOX_MOTION_HUMAN_GATE", viewport: "1280x720", captures: [...captures, ...movementSnapshots].map(({ fileName, bytes, state }) => ({ fileName, bytes, qaState: state.qaState, player: state.player, camera: state.camera })), movement: { gif: path.basename(gif), mp4: path.basename(mp4), frames: frameCount, encodedFps: 30, encodedDurationSeconds: frameCount / 30, sampledCaptureFps: Number(sampledFps.toFixed(3)), sampledCaptureSeconds: Number(sampledDurationSeconds.toFixed(3)), realTimeCaptureSeconds: Number(captureElapsedSeconds.toFixed(3)), walkAnimationObserved: true, directionalWalkAnimationsObserved: ["right", "down"], reverseStairTraversalObserved: true, idleAnimationRestored: true, cameraDeadzone: { width: 300, height: 180 }, cameraFollowObserved: true }, browserErrors: 0 }, null, 2)}\n`, "utf8");
     await client.command("Browser.close"); client.close(); console.log(`Graybox QA complete: ${evidenceDir}`);
   } finally { vite.kill(); edge.kill(); }
 }
