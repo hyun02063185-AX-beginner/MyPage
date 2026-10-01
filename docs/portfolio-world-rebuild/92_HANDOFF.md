@@ -1,6 +1,6 @@
 # 92. Portfolio World Rebuild — Handoff
 
-Updated: 2026-10-01 (Playable Harbor → R3C foundation Batch A)
+Updated: 2026-10-02 (R3C.1 foundation visual fidelity repair)
 
 ## Current State
 
@@ -28,6 +28,12 @@ canonical contact sheet and seven 1280×720 runtime captures in
 `reports/portfolio-world-rebuild/evidence/r3c-foundation/` before authorizing
 any architecture work.
 
+R3C.1 repairs the foundation's material fidelity only. It loads four committed
+lossless Study-A-derived surface PNGs at the existing L1 rectangles, while all
+movement and collision remain authoritative in `GrayboxScene.ts`. Review
+`reports/portfolio-world-rebuild/r3c1-foundation-visual-fidelity-repair.md`
+and its before/after contact sheet before approving any Batch B architecture.
+
 ```text
 R5A_HUMAN_GATE        = REJECTED
 SCENE_PLATE_DIRECTION = RETIRED
@@ -36,8 +42,9 @@ R3A_GRAYBOX           = COMPLETE — geometry source of truth
 R3A.1_MOTION_REPAIR   = COMPLETE — 30 fps movement evidence accepted
 R3B_ART_BLUEPRINT     = COMPLETE
 R3C_FOUNDATION_BATCH_A = COMPLETE — human alignment review pending
-NEXT                  = BATCH_A_HUMAN_GATE
-GATE                  = READY_FOR_ENVIRONMENT_ART_BATCH_A_HUMAN_GATE
+R3C.1_FIDELITY_REPAIR = COMPLETE — human visual review pending
+NEXT                  = FOUNDATION_VISUAL_FIDELITY_HUMAN_GATE
+GATE                  = READY_FOR_FOUNDATION_VISUAL_FIDELITY_HUMAN_GATE
 ```
 
 ## Immediate continuation
@@ -46,8 +53,8 @@ GATE                  = READY_FOR_ENVIRONMENT_ART_BATCH_A_HUMAN_GATE
   `data/portfolio-world/r3b-art-manifest.json` before authoring art.
 - Preserve R3A graybox coordinates and collision ownership. Art belongs on the
   documented depth layers; it may not alter walkability.
-- Batch A is complete and awaits a Human Alignment Gate. Do not start Batch B
-  architecture or Batch C Hero Ship work until that gate is approved.
+- R3C.1 is complete and awaits the Human Visual Fidelity Gate. Do not start
+  Batch B architecture or Batch C Hero Ship work until that gate is approved.
 
 ## Historical R5A delivery (superseded)
 

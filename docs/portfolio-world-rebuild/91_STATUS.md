@@ -1,6 +1,6 @@
 # 91. Portfolio World Rebuild — Project Status
 
-Updated: 2026-10-01 (Playable Harbor → R3C foundation Batch A)
+Updated: 2026-10-02 (R3C.1 foundation visual fidelity repair)
 
 ## Current State Override
 
@@ -25,6 +25,11 @@ has been translated into a collision-independent deterministic foundation
 treatment. Canonical human-review evidence and the Batch A report are at
 `reports/portfolio-world-rebuild/evidence/r3c-foundation/` and
 `reports/portfolio-world-rebuild/r3c-environment-art-batch-a.md`.
+R3C.1 Foundation Visual Fidelity Repair is **COMPLETE**: four lossless,
+Study-A-derived L1 runtime assets replace the flat foundation fills without any
+gameplay-topology change. Its before/after evidence and human-review record are
+at `reports/portfolio-world-rebuild/evidence/r3c1-foundation-fidelity/` and
+`reports/portfolio-world-rebuild/r3c1-foundation-visual-fidelity-repair.md`.
 
 ```text
 R5A_HUMAN_GATE           = REJECTED
@@ -34,8 +39,9 @@ R3A_GRAYBOX              = COMPLETE — spatial geometry locked
 R3A.1_MOTION_REPAIR      = COMPLETE — Human Gate approved
 R3B_ART_BLUEPRINT        = COMPLETE
 R3C_FOUNDATION_BATCH_A   = COMPLETE — human alignment review pending
-NEXT                     = BATCH_A_HUMAN_GATE
-GATE                     = READY_FOR_ENVIRONMENT_ART_BATCH_A_HUMAN_GATE
+R3C.1_FIDELITY_REPAIR    = COMPLETE — human visual review pending
+NEXT                     = FOUNDATION_VISUAL_FIDELITY_HUMAN_GATE
+GATE                     = READY_FOR_FOUNDATION_VISUAL_FIDELITY_HUMAN_GATE
 ```
 
 ## Historical R5A Work Unit (superseded)
