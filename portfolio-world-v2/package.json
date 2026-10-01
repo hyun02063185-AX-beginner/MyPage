@@ -12,6 +12,7 @@
     "preview": "vite preview --base /MyPage/world-v2/",
     "typecheck": "tsc --noEmit",
     "qa:runtime": "node qa/r2b-runtime-qa.mjs",
+    "qa:graybox": "node qa/r3a-graybox-qa.mjs",
     "test": "npm run typecheck && npm run build && npm run qa:runtime -- --mode build"
   },
   "dependencies": {

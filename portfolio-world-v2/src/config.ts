@@ -29,6 +29,12 @@ export const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
       ],
     },
   },
+  physics: {
+    default: "arcade",
+    arcade: {
+      debug: false,
+    },
+  },
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,

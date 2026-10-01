@@ -15,6 +15,7 @@ export class BootScene extends Phaser.Scene {
   }
 
   public create(): void {
-    this.scene.start("WorldScene");
+    const query = new URLSearchParams(window.location.search);
+    this.scene.start(query.get("graybox") === "1" ? "GrayboxScene" : "WorldScene");
   }
 }
