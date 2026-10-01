@@ -1,40 +1,54 @@
 # 92. Portfolio World Rebuild — Handoff
 
-Updated: 2026-09-27 (R5A portfolio interaction layer v1)
+Updated: 2026-10-01 (Playable Harbor → Graybox → R3B blueprint closeout)
 
-## State
+## Current State
 
-**R5A PORTFOLIO INTERACTION LAYER v1 IS IMPLEMENTED.** It changes only the isolated v2 source/output trees; v1 source, v1 artifact, v1 assets, and root site link remain untouched. `feature/portfolio-world-concept-vertical-slice` (v1's full history) remains preserved as reference.
+**R5A HUMAN GATE = REJECTED.** The prior scene-plate gameplay direction is
+retired. Keep the old v2 material only as history; do not use its Golden Master
+plate as a playable background or derive collision from art pixels.
+
+The current continuation point is the explicit `GrayboxScene` in
+`portfolio-world-v2/src/scenes/GrayboxScene.ts`. Its geometry, collision
+topology, player scale, and dead-zone camera/motion behavior are locked by the
+approved R3A/R3A.1 Human Gate.
+
+The selected Round 2C art-direction reference is intentionally untracked:
+`output/codyssey-image-benchmark/harbor-playable-round-02c/2C-gameplay-framing.gpt-image-2.png`
+with SHA-256 `7A724D1232317F2C36421C127B0C6868500272964E801757682A532E34B84271`.
+It is provenance only, not a runtime asset.
 
 ```text
-R0_SKILL_QUALIFICATION = COMPLETE
-HUMAN_GATE_1            = APPROVED
-R2A_ARCHITECTURE        = COMPLETE
-R2A_1_CORRECTION        = COMPLETE
-R2B_BLOCKOUT            = COMPLETE
-R2B_FUNCTIONAL_QA       = COMPLETE (dev + build; no visual verdict)
-R2C_VISUAL_QA           = COMPLETE — 3/8 conditions carry a Major failure
-R2D_BLOCKOUT_REPAIR     = COMPLETE (dev + build functional QA clean)
-R2E_VISUAL_RECHECK      = COMPLETE — all three R2C Majors closed; 0 Blocker / 0 Major / 4 Minor / 2 Polish
-R3A_HERO_SHIP_TARGET    = IMPLEMENTED — historical source asset retained
-R4_VERTICAL_SLICE       = COMPLETE — Golden Master plate plus authored interaction layers
-R4_2_PLAYER_INTEGRATION = COMPLETE — valid-ground player anchors, muted derivative, contact shadow
-HUMAN_GATE_2            = APPROVED
-PROJECTION              = MID working baseline (not locked)
-R5A_INTERACTION_LAYER   = COMPLETE — three real destinations, visitor panels, opt-in debug overlay
-NEXT                    = INDEPENDENT_PRODUCT_VISUAL_REVIEW
-GATE                    = READY_FOR_R5A_INDEPENDENT_PRODUCT_VISUAL_REVIEW
+R5A_HUMAN_GATE        = REJECTED
+SCENE_PLATE_DIRECTION = RETIRED
+PLAYABLE_HARBOR_2A–2C = COMPLETE — selected 2C is style-only reference
+R3A_GRAYBOX           = COMPLETE — geometry source of truth
+R3A.1_MOTION_REPAIR   = COMPLETE — 30 fps movement evidence accepted
+R3B_ART_BLUEPRINT     = COMPLETE
+NEXT                  = ENVIRONMENT_ART_BATCH_A (not started)
+GATE                  = READY_FOR_ENVIRONMENT_ART_BATCH_A
 ```
 
-## R5A delivery (implementation — independent visual review pending)
+## Immediate continuation
+
+- Read `reports/portfolio-world-rebuild/r3b-environment-art-blueprint.md` and
+  `data/portfolio-world/r3b-art-manifest.json` before authoring art.
+- Preserve R3A graybox coordinates and collision ownership. Art belongs on the
+  documented depth layers; it may not alter walkability.
+- Do not start Batch A until explicitly requested. When requested, produce only
+  its two isolated foundation studies through the DPAPI wrapper and stop at its
+  human alignment gate.
+
+## Historical R5A delivery (superseded)
 
 - Production mapping: Harbor Square → `../#about` (portfolio introduction), Exhibition Hall → `../gallery.html` (AI·AX concept gallery), Hero Quay → `../career.html` (career). No physical landmark was invented for teaching or making content in this v1 layer.
 - Visitor interaction: approach the valid ground hotspot, then press **E** or short-tap/click; the compact panel has an actual-destination action, pointer close, Escape close, and Enter/E can follow the active action.
 - QA/debug: normal visitor mode contains no persistent labels or route guides. `?pwDebug=1` enables the calibration-only route and location labels.
 - Evidence: normal build `reports/portfolio-world-rebuild/evidence/r5a/` (9 1280 × 720 frames); dev verification `evidence/r5a1/`. The build/dev harness verifies normal mode has debug disabled, production destinations/reachability, keyboard and pointer activation, collision/walkability, and browser errors.
-- Gate: **`READY_FOR_R5A_INDEPENDENT_PRODUCT_VISUAL_REVIEW`**. This is not a self-granted final product visual approval.
+- Historical gate: independent R5A product visual review; it is overridden by
+  the rejected R5A Human Gate above.
 
-## R4.2 approved closeout
+## Historical R4.2 scene-plate closeout (retired direction)
 
 - Canonical input: `world.reference.golden-master.r4`, with SHA-256 and reference boundary at `portfolio-world-v2/public/assets/world/reference/golden-master-r4-provenance.md`.
 - Runtime approach: scene plate plus independently authored player, constrained routes, water/structure exclusion, cargo occlusion, keyboard/pointer movement, and Exhibition Hall hotspot. The image is not treated as a completed map or a free-walk background.

@@ -1,10 +1,37 @@
 # 91. Portfolio World Rebuild — Project Status
 
-Updated: 2026-09-27 (R5A portfolio interaction layer v1)
+Updated: 2026-10-01 (Playable Harbor → Graybox → R3B blueprint closeout)
 
-## Phase
+## Current State Override
 
-PORTFOLIO WORLD REBUILD — R5A PORTFOLIO INTERACTION LAYER v1 IMPLEMENTED
+The R5A human gate is **REJECTED**. The Golden Master / scene-plate gameplay
+direction is retired and must not be resumed as a gameplay-background or
+pixel-derived-collision approach. It remains below as historical evidence only.
+
+Playable Harbor redesign completed through Round 2C. Its selected visual
+reference remains local and deliberately uncommitted:
+`output/codyssey-image-benchmark/harbor-playable-round-02c/2C-gameplay-framing.gpt-image-2.png`
+(SHA-256 `7A724D1232317F2C36421C127B0C6868500272964E801757682A532E34B84271`).
+It is art direction only, never a gameplay plate.
+
+Graybox space/movement Human Gate is **APPROVED**. The explicit Phaser R3A
+graybox is the gameplay source of truth; R3A.1 repaired its motion evidence.
+R3B Environment Art Blueprint is **COMPLETE** at
+`reports/portfolio-world-rebuild/r3b-environment-art-blueprint.md`, with its
+machine-readable asset plan at `data/portfolio-world/r3b-art-manifest.json`.
+
+```text
+R5A_HUMAN_GATE           = REJECTED
+SCENE_PLATE_DIRECTION    = RETIRED — historical record only
+PLAYABLE_HARBOR_2A–2C    = COMPLETE — 2C is style reference only
+R3A_GRAYBOX              = COMPLETE — spatial geometry locked
+R3A.1_MOTION_REPAIR      = COMPLETE — Human Gate approved
+R3B_ART_BLUEPRINT        = COMPLETE
+NEXT                     = ENVIRONMENT_ART_BATCH_A (not started)
+GATE                     = READY_FOR_ENVIRONMENT_ART_BATCH_A
+```
+
+## Historical R5A Work Unit (superseded)
 
 ```text
 R0_SKILL_QUALIFICATION   = COMPLETE
@@ -25,17 +52,17 @@ R2E_VISUAL_RECHECK       = COMPLETE — independent; all three R2C Majors closed
 PROJECTION               = MID working baseline (not locked)
 HUMAN_GATE_2             = APPROVED
 R5A_INTERACTION_LAYER    = COMPLETE — real MyPage destinations, visitor-facing panels, opt-in debug overlay
-NEXT                     = INDEPENDENT_PRODUCT_VISUAL_REVIEW
-GATE                     = READY_FOR_R5A_INDEPENDENT_PRODUCT_VISUAL_REVIEW
+NEXT                     = HISTORICAL_R5A_REVIEW (superseded)
+GATE                     = SUPERSEDED_BY_R5A_HUMAN_GATE_REJECTION
 ```
 
 ## Current Work Unit (R5A portfolio interaction layer v1)
 
 R5A keeps the locked Golden Master, player, cargo occlusion, camera clamp, and navigation geometry intact. It adds three reachable, real-content interactions: Harbor Square → `../#about`, Exhibition Hall → `../gallery.html`, and Hero Quay → `../career.html`. The visitor flow is proximity + **E** or a short pointer/touch tap, followed by a compact title/description/action panel with pointer close and Escape close. No permanent route or QA labels appear in normal mode; `?pwDebug=1` is the explicit opt-in calibration overlay.
 
-Built normal-mode evidence is `reports/portfolio-world-rebuild/evidence/r5a/` (9 captures); the separate dev run is `evidence/r5a1/`. Typecheck, build, dev/build runtime QA, route/collision, all hotspot reachability/destinations, keyboard/pointer activation, and browser error checks pass. R5A is implementation-complete, not a final independent visual verdict.
+Built normal-mode evidence is `reports/portfolio-world-rebuild/evidence/r5a/` (9 captures); the separate dev run is `evidence/r5a1/`. Typecheck, build, dev/build runtime QA, route/collision, all hotspot reachability/destinations, keyboard/pointer activation, and browser error checks pass. This historical implementation does not retain a current approval; its Human Gate is rejected by the current-state override.
 
-## Previous Work Unit (R4.2 closeout)
+## Historical R4.2 scene-plate closeout (retired direction)
 
 The user-supplied Golden Master remains locked as `world.reference.golden-master.r4`; scene plate plus authored Phaser layers is the approved method. R4.2 anchors the player to confirmed plaza, quay, and Hall stair-landing ground pixels, uses a muted local player derivative with contact shadow, preserves cargo occlusion/camera bounds, and retains the Harbor Square → Exhibition Hall → Hero Quay → Hero Ship interaction route. Final 1280 × 720 evidence is `reports/portfolio-world-rebuild/evidence/r4-2/`; the implementation record is `reports/portfolio-world-rebuild/r4-golden-master-representative-vertical-slice.md`.
 
