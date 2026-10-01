@@ -1,6 +1,6 @@
 # 92. Portfolio World Rebuild — Handoff
 
-Updated: 2026-10-01 (Playable Harbor → Graybox → R3B blueprint closeout)
+Updated: 2026-10-01 (Playable Harbor → R3C foundation Batch A)
 
 ## Current State
 
@@ -18,6 +18,16 @@ The selected Round 2C art-direction reference is intentionally untracked:
 with SHA-256 `7A724D1232317F2C36421C127B0C6868500272964E801757682A532E34B84271`.
 It is provenance only, not a runtime asset.
 
+R3C Foundation Batch A has applied an aligned deterministic L1 paving/stair/
+quay-edge treatment without changing the R3A geometry or collision ownership.
+The two raw original Gemini PNGs remain intentionally untracked at
+`output/codyssey-image-benchmark/r3c-foundation-batch-a-rerun-01/`; their
+paths, hashes, dimensions, and API status are recorded in
+`reports/portfolio-world-rebuild/r3c-environment-art-batch-a.md`. Review the
+canonical contact sheet and seven 1280×720 runtime captures in
+`reports/portfolio-world-rebuild/evidence/r3c-foundation/` before authorizing
+any architecture work.
+
 ```text
 R5A_HUMAN_GATE        = REJECTED
 SCENE_PLATE_DIRECTION = RETIRED
@@ -25,8 +35,9 @@ PLAYABLE_HARBOR_2A–2C = COMPLETE — selected 2C is style-only reference
 R3A_GRAYBOX           = COMPLETE — geometry source of truth
 R3A.1_MOTION_REPAIR   = COMPLETE — 30 fps movement evidence accepted
 R3B_ART_BLUEPRINT     = COMPLETE
-NEXT                  = ENVIRONMENT_ART_BATCH_A (not started)
-GATE                  = READY_FOR_ENVIRONMENT_ART_BATCH_A
+R3C_FOUNDATION_BATCH_A = COMPLETE — human alignment review pending
+NEXT                  = BATCH_A_HUMAN_GATE
+GATE                  = READY_FOR_ENVIRONMENT_ART_BATCH_A_HUMAN_GATE
 ```
 
 ## Immediate continuation
@@ -35,9 +46,8 @@ GATE                  = READY_FOR_ENVIRONMENT_ART_BATCH_A
   `data/portfolio-world/r3b-art-manifest.json` before authoring art.
 - Preserve R3A graybox coordinates and collision ownership. Art belongs on the
   documented depth layers; it may not alter walkability.
-- Do not start Batch A until explicitly requested. When requested, produce only
-  its two isolated foundation studies through the DPAPI wrapper and stop at its
-  human alignment gate.
+- Batch A is complete and awaits a Human Alignment Gate. Do not start Batch B
+  architecture or Batch C Hero Ship work until that gate is approved.
 
 ## Historical R5A delivery (superseded)
 

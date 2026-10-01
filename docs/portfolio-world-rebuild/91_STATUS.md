@@ -1,6 +1,6 @@
 # 91. Portfolio World Rebuild — Project Status
 
-Updated: 2026-10-01 (Playable Harbor → Graybox → R3B blueprint closeout)
+Updated: 2026-10-01 (Playable Harbor → R3C foundation Batch A)
 
 ## Current State Override
 
@@ -19,6 +19,12 @@ graybox is the gameplay source of truth; R3A.1 repaired its motion evidence.
 R3B Environment Art Blueprint is **COMPLETE** at
 `reports/portfolio-world-rebuild/r3b-environment-art-blueprint.md`, with its
 machine-readable asset plan at `data/portfolio-world/r3b-art-manifest.json`.
+R3C Foundation Batch A is **COMPLETE**: two original Gemini study PNGs are
+retained locally with recorded provenance, and their clean limestone language
+has been translated into a collision-independent deterministic foundation
+treatment. Canonical human-review evidence and the Batch A report are at
+`reports/portfolio-world-rebuild/evidence/r3c-foundation/` and
+`reports/portfolio-world-rebuild/r3c-environment-art-batch-a.md`.
 
 ```text
 R5A_HUMAN_GATE           = REJECTED
@@ -27,8 +33,9 @@ PLAYABLE_HARBOR_2A–2C    = COMPLETE — 2C is style reference only
 R3A_GRAYBOX              = COMPLETE — spatial geometry locked
 R3A.1_MOTION_REPAIR      = COMPLETE — Human Gate approved
 R3B_ART_BLUEPRINT        = COMPLETE
-NEXT                     = ENVIRONMENT_ART_BATCH_A (not started)
-GATE                     = READY_FOR_ENVIRONMENT_ART_BATCH_A
+R3C_FOUNDATION_BATCH_A   = COMPLETE — human alignment review pending
+NEXT                     = BATCH_A_HUMAN_GATE
+GATE                     = READY_FOR_ENVIRONMENT_ART_BATCH_A_HUMAN_GATE
 ```
 
 ## Historical R5A Work Unit (superseded)

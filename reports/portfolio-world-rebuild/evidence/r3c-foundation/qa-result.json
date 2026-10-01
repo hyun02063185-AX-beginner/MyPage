@@ -1,0 +1,176 @@
+{
+  "gate": "READY_FOR_ENVIRONMENT_ART_BATCH_A_HUMAN_GATE",
+  "viewport": "1280x720",
+  "captures": [
+    {
+      "fileName": "A-upper-plaza.png",
+      "bytes": 13032,
+      "qaState": "upper",
+      "player": {
+        "x": 700,
+        "y": 350,
+        "facing": "down",
+        "animation": "gb-idle-down",
+        "moving": false
+      },
+      "camera": {
+        "x": 670,
+        "y": 333,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    },
+    {
+      "fileName": "B-stairs-top.png",
+      "bytes": 13320,
+      "qaState": "stairs-top",
+      "player": {
+        "x": 780,
+        "y": 515,
+        "facing": "down",
+        "animation": "gb-idle-down",
+        "moving": false
+      },
+      "camera": {
+        "x": 670,
+        "y": 358,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    },
+    {
+      "fileName": "C-stairs-bottom.png",
+      "bytes": 12766,
+      "qaState": "stairs-bottom",
+      "player": {
+        "x": 780,
+        "y": 640,
+        "facing": "down",
+        "animation": "gb-idle-down",
+        "moving": false
+      },
+      "camera": {
+        "x": 670,
+        "y": 465,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    },
+    {
+      "fileName": "D-lower-quay.png",
+      "bytes": 13251,
+      "qaState": "quay",
+      "player": {
+        "x": 780,
+        "y": 790,
+        "facing": "down",
+        "animation": "gb-idle-down",
+        "moving": false
+      },
+      "camera": {
+        "x": 670,
+        "y": 333,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    },
+    {
+      "fileName": "E-player-plaza.png",
+      "bytes": 12006,
+      "qaState": "movement",
+      "player": {
+        "x": 720,
+        "y": 350,
+        "facing": "right",
+        "animation": "gb-walk-right",
+        "moving": true
+      },
+      "camera": {
+        "x": 640,
+        "y": 333,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    },
+    {
+      "fileName": "F-player-stairs.png",
+      "bytes": 12323,
+      "qaState": "movement",
+      "player": {
+        "x": 780,
+        "y": 533,
+        "facing": "down",
+        "animation": "gb-walk-down",
+        "moving": true
+      },
+      "camera": {
+        "x": 640,
+        "y": 409,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    },
+    {
+      "fileName": "G-player-quay.png",
+      "bytes": 12272,
+      "qaState": "movement",
+      "player": {
+        "x": 780,
+        "y": 673,
+        "facing": "down",
+        "animation": "gb-walk-down",
+        "moving": true
+      },
+      "camera": {
+        "x": 640,
+        "y": 549,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    }
+  ],
+  "movement": {
+    "gif": "movement-plaza-stairs-quay-30fps.gif",
+    "mp4": "movement-plaza-stairs-quay-30fps.mp4",
+    "frames": 210,
+    "encodedFps": 30,
+    "encodedDurationSeconds": 7,
+    "sampledCaptureFps": 29.955,
+    "sampledCaptureSeconds": 6.977,
+    "realTimeCaptureSeconds": 7.33,
+    "walkAnimationObserved": true,
+    "directionalWalkAnimationsObserved": [
+      "right",
+      "down"
+    ],
+    "reverseStairTraversalObserved": true,
+    "idleAnimationRestored": true,
+    "cameraDeadzone": {
+      "width": 300,
+      "height": 180
+    },
+    "cameraFollowObserved": true
+  },
+  "browserErrors": 0
+}
