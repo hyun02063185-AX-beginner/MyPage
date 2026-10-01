@@ -8,8 +8,9 @@ import { tmpdir } from "node:os";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(here, "..");
 const repoRoot = path.resolve(projectRoot, "..");
-const foundationBatch = process.argv.includes("--r3c-foundation");
-const evidenceDir = path.join(repoRoot, "reports", "portfolio-world-rebuild", "evidence", foundationBatch ? "r3c-foundation" : "r3a1-graybox-motion");
+const fidelityBatch = process.argv.includes("--r3c1-foundation");
+const foundationBatch = process.argv.includes("--r3c-foundation") || fidelityBatch;
+const evidenceDir = path.join(repoRoot, "reports", "portfolio-world-rebuild", "evidence", fidelityBatch ? "r3c1-foundation-fidelity" : foundationBatch ? "r3c-foundation" : "r3a1-graybox-motion");
 const edgePaths = ["C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe", "C:/Program Files/Microsoft/Edge/Application/msedge.exe"];
 const edgePath = edgePaths.find((candidate) => process.getBuiltinModule("node:fs").existsSync(candidate));
 
@@ -56,7 +57,7 @@ async function main() {
     for (const [fileName, stateName] of states) { const state = await navigateAndWait(client, `${origin}/?graybox=1&qa=${stateName}`, stateName); assertState(state, fileName); captures.push({ ...(await screenshot(client, fileName)), state }); }
     await navigateAndWait(client, `${origin}/?graybox=1&qa=movement`, "movement");
     const framesDir = path.join(evidenceDir, "movement-frames"); await mkdir(framesDir, { recursive: true });
-    const movementStates = []; const movementSnapshots = []; const captureFps = 30; const frameCount = 210; const screencastFrames = [];
+    const movementStates = []; const movementSnapshots = []; const captureFps = fidelityBatch ? 10 : 30; const frameCount = captureFps * 7; const screencastFrames = [];
     const removeScreencastListener = client.on("Page.screencastFrame", (event) => { screencastFrames.push({ data: event.params.data, timestamp: event.params.metadata.timestamp }); client.command("Page.screencastFrameAck", { sessionId: event.params.sessionId }).catch(() => {}); });
     const captureStartedAt = performance.now();
     await client.command("Page.startScreencast", { format: "png", maxWidth: 1280, maxHeight: 720, everyNthFrame: 1 });
@@ -75,10 +76,12 @@ async function main() {
     if (sampledFrames.length !== frameCount) throw new Error(`Screencast produced ${sampledFrames.length}/${frameCount} real-time frames.`);
     const sampledDurationSeconds = sampledFrames.at(-1).timestamp - sampledFrames[0].timestamp;
     const sampledFps = (sampledFrames.length - 1) / sampledDurationSeconds;
-    if (sampledDurationSeconds < 6.8 || sampledDurationSeconds > 7.4 || sampledFps < 28 || sampledFps > 31) throw new Error(`Screencast timing was invalid: ${sampledFps.toFixed(2)} fps over ${sampledDurationSeconds.toFixed(2)}s.`);
+    const minimumFps = fidelityBatch ? 9 : 28; const maximumFps = fidelityBatch ? 11 : 31;
+    if (sampledDurationSeconds < 6.8 || sampledDurationSeconds > 7.4 || sampledFps < minimumFps || sampledFps > maximumFps) throw new Error(`Screencast timing was invalid: ${sampledFps.toFixed(2)} fps over ${sampledDurationSeconds.toFixed(2)}s.`);
     for (const [index, frame] of sampledFrames.entries()) await writeFile(path.join(framesDir, `frame-${String(index).padStart(3, "0")}.png`), Buffer.from(frame.data, "base64"));
     await delay(350); const movementEnd = await qaState(client);
-    if (captureElapsedSeconds < 6.9 || captureElapsedSeconds > 8.5) throw new Error(`Real-time capture duration was invalid: ${captureElapsedSeconds.toFixed(2)}s.`);
+    const maximumRealTimeSeconds = fidelityBatch ? 10 : 8.5;
+    if (captureElapsedSeconds < 6.9 || captureElapsedSeconds > maximumRealTimeSeconds) throw new Error(`Real-time capture duration was invalid: ${captureElapsedSeconds.toFixed(2)}s.`);
     if (!movementStates.some((state) => state?.player?.moving && state.player.animation.startsWith("gb-walk-"))) throw new Error("Movement evidence did not expose a walk animation state.");
     if (!movementStates.some((state) => state?.player?.animation === "gb-walk-right") || !movementStates.some((state) => state?.player?.animation === "gb-walk-down")) throw new Error("Movement evidence did not expose expected directional walk animations.");
     if (!movementStates.some((state) => state?.camera?.deadzone?.width === 300 && state.camera.deadzone.height === 180)) throw new Error("Camera dead-zone was not active during motion evidence.");
@@ -90,11 +93,12 @@ async function main() {
     if (!reverseStates.some((state) => state?.player?.moving && state.player.animation === "gb-walk-up")) throw new Error("Reverse stair traversal did not expose an upward walk animation.");
     if (!reverseStates.some((state) => state?.player?.y < 650)) throw new Error("Reverse stair traversal did not reach the upper level.");
     const gif = path.join(evidenceDir, "movement-plaza-stairs-quay-30fps.gif"); const mp4 = path.join(evidenceDir, "movement-plaza-stairs-quay-30fps.mp4");
-    await run("ffmpeg", ["-y", "-framerate", "30", "-i", path.join(framesDir, "frame-%03d.png"), "-vf", "fps=30,scale=1280:-2:flags=lanczos", gif], evidenceDir);
-    await run("ffmpeg", ["-y", "-framerate", "30", "-i", path.join(framesDir, "frame-%03d.png"), "-c:v", "libx264", "-pix_fmt", "yuv420p", mp4], evidenceDir);
+    await run("ffmpeg", ["-y", "-framerate", String(captureFps), "-i", path.join(framesDir, "frame-%03d.png"), "-vf", `fps=${captureFps},scale=1280:-2:flags=lanczos`, gif], evidenceDir);
+    await run("ffmpeg", ["-y", "-framerate", String(captureFps), "-i", path.join(framesDir, "frame-%03d.png"), "-c:v", "libx264", "-pix_fmt", "yuv420p", mp4], evidenceDir);
     assertNoBrowserErrors(client.events);
     if (foundationBatch && movementSnapshots.length !== 3) throw new Error("R3C foundation evidence did not capture all three moving-player views.");
-    await writeFile(path.join(evidenceDir, "qa-result.json"), `${JSON.stringify({ gate: foundationBatch ? "READY_FOR_ENVIRONMENT_ART_BATCH_A_HUMAN_GATE" : "READY_FOR_GRAYBOX_MOTION_HUMAN_GATE", viewport: "1280x720", captures: [...captures, ...movementSnapshots].map(({ fileName, bytes, state }) => ({ fileName, bytes, qaState: state.qaState, player: state.player, camera: state.camera })), movement: { gif: path.basename(gif), mp4: path.basename(mp4), frames: frameCount, encodedFps: 30, encodedDurationSeconds: frameCount / 30, sampledCaptureFps: Number(sampledFps.toFixed(3)), sampledCaptureSeconds: Number(sampledDurationSeconds.toFixed(3)), realTimeCaptureSeconds: Number(captureElapsedSeconds.toFixed(3)), walkAnimationObserved: true, directionalWalkAnimationsObserved: ["right", "down"], reverseStairTraversalObserved: true, idleAnimationRestored: true, cameraDeadzone: { width: 300, height: 180 }, cameraFollowObserved: true }, browserErrors: 0 }, null, 2)}\n`, "utf8");
+    const gate = fidelityBatch ? "READY_FOR_FOUNDATION_VISUAL_FIDELITY_HUMAN_GATE" : foundationBatch ? "READY_FOR_ENVIRONMENT_ART_BATCH_A_HUMAN_GATE" : "READY_FOR_GRAYBOX_MOTION_HUMAN_GATE";
+    await writeFile(path.join(evidenceDir, "qa-result.json"), `${JSON.stringify({ gate, viewport: "1280x720", captures: [...captures, ...movementSnapshots].map(({ fileName, bytes, state }) => ({ fileName, bytes, qaState: state.qaState, player: state.player, camera: state.camera })), movement: { gif: path.basename(gif), mp4: path.basename(mp4), frames: frameCount, encodedFps: captureFps, encodedDurationSeconds: frameCount / captureFps, sampledCaptureFps: Number(sampledFps.toFixed(3)), sampledCaptureSeconds: Number(sampledDurationSeconds.toFixed(3)), realTimeCaptureSeconds: Number(captureElapsedSeconds.toFixed(3)), walkAnimationObserved: true, directionalWalkAnimationsObserved: ["right", "down"], reverseStairTraversalObserved: true, idleAnimationRestored: true, cameraDeadzone: { width: 300, height: 180 }, cameraFollowObserved: true }, browserErrors: 0 }, null, 2)}\n`, "utf8");
     await client.command("Browser.close"); client.close(); console.log(`Graybox QA complete: ${evidenceDir}`);
   } finally { vite.kill(); edge.kill(); }
 }
