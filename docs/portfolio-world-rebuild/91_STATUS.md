@@ -1,6 +1,6 @@
 # 91. Portfolio World Rebuild — Project Status
 
-Updated: 2026-10-02 (R3C.1 foundation visual fidelity repair)
+Updated: 2026-10-02 (R3D Environment Art Batch B)
 
 ## Current State Override
 
@@ -30,6 +30,11 @@ Study-A-derived L1 runtime assets replace the flat foundation fills without any
 gameplay-topology change. Its before/after evidence and human-review record are
 at `reports/portfolio-world-rebuild/evidence/r3c1-foundation-fidelity/` and
 `reports/portfolio-world-rebuild/r3c1-foundation-visual-fidelity-repair.md`.
+R3D Environment Art Batch B is **COMPLETE for human review**: transparent Hall
+and Workshop PNG derivatives now replace only their neutral graybox masses in
+the locked runtime. Evidence, contact sheet, provenance, and QA record are at
+`reports/portfolio-world-rebuild/evidence/r3d-architecture/` and
+`reports/portfolio-world-rebuild/r3d-environment-art-batch-b.md`.
 
 ```text
 R5A_HUMAN_GATE           = REJECTED
@@ -39,9 +44,10 @@ R3A_GRAYBOX              = COMPLETE — spatial geometry locked
 R3A.1_MOTION_REPAIR      = COMPLETE — Human Gate approved
 R3B_ART_BLUEPRINT        = COMPLETE
 R3C_FOUNDATION_BATCH_A   = COMPLETE — human alignment review pending
-R3C.1_FIDELITY_REPAIR    = COMPLETE — human visual review pending
-NEXT                     = FOUNDATION_VISUAL_FIDELITY_HUMAN_GATE
-GATE                     = READY_FOR_FOUNDATION_VISUAL_FIDELITY_HUMAN_GATE
+R3C.1_FIDELITY_REPAIR    = COMPLETE — approved baseline
+R3D_ARCHITECTURE_BATCH_B = COMPLETE — human review pending
+NEXT                     = ENVIRONMENT_ART_BATCH_B_HUMAN_GATE
+GATE                     = READY_FOR_ENVIRONMENT_ART_BATCH_B_HUMAN_GATE
 ```
 
 ## Historical R5A Work Unit (superseded)

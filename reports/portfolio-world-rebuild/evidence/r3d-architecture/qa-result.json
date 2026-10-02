@@ -1,0 +1,176 @@
+{
+  "gate": "READY_FOR_ENVIRONMENT_ART_BATCH_B_HUMAN_GATE",
+  "viewport": "1280x720",
+  "captures": [
+    {
+      "fileName": "A-hall-overview.png",
+      "bytes": 512509,
+      "qaState": "upper",
+      "player": {
+        "x": 700,
+        "y": 350,
+        "facing": "down",
+        "animation": "gb-idle-down",
+        "moving": false
+      },
+      "camera": {
+        "x": 670,
+        "y": 333,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    },
+    {
+      "fileName": "B-hall-player-scale.png",
+      "bytes": 504361,
+      "qaState": "hall",
+      "player": {
+        "x": 760,
+        "y": 180,
+        "facing": "down",
+        "animation": "gb-idle-down",
+        "moving": false
+      },
+      "camera": {
+        "x": 670,
+        "y": 333,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    },
+    {
+      "fileName": "C-hall-entrance.png",
+      "bytes": 504361,
+      "qaState": "hall",
+      "player": {
+        "x": 760,
+        "y": 180,
+        "facing": "down",
+        "animation": "gb-idle-down",
+        "moving": false
+      },
+      "camera": {
+        "x": 670,
+        "y": 326,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    },
+    {
+      "fileName": "D-workshop-overview.png",
+      "bytes": 665661,
+      "qaState": "workshop",
+      "player": {
+        "x": 340,
+        "y": 790,
+        "facing": "down",
+        "animation": "gb-idle-down",
+        "moving": false
+      },
+      "camera": {
+        "x": 579,
+        "y": 531,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    },
+    {
+      "fileName": "E-workshop-player-scale.png",
+      "bytes": 672796,
+      "qaState": "workshop",
+      "player": {
+        "x": 340,
+        "y": 790,
+        "facing": "down",
+        "animation": "gb-idle-down",
+        "moving": false
+      },
+      "camera": {
+        "x": 579,
+        "y": 574,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    },
+    {
+      "fileName": "F-plaza-stairs-context.png",
+      "bytes": 591787,
+      "qaState": "stairs-top",
+      "player": {
+        "x": 780,
+        "y": 515,
+        "facing": "down",
+        "animation": "gb-idle-down",
+        "moving": false
+      },
+      "camera": {
+        "x": 670,
+        "y": 386,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    },
+    {
+      "fileName": "G-quay-workshop-context.png",
+      "bytes": 670129,
+      "qaState": "quay",
+      "player": {
+        "x": 780,
+        "y": 790,
+        "facing": "down",
+        "animation": "gb-idle-down",
+        "moving": false
+      },
+      "camera": {
+        "x": 670,
+        "y": 564,
+        "zoom": 1.05,
+        "deadzone": {
+          "width": 300,
+          "height": 180
+        }
+      }
+    }
+  ],
+  "movement": {
+    "gif": "movement-plaza-stairs-quay-30fps.gif",
+    "mp4": "movement-plaza-stairs-quay-30fps.mp4",
+    "frames": 70,
+    "encodedFps": 10,
+    "encodedDurationSeconds": 7,
+    "sampledCaptureFps": 9.884,
+    "sampledCaptureSeconds": 6.981,
+    "realTimeCaptureSeconds": 7.54,
+    "walkAnimationObserved": true,
+    "directionalWalkAnimationsObserved": [
+      "right",
+      "down"
+    ],
+    "reverseStairTraversalObserved": true,
+    "idleAnimationRestored": true,
+    "cameraDeadzone": {
+      "width": 300,
+      "height": 180
+    },
+    "cameraFollowObserved": true
+  },
+  "browserErrors": 0
+}

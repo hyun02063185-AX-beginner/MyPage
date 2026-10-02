@@ -1,6 +1,6 @@
 # 92. Portfolio World Rebuild — Handoff
 
-Updated: 2026-10-02 (R3C.1 foundation visual fidelity repair)
+Updated: 2026-10-02 (R3D Environment Art Batch B)
 
 ## Current State
 
@@ -17,6 +17,15 @@ The selected Round 2C art-direction reference is intentionally untracked:
 `output/codyssey-image-benchmark/harbor-playable-round-02c/2C-gameplay-framing.gpt-image-2.png`
 with SHA-256 `7A724D1232317F2C36421C127B0C6868500272964E801757682A532E34B84271`.
 It is provenance only, not a runtime asset.
+
+R3D Batch B is now ready for its Human Gate. `GrayboxScene.ts` loads the
+committed, transparent Hall B-derived facade slices and Workshop B-derived
+shell at the existing four manifest rectangles only; collision, walkability,
+camera, player, and foundation code remain unchanged. Review the seven 1280×720
+captures, contact sheet, and PASS/CAUTION matrix in
+`reports/portfolio-world-rebuild/evidence/r3d-architecture/` and
+`reports/portfolio-world-rebuild/r3d-environment-art-batch-b.md`. Do not
+begin Hero Ship Batch C until the human gate is recorded.
 
 R3C Foundation Batch A has applied an aligned deterministic L1 paving/stair/
 quay-edge treatment without changing the R3A geometry or collision ownership.
@@ -42,9 +51,10 @@ R3A_GRAYBOX           = COMPLETE — geometry source of truth
 R3A.1_MOTION_REPAIR   = COMPLETE — 30 fps movement evidence accepted
 R3B_ART_BLUEPRINT     = COMPLETE
 R3C_FOUNDATION_BATCH_A = COMPLETE — human alignment review pending
-R3C.1_FIDELITY_REPAIR = COMPLETE — human visual review pending
-NEXT                  = FOUNDATION_VISUAL_FIDELITY_HUMAN_GATE
-GATE                  = READY_FOR_FOUNDATION_VISUAL_FIDELITY_HUMAN_GATE
+R3C.1_FIDELITY_REPAIR = COMPLETE — approved baseline
+R3D_ARCHITECTURE      = COMPLETE — human review pending
+NEXT                  = ENVIRONMENT_ART_BATCH_B_HUMAN_GATE
+GATE                  = READY_FOR_ENVIRONMENT_ART_BATCH_B_HUMAN_GATE
 ```
 
 ## Immediate continuation
