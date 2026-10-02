@@ -12,8 +12,9 @@ const fidelityBatch = process.argv.includes("--r3c1-foundation");
 const foundationBatch = process.argv.includes("--r3c-foundation") || fidelityBatch;
 const architectureBatch = process.argv.includes("--r3d-architecture");
 const architectureRepair = process.argv.includes("--r3d1-architecture-integration");
+const heroBatch = process.argv.includes("--r3e-hero-ship");
 const architectureEvidence = architectureRepair ? "r3d1-architecture-integration" : "r3d-architecture";
-const evidenceDir = path.join(repoRoot, "reports", "portfolio-world-rebuild", "evidence", architectureBatch || architectureRepair ? architectureEvidence : fidelityBatch ? "r3c1-foundation-fidelity" : foundationBatch ? "r3c-foundation" : "r3a1-graybox-motion");
+const evidenceDir = path.join(repoRoot, "reports", "portfolio-world-rebuild", "evidence", heroBatch ? "r3e-hero-ship" : architectureBatch || architectureRepair ? architectureEvidence : fidelityBatch ? "r3c1-foundation-fidelity" : foundationBatch ? "r3c-foundation" : "r3a1-graybox-motion");
 const edgePaths = ["C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe", "C:/Program Files/Microsoft/Edge/Application/msedge.exe"];
 const edgePath = edgePaths.find((candidate) => process.getBuiltinModule("node:fs").existsSync(candidate));
 
@@ -53,7 +54,7 @@ async function main() {
     const client = new CdpClient(page.webSocketDebuggerUrl); await client.open();
     await client.command("Runtime.enable"); await client.command("Log.enable"); await client.command("Network.enable"); await client.command("Page.enable");
     await client.command("Emulation.setDeviceMetricsOverride", { width: 1280, height: 720, deviceScaleFactor: 1, mobile: false });
-    const states = architectureBatch || architectureRepair
+    const states = heroBatch ? [["01-overall-harbor.png","quay"],["02-player-ship-scale.png","gangway"],["03-gangway-approach.png","gangway"],["04-player-in-front-of-hull.png","gangway"],["05-player-behind-mast-rigging.png","gangway"],["06-quay-gangway-route.png","quay"],["07-hall-workshop-ship-wide.png","upper"]] : architectureBatch || architectureRepair
       ? [["A-hall-overview.png", "upper"], ["B-hall-player-scale.png", "hall"], ["C-hall-entrance.png", "hall"], ["D-workshop-overview.png", "workshop"], ["E-workshop-player-scale.png", "workshop"], ["F-plaza-stairs-context.png", "stairs-top"], ["G-quay-workshop-context.png", "quay"]]
       : foundationBatch
       ? [["A-upper-plaza.png", "upper"], ["B-stairs-top.png", "stairs-top"], ["C-stairs-bottom.png", "stairs-bottom"], ["D-lower-quay.png", "quay"]]
@@ -62,7 +63,7 @@ async function main() {
     for (const [fileName, stateName] of states) { const state = await navigateAndWait(client, `${origin}/?graybox=1&qa=${stateName}`, stateName); assertState(state, fileName); captures.push({ ...(await screenshot(client, fileName)), state }); }
     await navigateAndWait(client, `${origin}/?graybox=1&qa=movement`, "movement");
     const framesDir = path.join(evidenceDir, "movement-frames"); await mkdir(framesDir, { recursive: true });
-    const movementStates = []; const movementSnapshots = []; const captureFps = fidelityBatch || architectureBatch || architectureRepair ? 10 : 30; const frameCount = captureFps * 7; const screencastFrames = [];
+    const movementStates = []; const movementSnapshots = []; const captureFps = fidelityBatch || architectureBatch || architectureRepair || heroBatch ? 10 : 30; const frameCount = captureFps * 7; const screencastFrames = [];
     const removeScreencastListener = client.on("Page.screencastFrame", (event) => { screencastFrames.push({ data: event.params.data, timestamp: event.params.metadata.timestamp }); client.command("Page.screencastFrameAck", { sessionId: event.params.sessionId }).catch(() => {}); });
     const captureStartedAt = performance.now();
     await client.command("Page.startScreencast", { format: "png", maxWidth: 1280, maxHeight: 720, everyNthFrame: 1 });
@@ -81,7 +82,7 @@ async function main() {
     if (sampledFrames.length !== frameCount) throw new Error(`Screencast produced ${sampledFrames.length}/${frameCount} real-time frames.`);
     const sampledDurationSeconds = sampledFrames.at(-1).timestamp - sampledFrames[0].timestamp;
     const sampledFps = (sampledFrames.length - 1) / sampledDurationSeconds;
-    const minimumFps = fidelityBatch || architectureBatch || architectureRepair ? 9 : 28; const maximumFps = fidelityBatch || architectureBatch || architectureRepair ? 11 : 31;
+    const minimumFps = fidelityBatch || architectureBatch || architectureRepair || heroBatch ? 9 : 28; const maximumFps = fidelityBatch || architectureBatch || architectureRepair || heroBatch ? 11 : 31;
     if (sampledDurationSeconds < 6.8 || sampledDurationSeconds > 7.4 || sampledFps < minimumFps || sampledFps > maximumFps) throw new Error(`Screencast timing was invalid: ${sampledFps.toFixed(2)} fps over ${sampledDurationSeconds.toFixed(2)}s.`);
     for (const [index, frame] of sampledFrames.entries()) await writeFile(path.join(framesDir, `frame-${String(index).padStart(3, "0")}.png`), Buffer.from(frame.data, "base64"));
     await delay(350); const movementEnd = await qaState(client);
@@ -102,7 +103,7 @@ async function main() {
     await run("ffmpeg", ["-y", "-framerate", String(captureFps), "-i", path.join(framesDir, "frame-%03d.png"), "-c:v", "libx264", "-pix_fmt", "yuv420p", mp4], evidenceDir);
     assertNoBrowserErrors(client.events);
     if (foundationBatch && movementSnapshots.length !== 3) throw new Error("R3C foundation evidence did not capture all three moving-player views.");
-    const gate = architectureRepair ? "READY_FOR_ARCHITECTURE_INTEGRATION_HUMAN_GATE" : architectureBatch ? "READY_FOR_ENVIRONMENT_ART_BATCH_B_HUMAN_GATE" : fidelityBatch ? "READY_FOR_FOUNDATION_VISUAL_FIDELITY_HUMAN_GATE" : foundationBatch ? "READY_FOR_ENVIRONMENT_ART_BATCH_A_HUMAN_GATE" : "READY_FOR_GRAYBOX_MOTION_HUMAN_GATE";
+    const gate = heroBatch ? "READY_FOR_ENVIRONMENT_ART_BATCH_C_HUMAN_GATE" : architectureRepair ? "READY_FOR_ARCHITECTURE_INTEGRATION_HUMAN_GATE" : architectureBatch ? "READY_FOR_ENVIRONMENT_ART_BATCH_B_HUMAN_GATE" : fidelityBatch ? "READY_FOR_FOUNDATION_VISUAL_FIDELITY_HUMAN_GATE" : foundationBatch ? "READY_FOR_ENVIRONMENT_ART_BATCH_A_HUMAN_GATE" : "READY_FOR_GRAYBOX_MOTION_HUMAN_GATE";
     await writeFile(path.join(evidenceDir, "qa-result.json"), `${JSON.stringify({ gate, viewport: "1280x720", captures: [...captures, ...movementSnapshots].map(({ fileName, bytes, state }) => ({ fileName, bytes, qaState: state.qaState, player: state.player, camera: state.camera })), movement: { gif: path.basename(gif), mp4: path.basename(mp4), frames: frameCount, encodedFps: captureFps, encodedDurationSeconds: frameCount / captureFps, sampledCaptureFps: Number(sampledFps.toFixed(3)), sampledCaptureSeconds: Number(sampledDurationSeconds.toFixed(3)), realTimeCaptureSeconds: Number(captureElapsedSeconds.toFixed(3)), walkAnimationObserved: true, directionalWalkAnimationsObserved: ["right", "down"], reverseStairTraversalObserved: true, idleAnimationRestored: true, cameraDeadzone: { width: 300, height: 180 }, cameraFollowObserved: true }, browserErrors: 0 }, null, 2)}\n`, "utf8");
     await client.command("Browser.close"); client.close(); console.log(`Graybox QA complete: ${evidenceDir}`);
   } finally { vite.kill(); edge.kill(); }
