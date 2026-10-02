@@ -1,6 +1,6 @@
 # 91. Portfolio World Rebuild — Project Status
 
-Updated: 2026-10-02 (R3D Environment Art Batch B)
+Updated: 2026-10-02 (R3D.1 architecture integration repair)
 
 ## Current State Override
 
@@ -35,6 +35,8 @@ and Workshop PNG derivatives now replace only their neutral graybox masses in
 the locked runtime. Evidence, contact sheet, provenance, and QA record are at
 `reports/portfolio-world-rebuild/evidence/r3d-architecture/` and
 `reports/portfolio-world-rebuild/r3d-environment-art-batch-b.md`.
+R3D.1 repairs their visual envelopes and grounding without gameplay changes;
+review `reports/portfolio-world-rebuild/r3d1-architecture-integration-repair.md`.
 
 ```text
 R5A_HUMAN_GATE           = REJECTED
@@ -46,8 +48,9 @@ R3B_ART_BLUEPRINT        = COMPLETE
 R3C_FOUNDATION_BATCH_A   = COMPLETE — human alignment review pending
 R3C.1_FIDELITY_REPAIR    = COMPLETE — approved baseline
 R3D_ARCHITECTURE_BATCH_B = COMPLETE — human review pending
-NEXT                     = ENVIRONMENT_ART_BATCH_B_HUMAN_GATE
-GATE                     = READY_FOR_ENVIRONMENT_ART_BATCH_B_HUMAN_GATE
+R3D.1_INTEGRATION_REPAIR = COMPLETE — human review pending
+NEXT                     = ARCHITECTURE_INTEGRATION_HUMAN_GATE
+GATE                     = READY_FOR_ARCHITECTURE_INTEGRATION_HUMAN_GATE
 ```
 
 ## Historical R5A Work Unit (superseded)

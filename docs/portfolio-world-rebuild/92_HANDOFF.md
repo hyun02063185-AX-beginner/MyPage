@@ -1,6 +1,6 @@
 # 92. Portfolio World Rebuild — Handoff
 
-Updated: 2026-10-02 (R3D Environment Art Batch B)
+Updated: 2026-10-02 (R3D.1 architecture integration repair)
 
 ## Current State
 
@@ -26,6 +26,11 @@ captures, contact sheet, and PASS/CAUTION matrix in
 `reports/portfolio-world-rebuild/evidence/r3d-architecture/` and
 `reports/portfolio-world-rebuild/r3d-environment-art-batch-b.md`. Do not
 begin Hero Ship Batch C until the human gate is recorded.
+
+R3D.1 supersedes the failed compressed sprite integration: it uses a coherent,
+grounded Hall visual envelope and a plinthed Workshop visual envelope, with no
+change to collision or route code. Review `evidence/r3d1-architecture-integration/`
+and `r3d1-architecture-integration-repair.md`; do not start Batch C.
 
 R3C Foundation Batch A has applied an aligned deterministic L1 paving/stair/
 quay-edge treatment without changing the R3A geometry or collision ownership.
@@ -53,8 +58,9 @@ R3B_ART_BLUEPRINT     = COMPLETE
 R3C_FOUNDATION_BATCH_A = COMPLETE — human alignment review pending
 R3C.1_FIDELITY_REPAIR = COMPLETE — approved baseline
 R3D_ARCHITECTURE      = COMPLETE — human review pending
-NEXT                  = ENVIRONMENT_ART_BATCH_B_HUMAN_GATE
-GATE                  = READY_FOR_ENVIRONMENT_ART_BATCH_B_HUMAN_GATE
+R3D.1_INTEGRATION     = COMPLETE — human review pending
+NEXT                  = ARCHITECTURE_INTEGRATION_HUMAN_GATE
+GATE                  = READY_FOR_ARCHITECTURE_INTEGRATION_HUMAN_GATE
 ```
 
 ## Immediate continuation

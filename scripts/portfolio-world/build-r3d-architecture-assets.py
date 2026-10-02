@@ -52,14 +52,14 @@ def main() -> None:
     hall_b = remove_chroma(Image.open(SOURCE / "hall-b.gpt-image-2.original.png"))
     workshop_a = remove_chroma(Image.open(SOURCE / "workshop-a.gpt-image-2.original.png"))
     workshop_b = remove_chroma(Image.open(SOURCE / "workshop-b.gpt-image-2.original.png"))
-    # Hall B is selected for its recognizable civic landmark face. Preserve its
-    # gameplay envelope by creating only the three manifest-aligned slices.
-    hall_full = hall_b.resize((440, 145), Image.Resampling.LANCZOS)
-    save(hall_full.crop((0, 0, 190, 145)), "exhibition-hall-left.png")
-    save(hall_full.crop((190, 50, 290, 145)), "exhibition-hall-entry.png")
-    save(hall_full.crop((290, 0, 440, 145)), "exhibition-hall-right.png")
-    workshop_runtime = workshop_b.resize((180, 230), Image.Resampling.LANCZOS)
-    save(workshop_runtime, "workshop-shell.png")
+    # R3D.1: collision rectangles are not sprite bounds. Keep the sources at
+    # near-native proportions and anchor their bases to the existing land edge.
+    # Hall B remains the civic landmark; Workshop A's broad open bay reads more
+    # clearly as a practical maker space at the repaired visual scale.
+    hall_full = hall_b.resize((470, 260), Image.Resampling.LANCZOS)
+    workshop_runtime = workshop_a.resize((205, 300), Image.Resampling.LANCZOS)
+    save(hall_full, "exhibition-hall-assembly-r3d1.png")
+    save(workshop_runtime, "workshop-shell-r3d1.png")
     contact_sheet(hall_a, hall_b, workshop_a, workshop_b, hall_full, workshop_runtime)
 
 if __name__ == "__main__":

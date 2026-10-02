@@ -8,3 +8,10 @@ Selected source art is preserved outside git in `output/codyssey-image-benchmark
 | `workshop-shell.png` | Workshop B (`169d21609c22ea2e02b7f2feda32fcd90e2d48fd668280d4ad4b77eb63390f6a`) | deterministic #ff00ff mask, tight alpha crop, 180×230 fit |
 
 The lossless extraction is reproducible with `scripts/portfolio-world/build-r3d-architecture-assets.py`. Art adds no collision or walkability claim.
+
+## R3D.1 integration derivatives
+
+`exhibition-hall-assembly-r3d1.png` keeps Hall B at a 470×260 visual envelope
+and is grounded at the plaza threshold; `workshop-shell-r3d1.png` uses Workshop
+A at 205×300 and is grounded on the non-walkable quay plinth. These dimensions
+are visual-only and do not change any R3A collision footprint.

@@ -66,10 +66,8 @@ export class GrayboxScene extends Phaser.Scene {
     this.load.image("r3c1-stairs", "assets/world/foundation/r3c1/main-stair-surface.png");
     this.load.image("r3c1-quay", "assets/world/foundation/r3c1/lower-quay-paving.png");
     this.load.image("r3c1-quay-edge", "assets/world/foundation/r3c1/quay-edge-face.png");
-    this.load.image("r3d-hall-left", "assets/world/architecture/r3d/exhibition-hall-left.png");
-    this.load.image("r3d-hall-entry", "assets/world/architecture/r3d/exhibition-hall-entry.png");
-    this.load.image("r3d-hall-right", "assets/world/architecture/r3d/exhibition-hall-right.png");
-    this.load.image("r3d-workshop", "assets/world/architecture/r3d/workshop-shell.png");
+    this.load.image("r3d1-hall", "assets/world/architecture/r3d/exhibition-hall-assembly-r3d1.png");
+    this.load.image("r3d1-workshop", "assets/world/architecture/r3d/workshop-shell-r3d1.png");
   }
 
   public create(): void {
@@ -133,12 +131,13 @@ export class GrayboxScene extends Phaser.Scene {
     graphics.lineStyle(2, 0x5c4936, 0.75).strokeLineShape(new Phaser.Geom.Line(300, 935, 1190, 935));
     for (let x = 300; x < 1190; x += 74) graphics.lineStyle(1, 0x5c4936, 0.48).strokeLineShape(new Phaser.Geom.Line(x, 935, x, 975));
 
-    // R3D architecture is transparent, lossless source-art cleanup mapped onto
-    // the locked R3A footprint rectangles. Images add no collision or route claim.
-    this.add.image(500, 18, "r3d-hall-left").setOrigin(0).setDepth(2);
-    this.add.image(690, 68, "r3d-hall-entry").setOrigin(0).setDepth(2);
-    this.add.image(790, 18, "r3d-hall-right").setOrigin(0).setDepth(2);
-    this.add.image(80, 650, "r3d-workshop").setOrigin(0).setDepth(2);
+    // R3D.1 visual envelopes are deliberately independent of the locked
+    // gameplay footprints: bases meet land, while upper facades may rise above.
+    // The plinths are rendering only and remain non-walkable collision areas.
+    graphics.fillStyle(0x90714d, 1).fillRect(480, 137, 490, 18).lineStyle(2, 0x5c4936, 0.72).strokeRect(480, 137, 490, 18);
+    graphics.fillStyle(0x8b704f, 1).fillRect(68, 846, 212, 34).lineStyle(2, 0x5c4936, 0.72).strokeRect(68, 846, 212, 34);
+    this.add.image(485, -55, "r3d1-hall").setOrigin(0).setDepth(3);
+    this.add.image(70, 580, "r3d1-workshop").setOrigin(0).setDepth(3);
     // Batch C Hero Ship remains the intentionally neutral locked footprint.
     graphics.fillStyle(0x5c6460, 1).fillRect(1215, 610, 300, 335).lineStyle(6, 0x4d4238, 1).strokeRect(1215, 610, 300, 335);
     graphics.fillStyle(0xb58a50, 1).fillRect(1145, 720, 120, 78).lineStyle(4, 0x4d4238, 1).strokeRect(1145, 720, 120, 78);
