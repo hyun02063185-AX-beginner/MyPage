@@ -57,6 +57,7 @@ export class GrayboxScene extends Phaser.Scene {
   private movementIndex = 0;
   private movementDemoStartedAt = 0;
   private blockers!: Phaser.Physics.Arcade.StaticGroup;
+  private waterShimmer?: Phaser.GameObjects.Graphics;
   private lastValid = new Phaser.Math.Vector2(700, 350);
 
   public constructor() {
@@ -102,6 +103,7 @@ export class GrayboxScene extends Phaser.Scene {
   }
 
   public update(time: number): void {
+    this.drawWaterShimmer(time);
     const direction = this.qaState === "movement" || this.qaState === "movement-reverse" ? this.updateMovementDemo(time) : this.readInput();
     this.applyMovement(direction.x, direction.y);
     this.publishQa();
@@ -115,14 +117,39 @@ export class GrayboxScene extends Phaser.Scene {
     return value === "a" || value === "b" ? value : "selected";
   }
 
-  private drawGraybox(): void {
+  /** L0 water is independent of all terrain geometry and has no collision meaning. */
+  private createFinalLookWater(): void {
     const water = this.add.graphics().setDepth(0);
-    // L0: procedural water remains independent of the R3C visual studies.
-    water.fillStyle(0x176d7b, 1).fillRect(0, 0, WORLD.width, WORLD.height);
-    water.lineStyle(2, 0x65b8ba, 0.32);
-    for (let y = 34; y < WORLD.height; y += 38) {
-      for (let x = (Math.floor(y / 38) % 2) * 26; x < WORLD.width; x += 96) water.strokeLineShape(new Phaser.Geom.Line(x, y, x + 48, y));
+    water.fillStyle(0x0b5363, 1).fillRect(0, 0, WORLD.width, WORLD.height);
+    // Broad, deliberately low-frequency depth variation: sheltered, not tropical or neon.
+    water.fillStyle(0x0f6270, 0.78).fillRect(0, 0, WORLD.width, 210);
+    water.fillStyle(0x0d5a69, 0.72).fillRect(0, 210, WORLD.width, 250);
+    water.fillStyle(0x0a4d5d, 0.7).fillRect(0, 460, WORLD.width, 300);
+    water.fillStyle(0x083f50, 0.72).fillRect(0, 760, WORLD.width, 240);
+    water.fillStyle(0x6baeb0, 0.1).fillRect(0, 148, WORLD.width, 4).fillRect(0, 628, WORLD.width, 4);
+    this.waterShimmer = this.add.graphics().setDepth(0.25);
+    this.drawWaterShimmer(0);
+  }
+
+  /** Slow, sparse bands prevent a static tile pattern without becoming a game-effect overlay. */
+  private drawWaterShimmer(time: number): void {
+    if (!this.waterShimmer) return;
+    const shimmer = this.waterShimmer; shimmer.clear();
+    const phase = time / 8500;
+    for (let row = 0; row < 24; row += 1) {
+      const y = 28 + row * 41;
+      const offset = Math.sin(phase + row * 0.63) * 18;
+      const length = 42 + ((row * 17) % 26);
+      for (let x = -20; x < WORLD.width; x += 132) {
+        const drift = Math.sin(phase * 1.25 + x * 0.012 + row) * 9;
+        shimmer.lineStyle(2, row % 3 === 0 ? 0x9bd0ca : 0x4d99a0, row % 3 === 0 ? 0.14 : 0.1)
+          .strokeLineShape(new Phaser.Geom.Line(x + offset + drift, y, x + offset + drift + length, y));
+      }
     }
+  }
+
+  private drawGraybox(): void {
+    this.createFinalLookWater();
 
     // L1: lossless deterministic Study A derivatives, never a scene plate.
     this.add.image(310, 155, "r3c1-plaza").setOrigin(0).setDepth(1);
@@ -150,17 +177,31 @@ export class GrayboxScene extends Phaser.Scene {
     graphics.lineStyle(2, 0x5c4936, 0.75).strokeLineShape(new Phaser.Geom.Line(300, 935, 1190, 935));
     for (let x = 300; x < 1190; x += 74) graphics.lineStyle(1, 0x5c4936, 0.48).strokeLineShape(new Phaser.Geom.Line(x, 935, x, 975));
 
+    // R3G: shallow ambient contact and controlled stair-riser separation. These are visual only.
+    const grounding = this.add.graphics().setDepth(2.5);
+    grounding.fillStyle(0x4d3c2c, 0.2).fillRoundedRect(484, 145, 486, 11, 4);
+    grounding.fillStyle(0x4d3c2c, 0.18).fillRoundedRect(72, 872, 208, 13, 4);
+    grounding.fillStyle(0x304c51, 0.28).fillRect(300, 929, 890, 7);
+    grounding.fillStyle(0x30545b, 0.18).fillRect(308, 646, 333, 5).fillRect(915, 646, 270, 5);
+    for (let step = 1; step < 8; step += 1) grounding.lineStyle(2, 0x5f4832, 0.18).strokeLineShape(new Phaser.Geom.Line(654, 480 + step * (190 / 8) - 2, 906, 480 + step * (190 / 8) - 2));
+
     // R3D.1 visual envelopes are deliberately independent of the locked
     // gameplay footprints: bases meet land, while upper facades may rise above.
     // The plinths are rendering only and remain non-walkable collision areas.
     graphics.fillStyle(0x90714d, 1).fillRect(480, 137, 490, 18).lineStyle(2, 0x5c4936, 0.72).strokeRect(480, 137, 490, 18);
     graphics.fillStyle(0x8b704f, 1).fillRect(68, 846, 212, 34).lineStyle(2, 0x5c4936, 0.72).strokeRect(68, 846, 212, 34);
-    this.add.image(485, -55, "r3d1-hall").setOrigin(0).setDepth(3);
-    this.add.image(70, 580, "r3d1-workshop").setOrigin(0).setDepth(3);
+    this.add.image(485, -55, "r3d1-hall").setOrigin(0).setDepth(3).setTint(0xfff1d8);
+    this.add.image(70, 580, "r3d1-workshop").setOrigin(0).setDepth(3).setTint(0xffeed2);
     // R3E: visual ship layers are separate from its unchanged exclusion rectangle.
-    this.add.image(1215, 610, "r3e-hull").setOrigin(0).setDepth(4);
-    this.add.image(1190, 500, "r3e-mast").setOrigin(0).setDepth(22);
-    this.add.image(1190, 545, "r3e-rigging").setOrigin(0).setDepth(23).setAlpha(0.82);
+    const shipContact = this.add.graphics().setDepth(3.5);
+    // The hull alpha finishes at world y≈815; keep the soft contact directly beneath it.
+    shipContact.fillStyle(0x073947, 0.32).fillEllipse(1362, 808, 294, 30);
+    // Broken, dark-teal reflection marks read as a harbor ripple—not a foam ring.
+    shipContact.lineStyle(2, 0x4f9191, 0.16).strokeLineShape(new Phaser.Geom.Line(1228, 814, 1304, 814)).strokeLineShape(new Phaser.Geom.Line(1418, 812, 1492, 812));
+    shipContact.lineStyle(1, 0x7baaa0, 0.1).strokeLineShape(new Phaser.Geom.Line(1255, 822, 1322, 822)).strokeLineShape(new Phaser.Geom.Line(1398, 820, 1461, 820));
+    this.add.image(1215, 610, "r3e-hull").setOrigin(0).setDepth(4).setTint(0xffecd1);
+    this.add.image(1190, 500, "r3e-mast").setOrigin(0).setDepth(22).setTint(0xffecd4);
+    this.add.image(1190, 545, "r3e-rigging").setOrigin(0).setDepth(23).setAlpha(0.84).setTint(0xffecd4);
     this.drawBatchDProps();
     // R3E.2 visual-only gangway: planks, side rails and rope rhythm; target stays locked.
     graphics.fillStyle(0x9a6b3d, 1).fillRect(1145, 720, 120, 78);
@@ -175,7 +216,13 @@ export class GrayboxScene extends Phaser.Scene {
   /** R3F visual dressing only: assets never create or alter collision. */
   private drawBatchDProps(): void {
     // L2 Hall banners establish the entry/plaza relationship.
-    this.add.image(535, 55, "r3f-banners").setOrigin(0).setDepth(3);
+    this.add.image(535, 55, "r3f-banners").setOrigin(0).setDepth(3).setTint(0xffefd5);
+    const propContact = this.add.graphics().setDepth(11);
+    propContact.fillStyle(0x493a2d, 0.18).fillEllipse(435, 463, 122, 12);
+    propContact.fillStyle(0x493a2d, 0.16).fillEllipse(608, 488, 61, 10);
+    propContact.fillStyle(0x493a2d, 0.2).fillEllipse(474, 913, 126, 14);
+    propContact.fillStyle(0x493a2d, 0.18).fillEllipse(1070, 907, 118, 9);
+    propContact.fillStyle(0x493a2d, 0.16).fillEllipse(1041, 555, 26, 8);
     // L4 bases remain behind the L3 player; props do not claim solidity.
     this.add.image(365, 430, "r3f-bench").setOrigin(0).setDepth(12);
     this.add.image(575, 445, "r3f-planters").setOrigin(0).setDepth(12);

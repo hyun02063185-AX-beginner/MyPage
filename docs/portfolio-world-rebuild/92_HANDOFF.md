@@ -1,6 +1,6 @@
 # 92. Portfolio World Rebuild — Handoff
 
-Updated: 2026-10-02 (R3F Environment Art Batch D)
+Updated: 2026-10-03 (R3G Final-Look Convergence Pass 1)
 
 ## Current State
 
@@ -45,6 +45,17 @@ controlled lived-in working harbor. Evidence and the before/after sheet are in
 `reports/portfolio-world-rebuild/evidence/r3f-environment-art-batch-d/`; the
 implementation and Final-Look backlog are in
 `reports/portfolio-world-rebuild/r3f-environment-art-batch-d.md`.
+Director has recorded `BATCH_D_HUMAN_CLUTTER_OCCLUSION_GATE = APPROVED` for
+the prop-density, occlusion, lived-in-space, and preserved route direction.
+It does not grant final visual approval, production visual lock, or final Player
+art approval. R3G is complete: `GrayboxScene.ts` uses individual procedural
+runtime effects only—layered deep-turquoise water, restrained moving shimmer,
+quay/hull contact, shallow local ambient grounding, and per-asset warm tints.
+No scene plate, pixel collision, geometry, route, collision, player movement,
+or camera behavior changed. Evidence and the two required comparisons are at
+`reports/portfolio-world-rebuild/evidence/r3g-final-look-convergence-pass-1/`.
+The recommended next review is the Human Final-Look Pass 1 gate; keep the
+recorded Workshop and Hero Ship source-art repairs separate from gameplay work.
 
 R3C Foundation Batch A has applied an aligned deterministic L1 paving/stair/
 quay-edge treatment without changing the R3A geometry or collision ownership.
@@ -77,8 +88,13 @@ R3E_HERO_SHIP_BATCH_C               = COMPLETE
 R3E.1_OCCLUSION_EVIDENCE_REPAIR     = COMPLETE
 BATCH_C_HUMAN_ROUTE_OCCLUSION_GATE  = APPROVED
 R3F_ENVIRONMENT_ART_BATCH_D         = COMPLETE
-NEXT                                = BATCH_D_HUMAN_CLUTTER_OCCLUSION_GATE
-GATE                                = READY_FOR_ENVIRONMENT_ART_BATCH_D_HUMAN_GATE
+BATCH_D_HUMAN_CLUTTER_OCCLUSION_GATE = APPROVED
+R3G_FINAL_LOOK_CONVERGENCE_PASS_1    = COMPLETE
+FINAL_VISUAL_APPROVAL                = NOT GRANTED
+PRODUCTION_VISUAL_LOCK               = NOT GRANTED
+PLAYER_FINAL_ART                     = NOT STARTED
+NEXT                                 = FINAL_LOOK_PASS_1_HUMAN_GATE
+GATE                                 = READY_FOR_FINAL_LOOK_PASS_1_HUMAN_GATE
 ```
 
 ## Immediate continuation

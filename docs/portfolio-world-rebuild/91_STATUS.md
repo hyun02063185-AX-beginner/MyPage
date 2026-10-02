@@ -1,6 +1,6 @@
 # 91. Portfolio World Rebuild — Project Status
 
-Updated: 2026-10-02 (R3F Environment Art Batch D)
+Updated: 2026-10-03 (R3G Final-Look Convergence Pass 1)
 
 ## Current State Override
 
@@ -46,6 +46,15 @@ walkable rectangle, collision, player scale, movement, stairs, camera, Hero
 Ship exclusion, or gangway route. Review the 1280×720 evidence, study and
 before/after sheets at `reports/portfolio-world-rebuild/evidence/r3f-environment-art-batch-d/`
 and `reports/portfolio-world-rebuild/r3f-environment-art-batch-d.md`.
+Director approved `BATCH_D_HUMAN_CLUTTER_OCCLUSION_GATE = APPROVED`: current
+prop density, foreground occlusion, increased lived-in quality, and the Harbor
+Square → Hall → Quay → Hero Ship route direction are approved. This is not
+`FINAL_VISUAL_APPROVAL`, `PRODUCTION_VISUAL_LOCK`, or Player final art approval.
+R3G Final-Look Convergence Pass 1 is **COMPLETE**: it adds L0 depth variation
+and slow harbor shimmer, local water/ship contact, shallow ambient grounding,
+and per-family warm daylight cohesion without changing any gameplay invariant.
+Review `reports/portfolio-world-rebuild/evidence/r3g-final-look-convergence-pass-1/`
+and `reports/portfolio-world-rebuild/r3g-final-look-convergence-pass-1.md`.
 
 ```text
 R5A_HUMAN_GATE           = REJECTED
@@ -62,8 +71,13 @@ R3E_HERO_SHIP_BATCH_C               = COMPLETE
 R3E.1_OCCLUSION_EVIDENCE_REPAIR     = COMPLETE
 BATCH_C_HUMAN_ROUTE_OCCLUSION_GATE  = APPROVED
 R3F_ENVIRONMENT_ART_BATCH_D         = COMPLETE
-NEXT                                = BATCH_D_HUMAN_CLUTTER_OCCLUSION_GATE
-GATE                                = READY_FOR_ENVIRONMENT_ART_BATCH_D_HUMAN_GATE
+BATCH_D_HUMAN_CLUTTER_OCCLUSION_GATE = APPROVED
+R3G_FINAL_LOOK_CONVERGENCE_PASS_1    = COMPLETE
+FINAL_VISUAL_APPROVAL                = NOT GRANTED
+PRODUCTION_VISUAL_LOCK               = NOT GRANTED
+PLAYER_FINAL_ART                     = NOT STARTED
+NEXT                                 = FINAL_LOOK_PASS_1_HUMAN_GATE
+GATE                                 = READY_FOR_FINAL_LOOK_PASS_1_HUMAN_GATE
 ```
 
 ## Historical R5A Work Unit (superseded)
