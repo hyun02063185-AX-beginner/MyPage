@@ -45,9 +45,9 @@ Status: ACCEPTED
 Git이 canonical. Chat은 작업실.
 Status: ACCEPTED
 
-## D-011 Codyssey M01 Independence
-Portfolio World는 Codyssey M01 과제 범위가 아니다.
-M01-specific 기술 제약은 Portfolio World에 적용하지 않는다.
+## D-011 Codyssey B1-1 Independence
+Portfolio World는 Codyssey B1-1 과제 범위가 아니다.
+B1-1-specific 기술 제약은 Portfolio World에 적용하지 않는다.
 Status: ACCEPTED
 
 ## D-012 Agent Layer Separation

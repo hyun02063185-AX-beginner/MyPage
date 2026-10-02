@@ -8,7 +8,7 @@
 
 - 저장소: https://github.com/hyun02063185-AX-beginner/MyPage
 - 최종 형태: `js/projects.js` 로 들어갈 프로젝트 데이터
-- 사이트는 코디세이 본과정 미션1(순수 HTML/CSS/JS 포트폴리오) 과제를 겸함
+- 사이트는 코디세이 본과정 B1-1(순수 HTML/CSS/JS 포트폴리오) 과제를 겸함
 
 ---
 
@@ -84,7 +84,7 @@ README나 문서에 명시된 사실이 없으면 반드시 "작성자 확인 �
 
 ## Portfolio tracks
 
-### Codyssey M01
+### Codyssey B1-1
 Status: COMPLETE
 
 ### Portfolio World

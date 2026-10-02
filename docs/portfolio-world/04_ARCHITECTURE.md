@@ -13,17 +13,17 @@ MyPage/
 └─ reports/portfolio-world/
 ```
 
-## 2. M01 Scope Separation
+## 2. B1-1 Scope Separation
 
-Root의 기존 M01 관련 문서는 역사적 과제 기준으로 보존한다.
+Root의 기존 B1-1 관련 문서는 역사적 과제 기준으로 보존한다.
 
 Portfolio World는 별도 확장 범위다.
 
 권장 root 문서 보정:
 
-- `CLAUDE.md`: M01 legacy scope와 Portfolio World scope를 분리
-- `HANDOFF.md`: M01 완료 상태와 이후 Portfolio Extension 상태를 구분
-- 필요 시 기존 M01 규칙 앞에 적용 범위 명시
+- `CLAUDE.md`: B1-1 legacy scope와 Portfolio World scope를 분리
+- `HANDOFF.md`: B1-1 완료 상태와 이후 Portfolio Extension 상태를 구분
+- 필요 시 기존 B1-1 규칙 앞에 적용 범위 명시
 
 Portfolio World 안에서는 npm/Vite/Phaser 사용 가능.
 

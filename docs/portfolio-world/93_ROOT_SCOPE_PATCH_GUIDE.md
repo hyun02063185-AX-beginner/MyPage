@@ -5,11 +5,11 @@
 ## CLAUDE.md 권장 추가 내용
 
 ```md
-## Scope precedence — M01 legacy vs Portfolio World
+## Scope precedence — B1-1 legacy vs Portfolio World
 
-- Codyssey M01 is complete. Existing M01-specific constraints remain historical/maintenance rules for the original M01 deliverable.
+- Codyssey B1-1 is complete. Existing B1-1-specific constraints remain historical/maintenance rules for the original B1-1 deliverable.
 - `portfolio-world/`, `docs/portfolio-world/`, `reports/portfolio-world/`, and generated `world/` output belong to a separate Portfolio Extension track.
-- M01-specific technology constraints such as "no external libraries" do not apply inside the Portfolio World track.
+- B1-1-specific technology constraints such as "no external libraries" do not apply inside the Portfolio World track.
 - Repository-wide security, credential, Git safety, and non-destructive-change rules still apply everywhere.
 - For Portfolio World scope, read:
   - `docs/portfolio-world/03_REQUIREMENTS.md`
@@ -35,7 +35,7 @@ Portfolio World follows `docs/portfolio-world/05_AI_WORKFLOW.md`.
 ```md
 ## Portfolio tracks
 
-### Codyssey M01
+### Codyssey B1-1
 Status: COMPLETE
 
 ### Portfolio World
@@ -50,7 +50,7 @@ Current handoff:
 
 ## 금지
 - root 문서 전체 교체
-- M01 history 삭제
+- B1-1 history 삭제
 - 기존 agent 파일 삭제
 - runtime 코드 수정
 - package.json 생성

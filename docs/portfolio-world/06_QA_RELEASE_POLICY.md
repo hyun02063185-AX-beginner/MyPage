@@ -44,11 +44,11 @@ Harness             PASS
 - gallery
 - making
 
-## M01 Legacy Regression
+## B1-1 Legacy Regression
 
-기존 M01 결과물의 핵심 페이지와 historical documentation이 Portfolio World 작업으로 불필요하게 훼손되지 않았는지 확인한다.
+기존 B1-1 결과물의 핵심 페이지와 historical documentation이 Portfolio World 작업으로 불필요하게 훼손되지 않았는지 확인한다.
 
-이 검사는 M01 제약을 새 기능에 적용하기 위한 것이 아니라, 이미 완료된 포트폴리오 결과물을 보존하기 위한 것이다.
+이 검사는 B1-1 제약을 새 기능에 적용하기 위한 것이 아니라, 이미 완료된 포트폴리오 결과물을 보존하기 위한 것이다.
 
 ## Release
 

@@ -1,7 +1,7 @@
 # MyPage 구현 스펙
 
 김현래 개인 홈페이지 겸 AX 강사 포트폴리오.
-코디세이 본과정 미션1(순수 HTML/CSS/JS 포트폴리오) 과제를 겸한다.
+코디세이 본과정 B1-1(순수 HTML/CSS/JS 포트폴리오) 과제를 겸한다.
 
 - 저장소: https://github.com/hyun02063185-AX-beginner/MyPage
 - 배포: GitHub Pages
@@ -47,7 +47,7 @@
 | # | 섹션 | 내용 |
 |---|---|---|
 | 1 | hero | 한 문장 자기 정의 + 자격 요약 한 줄 |
-| 2 | story(About) | 5장면. 이 사이트의 중심. 미션1 About 요구에 맞춰 id·제목은 About으로 표기 |
+| 2 | story(About) | 5장면. 이 사이트의 중심. B1-1 About 요구에 맞춰 id·제목은 About으로 표기 |
 | 3 | explain | 이렇게 설명합니다. AI를 대하는 관점 + 설명 사례 카드 |
 | 4 | teaching | 강의 주제 목록 (분류 3개) |
 | 5 | credentials | 자격·수료 (텍스트만, 작게) |
@@ -66,7 +66,7 @@ AX 전문강사 · AICE Future 1급 · CISA
 5장면. 각 장면 = 소제목 + 3~4문장. 원고는 `js/data/story.js`.
 장면마다 시기·소속 배지를 단다. 별도 career 섹션은 두지 않는다 —
 이 5장면이 곧 타임라인이다.
-섹션 id는 `about`, 제목은 `About`으로 표기한다(미션1 About 섹션 요구 충족).
+섹션 id는 `about`, 제목은 `About`으로 표기한다(B1-1 About 섹션 요구 충족).
 5장면 원고와 진행선·시차 등장 연출은 그대로 유지한다.
 
 1. 토요일, 친구네 집 — 중2, MSX2 삼국지2
@@ -266,7 +266,7 @@ README.md           ← 오케스트레이터
 
 ---
 
-## 6. 검수 체크리스트 (미션1 요구사항)
+## 6. 검수 체크리스트 (B1-1 요구사항)
 
 - [ ] 시맨틱 태그: header, nav, main, section, article, footer
 - [ ] 모든 img에 의미 있는 alt

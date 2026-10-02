@@ -78,7 +78,7 @@ This closeout supersedes older Fleet Authenticity “human review pending” ref
 - optional World
 - GitHub Pages main/root 유지
 - `/MyPage/world/` 후보
-- M01 제약 비적용
+- B1-1 제약 비적용
 - Library v1 Deferred
 - role = Director
 - v1 scope canonical = `03_REQUIREMENTS.md`

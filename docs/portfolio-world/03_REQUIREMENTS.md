@@ -26,7 +26,7 @@
 - GitHub Pages `main / root` 유지
 - Repository Continuity
 - 콘텐츠 중복 금지
-- Portfolio World는 M01 제약과 독립
+- Portfolio World는 B1-1 제약과 독립
 
 # 3. v1 Deferred
 

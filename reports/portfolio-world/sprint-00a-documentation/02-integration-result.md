@@ -8,8 +8,8 @@ Branch: main
 ## 작업 결과
 
 - Foundation v1.2 문서 통합 (`docs/portfolio-world/`, `reports/portfolio-world/`)
-- CLAUDE.md M01 / Portfolio World scope 분리
-- HANDOFF.md track 분리 (Codyssey M01 — COMPLETE / Portfolio World — FOUNDATION)
+- CLAUDE.md B1-1 / Portfolio World scope 분리
+- HANDOFF.md track 분리 (Codyssey B1-1 — COMPLETE / Portfolio World — FOUNDATION)
 - Claude internal subagent와 Project-level Multi-AI 체계 분리 명시
 - Library v1 Deferred 용어 통일 (`01_GAME_CONCEPT.md`, `02_WORLD_IA.md`)
 - Runtime code 변경 없음

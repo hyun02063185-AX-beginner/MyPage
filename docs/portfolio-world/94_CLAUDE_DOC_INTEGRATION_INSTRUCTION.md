@@ -44,7 +44,7 @@ README.md
 ```
 
 구분:
-- M01-specific constraints
+- B1-1-specific constraints
 - repository-wide safety/security rules
 - existing Claude subagent boundaries
 - current handoff language
@@ -71,10 +71,10 @@ Vite config
 
 `docs/portfolio-world/93_ROOT_SCOPE_PATCH_GUIDE.md`를 따른다.
 
-- M01 history 보존
-- M01 COMPLETE 명시
+- B1-1 history 보존
+- B1-1 COMPLETE 명시
 - Portfolio World 별도 Portfolio Extension 명시
-- M01-specific no-library rule은 Portfolio World에 비적용
+- B1-1-specific no-library rule은 Portfolio World에 비적용
 - repository-wide safety/security는 계속 적용
 - canonical docs pointer 추가
 - `.claude/agents/*` 삭제/재작성 금지
@@ -85,7 +85,7 @@ Vite config
 최소 diff로:
 
 ```text
-Codyssey M01 — COMPLETE
+Codyssey B1-1 — COMPLETE
 Portfolio World — FOUNDATION
 ```
 
@@ -101,8 +101,8 @@ docs/portfolio-world/92_HANDOFF.md
 검색:
 
 ```text
-M01
-미션1
+B1-1
+B1-1
 외부 라이브러리
 순수 HTML
 package.json

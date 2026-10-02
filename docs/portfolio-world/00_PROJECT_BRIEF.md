@@ -24,10 +24,10 @@
 ### 3.2 One Content Source
 World는 콘텐츠 저장소가 아니라 탐색 인터페이스다.
 
-### 3.3 M01 Legacy Protection
-- M01 당시의 순수 HTML/CSS/JS 요구사항은 완료된 과제 기록으로 보존한다.
+### 3.3 B1-1 Legacy Protection
+- B1-1 당시의 순수 HTML/CSS/JS 요구사항은 완료된 과제 기록으로 보존한다.
 - Portfolio World에는 별도 기술 스택을 사용할 수 있다.
-- `portfolio-world/`의 npm/Vite/Phaser 사용은 M01 제약 위반으로 보지 않는다.
+- `portfolio-world/`의 npm/Vite/Phaser 사용은 B1-1 제약 위반으로 보지 않는다.
 - repository-wide 보안·Git 안전·비밀정보 보호 규칙은 계속 적용한다.
 
 ### 3.4 Progressive Enhancement
