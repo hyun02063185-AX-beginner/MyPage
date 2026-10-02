@@ -37,6 +37,8 @@ the locked runtime. Evidence, contact sheet, provenance, and QA record are at
 `reports/portfolio-world-rebuild/r3d-environment-art-batch-b.md`.
 R3D.1 repairs their visual envelopes and grounding without gameplay changes;
 review `reports/portfolio-world-rebuild/r3d1-architecture-integration-repair.md`.
+`ARCHITECTURE_INTEGRATION_HUMAN_GATE = APPROVED`. R3E Hero Ship Batch C is
+complete for its Human Route/Occlusion Gate; Batch D has not begun.
 
 ```text
 R5A_HUMAN_GATE           = REJECTED

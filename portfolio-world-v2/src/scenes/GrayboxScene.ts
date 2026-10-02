@@ -68,6 +68,9 @@ export class GrayboxScene extends Phaser.Scene {
     this.load.image("r3c1-quay-edge", "assets/world/foundation/r3c1/quay-edge-face.png");
     this.load.image("r3d1-hall", "assets/world/architecture/r3d/exhibition-hall-assembly-r3d1.png");
     this.load.image("r3d1-workshop", "assets/world/architecture/r3d/workshop-shell-r3d1.png");
+    this.load.image("r3e-hull", "assets/world/ships/hero/r3e/hero-ship-hull.png");
+    this.load.image("r3e-mast", "assets/world/ships/hero/r3e/hero-ship-mast-foreground.png");
+    this.load.image("r3e-rigging", "assets/world/ships/hero/r3e/ship-rigging-foreground.png");
   }
 
   public create(): void {
@@ -138,8 +141,10 @@ export class GrayboxScene extends Phaser.Scene {
     graphics.fillStyle(0x8b704f, 1).fillRect(68, 846, 212, 34).lineStyle(2, 0x5c4936, 0.72).strokeRect(68, 846, 212, 34);
     this.add.image(485, -55, "r3d1-hall").setOrigin(0).setDepth(3);
     this.add.image(70, 580, "r3d1-workshop").setOrigin(0).setDepth(3);
-    // Batch C Hero Ship remains the intentionally neutral locked footprint.
-    graphics.fillStyle(0x5c6460, 1).fillRect(1215, 610, 300, 335).lineStyle(6, 0x4d4238, 1).strokeRect(1215, 610, 300, 335);
+    // R3E: visual ship layers are separate from its unchanged exclusion rectangle.
+    this.add.image(1215, 610, "r3e-hull").setOrigin(0).setDepth(4);
+    this.add.image(1190, 500, "r3e-mast").setOrigin(0).setDepth(22);
+    this.add.image(1190, 545, "r3e-rigging").setOrigin(0).setDepth(23).setAlpha(0.82);
     graphics.fillStyle(0xb58a50, 1).fillRect(1145, 720, 120, 78).lineStyle(4, 0x4d4238, 1).strokeRect(1145, 720, 120, 78);
 
     // Existing visible collision limits, now styled as fixed rail/edge treatments only.

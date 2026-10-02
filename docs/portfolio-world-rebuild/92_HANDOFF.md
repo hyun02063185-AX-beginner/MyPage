@@ -32,6 +32,9 @@ grounded Hall visual envelope and a plinthed Workshop visual envelope, with no
 change to collision or route code. Review `evidence/r3d1-architecture-integration/`
 and `r3d1-architecture-integration-repair.md`; do not start Batch C.
 
+`ARCHITECTURE_INTEGRATION_HUMAN_GATE = APPROVED`. R3E has added the Hero Ship
+runtime layer split and now awaits its Human Route/Occlusion Gate. Do not start Batch D.
+
 R3C Foundation Batch A has applied an aligned deterministic L1 paving/stair/
 quay-edge treatment without changing the R3A geometry or collision ownership.
 The two raw original Gemini PNGs remain intentionally untracked at
