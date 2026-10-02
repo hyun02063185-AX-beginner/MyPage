@@ -1,6 +1,6 @@
 # 91. Portfolio World Rebuild — Project Status
 
-Updated: 2026-10-02 (R3D.1 architecture integration repair)
+Updated: 2026-10-02 (R3F Environment Art Batch D)
 
 ## Current State Override
 
@@ -37,8 +37,15 @@ the locked runtime. Evidence, contact sheet, provenance, and QA record are at
 `reports/portfolio-world-rebuild/r3d-environment-art-batch-b.md`.
 R3D.1 repairs their visual envelopes and grounding without gameplay changes;
 review `reports/portfolio-world-rebuild/r3d1-architecture-integration-repair.md`.
-`ARCHITECTURE_INTEGRATION_HUMAN_GATE = APPROVED`. R3E Hero Ship Batch C is
-complete for its Human Route/Occlusion Gate; Batch D has not begun.
+`ARCHITECTURE_INTEGRATION_HUMAN_GATE = APPROVED` and Director has approved the
+R3E Hero Ship route/depth/occlusion structure:
+`BATCH_C_HUMAN_ROUTE_OCCLUSION_GATE = APPROVED`. This is not a whole-scene
+final visual approval. R3F Environment Art Batch D is **COMPLETE**: individual
+transparent prop/foreground assets dress the locked space without altering any
+walkable rectangle, collision, player scale, movement, stairs, camera, Hero
+Ship exclusion, or gangway route. Review the 1280×720 evidence, study and
+before/after sheets at `reports/portfolio-world-rebuild/evidence/r3f-environment-art-batch-d/`
+and `reports/portfolio-world-rebuild/r3f-environment-art-batch-d.md`.
 
 ```text
 R5A_HUMAN_GATE           = REJECTED
@@ -53,8 +60,10 @@ R3D_ARCHITECTURE_BATCH_B = COMPLETE — human review pending
 ARCHITECTURE_INTEGRATION_HUMAN_GATE = APPROVED
 R3E_HERO_SHIP_BATCH_C               = COMPLETE
 R3E.1_OCCLUSION_EVIDENCE_REPAIR     = COMPLETE
-NEXT                                = BATCH_C_HUMAN_ROUTE_OCCLUSION_GATE
-GATE                                = READY_FOR_ENVIRONMENT_ART_BATCH_C_HUMAN_GATE
+BATCH_C_HUMAN_ROUTE_OCCLUSION_GATE  = APPROVED
+R3F_ENVIRONMENT_ART_BATCH_D         = COMPLETE
+NEXT                                = BATCH_D_HUMAN_CLUTTER_OCCLUSION_GATE
+GATE                                = READY_FOR_ENVIRONMENT_ART_BATCH_D_HUMAN_GATE
 ```
 
 ## Historical R5A Work Unit (superseded)

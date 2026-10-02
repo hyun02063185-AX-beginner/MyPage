@@ -1,6 +1,6 @@
 # 92. Portfolio World Rebuild — Handoff
 
-Updated: 2026-10-02 (R3D.1 architecture integration repair)
+Updated: 2026-10-02 (R3F Environment Art Batch D)
 
 ## Current State
 
@@ -32,8 +32,19 @@ grounded Hall visual envelope and a plinthed Workshop visual envelope, with no
 change to collision or route code. Review `evidence/r3d1-architecture-integration/`
 and `r3d1-architecture-integration-repair.md`; do not start Batch C.
 
-`ARCHITECTURE_INTEGRATION_HUMAN_GATE = APPROVED`. R3E has added the Hero Ship
-runtime layer split and now awaits its Human Route/Occlusion Gate. Do not start Batch D.
+`ARCHITECTURE_INTEGRATION_HUMAN_GATE = APPROVED` and
+`BATCH_C_HUMAN_ROUTE_OCCLUSION_GATE = APPROVED`. The latter approves only the
+Hero Ship route/depth/occlusion structure, not the overall final visual design.
+R3F has now added all nine Batch D manifest assets as transparent, individual
+runtime art at their existing visual rectangles: bollards, bench, lamp,
+planters, crate/barrel set, Hall banners, stair/quay rails, and low-wall
+vegetation. `GrayboxScene.ts` splits lamp/vegetation base versus foreground
+components through depth only; collision remains entirely authoritative in the
+unchanged Graybox source. The selected runtime direction is Study B, the
+controlled lived-in working harbor. Evidence and the before/after sheet are in
+`reports/portfolio-world-rebuild/evidence/r3f-environment-art-batch-d/`; the
+implementation and Final-Look backlog are in
+`reports/portfolio-world-rebuild/r3f-environment-art-batch-d.md`.
 
 R3C Foundation Batch A has applied an aligned deterministic L1 paving/stair/
 quay-edge treatment without changing the R3A geometry or collision ownership.
@@ -64,8 +75,10 @@ R3D_ARCHITECTURE      = COMPLETE — human review pending
 ARCHITECTURE_INTEGRATION_HUMAN_GATE = APPROVED
 R3E_HERO_SHIP_BATCH_C               = COMPLETE
 R3E.1_OCCLUSION_EVIDENCE_REPAIR     = COMPLETE
-NEXT                                = BATCH_C_HUMAN_ROUTE_OCCLUSION_GATE
-GATE                                = READY_FOR_ENVIRONMENT_ART_BATCH_C_HUMAN_GATE
+BATCH_C_HUMAN_ROUTE_OCCLUSION_GATE  = APPROVED
+R3F_ENVIRONMENT_ART_BATCH_D         = COMPLETE
+NEXT                                = BATCH_D_HUMAN_CLUTTER_OCCLUSION_GATE
+GATE                                = READY_FOR_ENVIRONMENT_ART_BATCH_D_HUMAN_GATE
 ```
 
 ## Immediate continuation

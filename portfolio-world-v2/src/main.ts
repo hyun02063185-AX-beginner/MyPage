@@ -23,6 +23,7 @@ declare global {
     __PORTFOLIO_WORLD_V2_GRAYBOX_QA__?: {
       activeScene: "GrayboxScene";
       qaState: string;
+      propStudy: "selected" | "a" | "b";
       player: { x: number; y: number; facing: "up" | "down" | "left" | "right"; animation: string; moving: boolean };
       camera: { x: number; y: number; zoom: number; deadzone: { width: number; height: number } };
       routes: { plazaToHall: boolean; plazaToStairs: boolean; stairsToQuay: boolean; quayToWorkshop: boolean; quayToGangway: boolean };

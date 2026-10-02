@@ -2,6 +2,7 @@ import Phaser from "phaser";
 
 type Facing = "up" | "down" | "left" | "right";
 type QaState = "normal" | "upper" | "hall" | "stairs-top" | "stairs-bottom" | "workshop" | "quay" | "gangway" | "movement" | "movement-reverse";
+type PropStudy = "selected" | "a" | "b";
 type Rect = Readonly<{ x: number; y: number; width: number; height: number }>;
 
 const WORLD = { width: 1600, height: 1000 } as const;
@@ -49,6 +50,7 @@ export class GrayboxScene extends Phaser.Scene {
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
   private wasd?: Record<"w" | "a" | "s" | "d", Phaser.Input.Keyboard.Key>;
   private qaState: QaState = "normal";
+  private propStudy: PropStudy = "selected";
   private facing: Facing = "down";
   private moving = false;
   private movementPath: Phaser.Math.Vector2[] = [];
@@ -71,11 +73,21 @@ export class GrayboxScene extends Phaser.Scene {
     this.load.image("r3e-hull", "assets/world/ships/hero/r3e/hero-ship-hull.png");
     this.load.image("r3e-mast", "assets/world/ships/hero/r3e/hero-ship-mast-foreground.png");
     this.load.image("r3e-rigging", "assets/world/ships/hero/r3e/ship-rigging-foreground.png");
+    this.load.image("r3f-bollards", "assets/world/props/r3f/bollard-set.png");
+    this.load.image("r3f-bench", "assets/world/props/r3f/plaza-bench-set.png");
+    this.load.image("r3f-lamp", "assets/world/props/r3f/lamp-set.png");
+    this.load.image("r3f-planters", "assets/world/props/r3f/planter-pair.png");
+    this.load.image("r3f-crates", "assets/world/props/r3f/quay-crate-barrel-set.png");
+    this.load.image("r3f-banners", "assets/world/props/r3f/hall-banner-set.png");
+    this.load.image("r3f-stair-rail", "assets/world/props/r3f/stair-railing-overlay.png");
+    this.load.image("r3f-quay-rail", "assets/world/props/r3f/quay-railing-overlay.png");
+    this.load.image("r3f-vegetation", "assets/world/props/r3f/low-wall-vegetation.png");
   }
 
   public create(): void {
     const query = new URLSearchParams(window.location.search);
     this.qaState = this.pickQaState(query.get("qa"));
+    this.propStudy = this.pickPropStudy(query.get("props"));
     this.physics.world.setBounds(0, 0, WORLD.width, WORLD.height);
     this.drawGraybox();
     this.createPlayerTextures();
@@ -97,6 +109,10 @@ export class GrayboxScene extends Phaser.Scene {
 
   private pickQaState(value: string | null): QaState {
     return value === "upper" || value === "hall" || value === "stairs-top" || value === "stairs-bottom" || value === "workshop" || value === "quay" || value === "gangway" || value === "movement" || value === "movement-reverse" ? value : "normal";
+  }
+
+  private pickPropStudy(value: string | null): PropStudy {
+    return value === "a" || value === "b" ? value : "selected";
   }
 
   private drawGraybox(): void {
@@ -145,6 +161,7 @@ export class GrayboxScene extends Phaser.Scene {
     this.add.image(1215, 610, "r3e-hull").setOrigin(0).setDepth(4);
     this.add.image(1190, 500, "r3e-mast").setOrigin(0).setDepth(22);
     this.add.image(1190, 545, "r3e-rigging").setOrigin(0).setDepth(23).setAlpha(0.82);
+    this.drawBatchDProps();
     // R3E.2 visual-only gangway: planks, side rails and rope rhythm; target stays locked.
     graphics.fillStyle(0x9a6b3d, 1).fillRect(1145, 720, 120, 78);
     for (let y = 728; y < 798; y += 10) graphics.lineStyle(2, 0x5c3f29, 0.9).strokeLineShape(new Phaser.Geom.Line(1147, y, 1263, y));
@@ -153,6 +170,27 @@ export class GrayboxScene extends Phaser.Scene {
     // Existing visible collision limits, now styled as fixed rail/edge treatments only.
     graphics.lineStyle(8, 0x40545a, 1).strokeLineShape(new Phaser.Geom.Line(300, 940, 1190, 940)).strokeLineShape(new Phaser.Geom.Line(1190, 650, 1190, 940));
     graphics.lineStyle(6, 0x40545a, 0.9).strokeLineShape(new Phaser.Geom.Line(300, 650, 300, 940));
+  }
+
+  /** R3F visual dressing only: assets never create or alter collision. */
+  private drawBatchDProps(): void {
+    // L2 Hall banners establish the entry/plaza relationship.
+    this.add.image(535, 55, "r3f-banners").setOrigin(0).setDepth(3);
+    // L4 bases remain behind the L3 player; props do not claim solidity.
+    this.add.image(365, 430, "r3f-bench").setOrigin(0).setDepth(12);
+    this.add.image(575, 445, "r3f-planters").setOrigin(0).setDepth(12);
+    const bollards = this.add.image(1010, 875, "r3f-bollards").setOrigin(0).setDepth(12);
+    const crateSet = this.add.image(405, 850, "r3f-crates").setOrigin(0).setDepth(12);
+    // A shows the quieter option; B and the selected runtime preserve work cues.
+    if (this.propStudy === "a") { crateSet.setVisible(false); bollards.setVisible(false); }
+    // Lamp base < player, lantern/bracket > player: an intentional L4/L5 split.
+    this.add.image(1020, 505, "r3f-lamp").setOrigin(0).setCrop(0, 60, 40, 55).setDepth(12);
+    this.add.image(1020, 440, "r3f-lamp").setOrigin(0).setCrop(0, 0, 40, 68).setDepth(21);
+    // L5 overlays are visual only and align with existing boundaries.
+    this.add.image(638, 490, "r3f-stair-rail").setOrigin(0).setDepth(21);
+    this.add.image(300, 920, "r3f-quay-rail").setOrigin(0).setDepth(21);
+    this.add.image(975, 455, "r3f-vegetation").setOrigin(0).setCrop(0, 50, 85, 35).setDepth(12);
+    this.add.image(975, 425, "r3f-vegetation").setOrigin(0).setCrop(0, 0, 85, 58).setDepth(21);
   }
 
   private createPlayerTextures(): void {
@@ -295,6 +333,7 @@ export class GrayboxScene extends Phaser.Scene {
     window.__PORTFOLIO_WORLD_V2_GRAYBOX_QA__ = {
       activeScene: "GrayboxScene",
       qaState: this.qaState,
+      propStudy: this.propStudy,
       player: { x: Math.round(this.player.x), y: Math.round(this.player.y), facing: this.facing, animation: this.player.anims.currentAnim?.key ?? "", moving: this.moving },
       camera: { x: Math.round(camera.scrollX + this.scale.width / (2 * camera.zoom)), y: Math.round(camera.scrollY + this.scale.height / (2 * camera.zoom)), zoom: camera.zoom, deadzone: { width: camera.deadzone?.width ?? 0, height: camera.deadzone?.height ?? 0 } },
       routes: { plazaToHall: true, plazaToStairs: true, stairsToQuay: true, quayToWorkshop: true, quayToGangway: true },
