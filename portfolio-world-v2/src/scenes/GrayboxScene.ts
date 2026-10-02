@@ -145,7 +145,10 @@ export class GrayboxScene extends Phaser.Scene {
     this.add.image(1215, 610, "r3e-hull").setOrigin(0).setDepth(4);
     this.add.image(1190, 500, "r3e-mast").setOrigin(0).setDepth(22);
     this.add.image(1190, 545, "r3e-rigging").setOrigin(0).setDepth(23).setAlpha(0.82);
-    graphics.fillStyle(0xb58a50, 1).fillRect(1145, 720, 120, 78).lineStyle(4, 0x4d4238, 1).strokeRect(1145, 720, 120, 78);
+    // R3E.2 visual-only gangway: planks, side rails and rope rhythm; target stays locked.
+    graphics.fillStyle(0x9a6b3d, 1).fillRect(1145, 720, 120, 78);
+    for (let y = 728; y < 798; y += 10) graphics.lineStyle(2, 0x5c3f29, 0.9).strokeLineShape(new Phaser.Geom.Line(1147, y, 1263, y));
+    graphics.lineStyle(3, 0x3f3026, 1).strokeLineShape(new Phaser.Geom.Line(1147,720,1147,798)).strokeLineShape(new Phaser.Geom.Line(1263,720,1263,798));
 
     // Existing visible collision limits, now styled as fixed rail/edge treatments only.
     graphics.lineStyle(8, 0x40545a, 1).strokeLineShape(new Phaser.Geom.Line(300, 940, 1190, 940)).strokeLineShape(new Phaser.Geom.Line(1190, 650, 1190, 940));

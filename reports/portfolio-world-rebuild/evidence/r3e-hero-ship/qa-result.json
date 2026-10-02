@@ -4,7 +4,7 @@
   "captures": [
     {
       "fileName": "01-overall-harbor.png",
-      "bytes": 697565,
+      "bytes": 684150,
       "qaState": "quay",
       "player": {
         "x": 780,
@@ -25,7 +25,7 @@
     },
     {
       "fileName": "02-player-ship-scale.png",
-      "bytes": 713579,
+      "bytes": 739822,
       "qaState": "gangway",
       "player": {
         "x": 1135,
@@ -35,8 +35,8 @@
         "moving": false
       },
       "camera": {
-        "x": 733,
-        "y": 404,
+        "x": 782,
+        "y": 459,
         "zoom": 1.05,
         "deadzone": {
           "width": 300,
@@ -46,7 +46,7 @@
     },
     {
       "fileName": "03-gangway-approach.png",
-      "bytes": 763951,
+      "bytes": 759765,
       "qaState": "gangway",
       "player": {
         "x": 1135,
@@ -56,8 +56,8 @@
         "moving": false
       },
       "camera": {
-        "x": 858,
-        "y": 545,
+        "x": 808,
+        "y": 489,
         "zoom": 1.05,
         "deadzone": {
           "width": 300,
@@ -67,7 +67,7 @@
     },
     {
       "fileName": "04-player-in-front-of-hull.png",
-      "bytes": 765984,
+      "bytes": 766753,
       "qaState": "gangway",
       "player": {
         "x": 1135,
@@ -77,8 +77,8 @@
         "moving": false
       },
       "camera": {
-        "x": 808,
-        "y": 489,
+        "x": 820,
+        "y": 502,
         "zoom": 1.05,
         "deadzone": {
           "width": 300,
@@ -88,7 +88,7 @@
     },
     {
       "fileName": "05-player-behind-mast-rigging.png",
-      "bytes": 758932,
+      "bytes": 766753,
       "qaState": "gangway",
       "player": {
         "x": 1135,
@@ -98,8 +98,8 @@
         "moving": false
       },
       "camera": {
-        "x": 808,
-        "y": 489,
+        "x": 820,
+        "y": 502,
         "zoom": 1.05,
         "deadzone": {
           "width": 300,
@@ -109,7 +109,7 @@
     },
     {
       "fileName": "06-quay-gangway-route.png",
-      "bytes": 722641,
+      "bytes": 720208,
       "qaState": "quay",
       "player": {
         "x": 780,
@@ -156,9 +156,9 @@
     "frames": 70,
     "encodedFps": 10,
     "encodedDurationSeconds": 7,
-    "sampledCaptureFps": 9.951,
-    "sampledCaptureSeconds": 6.934,
-    "realTimeCaptureSeconds": 8.142,
+    "sampledCaptureFps": 9.957,
+    "sampledCaptureSeconds": 6.93,
+    "realTimeCaptureSeconds": 7.877,
     "walkAnimationObserved": true,
     "directionalWalkAnimationsObserved": [
       "right",
