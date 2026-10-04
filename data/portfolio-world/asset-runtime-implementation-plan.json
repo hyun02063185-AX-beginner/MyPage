@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "PLAN_ONLY",
+  "sourcePriority": [
+    "reports/portfolio-world-rebuild/evidence/gameplay-projection-refinement/projection-a-elevated-gameplay.png",
+    "data/portfolio-world/canonical-target-implementation-blueprint.json",
+    "this production plan",
+    "existing R3G runtime (technical reference only)"
+  ],
+  "designContract": {
+    "world": { "width": 1920, "height": 1080 },
+    "viewport": { "width": 1280, "height": 720 },
+    "levels": 2,
+    "player": { "visualBounds": [28, 56], "collisionBody": { "offset": [0, 40], "size": [28, 16] }, "scale": "fixed; optional local correction only ±5%" },
+    "heroShip": { "assetEnvelope": [595, 685], "visibleMastToWaterlineHeight": 592, "hull": [565, 285] }
+  },
+  "productionPrinciple": "DESIGN → ASSET → CALIBRATION → HUMAN GATE → RUNTIME → VISUAL QA. No current-runtime polish sequence may substitute for canonical convergence.",
+  "phases": [
+    { "id": "A1", "name": "Exhibition Hall candidates", "output": ["2–3 transparent source candidates", "native-scale Hall/player calibration", "target comparison"], "gate": "GATE_A_LANDMARK_CANDIDATE_SELECTION", "runtimeAllowed": false },
+    { "id": "A2", "name": "Workshop candidates", "output": ["2–3 transparent source candidates", "native-scale Workshop/player calibration", "target comparison"], "gate": "GATE_A_LANDMARK_CANDIDATE_SELECTION", "runtimeAllowed": false },
+    { "id": "A3", "name": "Hero Ship candidates", "output": ["3 transparent source candidates", "hull/rigging split feasibility", "waterline/gangway calibration"], "gate": "GATE_A_LANDMARK_CANDIDATE_SELECTION", "runtimeAllowed": false },
+    { "id": "A4", "name": "Landmark calibration", "dependsOn": ["A1", "A2", "A3"], "output": ["Hall + Workshop + Hero Ship calibration sheet", "56 px player comparison", "secondary/small-boat placeholder silhouettes"], "gate": "GATE_B_LANDMARK_CALIBRATION", "runtimeAllowed": false },
+    { "id": "B", "name": "Supporting Fleet", "dependsOn": ["A4"], "output": ["Tier-2 Secondary Ship", "Tier-3 Small Workboat", "water-contact direction sheet"], "gate": "GATE_C_FOUNDATION_FLEET_VISUAL_INTEGRATION", "runtimeAllowed": false },
+    { "id": "C", "name": "Environment Foundation", "dependsOn": ["A4"], "output": ["Hall Plaza", "Lower Plaza", "Central Quay", "Hero Quay", "Main Stairs", "Gangway Access", "water treatment", "quay edge", "stone walls"], "gate": "GATE_C_FOUNDATION_FLEET_VISUAL_INTEGRATION", "runtimeAllowed": false },
+    { "id": "D", "name": "Scenic Background", "dependsOn": ["C"], "output": ["town", "cliffs", "mountains", "lighthouse", "outer sea", "distant ships as independent layers"], "gate": "GATE_C_FOUNDATION_FLEET_VISUAL_INTEGRATION", "runtimeAllowed": false },
+    { "id": "E", "name": "Props and Foreground", "dependsOn": ["B", "C"], "output": ["repaired prop family", "new banners/gangway/rails/tools", "foreground vegetation/ropes/rigging slices"], "gate": "GATE_C_FOUNDATION_FLEET_VISUAL_INTEGRATION", "runtimeAllowed": false },
+    { "id": "R1", "name": "Runtime Geometry Skeleton", "dependsOn": ["GATE_A_LANDMARK_CANDIDATE_SELECTION", "GATE_B_LANDMARK_CALIBRATION", "GATE_C_FOUNDATION_FLEET_VISUAL_INTEGRATION"], "output": ["new 1920×1080 world", "two levels", "P1–P7", "walkable polygons", "explicit stair connector", "water exclusions"], "gate": "GATE_D_RUNTIME_GEOMETRY", "runtimeAllowed": true },
+    { "id": "R2", "name": "Runtime Canonical Landmarks", "dependsOn": ["R1"], "output": ["Hall", "Workshop", "Hero Ship", "Secondary Ship", "Small Boat", "fixed 28×56 player visual / 28×16 body"], "gate": "GATE_E_CANONICAL_RUNTIME_COMPARISON", "runtimeAllowed": true },
+    { "id": "R3", "name": "Runtime Foundation and Water", "dependsOn": ["R2"], "output": ["plaza", "quay", "stairs", "water contact", "ship grounding"], "gate": "GATE_E_CANONICAL_RUNTIME_COMPARISON", "runtimeAllowed": true },
+    { "id": "R4", "name": "Runtime Props, Depth and Occlusion", "dependsOn": ["R3"], "output": ["foreground props", "vegetation", "rails", "ropes", "Hero rigging slices", "depth ordering"], "gate": "GATE_E_CANONICAL_RUNTIME_COMPARISON", "runtimeAllowed": true },
+    { "id": "R5", "name": "Runtime Scenic Background", "dependsOn": ["R4"], "output": ["non-playable town/cliff/mountain/lighthouse/outer-water layers"], "gate": "GATE_E_CANONICAL_RUNTIME_COMPARISON", "runtimeAllowed": true }
+  ],
+  "productionBoard": [
+    { "asset": "Exhibition Hall", "targetSize": "605×320; door 75×106", "action": "GENERATE_NEW", "generation": "2–3 transparent landmark candidates; source + alpha normalization", "humanGate": "A, B", "runtimePhase": "R2" },
+    { "asset": "Workshop", "targetSize": "505×280; awning 245×110", "action": "GENERATE_NEW", "generation": "2–3 transparent landmark candidates; active work props grouped separately", "humanGate": "A, B", "runtimePhase": "R2" },
+    { "asset": "Hero Ship", "targetSize": "595×685 envelope; 592 mast→waterline; hull 565×285", "action": "GENERATE_NEW", "generation": "3 transparent candidates; require waterline and separable rigging foreground", "humanGate": "A, B", "runtimePhase": "R2" },
+    { "asset": "Secondary Ship", "targetSize": "275×255", "action": "GENERATE_NEW", "generation": "Tier-2 vessel after landmark scale lock", "humanGate": "C", "runtimePhase": "R2" },
+    { "asset": "Small Workboat", "targetSize": "140×75", "action": "GENERATE_NEW", "generation": "Tier-3 simple workboat after fleet hierarchy lock", "humanGate": "C", "runtimePhase": "R2" },
+    { "asset": "Hall Plaza", "targetSize": "polygon, 625×330 bounding box", "action": "GENERATE_NEW", "generation": "reusable fine-paving surface family; no whole-floor plate", "humanGate": "C", "runtimePhase": "R3" },
+    { "asset": "Lower Plaza", "targetSize": "polygon, 530×420 bounding box", "action": "GENERATE_NEW", "generation": "reusable fine-paving surface family", "humanGate": "C", "runtimePhase": "R3" },
+    { "asset": "Central Quay", "targetSize": "polygon, 395×240 bounding box", "action": "GENERATE_NEW", "generation": "stone/wood quay modules with explicit water edge", "humanGate": "C", "runtimePhase": "R3" },
+    { "asset": "Hero Quay", "targetSize": "polygon, 575×380 bounding box", "action": "GENERATE_NEW", "generation": "quay modules and berth edge, not one floor image", "humanGate": "C", "runtimePhase": "R3" },
+    { "asset": "Main Stairs", "targetSize": "connector, 230×265 bounding box", "action": "GENERATE_NEW", "generation": "shallow oblique riser/landing family", "humanGate": "C", "runtimePhase": "R3" },
+    { "asset": "Water", "targetSize": "1920×1080 coverage via explicit exclusion zones", "action": "PROCEDURAL_RUNTIME", "generation": "calm sheltered-water materials/contact layers; no collision from raster", "humanGate": "C", "runtimePhase": "R3" },
+    { "asset": "Scenic Background", "targetSize": "independent non-playable layers within scenic boundary", "action": "GENERATE_NEW", "generation": "town, cliffs, mountains, lighthouse, outer sea, distant ships separately", "humanGate": "C", "runtimePhase": "R5" },
+    { "asset": "Props", "targetSize": "native-scale family calibrated against 28×56 player", "action": "REPAIR_OR_REGENERATE_BY_ACCEPTANCE", "generation": "repair benches/lamps/planters/crates/barrels/bollards/ropes; generate banners/gangway/rails/tools", "humanGate": "C", "runtimePhase": "R4" },
+    { "asset": "Foreground", "targetSize": "transparent slices with explicit ground/pivot metadata", "action": "GENERATE_NEW", "generation": "vegetation, selected ropes, railings and Hero rigging slices", "humanGate": "C", "runtimePhase": "R4" }
+  ],
+  "generationStrategy": {
+    "rule": "No model is production-locked. Run a documented availability probe and compare candidates against the Canonical Target before selecting a source.",
+    "methods": [
+      { "assetClass": "transparent landmarks and ships", "preferred": "built-in image generation with transparent output, then deterministic alpha/anchor normalization", "alternates": ["gpt-image-2 through an approved API/CLI path if current capability and alpha workflow are verified", "Codyssey Public API if available and provenance can be recorded"] },
+      { "assetClass": "architecture/fleet candidate studies", "preferred": "candidate comparison across built-in image generation and any verified gpt-image-2 or gemini-2.5-flash-image workflow", "selection": "projection, scale, material and edge QA at native scale; not model reputation" },
+      { "assetClass": "repeated props", "preferred": "small coherent batches, repair existing assets when acceptance criteria pass", "alternates": ["gemini-2.5-flash-image exploratory studies if available", "hand-authored/procedural geometry for simple rails, ropes and gangway elements"] },
+      { "assetClass": "scenic background", "preferred": "large-format independent environment layers generated from the Canonical Target direction", "constraint": "never one scene plate and never a gameplay/collision source" }
+    ],
+    "provenance": "Record model/API, prompt/reference role, candidate ID, source size, alpha result, normalization steps, reviewer and gate decision beside each selected asset."
+  },
+  "acceptanceCriteria": {
+    "visual": ["Canonical Target style and elevated-oblique projection", "correct target scale and landmark hierarchy", "consistent warm daylight, blue/gold accents and Mediterranean material language", "legible wood/stone/plaster/water distinction", "no malformed architecture/rigging, text artifacts, baked UI or unwanted background"],
+    "technical": ["required alpha where applicable", "source resolution sufficient for target dimensions without upscaling", "clean edges and normalized transparent padding", "documented bottom/ground or waterline pivot", "matching target visual bounds", "foreground-slice feasibility for Hall/Workshop/Ship occlusion", "no pixel-derived collision or scene-plate dependency"],
+    "assetDecision": { "KEEP": "existing asset meets every visual and technical condition at target scale", "REPAIR": "one localized, bounded defect can be corrected without changing projection, silhouette family or source quality", "REGENERATE": "projection/scale/material/silhouette/alpha failure, or two repair attempts fail" }
+  },
+  "calibrationGate": {
+    "requiredSheet": ["approved Hall candidate", "approved Workshop candidate", "approved Hero Ship candidate", "56 px player", "Secondary Ship placeholder silhouette", "Small Boat placeholder silhouette"],
+    "checks": ["relative scale", "shared light direction", "palette/material coherence", "shared projection", "detail-density hierarchy", "Hall and Hero landmark parity", "Workshop subordinate read"],
+    "rule": "No runtime rebuild begins before Human approval of the complete calibration sheet."
+  },
+  "humanGates": [
+    { "id": "A", "name": "Landmark candidate selection", "approves": "Hall, Workshop and Hero Ship source candidates" },
+    { "id": "B", "name": "Landmark calibration", "approves": "combined landmark scale/projection/lighting sheet" },
+    { "id": "C", "name": "Foundation / Fleet visual integration", "approves": "support fleet, foundation, scenic and foreground direction" },
+    { "id": "D", "name": "Runtime geometry", "approves": "new Blueprint-derived geometry before art completion" },
+    { "id": "E", "name": "Canonical runtime comparison", "approves": "phase captures compared against the Canonical Target" }
+  ],
+  "runtimeStartCondition": {
+    "allRequired": ["Hall approved", "Workshop approved", "Hero Ship approved", "Landmark Calibration approved", "Supporting Fleet direction approved", "Foundation asset plan approved"],
+    "beforeAllRequired": "RUNTIME_REBUILD = BLOCKED"
+  },
+  "canonicalComparison": {
+    "reference": "projection-a-elevated-gameplay.png",
+    "captureSpecs": ["1280×720 overview: centre 960,540 at zoom 0.667", "1280×720 gameplay follow captures at P1, P5 and P7 using approved 1.0 zoom/deadzone contract"],
+    "compare": ["Hall size", "Workshop size", "Hero Ship size", "player size", "water ratio", "plaza ratio", "fleet density", "landmark positions", "colour/lighting", "environment density"],
+    "method": "Open Canonical and actual runtime captures; make fixed-coordinate crops/contact sheets; inspect against the brief; collect console/exception evidence. The question is canonical convergence, not whether the current runtime improved." 
+  },
+  "driftStopRules": ["Hall smaller than target", "Hero Ship ratio changes", "water ratio shrinks", "camera reverts to top-down composition", "player departs from 28×56 / fixed-scale contract", "supporting fleet removed", "existing geometry forces target change", "scene plate or pixel-derived collision reintroduced"],
+  "retryAndRollback": {
+    "retry": "Generate candidates → compare → decide repairability. After two failed repairs, regenerate. If the same failure repeats, change model, prompt, reference treatment or generation method rather than continuing patches.",
+    "rollback": "Version all candidates. Never overwrite a Human-approved source; retain its manifest/provenance and revert to it after a failed experiment. A failed runtime phase reverts to the last approved phase checkpoint, then produces a Drift Report before resuming.",
+    "driftReport": "Stop implementation, attach Canonical/runtime comparison and state the violated metric, suspected cause, rejected workaround and proposed correction. Human direction is required before changing the Canonical contract."
+  },
+  "skillsApplied": {
+    "environment-art": "Sets landmark hierarchy, readable silhouettes, material cohesion, player-relative scale and protected-harbor composition criteria.",
+    "create-game-assets": "Defines staged candidate production, asset manifest/provenance, technical alpha/pivot QA and native-scale calibration before engine integration.",
+    "portfolio-world-visual-qa": "Requires opened actual runtime captures, fixed crop comparison, Visual Brief checks and console evidence; no runtime Visual Pass is claimed by this plan."
+  },
+  "gate": {
+    "canonicalFinalVisualTarget": "APPROVED",
+    "implementationBlueprint": "APPROVED",
+    "assetRuntimeImplementationPlan": "COMPLETE",
+    "assetProduction": "NOT_STARTED",
+    "runtimeRebuild": "NOT_STARTED",
+    "next": "CANONICAL_LANDMARK_ASSET_PRODUCTION",
+    "status": "READY_FOR_LANDMARK_ASSET_PRODUCTION"
+  }
+}
