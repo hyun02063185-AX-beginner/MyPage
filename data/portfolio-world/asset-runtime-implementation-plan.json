@@ -81,7 +81,7 @@
     "reference": "projection-a-elevated-gameplay.png",
     "captureSpecs": ["1280×720 overview: centre 960,540 at zoom 0.667", "1280×720 gameplay follow captures at P1, P5 and P7 using approved 1.0 zoom/deadzone contract"],
     "compare": ["Hall size", "Workshop size", "Hero Ship size", "player size", "water ratio", "plaza ratio", "fleet density", "landmark positions", "colour/lighting", "environment density"],
-    "method": "Open Canonical and actual runtime captures; make fixed-coordinate crops/contact sheets; inspect against the brief; collect console/exception evidence. The question is canonical convergence, not whether the current runtime improved." 
+    "method": "Open Canonical and actual runtime captures; make fixed-coordinate crops/contact sheets; inspect against the brief; collect console/exception evidence. The question is canonical convergence, not whether the current runtime improved."
   },
   "driftStopRules": ["Hall smaller than target", "Hero Ship ratio changes", "water ratio shrinks", "camera reverts to top-down composition", "player departs from 28×56 / fixed-scale contract", "supporting fleet removed", "existing geometry forces target change", "scene plate or pixel-derived collision reintroduced"],
   "retryAndRollback": {
