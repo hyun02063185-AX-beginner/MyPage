@@ -1,0 +1,127 @@
+{
+  "artifact": "canonical-landmark-assets",
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-04",
+  "status": "COMPLETE",
+  "sourceOfTruth": {
+    "canonicalTarget": "reports/portfolio-world-rebuild/evidence/gameplay-projection-refinement/projection-a-elevated-gameplay.png",
+    "playerValidation": "reports/portfolio-world-rebuild/evidence/gameplay-projection-refinement/projection-a-player-fixed-scale-validation.png",
+    "implementationBlueprint": "data/portfolio-world/canonical-target-implementation-blueprint.json"
+  },
+  "generationCapability": {
+    "builtInImageGeneration": {
+      "status": "VERIFIED_AND_USED",
+      "generationPath": "Codex image_gen.imagegen",
+      "model": "OpenAI built-in image generation (model identifier not exposed by the capability)",
+      "referenceRole": "Canonical Projection A was supplied as the visual/projection reference for every candidate."
+    },
+    "codysseyPublicApi": "NOT_CALLED_UNVERIFIED",
+    "gptImage2DirectApi": "NOT_CALLED_UNVERIFIED",
+    "geminiFlashImageDirectApi": "NOT_CALLED_UNVERIFIED"
+  },
+  "normalization": {
+    "method": "Deterministic alpha-bounds crop (alpha > 6), uniform high-quality resample into canonical canvas, horizontal center and bottom alignment.",
+    "transparentBackground": true,
+    "aspectRatioDistortion": false,
+    "paddingPolicy": "Excess transparent source padding is removed before fitting; any remaining canvas padding is the unavoidable result of preserving aspect ratio.",
+    "anchorConvention": "Buildings: canvas bottom-center is the ground anchor. Hero: envelope bottom-center is retained and canonical waterline is local y=592, leaving 93 px of envelope below the waterline."
+  },
+  "families": {
+    "hall": {
+      "canonicalCanvas": { "width": 605, "height": 320 },
+      "targetDoor": { "width": 75, "height": 106 },
+      "ranking": ["hall-b", "hall-a", "hall-c"],
+      "recommendedCandidateId": "hall-b",
+      "humanSelectionStatus": "PENDING",
+      "candidates": [
+        {
+          "id": "hall-a",
+          "normalizedPath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hall/hall-a.png",
+          "sourcePath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hall/source/hall-a-source.png",
+          "sourceDimensions": { "width": 1724, "height": 912 },
+          "sourceAlphaBounds": { "x": 34, "y": 8, "width": 1660, "height": 881 },
+          "normalizedCanvas": { "width": 605, "height": 320 },
+          "visibleBounds": { "x": 1, "y": 0, "width": 603, "height": 320 },
+          "groundAnchor": { "x": 302.5, "y": 320, "space": "normalized-canvas" },
+          "transparency": true,
+          "generation": { "path": "Codex image_gen.imagegen", "model": "OpenAI built-in image generation (opaque model ID)", "date": "2026-10-04", "promptRole": "Elevated-oblique Mediterranean exhibition hall candidate using Canonical Projection A as master reference." },
+          "sha256": { "source": "F7950DDA8D744102446F55E1E06A81C48583149BB160ABE236FB802CCDBBBD11", "normalized": "42C060212DE982A48745E7214ED69936A2100F1949AD8223D7D9D3C9EDD3D4F9" },
+          "qa": { "canonicalTargetMatch": 4, "projectionMatch": 4, "scaleCorrectness": 4, "materialQuality": 5, "lightingConsistency": 5, "silhouetteReadability": 4, "runtimeDecomposability": 3, "playerRelativePlausibility": 4, "total": 33 },
+          "recommendationStatus": "ALTERNATE_PENDING_HUMAN"
+        },
+        {
+          "id": "hall-b",
+          "normalizedPath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hall/hall-b.png",
+          "sourcePath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hall/source/hall-b-source.png",
+          "sourceDimensions": { "width": 1724, "height": 912 },
+          "sourceAlphaBounds": { "x": 42, "y": 0, "width": 1662, "height": 895 },
+          "normalizedCanvas": { "width": 605, "height": 320 },
+          "visibleBounds": { "x": 6, "y": 0, "width": 594, "height": 320 },
+          "groundAnchor": { "x": 302.5, "y": 320, "space": "normalized-canvas" },
+          "transparency": true,
+          "generation": { "path": "Codex image_gen.imagegen", "model": "OpenAI built-in image generation (opaque model ID)", "date": "2026-10-04", "promptRole": "Elevated-oblique Mediterranean exhibition hall candidate using Canonical Projection A as master reference." },
+          "sha256": { "source": "5B1BF5C64E772557C94591BAB9CB6C09BA0395122A5D6FADA20C07552D20396C", "normalized": "7CF856AA271106FA83138F86A478B8E20362F37EFB65F2B4383E1A9E713108F9" },
+          "qa": { "canonicalTargetMatch": 5, "projectionMatch": 4, "scaleCorrectness": 4, "materialQuality": 5, "lightingConsistency": 5, "silhouetteReadability": 5, "runtimeDecomposability": 3, "playerRelativePlausibility": 4, "total": 35 },
+          "recommendationStatus": "RECOMMENDED_FOR_HUMAN_REVIEW"
+        },
+        {
+          "id": "hall-c",
+          "normalizedPath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hall/hall-c.png",
+          "sourcePath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hall/source/hall-c-source.png",
+          "sourceDimensions": { "width": 1726, "height": 911 },
+          "sourceAlphaBounds": { "x": 39, "y": 20, "width": 1648, "height": 836 },
+          "normalizedCanvas": { "width": 605, "height": 320 },
+          "visibleBounds": { "x": 0, "y": 13, "width": 605, "height": 307 },
+          "groundAnchor": { "x": 302.5, "y": 320, "space": "normalized-canvas" },
+          "transparency": true,
+          "generation": { "path": "Codex image_gen.imagegen", "model": "OpenAI built-in image generation (opaque model ID)", "date": "2026-10-04", "promptRole": "Elevated-oblique Mediterranean exhibition hall candidate using Canonical Projection A as master reference." },
+          "sha256": { "source": "0AAECEBD010C0B9D4374219AF7A51864747693FDCED03622EE2F7F5B82CCD3AD", "normalized": "3A0867229C33BFCDDAD348CF625059E14BF4B6D62055603A27B6D3F4A12F872D" },
+          "qa": { "canonicalTargetMatch": 4, "projectionMatch": 4, "scaleCorrectness": 4, "materialQuality": 4, "lightingConsistency": 5, "silhouetteReadability": 4, "runtimeDecomposability": 3, "playerRelativePlausibility": 4, "total": 32 },
+          "recommendationStatus": "ALTERNATE_PENDING_HUMAN"
+        }
+      ]
+    },
+    "workshop": {
+      "canonicalCanvas": { "width": 505, "height": 280 },
+      "targetAwning": { "width": 245, "height": 110 },
+      "targetEntrance": { "width": 95, "height": 105, "approximate": true },
+      "ranking": ["workshop-c", "workshop-a", "workshop-b"],
+      "recommendedCandidateId": "workshop-c",
+      "humanSelectionStatus": "PENDING",
+      "candidates": [
+        { "id": "workshop-a", "normalizedPath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/workshop/workshop-a.png", "sourcePath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/workshop/source/workshop-a-source.png", "sourceDimensions": { "width": 1683, "height": 935 }, "sourceAlphaBounds": { "x": 21, "y": 19, "width": 1642, "height": 876 }, "normalizedCanvas": { "width": 505, "height": 280 }, "visibleBounds": { "x": 0, "y": 11, "width": 505, "height": 269 }, "groundAnchor": { "x": 252.5, "y": 280, "space": "normalized-canvas" }, "transparency": true, "generation": { "path": "Codex image_gen.imagegen", "model": "OpenAI built-in image generation (opaque model ID)", "date": "2026-10-04", "promptRole": "Elevated-oblique active maritime workshop candidate using Canonical Projection A as master reference." }, "sha256": { "source": "DB54FCE3327A139E579FD9A5283E90C33BA27D2C90BE9413F828A8AFB35E9839", "normalized": "396FEEC98759248FCC65F8C3F26E3613AF615ADE9C5E44E33D71B48519145FD5" }, "qa": { "canonicalTargetMatch": 4, "projectionMatch": 4, "scaleCorrectness": 4, "materialQuality": 5, "lightingConsistency": 5, "silhouetteReadability": 4, "runtimeDecomposability": 3, "playerRelativePlausibility": 4, "total": 33 }, "recommendationStatus": "ALTERNATE_PENDING_HUMAN" },
+        { "id": "workshop-b", "normalizedPath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/workshop/workshop-b.png", "sourcePath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/workshop/source/workshop-b-source.png", "sourceDimensions": { "width": 1683, "height": 934 }, "sourceAlphaBounds": { "x": 43, "y": 31, "width": 1602, "height": 859 }, "normalizedCanvas": { "width": 505, "height": 280 }, "visibleBounds": { "x": 0, "y": 9, "width": 505, "height": 271 }, "groundAnchor": { "x": 252.5, "y": 280, "space": "normalized-canvas" }, "transparency": true, "generation": { "path": "Codex image_gen.imagegen", "model": "OpenAI built-in image generation (opaque model ID)", "date": "2026-10-04", "promptRole": "Elevated-oblique active maritime workshop candidate using Canonical Projection A as master reference." }, "sha256": { "source": "E150A812DE62094D0D48270A1466084B6516772B788BC7835B88763226D23B44", "normalized": "9990CF02ADA23E02905AC5F5947D0D93F446917EAF32B7EE467F9A69BEAB2C0B" }, "qa": { "canonicalTargetMatch": 3, "projectionMatch": 4, "scaleCorrectness": 4, "materialQuality": 4, "lightingConsistency": 5, "silhouetteReadability": 4, "runtimeDecomposability": 3, "playerRelativePlausibility": 4, "total": 31 }, "recommendationStatus": "ALTERNATE_PENDING_HUMAN" },
+        { "id": "workshop-c", "normalizedPath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/workshop/workshop-c.png", "sourcePath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/workshop/source/workshop-c-source.png", "sourceDimensions": { "width": 1683, "height": 934 }, "sourceAlphaBounds": { "x": 26, "y": 11, "width": 1646, "height": 873 }, "normalizedCanvas": { "width": 505, "height": 280 }, "visibleBounds": { "x": 0, "y": 12, "width": 505, "height": 268 }, "groundAnchor": { "x": 252.5, "y": 280, "space": "normalized-canvas" }, "transparency": true, "generation": { "path": "Codex image_gen.imagegen", "model": "OpenAI built-in image generation (opaque model ID)", "date": "2026-10-04", "promptRole": "Elevated-oblique active maritime workshop candidate using Canonical Projection A as master reference." }, "sha256": { "source": "3294BE62CE81987E8B26EA47EFEE1FBB6DC027ACB23B0958C477EBF3CDCB8290", "normalized": "3EA9877B92EF7AE357AA89E9DB24F82C1AAC8BA9795EA05BBDDE7BF36E944C7C" }, "qa": { "canonicalTargetMatch": 4, "projectionMatch": 5, "scaleCorrectness": 4, "materialQuality": 5, "lightingConsistency": 5, "silhouetteReadability": 5, "runtimeDecomposability": 3, "playerRelativePlausibility": 4, "total": 35 }, "recommendationStatus": "RECOMMENDED_FOR_HUMAN_REVIEW" }
+      ]
+    },
+    "heroShip": {
+      "canonicalEnvelope": { "width": 595, "height": 685 },
+      "canonicalVisibleMastToWaterline": 592,
+      "canonicalHull": { "width": 565, "height": 285 },
+      "ranking": ["hero-b", "hero-c", "hero-a"],
+      "recommendedCandidateId": "hero-b",
+      "humanSelectionStatus": "PENDING",
+      "candidates": [
+        { "id": "hero-a", "normalizedPath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hero-ship/hero-a.png", "sourcePath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hero-ship/source/hero-a-source.png", "sourceDimensions": { "width": 1169, "height": 1346 }, "sourceAlphaBounds": { "x": 16, "y": 16, "width": 1150, "height": 1315 }, "normalizedCanvas": { "width": 595, "height": 685 }, "visibleBounds": { "x": 0, "y": 5, "width": 595, "height": 680 }, "waterlineAnchor": { "x": 297.5, "y": 592, "space": "normalized-canvas", "belowWaterlineEnvelope": 93 }, "transparency": true, "generation": { "path": "Codex image_gen.imagegen", "model": "OpenAI built-in image generation (opaque model ID)", "date": "2026-10-04", "promptRole": "Moored merchant/exploration Hero Ship candidate using Canonical Projection A as master reference." }, "sha256": { "source": "6248F461B66AFC5EE5A0F87C4A13FE43A21556C314476E8E153191686E995190", "normalized": "7B3C4DC531A73D7A911616C80E8CA0EE327F133CCBEF28ABB1866AA7A44E18E8" }, "qa": { "canonicalTargetMatch": 4, "projectionMatch": 4, "scaleCorrectness": 4, "materialQuality": 5, "lightingConsistency": 5, "silhouetteReadability": 4, "runtimeDecomposability": 2, "playerRelativePlausibility": 4, "riggingValidity": 3, "waterlineReadability": 3, "landmarkPresence": 5, "gangwayCompatibility": 2, "total": 45 }, "recommendationStatus": "ALTERNATE_PENDING_HUMAN" },
+        { "id": "hero-b", "normalizedPath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hero-ship/hero-b.png", "sourcePath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hero-ship/source/hero-b-source.png", "sourceDimensions": { "width": 1169, "height": 1346 }, "sourceAlphaBounds": { "x": 42, "y": 20, "width": 1119, "height": 1291 }, "normalizedCanvas": { "width": 595, "height": 685 }, "visibleBounds": { "x": 0, "y": 0, "width": 594, "height": 685 }, "waterlineAnchor": { "x": 297.5, "y": 592, "space": "normalized-canvas", "belowWaterlineEnvelope": 93 }, "transparency": true, "generation": { "path": "Codex image_gen.imagegen", "model": "OpenAI built-in image generation (opaque model ID)", "date": "2026-10-04", "promptRole": "Moored merchant/exploration Hero Ship candidate using Canonical Projection A as master reference." }, "sha256": { "source": "AE10AFE015B488FBA89DEE66A3D60AC00F46334F33D8882B19679BA663EB03A2", "normalized": "C91CC9451EBE6C9DA75BFB24AF83FC033FE97E1F782E425E25D48EEE087B48C9" }, "qa": { "canonicalTargetMatch": 5, "projectionMatch": 5, "scaleCorrectness": 4, "materialQuality": 5, "lightingConsistency": 5, "silhouetteReadability": 5, "runtimeDecomposability": 2, "playerRelativePlausibility": 4, "riggingValidity": 4, "waterlineReadability": 4, "landmarkPresence": 5, "gangwayCompatibility": 5, "total": 53 }, "recommendationStatus": "RECOMMENDED_FOR_HUMAN_REVIEW" },
+        { "id": "hero-c", "normalizedPath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hero-ship/hero-c.png", "sourcePath": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hero-ship/source/hero-c-source.png", "sourceDimensions": { "width": 1169, "height": 1346 }, "sourceAlphaBounds": { "x": 26, "y": 13, "width": 1143, "height": 1320 }, "normalizedCanvas": { "width": 595, "height": 685 }, "visibleBounds": { "x": 1, "y": 0, "width": 593, "height": 685 }, "waterlineAnchor": { "x": 297.5, "y": 592, "space": "normalized-canvas", "belowWaterlineEnvelope": 93 }, "transparency": true, "generation": { "path": "Codex image_gen.imagegen", "model": "OpenAI built-in image generation (opaque model ID)", "date": "2026-10-04", "promptRole": "Moored merchant/exploration Hero Ship candidate using Canonical Projection A as master reference." }, "sha256": { "source": "24FF1396716858BA7E71ACD86011D2934AC11E37A9CA5C9B110C3ED7E345472C", "normalized": "18030B827C0BCC7A247B9CEAF00F0BC5A54362D64287074322E27B3F48AE01A7" }, "qa": { "canonicalTargetMatch": 4, "projectionMatch": 4, "scaleCorrectness": 4, "materialQuality": 5, "lightingConsistency": 5, "silhouetteReadability": 5, "runtimeDecomposability": 2, "playerRelativePlausibility": 4, "riggingValidity": 4, "waterlineReadability": 3, "landmarkPresence": 5, "gangwayCompatibility": 3, "total": 48 }, "recommendationStatus": "ALTERNATE_PENDING_HUMAN" }
+      ]
+    }
+  },
+  "evidence": {
+    "hallSheet": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hall/hall-candidate-sheet.png",
+    "workshopSheet": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/workshop/workshop-candidate-sheet.png",
+    "heroShipSheet": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/hero-ship/hero-candidate-sheet.png",
+    "recommendedCombination": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/calibration/recommended-landmark-combination.png",
+    "canonicalVsCombination": "reports/portfolio-world-rebuild/evidence/canonical-landmark-assets/calibration/canonical-vs-landmark-combination.png"
+  },
+  "gate": {
+    "HALL_CANDIDATE_SELECTION": "PENDING_HUMAN",
+    "WORKSHOP_CANDIDATE_SELECTION": "PENDING_HUMAN",
+    "HERO_SHIP_CANDIDATE_SELECTION": "PENDING_HUMAN",
+    "LANDMARK_CALIBRATION": "NOT_APPROVED",
+    "RUNTIME_REBUILD": "BLOCKED",
+    "NEXT": "LANDMARK_CANDIDATE_HUMAN_GATE",
+    "GATE": "READY_FOR_LANDMARK_CANDIDATE_HUMAN_GATE"
+  }
+}
