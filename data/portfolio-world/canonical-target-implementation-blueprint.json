@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "BLUEPRINT_ONLY",
+  "sourceOfTruth": {
+    "master": "reports/portfolio-world-rebuild/evidence/gameplay-projection-refinement/projection-a-elevated-gameplay.png",
+    "validation": "reports/portfolio-world-rebuild/evidence/gameplay-projection-refinement/projection-a-player-fixed-scale-validation.png",
+    "reviewFrame": "reports/portfolio-world-rebuild/evidence/gameplay-projection-refinement/projection-a-elevated-gameplay-review-1280x720.png",
+    "rule": "Visual and spatial contract only; never use the target as a scene plate, collision mask, or pixel-derived geometry."
+  },
+  "designSpace": {
+    "width": 1920,
+    "height": 1080,
+    "units": "design pixels",
+    "proposedWorldBounds": { "x": 0, "y": 0, "width": 1920, "height": 1080 },
+    "worldBoundsRationale": "The approved target already supplies a complete 16:9 spatial contract. Do not expand bounds until a later playable prototype proves that a camera-safe apron is needed; any expansion must preserve these anchor ratios."
+  },
+  "player": {
+    "visualHeight": 56,
+    "visualHeightRatio": 0.0519,
+    "visualWidthNominal": 28,
+    "collisionFootprint": { "width": 28, "height": 16, "offsetX": 14, "offsetY": 52 },
+    "groundAnchor": { "x": 0.5, "y": 1.0 },
+    "scaleSystem": { "baseline": "fixed", "optionalCorrectionPercent": { "min": -5, "max": 5 }, "perspectiveScaling": false },
+    "referenceRatios": {
+      "hallDoorHeight": { "measured": 106, "playerToDoor": 0.528 },
+      "benchHeight": { "measured": 29, "playerToBench": 1.93 },
+      "bollardHeight": { "measured": 39, "playerToBollard": 1.44 },
+      "heroShipVisualHeight": { "measured": 592, "shipToPlayer": 10.57 },
+      "heroShipHullLength": { "measured": 565, "hullToPlayerWidth": 20.18 }
+    }
+  },
+  "anchors": [
+    { "id": "P1", "name": "Workshop foreground", "x": 430, "y": 763, "zone": "workshop-forecourt", "localWalkableWidth": 300, "floorLevel": 0, "connectsTo": ["P2"], "obstacleBoundaries": ["workshop-body", "workshop-prop-cluster", "south-rope-line"] },
+    { "id": "P2", "name": "Lower Plaza", "x": 710, "y": 763, "zone": "lower-plaza", "localWalkableWidth": 360, "floorLevel": 0, "connectsTo": ["P1", "P3", "P4"], "obstacleBoundaries": ["planter-north", "water-south-east", "bollard-line"] },
+    { "id": "P3", "name": "Central Quay", "x": 1010, "y": 628, "zone": "central-quay", "localWalkableWidth": 260, "floorLevel": 1, "connectsTo": ["P2", "P4", "P7"], "obstacleBoundaries": ["inner-harbor", "cargo-cluster", "quay-bollards"] },
+    { "id": "P4", "name": "Main Stairs lower landing", "x": 905, "y": 663, "zone": "main-stair-connector", "localWalkableWidth": 150, "floorLevel": 1, "connectsTo": ["P2", "P3", "P5"], "obstacleBoundaries": ["stair-sidewall-west", "stair-sidewall-east"] },
+    { "id": "P5", "name": "Hall Plaza", "x": 640, "y": 453, "zone": "hall-plaza", "localWalkableWidth": 350, "floorLevel": 2, "connectsTo": ["P4", "P6"], "obstacleBoundaries": ["fountain", "hall-stair-wall", "planter-ring"] },
+    { "id": "P6", "name": "Hall Entrance", "x": 505, "y": 213, "zone": "hall-entrance-apron", "localWalkableWidth": 120, "floorLevel": 2, "connectsTo": ["P5"], "obstacleBoundaries": ["hall-frontage", "door-threshold-sides"] },
+    { "id": "P7", "name": "Hero Ship gangway", "x": 1435, "y": 718, "zone": "hero-ship-gangway-access", "localWalkableWidth": 110, "floorLevel": 1, "connectsTo": ["P3"], "obstacleBoundaries": ["hero-ship-hull", "hero-berth-water", "gangway-rail"] }
+  ],
+  "walkableGeometry": {
+    "coordinateConvention": "Clockwise polygons in design-space pixels; all listed areas are walkable except explicit obstacle boundaries.",
+    "zones": [
+      { "id": "workshop-forecourt", "kind": "polygon", "level": 0, "points": [[185,705],[425,635],[675,690],[725,875],[545,1015],[250,975],[165,855]] },
+      { "id": "lower-plaza", "kind": "polygon", "level": 0, "points": [[505,615],[835,570],[1015,650],[975,880],[755,990],[485,865]] },
+      { "id": "central-quay", "kind": "polygon", "level": 1, "points": [[875,490],[1115,465],[1245,560],[1205,700],[955,705],[850,620]] },
+      { "id": "hero-quay", "kind": "polygon", "level": 1, "points": [[1090,575],[1495,550],[1665,690],[1600,930],[1280,905],[1140,730]] },
+      { "id": "main-stair-connector", "kind": "stairConnector", "levelFrom": 1, "levelTo": 2, "entryRegion": [[850,610],[995,580],[1020,680],[885,720]], "exitRegion": [[790,470],[930,455],[980,555],[845,595]], "movementDirection": "north-west / south-east", "visualDepthBehavior": "No player scaling; risers and sidewalls change, player ground anchor remains fixed." },
+      { "id": "hall-plaza", "kind": "polygon", "level": 2, "points": [[235,250],[735,235],[860,400],[795,555],[430,565],[235,460]] },
+      { "id": "hall-entrance-apron", "kind": "polygon", "level": 2, "points": [[405,115],[600,105],[655,245],[425,285]] },
+      { "id": "hero-ship-gangway-access", "kind": "polygon", "level": 1, "points": [[1340,620],[1455,610],[1525,700],[1420,770],[1325,700]] }
+    ],
+    "obstacleBoundaries": [
+      { "id": "hall-frontage", "kind": "polygon", "points": [[135,0],[720,0],[740,250],[625,320],[225,305],[130,215]] },
+      { "id": "workshop-body", "kind": "polygon", "points": [[85,520],[455,535],[590,720],[405,800],[110,745]] },
+      { "id": "hero-ship-hull", "kind": "polygon", "points": [[1330,495],[1905,475],[1920,785],[1460,820],[1325,690]] },
+      { "id": "fountain", "kind": "circle", "x": 585, "y": 425, "radius": 88 },
+      { "id": "workshop-prop-cluster", "kind": "rectangle", "x": 255, "y": 780, "width": 185, "height": 115 },
+      { "id": "cargo-cluster", "kind": "rectangle", "x": 1080, "y": 575, "width": 145, "height": 90 }
+    ]
+  },
+  "waterGeometry": {
+    "rule": "Explicit exclusion polygons; outer scenic water is not a physics surface and has no player adjacency.",
+    "zones": [
+      { "id": "inner-harbor", "playable": false, "points": [[1010,335],[1245,300],[1475,420],[1435,620],[1240,690],[1130,595]] },
+      { "id": "hero-ship-berth", "playable": false, "points": [[1420,430],[1920,350],[1920,1035],[1615,1005],[1530,845],[1460,710]] },
+      { "id": "secondary-vessel-berth", "playable": false, "points": [[1015,220],[1325,235],[1400,440],[1240,520],[1060,445]] },
+      { "id": "small-boat-water", "playable": false, "points": [[1130,445],[1395,445],[1430,630],[1210,700],[1100,600]] },
+      { "id": "outer-scenic-water", "playable": false, "points": [[1245,0],[1920,0],[1920,480],[1580,450],[1420,370]] }
+    ]
+  },
+  "levels": [
+    { "id": 0, "name": "Workshop / Lower Quay", "zones": ["workshop-forecourt", "lower-plaza"] },
+    { "id": 1, "name": "Central Quay / Hero Quay", "zones": ["central-quay", "hero-quay", "hero-ship-gangway-access"] },
+    { "id": 2, "name": "Hall Plaza", "zones": ["hall-plaza", "hall-entrance-apron"] }
+  ],
+  "landmarks": [
+    { "id": "exhibition-hall", "action": "GENERATE_NEW", "visualBounds": { "x": 135, "y": 0, "width": 605, "height": 320 }, "door": { "x": 470, "y": 118, "width": 75, "height": 106 }, "collision": "hall-frontage polygon; doorway remains an interaction apron, not a solid wall", "approachZone": "hall-entrance-apron", "foreground": ["stairs", "planters", "banners", "lamps"] },
+    { "id": "workshop", "action": "GENERATE_NEW", "visualBounds": { "x": 85, "y": 520, "width": 505, "height": 280 }, "awningBounds": { "x": 275, "y": 650, "width": 245, "height": 110 }, "entrance": { "x": 340, "y": 670, "width": 95, "height": 105 }, "forecourt": "workshop-forecourt", "propClusters": ["workbench", "cart", "crates", "barrels", "net"] },
+    { "id": "hero-ship", "action": "GENERATE_NEW", "visualBounds": { "x": 1325, "y": 115, "width": 595, "height": 685 }, "hullBounds": { "x": 1335, "y": 505, "width": 565, "height": 285 }, "waterlineY": 700, "gangway": { "x": 1410, "y": 620, "width": 115, "height": 155 }, "collision": "hero-ship-hull polygon plus gangway rail edges", "playerRelation": { "visualHeightRatio": 10.57, "hullLengthToPlayerWidth": 20.18 } }
+  ],
+  "fleet": [
+    { "id": "hero-ship", "tier": 1, "role": "interactive landmark", "visualBounds": { "x": 1325, "y": 115, "width": 595, "height": 685 }, "berth": "hero-ship-berth", "depthBand": "L7", "collision": true, "waterContactLayer": true },
+    { "id": "secondary-ship", "tier": 2, "role": "decorative support vessel", "visualBounds": { "x": 1045, "y": 240, "width": 275, "height": 255 }, "berth": "secondary-vessel-berth", "depthBand": "L4", "collision": false, "waterContactLayer": true },
+    { "id": "small-workboat-a", "tier": 3, "role": "decorative scale/life cue", "visualBounds": { "x": 1140, "y": 470, "width": 140, "height": 75 }, "berth": "small-boat-water", "depthBand": "L4", "collision": false, "waterContactLayer": true }
+  ],
+  "scenicBackground": {
+    "boundary": [[0,0],[1920,0],[1920,455],[1450,420],[1230,330],[900,250],[735,205],[135,205],[0,250]],
+    "nonPlayable": ["distant Mediterranean town", "cliffs", "mountains", "lighthouse", "outer sea", "distant ships"],
+    "assetRule": "Split into independent background assets; never reuse the complete canonical image as a plate."
+  },
+  "depthLayers": [
+    { "id": "L0", "name": "scenic-background", "contents": ["town", "cliffs", "mountains", "lighthouse", "outer-water"] },
+    { "id": "L1", "name": "water", "contents": ["inner harbor", "berths", "water-contact shadows"] },
+    { "id": "L2", "name": "walkable-foundation", "contents": ["plaza", "quays", "stairs", "gangway access"] },
+    { "id": "L3", "name": "rear-architecture", "contents": ["Hall façade", "rear walls"] },
+    { "id": "L4", "name": "rear-props-supporting-vessels", "contents": ["secondary ship", "small boat", "rear planters"] },
+    { "id": "L5", "name": "gameplay-actors", "contents": ["player", "interactive markers"] },
+    { "id": "L6", "name": "front-props", "contents": ["railings", "vegetation", "bollards", "foreground ropes"], "occlusion": "Player behind when ground anchor y is less than prop occlusion baseline." },
+    { "id": "L7", "name": "hero-ship-foreground", "contents": ["rigging", "gangway rail", "selected ropes"], "occlusion": "Use transparent foreground slices; player remains in front of hull body outside their masks." },
+    { "id": "L8", "name": "ui", "contents": ["portfolio UI"] }
+  ],
+  "camera": {
+    "viewport": { "width": 1280, "height": 720 },
+    "overview": { "center": { "x": 960, "y": 540 }, "zoom": 0.667, "purpose": "Canonical overview comparison only" },
+    "gameplay": { "startAnchor": "P1", "initialCenter": { "x": 640, "y": 720 }, "zoom": 1.0, "follow": true, "lerp": { "x": 0.12, "y": 0.12 }, "deadzone": { "width": 300, "height": 180 }, "bounds": { "x": 0, "y": 0, "width": 1920, "height": 1080 } },
+    "rule": "The illustrated oblique projection is asset/layout art direction; the Phaser camera remains a 2D orthographic viewport."
+  },
+  "assetDecomposition": [
+    { "id": "water-treatment", "group": "Environment", "action": "PROCEDURAL_RUNTIME" },
+    { "id": "plaza-foundation", "group": "Environment", "action": "GENERATE_NEW" },
+    { "id": "lower-quay-foundation", "group": "Environment", "action": "GENERATE_NEW" },
+    { "id": "main-stairs", "group": "Environment", "action": "GENERATE_NEW" },
+    { "id": "hall-plaza", "group": "Environment", "action": "GENERATE_NEW" },
+    { "id": "scenic-background-family", "group": "Environment", "action": "GENERATE_NEW" },
+    { "id": "exhibition-hall", "group": "Architecture", "action": "GENERATE_NEW" },
+    { "id": "workshop", "group": "Architecture", "action": "GENERATE_NEW" },
+    { "id": "hero-ship", "group": "Ships", "action": "GENERATE_NEW" },
+    { "id": "secondary-ship", "group": "Ships", "action": "GENERATE_NEW" },
+    { "id": "small-workboat-a", "group": "Ships", "action": "GENERATE_NEW" },
+    { "id": "bench-lamp-planter-family", "group": "Props", "action": "REPAIR_EXISTING" },
+    { "id": "crates-barrels-bollards-ropes", "group": "Props", "action": "REPAIR_EXISTING" },
+    { "id": "banners-gangway-railings-workshop-tools", "group": "Props", "action": "GENERATE_NEW" },
+    { "id": "foreground-vegetation-railings-ropes-rigging", "group": "Foreground", "action": "GENERATE_NEW" }
+  ],
+  "runtimeGapAnalysis": [
+    { "category": "World composition", "currentRuntime": "R3G is a 2600×1600 top-down, rectangular quay slice.", "canonicalTarget": "1920×1080 elevated-oblique harbor with a continuous left-to-right Workshop–Hall–Ship hierarchy.", "requiredAction": "REBUILD" },
+    { "category": "Player scale", "currentRuntime": "Existing player scale is tied to the R3G layout.", "canonicalTarget": "Fixed 56 px visual height (5.19% of target frame), 28×16 footprint.", "requiredAction": "RESIZE_AND_RECALIBRATE" },
+    { "category": "Water", "currentRuntime": "Deep-teal bands frame the top-down quay.", "canonicalTarget": "Explicit inner/berth/scenic-water exclusions around turquoise protected harbor.", "requiredAction": "REBUILD_GEOMETRY_AND_ART" },
+    { "category": "Hall", "currentRuntime": "Existing Hall is validated only for the R3G spatial contract.", "canonicalTarget": "Large bannered upper-left landmark with 75×106 door and Hall Plaza.", "requiredAction": "GENERATE_NEW" },
+    { "category": "Workshop", "currentRuntime": "Small left-edge workshop with known material-repair gap.", "canonicalTarget": "Large active lower-left work zone with awning and forecourt.", "requiredAction": "GENERATE_NEW" },
+    { "category": "Hero Ship", "currentRuntime": "One route-valid ship, but R3G rigging/material refinement remains open.", "canonicalTarget": "595×685 primary landmark with broad gangway relationship.", "requiredAction": "GENERATE_NEW" },
+    { "category": "Fleet", "currentRuntime": "Supporting-vessel composition is not the canonical fleet hierarchy.", "canonicalTarget": "One hero ship, one medium support ship, one small workboat.", "requiredAction": "ADD_AND_RECOMPOSE" },
+    { "category": "Plaza and stairs", "currentRuntime": "Large planar paving and a rectilinear stair bridge.", "canonicalTarget": "Fine stone Hall Plaza and a short 2D level connector.", "requiredAction": "REBUILD" },
+    { "category": "Camera", "currentRuntime": "1280×720, zoom 1.05, R3G follow framing.", "canonicalTarget": "1280×720 overview at 0.667 and P1-first gameplay framing at 1.0.", "requiredAction": "REFRAME_AFTER_BLUEPRINT_GATE" }
+  ],
+  "movementValidation": {
+    "routes": [
+      { "from": "P1", "to": "P2", "result": "PASS", "minimumClearWidth": 180 },
+      { "from": "P2", "to": "P3", "result": "PASS", "minimumClearWidth": 170 },
+      { "from": "P3", "to": "P4", "result": "PASS", "minimumClearWidth": 150 },
+      { "from": "P4", "to": "P5", "result": "PASS", "minimumClearWidth": 150 },
+      { "from": "P5", "to": "P6", "result": "PASS", "minimumClearWidth": 120 },
+      { "from": "P2", "to": "P7", "result": "PASS", "via": ["P3"], "minimumClearWidth": 110 }
+    ],
+    "failConditionsChecked": ["no path narrower than the 28 px player footprint", "no mandatory water crossing", "main stair connector has entry and exit overlap", "gangway access is outside hero hull exclusion", "Hall approach remains clear of decorative prop clusters"]
+  },
+  "gate": {
+    "canonicalFinalVisualTarget": "APPROVED",
+    "implementationBlueprint": "COMPLETE",
+    "runtimeImplementation": "NOT_STARTED",
+    "next": "IMPLEMENTATION_BLUEPRINT_HUMAN_GATE",
+    "status": "READY_FOR_IMPLEMENTATION_BLUEPRINT_HUMAN_GATE"
+  }
+}
