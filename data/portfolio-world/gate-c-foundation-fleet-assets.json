@@ -1,0 +1,130 @@
+{
+  "artifact": "portfolio-world-gate-c-foundation-fleet",
+  "schemaVersion": 1,
+  "createdAt": "2026-10-05",
+  "scope": "GATE_C_SUPPORTING_FLEET_FOUNDATION_VISUAL_INTEGRATION",
+  "sourceOfTruth": {
+    "canonicalTarget": "docs/portfolio-world-rebuild/00_VISUAL_BRIEF.md",
+    "implementationBlueprint": "data/portfolio-world/canonical-target-implementation-blueprint.json",
+    "masterReference": "reports/portfolio-world-rebuild/evidence/gameplay-projection-refinement/projection-a-elevated-gameplay.png",
+    "lockedLandmarks": {
+      "hall": "hall-b",
+      "workshop": "workshop-c",
+      "heroShip": "hero-b"
+    }
+  },
+  "generation": {
+    "fleetCandidates": "BUILT_IN_IMAGE_GENERATION_NORMALIZED_TO_TRANSPARENT_CANVASES",
+    "foundationModules": "HAND_AUTHORED_DETERMINISTIC_SOURCE_MODULES",
+    "directApiUse": "NOT_USED",
+    "directApiStatus": "UNVERIFIED"
+  },
+  "supportingFleet": {
+    "secondaryShip": {
+      "tier": 2,
+      "placement": { "x": 1045, "y": 240, "width": 275, "height": 255 },
+      "waterlineAnchor": { "space": "assetCanvas", "x": 137.5, "y": 255, "meaning": "bottom hull-to-water contact baseline; visual only" },
+      "selection": { "recommended": "secondary-b", "status": "PENDING_HUMAN" },
+      "candidates": [
+        {
+          "id": "secondary-a",
+          "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/fleet/secondary-a.png",
+          "sourcePath": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/fleet/source/secondary-a-source.png",
+          "canvas": [275, 255],
+          "visibleBounds": [0, 1, 275, 254],
+          "scores": { "canonical": 3, "projection": 4, "hierarchy": 2, "silhouette": 3, "materials": 4, "runtimeDecomposition": 2, "total": 18 },
+          "sha256": "CB8EDA845523CD72EDE343DF1E77F183C95953D9F38AF49975818BE538CD9E66"
+        },
+        {
+          "id": "secondary-b",
+          "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/fleet/secondary-b.png",
+          "sourcePath": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/fleet/source/secondary-b-source.png",
+          "canvas": [275, 255],
+          "visibleBounds": [0, 52, 275, 203],
+          "scores": { "canonical": 4, "projection": 4, "hierarchy": 5, "silhouette": 5, "materials": 4, "runtimeDecomposition": 3, "total": 25 },
+          "sha256": "0F1A5428824093EC8D5F00DCACCDC5245CE19634BFC147D131F65F6BA7968D33"
+        },
+        {
+          "id": "secondary-c",
+          "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/fleet/secondary-c.png",
+          "sourcePath": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/fleet/source/secondary-c-source.png",
+          "canvas": [275, 255],
+          "visibleBounds": [2, 0, 270, 255],
+          "scores": { "canonical": 4, "projection": 4, "hierarchy": 2, "silhouette": 4, "materials": 5, "runtimeDecomposition": 2, "total": 21 },
+          "sha256": "65C8A4375F7C29BC7D741DF5E0B5C1492E6533AD5BAA6E137D051255CEA9D0F5"
+        }
+      ]
+    },
+    "smallWorkboat": {
+      "tier": 3,
+      "placement": { "x": 1140, "y": 470, "width": 140, "height": 75 },
+      "waterlineAnchor": { "space": "assetCanvas", "x": 70, "y": 75, "meaning": "bottom hull-to-water contact baseline; visual only" },
+      "selection": { "recommended": "workboat-a", "status": "PENDING_HUMAN" },
+      "candidates": [
+        {
+          "id": "workboat-a",
+          "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/workboats/workboat-a.png",
+          "sourcePath": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/workboats/source/workboat-a-source.png",
+          "canvas": [140, 75],
+          "visibleBounds": [2, 0, 135, 75],
+          "scores": { "canonical": 5, "projection": 4, "hierarchy": 5, "silhouette": 5, "materials": 4, "runtimeDecomposition": 4, "total": 27 },
+          "sha256": "A33AFD96EA8D53DDB15385B5EBE08DEAC859DBD6EDFE56309DBAE7D8B6FA5D4B"
+        },
+        {
+          "id": "workboat-b",
+          "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/workboats/workboat-b.png",
+          "sourcePath": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/workboats/source/workboat-b-source.png",
+          "canvas": [140, 75],
+          "visibleBounds": [0, 9, 140, 66],
+          "scores": { "canonical": 4, "projection": 4, "hierarchy": 4, "silhouette": 4, "materials": 5, "runtimeDecomposition": 3, "total": 24 },
+          "sha256": "069FD2903C17D40F00803191378FF098E37DC267AA6F5199F43E4460FD0468DD"
+        },
+        {
+          "id": "workboat-c",
+          "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/workboats/workboat-c.png",
+          "sourcePath": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/workboats/source/workboat-c-source.png",
+          "canvas": [140, 75],
+          "visibleBounds": [6, 0, 129, 75],
+          "scores": { "canonical": 4, "projection": 4, "hierarchy": 3, "silhouette": 4, "materials": 4, "runtimeDecomposition": 3, "total": 22 },
+          "sha256": "1C8DBBCB74FEBFC3526535D39088CB861D2190C284F16FDA621085DF97EC7DCA"
+        }
+      ]
+    }
+  },
+  "foundationFamilies": [
+    { "id": "F1", "name": "fine-limestone-paving", "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/foundation/limestone-paving.png", "canvas": [256, 128], "usage": ["hallPlaza", "lowerPlaza"], "sha256": "179161360D08E6E9943A6B6A95C96489FFB1049E77C38DE7A069827F5CEA5AC2" },
+    { "id": "F2", "name": "quay-surface", "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/foundation/quay-surface.png", "canvas": [320, 160], "usage": ["centralQuay", "heroQuay"], "sha256": "E50A96DA3E92E1FABA3AF2951983F81F84E68B4899396684F7BB75C07038720D" },
+    { "id": "F3", "name": "quay-water-edge", "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/foundation/quay-edge.png", "canvas": [256, 128], "usage": ["centralQuay", "heroQuay", "waterEdge"], "sha256": "FCB8E26F4F3C16DEC5F2BEACE17DF5D8315FF927952EA99E9210EAA571AE50C5" },
+    { "id": "F4", "name": "main-stairs", "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/foundation/main-stairs.png", "canvas": [280, 180], "usage": ["p4StairConnector"], "sha256": "F10AF63EB26B59073B07BA2F2F3A54FCD71931A800DE484A29C6BFE2051DB373" },
+    { "id": "F5", "name": "retaining-wall", "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/foundation/retaining-wall.png", "canvas": [300, 140], "usage": ["plazaElevationEdges"], "sha256": "DCAB7FC036BDA677BF3E5EDE33885414D00306ACA78F2A758ACB5EC890257039" },
+    { "id": "F6", "name": "gangway-access", "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/foundation/gangway-foundation.png", "canvas": [220, 120], "usage": ["heroShipGangway"], "sha256": "8356DDFFB78E6919DF30F90CC63D213C1CD2AEE31F76BB6545B4A8DD3DEF745A" },
+    { "id": "W1", "name": "sheltered-turquoise-water-direction", "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/foundation/water-direction.png", "canvas": [512, 256], "usage": ["innerHarbor", "heroBerth", "secondaryBerth", "workboatBerth"], "sha256": "46E7693780CC61201FF7D871F3FE7028B859931392B762B68E7E5FC90C18C502" }
+  ],
+  "integrationEvidence": {
+    "board": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/integration/03-full-integration-board.png",
+    "canonicalComparison": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/integration/04-canonical-side-by-side.png",
+    "geometryOverlay": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/integration/05-canonical-geometry-overlay.png",
+    "routeReview": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/integration/06-player-route-review.png",
+    "candidateSheets": [
+      "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/fleet/secondary-candidate-sheet.png",
+      "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/workboats/small-boat-candidate-sheet.png"
+    ]
+  },
+  "runtimeDecomposability": {
+    "status": "PLANNED_ONLY",
+    "constraints": ["noBakedCollision", "noScenePlate", "separateWaterFromQuay", "preserveBlueprintPlacement"],
+    "secondaryShip": ["hullBody", "mastAndRigging", "deckDetail", "waterContact"],
+    "smallWorkboat": ["hullBody", "cargoOrOars", "waterContact"],
+    "foundation": ["paving", "quaySurface", "quayEdge", "stairs", "retainingWall", "gangway", "water"]
+  },
+  "gate": {
+    "GATE_A_LANDMARK_SELECTION": "APPROVED",
+    "GATE_B_LANDMARK_CALIBRATION": "APPROVED",
+    "GATE_C_ANALYSIS": "COMPLETE",
+    "SUPPORTING_FLEET_SELECTION": "PENDING_HUMAN",
+    "FOUNDATION_VISUAL_APPROVAL": "PENDING_HUMAN",
+    "RUNTIME_REBUILD": "BLOCKED",
+    "NEXT": "GATE_C_FOUNDATION_FLEET_HUMAN_REVIEW",
+    "GATE": "READY_FOR_GATE_C_HUMAN_REVIEW"
+  }
+}
