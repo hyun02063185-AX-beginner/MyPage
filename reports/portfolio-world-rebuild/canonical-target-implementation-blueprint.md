@@ -1,6 +1,6 @@
 # Portfolio World — Canonical Target Implementation Blueprint
 
-Status: **BLUEPRINT ONLY — no runtime changes**  
+Status: **APPROVED BLUEPRINT ONLY — no runtime changes**
 Canonical source: `evidence/gameplay-projection-refinement/projection-a-elevated-gameplay.png`
 
 ## Scope
@@ -32,10 +32,12 @@ verbatim in [the machine blueprint](../../data/portfolio-world/canonical-target-
 | Initial proposed world bounds | 0,0–1920,1080; no expansion currently justified |
 | Viewport | 1280 × 720 |
 | Canonical player visual height | 56 px (5.19% of frame height) |
-| Player collision footprint | 28 × 16 px, bottom-centre anchored |
+| Player visual bounds | 28 × 56 px; local origin is the visual top-left |
+| Player collision footprint | 28 × 16 px; local Phaser body offset `(0,40)` |
 | Scale policy | Fixed; optional local correction only ±5%; no perspective scaling |
 | Hall door / player | 106 / 56 = 1.89× door height |
-| Hero visual height / player | 592 / 56 = 10.57× |
+| Hero asset envelope | 595 × 685 px; placement/bounds metric |
+| Hero visible mast-to-waterline / player | 592 / 56 = 10.57×; visual-ratio metric |
 | Hero hull / player width | 565 / 28 = 20.18× |
 
 The proposed bounds intentionally preserve the approved image ratio. A later
@@ -48,15 +50,41 @@ preserved anchors, and new viewport relationship.
 | --- | ---: | --- | ---: | ---: | --- |
 | P1 Workshop foreground | 430,763 | Workshop Forecourt | 0 | 300 | P2 |
 | P2 Lower Plaza | 710,763 | Lower Plaza | 0 | 360 | P1, P3, P4 |
-| P3 Central Quay | 1010,628 | Central Quay | 1 | 260 | P2, P4, P7 |
-| P4 Main Stairs lower landing | 905,663 | Main Stair Connector | 1 | 150 | P2, P3, P5 |
-| P5 Hall Plaza | 640,453 | Hall Plaza | 2 | 350 | P4, P6 |
-| P6 Hall Entrance | 505,213 | Hall Entrance Apron | 2 | 120 | P5 |
-| P7 Hero Ship gangway | 1435,718 | Gangway Access | 1 | 110 | P3 |
+| P3 Central Quay | 1010,628 | Central Quay | 0 | 260 | P2, P4, P7 |
+| P4 Main Stairs lower landing | 905,663 | Main Stair Connector | 0 | 150 | P2, P3, P5 |
+| P5 Hall Plaza | 640,453 | Hall Plaza | 1 | 350 | P4, P6 |
+| P6 Hall Entrance | 505,213 | Hall Entrance Apron | 1 | 120 | P5 |
+| P7 Hero Ship gangway | 1435,718 | Gangway Access | 0 | 110 | P3 |
+
+### Corrected level topology
+
+There are exactly **two** gameplay levels. P1/P2/P3/P4/P7 and the Hero Quay
+are one continuous Level 0 lower plane; their connections do not cross a level
+boundary. Hall Plaza and Hall Entrance Apron are Level 1. The sole level
+transition is `main-stair-connector`, explicitly P4 (Level 0) → P5 (Level 1)
+through its separately listed entry and exit regions. This follows the Target's
+shallow projection and avoids inventing an unsupported P2→P3 elevation change.
 
 Every required connection is wider than the 28 px collision footprint. Main
-stairs are a two-dimensional level connector (entry/exit regions are in JSON),
-not a 3D perspective-scaling system.
+stairs remain a two-dimensional traversal connector, not a 3D
+perspective-scaling system.
+
+### Exact player body definition
+
+The 28×56 visual sprite uses a top-left local coordinate system. Its world
+position is the bottom-centre ground anchor `(groundX, groundY)`; therefore its
+drawn visual rectangle is `(groundX - 14, groundY - 56, 28, 56)`. Phaser Arcade
+body offsets are expressed from that visual top-left: `bodyOffsetX = 0`,
+`bodyOffsetY = 40`, `bodyWidth = 28`, `bodyHeight = 16`. The resulting world
+body rectangle is `(groundX - 14, groundY - 16, 28, 16)`; its bottom is exactly
+the visual sprite bottom and ground anchor.
+
+```text
+visual local: (0,0) ---------------- (28,0)
+              |                         |
+body local:    (0,40) --- 28 × 16 --- (28,56)
+ground anchor:                (14,56)
+```
 
 ## Explicit geometry
 
@@ -82,7 +110,7 @@ obstacle shapes. This prevents any use of image-derived collision.
 | --- | --- | --- |
 | Exhibition Hall | x135 y0 w605 h320; door 75 × 106 | GENERATE_NEW |
 | Workshop | x85 y520 w505 h280; awning 245 × 110 | GENERATE_NEW |
-| Hero Ship | x1325 y115 w595 h685; hull 565 × 285 | GENERATE_NEW |
+| Hero Ship | asset envelope x1325 y115 w595 h685; visible mast→waterline 592; hull 565 × 285 | GENERATE_NEW |
 | Secondary Ship | x1045 y240 w275 h255 | GENERATE_NEW |
 | Small Workboat A | x1140 y470 w140 h75 | GENERATE_NEW |
 
@@ -90,6 +118,15 @@ Fleet contract is exactly one Tier-1 Hero Ship, one Tier-2 secondary vessel,
 and one Tier-3 small boat. Only the Hero Ship is an interactive landmark;
 support ships are decorative and require water-contact presentation but no
 player collision.
+
+### Corrected Hero Ship metrics
+
+`595×685` is the full **asset envelope** (rigging, hull, and lower visual
+extent), used for placement and asset bounds. `592 px` is the distinct visible
+**mast-to-waterline height**, measured from top Y=115 to waterline Y=707; it is
+the only height used for player/ship visual ratio: `592 / 56 = 10.57`. Hull
+length remains 565 px and is compared to player visual width: `565 / 28 =
+20.18`. The two heights are therefore no longer competing measurements.
 
 ## Depth and occlusion
 
@@ -155,8 +192,8 @@ stage expressly forbids.
 
 ```text
 CANONICAL_FINAL_VISUAL_TARGET = APPROVED
-IMPLEMENTATION_BLUEPRINT = COMPLETE
+IMPLEMENTATION_BLUEPRINT = APPROVED
 RUNTIME_IMPLEMENTATION = NOT_STARTED
-NEXT = IMPLEMENTATION_BLUEPRINT_HUMAN_GATE
-GATE = READY_FOR_IMPLEMENTATION_BLUEPRINT_HUMAN_GATE
+NEXT = ASSET_AND_RUNTIME_IMPLEMENTATION_PLAN
+GATE = READY_FOR_IMPLEMENTATION
 ```
