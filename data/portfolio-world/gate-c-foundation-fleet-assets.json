@@ -24,7 +24,7 @@
       "tier": 2,
       "placement": { "x": 1045, "y": 240, "width": 275, "height": 255 },
       "waterlineAnchor": { "space": "assetCanvas", "x": 137.5, "y": 255, "meaning": "bottom hull-to-water contact baseline; visual only" },
-      "selection": { "recommended": "secondary-b", "status": "PENDING_HUMAN" },
+      "selection": { "recommended": "secondary-b", "status": "SELECTED_HUMAN" },
       "candidates": [
         {
           "id": "secondary-a",
@@ -59,7 +59,7 @@
       "tier": 3,
       "placement": { "x": 1140, "y": 470, "width": 140, "height": 75 },
       "waterlineAnchor": { "space": "assetCanvas", "x": 70, "y": 75, "meaning": "bottom hull-to-water contact baseline; visual only" },
-      "selection": { "recommended": "workboat-a", "status": "PENDING_HUMAN" },
+      "selection": { "recommended": "workboat-a", "status": "SELECTED_HUMAN" },
       "candidates": [
         {
           "id": "workboat-a",
@@ -101,10 +101,13 @@
     { "id": "W1", "name": "sheltered-turquoise-water-direction", "path": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/foundation/water-direction.png", "canvas": [512, 256], "usage": ["innerHarbor", "heroBerth", "secondaryBerth", "workboatBerth"], "sha256": "46E7693780CC61201FF7D871F3FE7028B859931392B762B68E7E5FC90C18C502" }
   ],
   "integrationEvidence": {
-    "board": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/integration/03-full-integration-board.png",
-    "canonicalComparison": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/integration/04-canonical-side-by-side.png",
-    "geometryOverlay": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/integration/05-canonical-geometry-overlay.png",
-    "routeReview": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/integration/06-player-route-review.png",
+    "board": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-convergence/03-full-visual-integration-board.png",
+    "canonicalComparison": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-convergence/04-canonical-vs-foundation-convergence.png",
+    "materialApplication": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-convergence/01-foundation-material-application.png",
+    "waterApplication": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-convergence/02-water-material-application.png",
+    "detailReview": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-convergence/05-foundation-detail-review.png",
+    "routeReview": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-convergence/06-player-route-foundation-review.png",
+    "waterBerthReview": "reports/portfolio-world-rebuild/evidence/gate-c-foundation-convergence/07-water-berth-review.png",
     "candidateSheets": [
       "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/fleet/secondary-candidate-sheet.png",
       "reports/portfolio-world-rebuild/evidence/gate-c-foundation-fleet/workboats/small-boat-candidate-sheet.png"
@@ -117,14 +120,23 @@
     "smallWorkboat": ["hullBody", "cargoOrOars", "waterContact"],
     "foundation": ["paving", "quaySurface", "quayEdge", "stairs", "retainingWall", "gangway", "water"]
   },
+  "foundationVisualConvergence": {
+    "status": "PENDING_HUMAN",
+    "method": "DETERMINISTIC_MODULE_TILING_PLUS_BLUEPRINT_POLYGON_MASKS",
+    "boundedRepairs": [],
+    "boardSpace": [1920, 1080],
+    "playerVisualHeight": 56,
+    "runtimeChanges": "NONE"
+  },
   "gate": {
     "GATE_A_LANDMARK_SELECTION": "APPROVED",
     "GATE_B_LANDMARK_CALIBRATION": "APPROVED",
     "GATE_C_ANALYSIS": "COMPLETE",
-    "SUPPORTING_FLEET_SELECTION": "PENDING_HUMAN",
+    "SUPPORTING_FLEET_SELECTION": "APPROVED",
+    "FOUNDATION_VISUAL_CONVERGENCE_ANALYSIS": "COMPLETE",
     "FOUNDATION_VISUAL_APPROVAL": "PENDING_HUMAN",
     "RUNTIME_REBUILD": "BLOCKED",
-    "NEXT": "GATE_C_FOUNDATION_FLEET_HUMAN_REVIEW",
-    "GATE": "READY_FOR_GATE_C_HUMAN_REVIEW"
+    "NEXT": "GATE_C_FINAL_HUMAN_REVIEW",
+    "GATE": "READY_FOR_GATE_C_FINAL_HUMAN_REVIEW"
   }
 }
