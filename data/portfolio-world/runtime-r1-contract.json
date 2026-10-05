@@ -9,10 +9,10 @@
   "camera": {"follow": true, "zoom": 1, "deadzone": [300,180], "lerp": [0.12,0.12], "bounds": [0,0,1920,1080]},
   "routes": ["P1→P2→P8→P4→P5→P6","P1→P2→P8→P3→P7","P6→P5→P4→P8→P1","P7→P3→P8→P2"],
   "obstacleCollision": "VERIFIED",
-  "routePlaythrough": "VERIFIED",
+  "routePlaythrough": "PENDING_ACTUAL_RUNTIME_PLAYTHROUGH",
   "interactionVerification": "VERIFIED",
   "cameraVerification": "VERIFIED",
   "humanPlaytest": "PASS",
-  "visualEvidence": "COMPLETE",
+  "visualEvidence": "PENDING_ACTUAL_CANVAS_CAPTURE",
   "validationResult": {"worldSize": "PASS", "anchorCount": "PASS", "visitablePoints": "PASS", "levelCount": "PASS", "waterExclusion": "PASS", "runtimeScene": "PASS"}
 }

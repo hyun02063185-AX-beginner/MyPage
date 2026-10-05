@@ -18,7 +18,7 @@ The local Phaser canvas at `http://127.0.0.1:5173/?canonical=1` was opened and i
 
 Explicit collision now excludes Hall frontage, Workshop body, Hero hull, fountain, Workshop props, cargo cluster, and Harbor Office base from the Blueprint shapes—not PNG alpha or full image rectangles. The Office apron remains non-colliding. Contract validation checks all 8 anchors, 4 interaction IDs, 2 levels, 5 water zones, 7 named obstacles, and approved route graph intent.
 
-Human playtest during R1: player movement **PASS**; camera feel **PASS**; fixed-scale movement **PASS**; general traversal **PASS**. No Codex re-approval is inferred from that record.
+Human playtest during R1: player movement **PASS**; camera feel **PASS**; fixed-scale movement **PASS**; general traversal **PASS**. No Codex re-approval is inferred from that record. The required persisted Canvas captures and actual four-route replay remain pending; R1 closeout must not be called complete until those files are captured from a successfully rendering runtime.
 
 ## Known limitations
 

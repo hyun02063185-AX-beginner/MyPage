@@ -46,12 +46,15 @@ export class CanonicalRuntimeR1Scene extends Phaser.Scene {
   private lastSafe = { x: 430, y: 763 };
   private currentLevel: 0 | 1 = 0;
   private readonly debug = new URLSearchParams(window.location.search).get("debug") === "1";
+  private readonly params = new URLSearchParams(window.location.search);
 
   public constructor() { super("CanonicalRuntimeR1Scene"); }
 
   public create(): void {
     this.drawFoundation(); this.drawAssets(); this.createPlayer(); this.configureCamera();
     if (this.debug) this.drawDebug();
+    const capture = this.params.get("capture");
+    if (capture) this.time.delayedCall(900, () => this.captureCanvas(capture));
   }
 
   public update(): void {
@@ -81,7 +84,9 @@ export class CanonicalRuntimeR1Scene extends Phaser.Scene {
   }
 
   private createPlayer(): void {
-    this.player=this.add.rectangle(430,763,28,56,0x3184a7).setOrigin(.5,1).setStrokeStyle(2,0x17394b).setDepth(50);
+    const spawn = ANCHORS.find((anchor) => anchor.id === this.params.get("spawn")) ?? ANCHORS[0];
+    this.lastSafe = { x: spawn.x, y: spawn.y };
+    this.player=this.add.rectangle(spawn.x,spawn.y,28,56,0x3184a7).setOrigin(.5,1).setStrokeStyle(2,0x17394b).setDepth(50);
     this.physics.add.existing(this.player); this.body=this.player.body as Phaser.Physics.Arcade.Body;
     this.body.setAllowGravity(false).setSize(28,16).setOffset(0,40);
     this.keys=this.input.keyboard!.addKeys("W,A,S,D,UP,DOWN,LEFT,RIGHT,E") as Record<string, Phaser.Input.Keyboard.Key>;
@@ -89,7 +94,16 @@ export class CanonicalRuntimeR1Scene extends Phaser.Scene {
     this.levelText=this.add.text(14,14,"",{fontFamily:"monospace",fontSize:"15px",color:"#ffffff",backgroundColor:"#163846",padding:{x:6,y:4}}).setScrollFactor(0).setDepth(100).setVisible(this.debug);
   }
 
-  private configureCamera(): void { this.cameras.main.setBounds(0,0,WORLD.width,WORLD.height).setDeadzone(300,180).startFollow(this.player,true,.12,.12).setZoom(1); }
+  private configureCamera(): void {
+    const camera = this.cameras.main.setBounds(0,0,WORLD.width,WORLD.height).setDeadzone(300,180).startFollow(this.player,true,.12,.12).setZoom(1);
+    if (this.params.get("overview") === "1") camera.stopFollow().setZoom(.667).centerOn(960,540);
+  }
+  private captureCanvas(name: string): void {
+    const link = document.createElement("a");
+    link.href = this.game.canvas.toDataURL("image/png");
+    link.download = `runtime-r1-${name}.png`;
+    link.click();
+  }
   private enforceGeometry(): void {
     const x=this.player.x,y=this.player.y;
     const fountain = Phaser.Math.Distance.Between(x,y,585,425) < 88;
