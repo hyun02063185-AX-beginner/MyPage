@@ -5,6 +5,7 @@
   "debug": "?canonical=2&debug=1",
   "world": { "size": [1920, 1080], "viewport": [1280, 720], "projection": "2D_ORTHOGRAPHIC" },
   "geometryRevision": "R1_UNCHANGED",
+  "geometryParity": "VERIFIED_AFTER_ANCHOR_SAFETY_REPAIR",
   "anchors": ["P1","P2","P3","P4","P5","P6","P7","P8"],
   "visitablePoints": ["exhibition-hall","workshop","hero-ship","harbor-office"],
   "player": { "visual": [28,56], "body": [28,16], "bodyOffset": [0,40], "fixedScale": true, "baseline": "TEMPORARY_VISUAL_BASELINE", "selected": "player-a" },
@@ -14,8 +15,11 @@
   "fleet": { "hero": "hero-b", "secondary": "secondary-b", "workboat": "workboat-a" },
   "depth": { "bands": ["L0 scenic","L1 water","L2 foundation","L3 architecture","L4 support vessels","L5 actors","L6 front props","L7 hero foreground","L8 UI"], "player": "50 + ground-anchor-y / 1000" },
   "heroDecomposition": { "implemented": ["hull-main","water-contact","front-occlusion-slice","gangway"], "limitation": "The source remains one approved Hero-B image; only a source-preserving foreground crop is used, not a fake alpha extraction." },
-  "routes": { "A": "PENDING_ACTUAL_RUNTIME_PLAYTHROUGH", "B": "PENDING_ACTUAL_RUNTIME_PLAYTHROUGH", "C": "PENDING_ACTUAL_RUNTIME_PLAYTHROUGH", "D": "PENDING_ACTUAL_RUNTIME_PLAYTHROUGH" },
-  "qa": { "collision": "R1_VECTOR_UNCHANGED", "interactions": "R1_PRESERVED", "camera": "R1_PRESERVED", "visualEvidence": "PENDING_ACTUAL_CANVAS_CAPTURE" },
-  "knownLimitations": ["R1 evidence debt remains pending until actual route playthrough and saved canvas captures exist.", "Geometry-mask APIs are unsupported by the Phaser 4 WebGL renderer used here; R2 uses bounded modular tile envelopes, not a scene plate.", "Player-a is a temporary generated visual baseline, not final character approval."],
+  "anchorSafetyRepair": { "P1": [443,785], "P4": [905,688], "P5": [670,453], "P6": [505,318], "P7": [1405,770] },
+  "routes": { "A": "PASS", "B": "PASS", "C": "PASS", "D": "PASS" },
+  "qa": { "collision": "VERIFIED", "interactions": "PASS", "camera": "PASS", "visualEvidence": "COMPLETE", "browserConsole": "CLEAN" },
+  "evidence": ["01-workshop-runtime.png", "02-harbor-office-runtime.png", "03-hall-runtime.png", "04-hero-ship-runtime.png", "05-r2-overview.png", "06-r2-debug.png", "07-canonical-vs-runtime-r2.png", "08-r1-vs-r2.png"],
+  "knownLimitations": ["Geometry-mask APIs are unsupported by the Phaser 4 WebGL renderer used here; R2 uses bounded modular tile envelopes, not a scene plate.", "Player-a is a temporary generated visual baseline, not final character approval.", "Human visual-gate approval remains outstanding."],
+  "gate": "READY_FOR_RUNTIME_R2_HUMAN_VISUAL_GATE",
   "runtimeAssets": ["architecture/hall-b.png","architecture/workshop-c.png","architecture/office-b.png","ships/hero-b.png","ships/secondary-b.png","ships/workboat-a.png","environment/f1-premium-limestone-paving.png","environment/f2-continuous-quay-surface.png","environment/f3-quay-wall-edge.png","environment/f4-limestone-main-stairs.png","environment/f5-terrace-retaining-wall.png","environment/f6-gangway-foundation.png","environment/w1-sheltered-turquoise-water.png","player/player-a.png"]
 }

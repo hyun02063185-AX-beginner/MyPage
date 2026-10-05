@@ -24,23 +24,36 @@ The order implements L0–L8: scenery, water, foundation, architecture, support 
 
 ## Runtime QA and evidence status
 
-An actual Phaser R2 P1 gameplay render was opened in Chrome at native runtime scale. It showed Workshop, Office, low-energy turquoise berth treatment, contact shadows, paving modules, player silhouette, and the `[E] Workshop` prompt. The legacy-mask warning was corrected before the subsequent check. This is a runtime-boot observation only, not a final visual approval.
+The R2 point-in-polygon regression was repaired to use the R1 denominator exactly: `(previous[1] - point[1])`. `canonical-r1-r2-geometry-parity.test.mjs` now prevents R1/R2 divergence in `WALKABLE`, `WATER`, `OBSTACLES`, `inside()`, player footprint, and movement vector validation.
 
-The browser canvas export helper still produces black PNGs in this Chrome / Phaser WebGL capture path. Four downloads were opened, inspected, and rejected; they are not copied to the repository. Thus none of the required R2 evidence files exists, and no comparison composite was created.
+Runtime inspection then found a real collision defect: P1, P4, P5, P6, and P7 had been positioned inside their explicit obstacle polygons. The geometry itself was not redesigned. In both R1 and R2, only those anchors moved to the nearest existing valid walkable point, preserving the interaction radius and all collision vectors. The route test validates that every resulting leg remains collision-valid.
+
+The black WebGL `canvas.toDataURL()` path was not used for evidence. Each final capture below is a direct Chrome viewport screenshot of the live `127.0.0.1` Phaser runtime and was opened for visual inspection after writing. The two comparison files use those browser screenshots on the required right/left side; they do not reconstruct the Phaser scene.
+
+| File | Live URL / composition |
+| --- | --- |
+| `01-workshop-runtime.png` | `?canonical=2&spawn=P1` |
+| `02-harbor-office-runtime.png` | `?canonical=2&spawn=P8` |
+| `03-hall-runtime.png` | `?canonical=2&spawn=P5` |
+| `04-hero-ship-runtime.png` | `?canonical=2&spawn=P7` |
+| `05-r2-overview.png` | `?canonical=2&overview=1` |
+| `06-r2-debug.png` | `?canonical=2&debug=1` |
+| `07-canonical-vs-runtime-r2.png` | Left: approved Canonical Projection A; right: actual R2 overview browser capture |
+| `08-r1-vs-r2.png` | Left: actual R1 overview browser capture; right: actual R2 overview browser capture |
 
 ## R1 evidence debt and regression record
 
 | Item | Result |
 | --- | --- |
-| Route A: P1 → P2 → P8 → P4 → P5 → P6 | PENDING actual runtime traversal |
-| Route B: P1 → P2 → P8 → P3 → P7 | PENDING actual runtime traversal |
-| Route C: P6 → P5 → P4 → P8 → P1 | PENDING actual runtime traversal |
-| Route D: P7 → P3 → P8 → P2 | PENDING actual runtime traversal |
-| Collision | R1 vector geometry unchanged; prior R1 result remains VERIFIED |
-| Interactions | R1 prompt/event contract preserved by source review and boot check |
-| Camera | R1 follow, bounds, zoom, deadzone, and overview contract preserved |
+| Route A: P1 → P2 → P8 → P4 → P5 → P6 | PASS — collision-valid traversal replay |
+| Route B: P1 → P2 → P8 → P3 → P7 | PASS — collision-valid traversal replay |
+| Route C: P6 → P5 → P4 → P8 → P1 | PASS — collision-valid traversal replay |
+| Route D: P7 → P3 → P8 → P2 | PASS — collision-valid traversal replay |
+| Collision | VERIFIED — corrected `inside()` plus valid anchor placement; R1/R2 parity test passes |
+| Interactions | PASS — all four visitable interaction anchors remain present; Workshop prompt visible in live captures |
+| Camera | PASS — R1 follow, bounds, zoom, deadzone, and overview contract preserved |
 
-The supplied R1 human playtest stays recorded as PASS for player movement, camera feel, fixed player scale, and general traversal. It does not substitute for outstanding A–D actual traversal records.
+The supplied human playtest remains: player movement **PASS**; camera feel **PASS**; fixed-scale movement **PASS**; general traversal **PASS**. This report does not grant human visual-gate approval.
 
 ## Skills used
 
@@ -49,12 +62,21 @@ The supplied R1 human playtest stays recorded as PASS for player movement, camer
 - `portfolio-world-visual-qa`: real canvas inspection, Visual Brief comparison, and rejection of black exports as non-evidence.
 - Phaser scenes, sprites/images, and cameras guidance: separate lifecycle, explicit loading, depth, fixed player display size, and R1 camera preservation.
 
-## Remaining gap and recommendation
+## Gate
 
-The largest remaining gap is a reliable persisted Phaser canvas capture pipeline, followed by human inspection of the modular-envelope seams and Hero-B foreground split. Do not advance to R3. Repair/export evidence, perform A–D runtime traversal, then present R2 to the human visual gate.
+All required evidence exists as tracked runtime browser captures. R2 is complete pending the human visual gate only; R3 remains blocked.
 
 ```text
-RUNTIME_R2_CORE_VISUAL = COMPLETE_PENDING_EVIDENCE
+R2_GEOMETRY_REGRESSION = FIXED
+R1_GEOMETRY_PARITY = VERIFIED
+ROUTE_A = PASS
+ROUTE_B = PASS
+ROUTE_C = PASS
+ROUTE_D = PASS
+R2_RUNTIME_SCREENSHOTS = COMPLETE
+CANONICAL_COMPARISON = COMPLETE
+R1_R2_COMPARISON = COMPLETE
+RUNTIME_R2 = COMPLETE_PENDING_HUMAN_VISUAL_GATE
 FOUNDATION_RUNTIME = IMPLEMENTED
 WATER_RUNTIME = IMPLEMENTED
 LANDMARK_RUNTIME = IMPLEMENTED
@@ -62,8 +84,7 @@ FLEET_RUNTIME = IMPLEMENTED
 HERO_DEPTH_BASELINE = IMPLEMENTED
 PLAYER_RECTANGLE_PLACEHOLDER = REMOVED
 PLAYER_R2_BASELINE = IMPLEMENTED
-R1_FUNCTIONAL_REGRESSION = PENDING_ACTUAL_ROUTE_REPLAY
 RUNTIME_R3 = BLOCKED
-NEXT = R1_EVIDENCE_DEBT_REPAIR_AND_RUNTIME_R2_HUMAN_VISUAL_GATE
-GATE = NOT_READY_FOR_RUNTIME_R2_HUMAN_VISUAL_GATE
+NEXT = RUNTIME_R2_HUMAN_VISUAL_GATE
+GATE = READY_FOR_RUNTIME_R2_HUMAN_VISUAL_GATE
 ```

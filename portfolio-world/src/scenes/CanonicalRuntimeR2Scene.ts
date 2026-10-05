@@ -7,10 +7,10 @@ type Anchor = Readonly<{ id: string; label: string; x: number; y: number; level:
 // Geometry is deliberately copied verbatim from R1. R2 changes only render layers.
 const WORLD = { width: 1920, height: 1080 } as const;
 const ANCHORS: readonly Anchor[] = [
-  { id: "P1", label: "Workshop", x: 430, y: 763, level: 0 }, { id: "P2", label: "Lower Plaza", x: 710, y: 763, level: 0 },
-  { id: "P3", label: "Central Quay", x: 1010, y: 628, level: 0 }, { id: "P4", label: "Main Stairs", x: 905, y: 663, level: 0 },
-  { id: "P5", label: "Hall Plaza", x: 640, y: 453, level: 1 }, { id: "P6", label: "Exhibition Hall", x: 505, y: 213, level: 1 },
-  { id: "P7", label: "Hero Ship", x: 1435, y: 718, level: 0 }, { id: "P8", label: "Harbor Office", x: 815, y: 735, level: 0 },
+  { id: "P1", label: "Workshop", x: 443, y: 785, level: 0 }, { id: "P2", label: "Lower Plaza", x: 710, y: 763, level: 0 },
+  { id: "P3", label: "Central Quay", x: 1010, y: 628, level: 0 }, { id: "P4", label: "Main Stairs", x: 905, y: 688, level: 0 },
+  { id: "P5", label: "Hall Plaza", x: 670, y: 453, level: 1 }, { id: "P6", label: "Exhibition Hall", x: 505, y: 318, level: 1 },
+  { id: "P7", label: "Hero Ship", x: 1405, y: 770, level: 0 }, { id: "P8", label: "Harbor Office", x: 815, y: 735, level: 0 },
 ];
 const WALKABLE: readonly Polygon[] = [
   [[185,705],[425,635],[675,690],[725,875],[545,1015],[250,975],[165,855]], [[505,615],[835,570],[1015,650],[975,880],[755,990],[485,865]],
@@ -31,7 +31,7 @@ const VISITABLE = [
 ] as const;
 const inside = (x: number, y: number, polygon: Polygon): boolean => polygon.reduce((hit, point, index) => {
   const previous = polygon[(index + polygon.length - 1) % polygon.length];
-  return ((point[1] > y) !== (previous[1] > y)) && x < ((previous[0] - point[0]) * (y - point[1])) / (previous[0] - point[0]) + point[0] ? !hit : hit;
+  return ((point[1] > y) !== (previous[1] > y)) && x < ((previous[0] - point[0]) * (y - point[1])) / (previous[1] - point[1]) + point[0] ? !hit : hit;
 }, false);
 
 /** R2 visual layer. Spatial contract, collision, anchors and camera contract remain the R1 values. */
@@ -50,8 +50,6 @@ export class CanonicalRuntimeR2Scene extends Phaser.Scene {
   public create(): void {
     this.drawFoundation(); this.drawLandmarks(); this.createPlayer(); this.configureCamera();
     if (this.debug) this.drawDebug();
-    const capture = this.params.get("capture");
-    if (capture) this.time.delayedCall(900, () => this.captureCanvas(capture));
   }
   public update(): void {
     const left = this.keys.LEFT.isDown || this.keys.A.isDown; const right = this.keys.RIGHT.isDown || this.keys.D.isDown;
@@ -107,7 +105,6 @@ export class CanonicalRuntimeR2Scene extends Phaser.Scene {
     this.levelText = this.add.text(14,14,"",{fontFamily:"monospace",fontSize:"15px",color:"#ffffff",backgroundColor:"#163846",padding:{x:6,y:4}}).setScrollFactor(0).setDepth(100).setVisible(this.debug);
   }
   private configureCamera(): void { const camera = this.cameras.main.setBounds(0,0,WORLD.width,WORLD.height).setDeadzone(300,180).startFollow(this.player,true,.12,.12).setZoom(1); if(this.params.get("overview")==="1") camera.stopFollow().setZoom(.667).centerOn(960,540); }
-  private captureCanvas(name: string): void { const link=document.createElement("a"); link.href=this.game.canvas.toDataURL("image/png"); link.download=`runtime-r2-${name}.png`; link.click(); }
   private enforceGeometry(): void {
     const x=this.player.x,y=this.player.y, fountain=Phaser.Math.Distance.Between(x,y,585,425)<88;
     const valid=WALKABLE.some(p=>inside(x,y,p))&&!WATER.some(p=>inside(x,y,p))&&!OBSTACLES.some(p=>inside(x,y,p))&&!fountain;
