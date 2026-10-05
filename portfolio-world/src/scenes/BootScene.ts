@@ -13,6 +13,13 @@ export class BootScene extends Phaser.Scene {
   }
 
   public preload(): void {
+    if (new URLSearchParams(window.location.search).get("canonical") === "1") {
+      const base = import.meta.env.BASE_URL;
+      for (const [key, file] of Object.entries({ "r1-hall":"hall-b.png", "r1-workshop":"workshop-c.png", "r1-hero":"hero-b.png", "r1-secondary":"secondary-b.png", "r1-workboat":"workboat-a.png", "r1-office":"office-b.png" })) {
+        this.load.image(key, `${base}assets/canonical-r1/${file}`);
+      }
+      return;
+    }
     // A/B/C/D remain explicit development comparison loads; normal play loads D, the Exhibition,
     // and the small deliberately bounded secondary fleet only.
     const calibration = getCalibrationAssets(window.location.search);
@@ -59,6 +66,6 @@ export class BootScene extends Phaser.Scene {
   }
 
   public create(): void {
-    this.scene.start("WorldScene");
+    this.scene.start(new URLSearchParams(window.location.search).get("canonical") === "1" ? "CanonicalRuntimeR1Scene" : "WorldScene");
   }
 }

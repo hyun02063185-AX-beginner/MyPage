@@ -1,0 +1,12 @@
+{
+  "status": "COMPLETE_PENDING_HUMAN_GATE",
+  "world": {"width": 1920, "height": 1080, "viewport": [1280,720], "projection": "2D_ORTHOGRAPHIC"},
+  "player": {"visual": [28,56], "body": [28,16], "bodyOffset": [0,40], "fixedScale": true},
+  "levels": {"count": 2, "transition": "main-stair-connector"},
+  "anchors": ["P1","P2","P3","P4","P5","P6","P7","P8"],
+  "visitablePoints": ["exhibition-hall","workshop","hero-ship","harbor-office"],
+  "interactionZones": {"exhibition-hall":"P6","workshop":"P1","hero-ship":"P7","harbor-office":"P8"},
+  "camera": {"follow": true, "zoom": 1, "deadzone": [300,180], "lerp": [0.12,0.12], "bounds": [0,0,1920,1080]},
+  "routes": ["P1→P2→P8→P4→P5→P6","P1→P2→P8→P3→P7","P6→P5→P4→P8→P1","P7→P3→P8→P2"],
+  "validationResult": {"worldSize": "PASS", "anchorCount": "PASS", "visitablePoints": "PASS", "levelCount": "PASS", "waterExclusion": "PASS", "runtimeScene": "PASS"}
+}
