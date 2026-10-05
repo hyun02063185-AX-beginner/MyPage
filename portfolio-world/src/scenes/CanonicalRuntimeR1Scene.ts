@@ -22,6 +22,11 @@ const WATER: readonly Polygon[] = [
   [[1010,335],[1245,300],[1475,420],[1435,620],[1240,690],[1130,595]], [[1420,430],[1920,350],[1920,1035],[1615,1005],[1530,845],[1460,710]],
   [[1015,220],[1325,235],[1400,440],[1240,520],[1060,445]], [[1130,445],[1395,445],[1430,630],[1210,700],[1100,600]], [[1245,0],[1920,0],[1920,480],[1580,450],[1420,370]],
 ];
+const OBSTACLES: readonly Polygon[] = [
+  [[135,0],[720,0],[740,250],[625,320],[225,305],[130,215]], [[85,520],[455,535],[590,720],[405,800],[110,745]],
+  [[1330,495],[1905,475],[1920,785],[1460,820],[1325,690]], [[255,780],[440,780],[440,895],[255,895]],
+  [[1080,575],[1225,575],[1225,665],[1080,665]], [[720,600],[950,585],[975,680],[755,705]],
+];
 const VISITABLE = [
   { id: "exhibition-hall", label: "Exhibition Hall", anchor: "P6" }, { id: "workshop", label: "Workshop", anchor: "P1" },
   { id: "hero-ship", label: "Hero Ship", anchor: "P7" }, { id: "harbor-office", label: "Harbor Office", anchor: "P8" },
@@ -87,7 +92,8 @@ export class CanonicalRuntimeR1Scene extends Phaser.Scene {
   private configureCamera(): void { this.cameras.main.setBounds(0,0,WORLD.width,WORLD.height).setDeadzone(300,180).startFollow(this.player,true,.12,.12).setZoom(1); }
   private enforceGeometry(): void {
     const x=this.player.x,y=this.player.y;
-    const valid=WALKABLE.some(p=>inside(x,y,p)) && !WATER.some(p=>inside(x,y,p));
+    const fountain = Phaser.Math.Distance.Between(x,y,585,425) < 88;
+    const valid=WALKABLE.some(p=>inside(x,y,p)) && !WATER.some(p=>inside(x,y,p)) && !OBSTACLES.some(p=>inside(x,y,p)) && !fountain;
     if(valid) this.lastSafe={x,y}; else { this.player.setPosition(this.lastSafe.x,this.lastSafe.y); this.body.updateFromGameObject(); }
     this.currentLevel=inside(x,y,WALKABLE[4])||inside(x,y,WALKABLE[5])||inside(x,y,WALKABLE[8])?1:0;
     this.levelText.setText(`Canonical R1 · Level ${this.currentLevel} · ${this.player.x|0}, ${this.player.y|0}`);
@@ -101,7 +107,7 @@ export class CanonicalRuntimeR1Scene extends Phaser.Scene {
   }
   private drawDebug(): void {
     const points = (polygon: Polygon) => polygon.map(([x,y]) => new Phaser.Math.Vector2(x, y));
-    const g=this.add.graphics().setDepth(90);g.lineStyle(2,0xffdf62,.9);WALKABLE.forEach(p=>g.strokePoints(points(p),true));g.lineStyle(2,0x38d7e5,.9);WATER.forEach(p=>g.strokePoints(points(p),true));
+    const g=this.add.graphics().setDepth(90);g.lineStyle(2,0xffdf62,.9);WALKABLE.forEach(p=>g.strokePoints(points(p),true));g.lineStyle(2,0x38d7e5,.9);WATER.forEach(p=>g.strokePoints(points(p),true));g.lineStyle(2,0xff6d6d,.9);OBSTACLES.forEach(p=>g.strokePoints(points(p),true));g.strokeCircle(585,425,88);
     ANCHORS.forEach(a=>{g.fillStyle(0xfff1a1,1).fillCircle(a.x,a.y,8);this.add.text(a.x+10,a.y-18,`${a.id} ${a.label}`,{fontFamily:"monospace",fontSize:"13px",color:"#ffffff",backgroundColor:"#102d36"}).setDepth(91);});
   }
 }

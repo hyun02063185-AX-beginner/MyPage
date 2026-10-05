@@ -9,4 +9,7 @@ test("Canonical R1 contract integrates Amendment 01 without changing the canonic
   assert.equal(contract.levels.count, 2); assert.equal(contract.visitablePoints.length, 4);
   assert.deepEqual(blueprint.anchors.map((anchor) => anchor.id), ["P1","P2","P3","P4","P5","P6","P7","P8"]);
   assert.equal(blueprint.amendments[0].status, "APPROVED_AND_INTEGRATED");
+  assert.equal(blueprint.waterGeometry.zones.length, 5);
+  for (const id of ["hall-frontage","workshop-body","hero-ship-hull","fountain","workshop-prop-cluster","cargo-cluster","harbor-office-body"]) assert.ok(blueprint.walkableGeometry.obstacleBoundaries.some((item) => item.id === id));
+  assert.equal(contract.obstacleCollision, "VERIFIED"); assert.equal(contract.routePlaythrough, "VERIFIED");
 });

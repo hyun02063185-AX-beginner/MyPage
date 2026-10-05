@@ -14,6 +14,12 @@ Walkability is computed from explicit approved polygon arrays plus the approved 
 
 The local Phaser canvas at `http://127.0.0.1:5173/?canonical=1` was opened and inspected. It booted without console errors or texture errors; Workshop, Office, secondary fleet, water, player, camera-follow and the `[E] Workshop` interaction prompt were visible at P1. This establishes Level A/Level B startup evidence, while the capture export package remains the next harness task because the browser-side capture is not persisted by this R1 code.
 
+## R1 closeout
+
+Explicit collision now excludes Hall frontage, Workshop body, Hero hull, fountain, Workshop props, cargo cluster, and Harbor Office base from the Blueprint shapes—not PNG alpha or full image rectangles. The Office apron remains non-colliding. Contract validation checks all 8 anchors, 4 interaction IDs, 2 levels, 5 water zones, 7 named obstacles, and approved route graph intent.
+
+Human playtest during R1: player movement **PASS**; camera feel **PASS**; fixed-scale movement **PASS**; general traversal **PASS**. No Codex re-approval is inferred from that record.
+
 ## Known limitations
 
 R1 is a geometry skeleton, not a final art scene: polygon paving/water are intentionally simple, Hero depth slicing is deferred, Office/full landmark collision is still a future visual-footprint refinement, and automated keyboard traversal capture has not replaced human playthrough.
