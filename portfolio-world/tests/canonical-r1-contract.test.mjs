@@ -11,5 +11,7 @@ test("Canonical R1 contract integrates Amendment 01 without changing the canonic
   assert.equal(blueprint.amendments[0].status, "APPROVED_AND_INTEGRATED");
   assert.equal(blueprint.waterGeometry.zones.length, 5);
   for (const id of ["hall-frontage","workshop-body","hero-ship-hull","fountain","workshop-prop-cluster","cargo-cluster","harbor-office-body"]) assert.ok(blueprint.walkableGeometry.obstacleBoundaries.some((item) => item.id === id));
-  assert.equal(contract.obstacleCollision, "VERIFIED"); assert.equal(contract.routePlaythrough, "VERIFIED");
+  assert.equal(contract.obstacleCollision, "VERIFIED");
+  // R1 evidence was intentionally corrected after the missing capture package was found.
+  assert.equal(contract.routePlaythrough, "PENDING_ACTUAL_RUNTIME_PLAYTHROUGH");
 });

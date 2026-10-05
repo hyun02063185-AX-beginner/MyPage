@@ -13,11 +13,25 @@ export class BootScene extends Phaser.Scene {
   }
 
   public preload(): void {
-    if (new URLSearchParams(window.location.search).get("canonical") === "1") {
+    const canonical = new URLSearchParams(window.location.search).get("canonical");
+    if (canonical === "1") {
       const base = import.meta.env.BASE_URL;
       for (const [key, file] of Object.entries({ "r1-hall":"hall-b.png", "r1-workshop":"workshop-c.png", "r1-hero":"hero-b.png", "r1-secondary":"secondary-b.png", "r1-workboat":"workboat-a.png", "r1-office":"office-b.png" })) {
         this.load.image(key, `${base}assets/canonical-r1/${file}`);
       }
+      return;
+    }
+    if (canonical === "2") {
+      const base = import.meta.env.BASE_URL;
+      const assets: Record<string, string> = {
+        "r2-hall": "architecture/hall-b.png", "r2-workshop": "architecture/workshop-c.png", "r2-office": "architecture/office-b.png",
+        "r2-hero": "ships/hero-b.png", "r2-secondary": "ships/secondary-b.png", "r2-workboat": "ships/workboat-a.png",
+        "r2-paving": "environment/f1-premium-limestone-paving.png", "r2-quay": "environment/f2-continuous-quay-surface.png",
+        "r2-edge": "environment/f3-quay-wall-edge.png", "r2-stairs": "environment/f4-limestone-main-stairs.png",
+        "r2-wall": "environment/f5-terrace-retaining-wall.png", "r2-gangway": "environment/f6-gangway-foundation.png",
+        "r2-water": "environment/w1-sheltered-turquoise-water.png", "r2-player": "player/player-a.png",
+      };
+      for (const [key, file] of Object.entries(assets)) this.load.image(key, `${base}assets/canonical-r2/${file}`);
       return;
     }
     // A/B/C/D remain explicit development comparison loads; normal play loads D, the Exhibition,
@@ -66,6 +80,7 @@ export class BootScene extends Phaser.Scene {
   }
 
   public create(): void {
-    this.scene.start(new URLSearchParams(window.location.search).get("canonical") === "1" ? "CanonicalRuntimeR1Scene" : "WorldScene");
+    const canonical = new URLSearchParams(window.location.search).get("canonical");
+    this.scene.start(canonical === "1" ? "CanonicalRuntimeR1Scene" : canonical === "2" ? "CanonicalRuntimeR2Scene" : "WorldScene");
   }
 }
