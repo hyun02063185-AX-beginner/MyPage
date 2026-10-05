@@ -30,6 +30,15 @@ export class BootScene extends Phaser.Scene {
         "r2-edge": "environment/f3-quay-wall-edge.png", "r2-stairs": "environment/f4-limestone-main-stairs.png",
         "r2-wall": "environment/f5-terrace-retaining-wall.png", "r2-gangway": "environment/f6-gangway-foundation.png",
         "r2-water": "environment/w1-sheltered-turquoise-water.png", "r2-player": "player/player-a.png",
+        "r21-hall-plaza": "foundation/hall-plaza.png", "r21-hall-entrance": "foundation/hall-entrance-apron.png",
+        "r21-workshop-forecourt": "foundation/workshop-forecourt.png", "r21-lower-plaza": "foundation/lower-plaza.png",
+        "r21-central-quay": "foundation/central-quay.png", "r21-hero-quay": "foundation/hero-quay.png",
+        "r21-stair-entry": "foundation/stair-entry.png", "r21-stair-exit": "foundation/stair-exit.png",
+        "r21-office-apron": "foundation/harbor-office-apron.png", "r21-hero-gangway": "foundation/hero-gangway-access.png",
+        "r21-inner-harbor": "water/inner-harbor.png", "r21-hero-berth": "water/hero-berth.png",
+        "r21-secondary-berth": "water/secondary-berth.png", "r21-workboat-water": "water/workboat-water.png", "r21-outer-water": "water/outer-scenic-water.png",
+        "r21-retaining-wall": "architecture/retaining-wall.png", "r21-main-stairs": "architecture/main-stairs.png",
+        "r21-central-edge": "architecture/quay-edge-central.png", "r21-hero-edge": "architecture/quay-edge-hero.png",
       };
       for (const [key, file] of Object.entries(assets)) this.load.image(key, `${base}assets/canonical-r2/${file}`);
       return;

@@ -41,7 +41,7 @@ export class CanonicalRuntimeR2Scene extends Phaser.Scene {
   private keys!: Record<string, Phaser.Input.Keyboard.Key>;
   private prompt!: Phaser.GameObjects.Text;
   private levelText!: Phaser.GameObjects.Text;
-  private waterLayers: Phaser.GameObjects.TileSprite[] = [];
+  private waterLayers: Phaser.GameObjects.Image[] = [];
   private lastSafe = { x: 430, y: 763 };
   private readonly params = new URLSearchParams(window.location.search);
   private readonly debug = this.params.get("debug") === "1";
@@ -56,44 +56,31 @@ export class CanonicalRuntimeR2Scene extends Phaser.Scene {
     const up = this.keys.UP.isDown || this.keys.W.isDown; const down = this.keys.DOWN.isDown || this.keys.S.isDown;
     const velocity = new Phaser.Math.Vector2((right ? 1 : 0) - (left ? 1 : 0), (down ? 1 : 0) - (up ? 1 : 0)).normalize().scale(210);
     this.body.setVelocity(velocity.x, velocity.y); this.enforceGeometry(); this.updateInteraction();
-    this.waterLayers.forEach((layer, index) => { layer.tilePositionX += index ? 0.012 : 0.024; layer.tilePositionY += index ? 0.006 : 0.002; });
+    this.waterLayers.forEach((layer, index) => layer.setAlpha(.96 + Math.sin((this.time.now / 2400) + index) * .025));
   }
   private points(polygon: Polygon): Phaser.Math.Vector2[] { return polygon.map(([x, y]) => new Phaser.Math.Vector2(x, y)); }
-  private polygonTile(key: string, polygon: Polygon, depth: number, alpha = 1, offsetX = 0, offsetY = 0): Phaser.GameObjects.TileSprite {
-    // Phaser 4 WebGL does not support the legacy GameObject geometry mask API.  Keep
-    // modules in bounded polygon envelopes instead of falling back to a scene plate.
-    const xs = polygon.map(([x]) => x), ys = polygon.map(([, y]) => y);
-    const x = Math.min(...xs), y = Math.min(...ys), width = Math.max(...xs) - x, height = Math.max(...ys) - y;
-    return this.add.tileSprite(x + width / 2 + offsetX, y + height / 2 + offsetY, width, height, key).setDepth(depth).setAlpha(alpha);
-  }
+  private zone(key: string, x: number, y: number, depth: number, alpha = 1): Phaser.GameObjects.Image { return this.add.image(x, y, key).setOrigin(0, 0).setDepth(depth).setAlpha(alpha); }
   private drawFoundation(): void {
-    this.add.rectangle(960, 540, WORLD.width, WORLD.height, 0xc5b98f).setDepth(0);
-    const waterBase = this.add.graphics().setDepth(9); waterBase.fillStyle(0x257f8c, .88); WATER.forEach((polygon) => waterBase.fillPoints(this.points(polygon), true));
-    WATER.forEach((polygon) => this.waterLayers.push(this.polygonTile("r2-water", polygon, 10, 0.72)));
-    WATER.forEach((polygon) => this.waterLayers.push(this.polygonTile("r2-water", polygon, 11, 0.11, 38, 14)));
-    WALKABLE.forEach((polygon, index) => this.polygonTile(index < 4 ? "r2-quay" : "r2-paving", polygon, 20, .91, index * 9, index * 5));
-    // Retaining wall is a three-part construction: dark vertical face, modular wall, pale top cap.
-    this.add.rectangle(557, 544, 600, 34, 0x6b533e, 0.48).setDepth(22);
-    this.add.tileSprite(560, 532, 630, 88, "r2-wall").setDepth(23);
-    this.add.rectangle(560, 499, 630, 12, 0xe8d5a9, 0.78).setDepth(24);
-    this.add.image(838, 516, "r2-stairs").setOrigin(0, 0).setDisplaySize(300, 180).setDepth(26);
-    this.add.image(1230, 600, "r2-gangway").setOrigin(0, 0).setDisplaySize(220, 120).setDepth(27);
-    const edges = this.add.graphics().setDepth(28); edges.lineStyle(3, 0x5d7b7c, 0.58);
-    WATER.forEach((polygon) => edges.strokePoints(this.points(polygon), true));
+    // R2.1 uses only exact, transparent polygon-zone assets.  No TileSprite bounding boxes or runtime masks.
+    this.add.rectangle(960, 540, WORLD.width, WORLD.height, 0x405852).setDepth(0);
+    const water = [["r21-outer-water",1245,0],["r21-secondary-berth",1015,220],["r21-inner-harbor",1010,300],["r21-workboat-water",1100,445],["r21-hero-berth",1420,350]] as const;
+    water.forEach(([key, x, y]) => this.waterLayers.push(this.zone(key, x, y, 10)));
+    const foundation = [["r21-hall-plaza",235,235],["r21-hall-entrance",405,105],["r21-workshop-forecourt",165,635],["r21-lower-plaza",485,570],["r21-central-quay",850,465],["r21-hero-quay",1090,550],["r21-stair-entry",850,580],["r21-stair-exit",790,455],["r21-office-apron",750,700],["r21-hero-gangway",1325,610]] as const;
+    foundation.forEach(([key, x, y]) => this.zone(key, x, y, 20));
+    this.zone("r21-retaining-wall",235,505,24); this.zone("r21-main-stairs",790,455,26);
+    this.zone("r21-central-edge",1005,300,27); this.zone("r21-hero-edge",1415,349,27);
+    this.zone("r2-gangway",1335,607,28).setDisplaySize(190,112);
   }
-  private shadow(x: number, y: number, w: number, h: number, alpha: number, depth: number): void { this.add.ellipse(x, y, w, h, 0x122c38, alpha).setDepth(depth); }
+  private contactShadow(x: number, y: number, w: number, h: number, alpha: number, depth: number): void { this.add.ellipse(x, y, w, h, 0x263a35, alpha).setDepth(depth); }
+  private waterContact(x: number, y: number, w: number, h: number, depth: number): void { this.add.ellipse(x, y, w, h, 0x176f7e, .34).setDepth(depth); }
   private drawLandmarks(): void {
     const place = (key: string, x: number, y: number, w: number, h: number, depth: number) => this.add.image(x, y, key).setOrigin(0, 0).setDisplaySize(w, h).setDepth(depth);
-    this.shadow(442, 315, 500, 42, .20, 29); place("r2-hall", 135, 0, 605, 320, 30);
-    this.shadow(340, 790, 410, 35, .22, 31); place("r2-workshop", 85, 520, 505, 280, 32);
-    this.shadow(841, 708, 230, 28, .22, 33); place("r2-office", 700, 505, 280, 205, 34);
-    this.shadow(1186, 535, 210, 30, .18, 35); place("r2-secondary", 1045, 240, 275, 255, 36);
-    this.shadow(1210, 548, 115, 18, .24, 37); place("r2-workboat", 1140, 470, 140, 75, 38);
-    this.shadow(1605, 790, 440, 78, .28, 39); place("r2-hero", 1325, 115, 595, 685, 40);
-    // R2 baseline semantic decomposition: source-preserving foreground crop, gangway, and separate water contact.
-    this.add.ellipse(1615, 786, 410, 34, 0x356b76, .34).setDepth(41);
-    this.add.image(1685, 430, "r2-hero").setOrigin(0, 0).setCrop(360, 250, 235, 435).setDisplaySize(235, 435).setDepth(70).setAlpha(.94);
-    this.add.rectangle(1270, 642, 175, 9, 0x5f4531, .72).setAngle(-12).setDepth(71);
+    this.contactShadow(442, 315, 290, 18, .16, 29); place("r2-hall", 135, 0, 605, 320, 30);
+    this.contactShadow(340, 790, 285, 14, .18, 31); place("r2-workshop", 85, 520, 505, 280, 32);
+    this.contactShadow(841, 708, 150, 11, .17, 33); place("r2-office", 700, 505, 280, 205, 34);
+    this.waterContact(1186, 535, 175, 20, 35); place("r2-secondary", 1045, 240, 275, 255, 36);
+    this.waterContact(1210, 548, 92, 13, 37); place("r2-workboat", 1140, 470, 140, 75, 38);
+    this.waterContact(1605, 790, 330, 24, 39); place("r2-hero", 1325, 115, 595, 685, 40);
   }
   private createPlayer(): void {
     const spawn = ANCHORS.find((anchor) => anchor.id === this.params.get("spawn")) ?? ANCHORS[0]; this.lastSafe = { x: spawn.x, y: spawn.y };

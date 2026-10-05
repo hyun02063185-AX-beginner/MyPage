@@ -1,0 +1,16 @@
+{
+  "amendmentId": "CANONICAL_AMENDMENT_02_ANCHOR_SAFETY_REPAIR",
+  "status": "INTEGRATED",
+  "kind": "collision-safe interaction-anchor correction",
+  "preserves": ["worldComposition", "approvedGeometryPolygons", "waterPolygons", "obstaclePolygons", "landmarkPlacement", "visitablePoints", "cameraContract", "collisionModel"],
+  "rationale": "Runtime validation found five interaction/spawn anchors inside their approved explicit obstacle geometry. Each point is moved only to its nearest existing walkable position within the same interaction area.",
+  "anchors": {
+    "P1": { "from": [430,763], "to": [443,785], "reason": "Workshop interaction forecourt" },
+    "P4": { "from": [905,663], "to": [905,688], "reason": "Main stair lower landing" },
+    "P5": { "from": [640,453], "to": [670,453], "reason": "Hall Plaza clear surface" },
+    "P6": { "from": [505,213], "to": [505,318], "reason": "Hall entrance apron" },
+    "P7": { "from": [1435,718], "to": [1405,770], "reason": "Hero gangway access" }
+  },
+  "geometryChange": "NONE",
+  "routeContract": "P1→P2→P8→P4→P5→P6; P1→P2→P8→P3→P7; P6→P5→P4→P8→P1; P7→P3→P8→P2 remain required and collision-valid."
+}

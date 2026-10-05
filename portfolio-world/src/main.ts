@@ -9,6 +9,6 @@ import "./world.css";
 const canonical = new URLSearchParams(window.location.search).get("canonical");
 new Phaser.Game({
   ...GAME_CONFIG,
-  ...(canonical ? { width: 1280, height: 720, scale: { ...GAME_CONFIG.scale, width: 1280, height: 720 } } : {}),
+  ...(canonical ? { type: Phaser.CANVAS, width: 1280, height: 720, scale: { ...GAME_CONFIG.scale, width: 1280, height: 720 } } : {}),
   scene: [BootScene, WorldScene, CanonicalRuntimeR1Scene, CanonicalRuntimeR2Scene],
 });

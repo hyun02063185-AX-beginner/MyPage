@@ -1,0 +1,144 @@
+{
+  "schema": "r2.1-zone-assets",
+  "zones": {
+    "foundation": {
+      "workshop-forecourt": {
+        "file": "foundation/workshop-forecourt.png",
+        "x": 165,
+        "y": 635,
+        "width": 561,
+        "height": 381
+      },
+      "lower-plaza": {
+        "file": "foundation/lower-plaza.png",
+        "x": 485,
+        "y": 570,
+        "width": 531,
+        "height": 421
+      },
+      "central-quay": {
+        "file": "foundation/central-quay.png",
+        "x": 850,
+        "y": 465,
+        "width": 396,
+        "height": 241
+      },
+      "hero-quay": {
+        "file": "foundation/hero-quay.png",
+        "x": 1090,
+        "y": 550,
+        "width": 576,
+        "height": 381
+      },
+      "hall-plaza": {
+        "file": "foundation/hall-plaza.png",
+        "x": 235,
+        "y": 235,
+        "width": 626,
+        "height": 331
+      },
+      "hall-entrance-apron": {
+        "file": "foundation/hall-entrance-apron.png",
+        "x": 405,
+        "y": 105,
+        "width": 251,
+        "height": 181
+      },
+      "hero-gangway-access": {
+        "file": "foundation/hero-gangway-access.png",
+        "x": 1325,
+        "y": 610,
+        "width": 201,
+        "height": 161
+      },
+      "stair-entry": {
+        "file": "foundation/stair-entry.png",
+        "x": 850,
+        "y": 580,
+        "width": 171,
+        "height": 141
+      },
+      "stair-exit": {
+        "file": "foundation/stair-exit.png",
+        "x": 790,
+        "y": 455,
+        "width": 191,
+        "height": 141
+      },
+      "harbor-office-apron": {
+        "file": "foundation/harbor-office-apron.png",
+        "x": 750,
+        "y": 700,
+        "width": 201,
+        "height": 91
+      }
+    },
+    "water": {
+      "inner-harbor": {
+        "file": "water/inner-harbor.png",
+        "x": 1010,
+        "y": 300,
+        "width": 466,
+        "height": 391
+      },
+      "hero-berth": {
+        "file": "water/hero-berth.png",
+        "x": 1420,
+        "y": 350,
+        "width": 501,
+        "height": 686
+      },
+      "secondary-berth": {
+        "file": "water/secondary-berth.png",
+        "x": 1015,
+        "y": 220,
+        "width": 386,
+        "height": 301
+      },
+      "workboat-water": {
+        "file": "water/workboat-water.png",
+        "x": 1100,
+        "y": 445,
+        "width": 331,
+        "height": 256
+      },
+      "outer-scenic-water": {
+        "file": "water/outer-scenic-water.png",
+        "x": 1245,
+        "y": 0,
+        "width": 676,
+        "height": 481
+      }
+    },
+    "architecture": {
+      "retaining-wall": {
+        "file": "architecture/retaining-wall.png",
+        "x": 235,
+        "y": 505,
+        "width": 851,
+        "height": 61
+      },
+      "main-stairs": {
+        "file": "architecture/main-stairs.png",
+        "x": 790,
+        "y": 455,
+        "width": 231,
+        "height": 266
+      },
+      "quay-edge-central": {
+        "file": "architecture/quay-edge-central.png",
+        "x": 1005,
+        "y": 300,
+        "width": 471,
+        "height": 136
+      },
+      "quay-edge-hero": {
+        "file": "architecture/quay-edge-hero.png",
+        "x": 1415,
+        "y": 349,
+        "width": 506,
+        "height": 117
+      }
+    }
+  }
+}

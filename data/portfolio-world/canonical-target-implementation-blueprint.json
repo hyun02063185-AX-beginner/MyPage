@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.1.0",
-  "revision": "fourth-visitable-point-approved",
-  "status": "APPROVED_BLUEPRINT_WITH_AMENDMENT_01",
-  "amendments": [{ "id": "CANONICAL_AMENDMENT_01", "status": "APPROVED_AND_INTEGRATED", "source": "data/portfolio-world/canonical-target-amendment-01-fourth-visitable-point.json" }],
+  "revision": "anchor-safety-repair-integrated",
+  "status": "APPROVED_BLUEPRINT_WITH_AMENDMENTS_01_02",
+  "amendments": [{ "id": "CANONICAL_AMENDMENT_01", "status": "APPROVED_AND_INTEGRATED", "source": "data/portfolio-world/canonical-target-amendment-01-fourth-visitable-point.json" }, { "id": "CANONICAL_AMENDMENT_02", "status": "INTEGRATED", "source": "data/portfolio-world/canonical-target-amendment-02-anchor-safety-repair.json" }],
   "sourceOfTruth": {
     "master": "reports/portfolio-world-rebuild/evidence/gameplay-projection-refinement/projection-a-elevated-gameplay.png",
     "validation": "reports/portfolio-world-rebuild/evidence/gameplay-projection-refinement/projection-a-player-fixed-scale-validation.png",
@@ -49,13 +49,13 @@
     }
   },
   "anchors": [
-    { "id": "P1", "name": "Workshop foreground", "x": 430, "y": 763, "zone": "workshop-forecourt", "localWalkableWidth": 300, "floorLevel": 0, "connectsTo": ["P2"], "obstacleBoundaries": ["workshop-body", "workshop-prop-cluster", "south-rope-line"] },
+    { "id": "P1", "name": "Workshop foreground", "x": 443, "y": 785, "zone": "workshop-forecourt", "localWalkableWidth": 300, "floorLevel": 0, "connectsTo": ["P2"], "obstacleBoundaries": ["workshop-body", "workshop-prop-cluster", "south-rope-line"] },
     { "id": "P2", "name": "Lower Plaza", "x": 710, "y": 763, "zone": "lower-plaza", "localWalkableWidth": 360, "floorLevel": 0, "connectsTo": ["P1", "P3", "P4"], "obstacleBoundaries": ["planter-north", "water-south-east", "bollard-line"] },
     { "id": "P3", "name": "Central Quay", "x": 1010, "y": 628, "zone": "central-quay", "localWalkableWidth": 260, "floorLevel": 0, "connectsTo": ["P2", "P4", "P7"], "obstacleBoundaries": ["inner-harbor", "cargo-cluster", "quay-bollards"] },
-    { "id": "P4", "name": "Main Stairs lower landing", "x": 905, "y": 663, "zone": "main-stair-connector", "localWalkableWidth": 150, "floorLevel": 0, "connectsTo": ["P2", "P3", "P5"], "obstacleBoundaries": ["stair-sidewall-west", "stair-sidewall-east"] },
-    { "id": "P5", "name": "Hall Plaza", "x": 640, "y": 453, "zone": "hall-plaza", "localWalkableWidth": 350, "floorLevel": 1, "connectsTo": ["P4", "P6"], "obstacleBoundaries": ["fountain", "hall-stair-wall", "planter-ring"] },
-    { "id": "P6", "name": "Hall Entrance", "x": 505, "y": 213, "zone": "hall-entrance-apron", "localWalkableWidth": 120, "floorLevel": 1, "connectsTo": ["P5"], "obstacleBoundaries": ["hall-frontage", "door-threshold-sides"] },
-    { "id": "P7", "name": "Hero Ship gangway", "x": 1435, "y": 718, "zone": "hero-ship-gangway-access", "localWalkableWidth": 110, "floorLevel": 0, "connectsTo": ["P3"], "obstacleBoundaries": ["hero-ship-hull", "hero-berth-water", "gangway-rail"] },
+    { "id": "P4", "name": "Main Stairs lower landing", "x": 905, "y": 688, "zone": "main-stair-connector", "localWalkableWidth": 150, "floorLevel": 0, "connectsTo": ["P2", "P3", "P5"], "obstacleBoundaries": ["stair-sidewall-west", "stair-sidewall-east"] },
+    { "id": "P5", "name": "Hall Plaza", "x": 670, "y": 453, "zone": "hall-plaza", "localWalkableWidth": 350, "floorLevel": 1, "connectsTo": ["P4", "P6"], "obstacleBoundaries": ["fountain", "hall-stair-wall", "planter-ring"] },
+    { "id": "P6", "name": "Hall Entrance", "x": 505, "y": 318, "zone": "hall-entrance-apron", "localWalkableWidth": 120, "floorLevel": 1, "connectsTo": ["P5"], "obstacleBoundaries": ["hall-frontage", "door-threshold-sides"] },
+    { "id": "P7", "name": "Hero Ship gangway", "x": 1405, "y": 770, "zone": "hero-ship-gangway-access", "localWalkableWidth": 110, "floorLevel": 0, "connectsTo": ["P3"], "obstacleBoundaries": ["hero-ship-hull", "hero-berth-water", "gangway-rail"] },
     { "id": "P8", "name": "Harbor Office Interaction Point", "x": 815, "y": 735, "zone": "harbor-office-interaction-apron", "localWalkableWidth": 150, "floorLevel": 0, "connectsTo": ["P2", "P3", "P4"], "obstacleBoundaries": ["harbor-office-body", "harbor-office-step"] }
   ],
   "walkableGeometry": {

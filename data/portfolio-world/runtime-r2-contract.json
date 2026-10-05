@@ -6,6 +6,7 @@
   "world": { "size": [1920, 1080], "viewport": [1280, 720], "projection": "2D_ORTHOGRAPHIC" },
   "geometryRevision": "R1_UNCHANGED",
   "geometryParity": "VERIFIED_AFTER_ANCHOR_SAFETY_REPAIR",
+  "anchorAmendment": "CANONICAL_AMENDMENT_02_ANCHOR_SAFETY_REPAIR",
   "anchors": ["P1","P2","P3","P4","P5","P6","P7","P8"],
   "visitablePoints": ["exhibition-hall","workshop","hero-ship","harbor-office"],
   "player": { "visual": [28,56], "body": [28,16], "bodyOffset": [0,40], "fixedScale": true, "baseline": "TEMPORARY_VISUAL_BASELINE", "selected": "player-a" },
@@ -14,12 +15,21 @@
   "landmarks": { "hall": "hall-b", "workshop": "workshop-c", "office": "office-b" },
   "fleet": { "hero": "hero-b", "secondary": "secondary-b", "workboat": "workboat-a" },
   "depth": { "bands": ["L0 scenic","L1 water","L2 foundation","L3 architecture","L4 support vessels","L5 actors","L6 front props","L7 hero foreground","L8 UI"], "player": "50 + ground-anchor-y / 1000" },
-  "heroDecomposition": { "implemented": ["hull-main","water-contact","front-occlusion-slice","gangway"], "limitation": "The source remains one approved Hero-B image; only a source-preserving foreground crop is used, not a fake alpha extraction." },
+  "foundationRendering": { "revision": "R2_1_EXACT_TRANSPARENT_ZONE_ASSETS", "boundingBoxTileSprites": false, "collision": "R1_VECTOR_UNCHANGED", "heroForegroundCrop": false },
+  "heroDecomposition": { "implemented": ["hull-main","water-contact","gangway"], "limitation": "The source remains one approved Hero-B image; R2.1 removes the duplicate foreground crop rather than reconstructing a new Hero asset." },
   "anchorSafetyRepair": { "P1": [443,785], "P4": [905,688], "P5": [670,453], "P6": [505,318], "P7": [1405,770] },
   "routes": { "A": "PASS", "B": "PASS", "C": "PASS", "D": "PASS" },
   "qa": { "collision": "VERIFIED", "interactions": "PASS", "camera": "PASS", "visualEvidence": "COMPLETE", "browserConsole": "CLEAN" },
+  "r21": {
+    "status": "COMPLETE_PENDING_HUMAN_VISUAL_GATE",
+    "visualEvidence": "COMPLETE",
+    "captureMethod": "DIRECT_CHROME_DEVTOOLS_VIEWPORT_SCREENSHOT",
+    "evidence": ["01-r21-overview.png","02-r21-workshop-office.png","03-r21-hall-plaza.png","04-r21-central-quay.png","05-r21-hero-quay.png","06-r21-debug.png","07-canonical-vs-r21.png","08-r2-vs-r21.png"],
+    "gate": "READY_FOR_RUNTIME_R2_1_HUMAN_VISUAL_GATE",
+    "runtimeR3": "BLOCKED"
+  },
   "evidence": ["01-workshop-runtime.png", "02-harbor-office-runtime.png", "03-hall-runtime.png", "04-hero-ship-runtime.png", "05-r2-overview.png", "06-r2-debug.png", "07-canonical-vs-runtime-r2.png", "08-r1-vs-r2.png"],
-  "knownLimitations": ["Geometry-mask APIs are unsupported by the Phaser 4 WebGL renderer used here; R2 uses bounded modular tile envelopes, not a scene plate.", "Player-a is a temporary generated visual baseline, not final character approval.", "Human visual-gate approval remains outstanding."],
-  "gate": "READY_FOR_RUNTIME_R2_HUMAN_VISUAL_GATE",
-  "runtimeAssets": ["architecture/hall-b.png","architecture/workshop-c.png","architecture/office-b.png","ships/hero-b.png","ships/secondary-b.png","ships/workboat-a.png","environment/f1-premium-limestone-paving.png","environment/f2-continuous-quay-surface.png","environment/f3-quay-wall-edge.png","environment/f4-limestone-main-stairs.png","environment/f5-terrace-retaining-wall.png","environment/f6-gangway-foundation.png","environment/w1-sheltered-turquoise-water.png","player/player-a.png"]
+  "knownLimitations": ["R2.1 avoids the historic WebGL geometry-mask limitation by loading build-time exact transparent polygon assets, not by using bounded tile envelopes or a scene plate.", "Player-a is a temporary generated visual baseline, not final character approval.", "Human visual-gate approval remains outstanding."],
+  "gate": "READY_FOR_RUNTIME_R2_1_HUMAN_VISUAL_GATE",
+  "runtimeAssets": ["architecture/hall-b.png","architecture/workshop-c.png","architecture/office-b.png","architecture/retaining-wall.png","architecture/main-stairs.png","architecture/quay-edge-central.png","architecture/quay-edge-hero.png","ships/hero-b.png","ships/secondary-b.png","ships/workboat-a.png","environment/f1-premium-limestone-paving.png","environment/f2-continuous-quay-surface.png","environment/f3-quay-wall-edge.png","environment/f4-limestone-main-stairs.png","environment/f5-terrace-retaining-wall.png","environment/f6-gangway-foundation.png","environment/w1-sheltered-turquoise-water.png","foundation/hall-plaza.png","foundation/hall-entrance-apron.png","foundation/workshop-forecourt.png","foundation/lower-plaza.png","foundation/central-quay.png","foundation/hero-quay.png","foundation/stair-entry.png","foundation/stair-exit.png","foundation/harbor-office-apron.png","foundation/hero-gangway-access.png","water/inner-harbor.png","water/hero-berth.png","water/secondary-berth.png","water/workboat-water.png","water/outer-scenic-water.png","player/player-a.png"]
 }
