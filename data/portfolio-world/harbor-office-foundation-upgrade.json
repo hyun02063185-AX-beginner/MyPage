@@ -1,0 +1,21 @@
+{
+  "artifact": "portfolio-world-fourth-visitable-point-foundation-upgrade",
+  "createdAt": "2026-10-05",
+  "status": "PENDING_HUMAN",
+  "generation": {"harborOffice": "BUILT_IN_IMAGE_GENERATION_NORMALIZED_TO_TRANSPARENT_CANVASES", "foundation": "DETERMINISTIC_RASTER_AUTHORING", "runtimeChanges": "NONE"},
+  "officeCandidates": [
+    {"id":"office-a","path":"reports/portfolio-world-rebuild/evidence/fourth-visitable-point-foundation-upgrade/harbor-office/office-a.png","canvas":[310,230],"sha256":"db4ceb1ecbc2a3be","score":{"hierarchy":4,"style":5,"projection":4,"readability":4,"total":17},"status":"PENDING_HUMAN"},
+    {"id":"office-b","path":"reports/portfolio-world-rebuild/evidence/fourth-visitable-point-foundation-upgrade/harbor-office/office-b.png","canvas":[280,205],"sha256":"74c2075d89b2007b","score":{"hierarchy":5,"style":5,"projection":5,"readability":5,"total":20},"status":"RECOMMENDED_PENDING_HUMAN"}
+  ],
+  "recommendedCombination": {"office":"office-b","placement":"A","P8":[815,735],"status":"PENDING_HUMAN"},
+  "foundationReplacements": [
+    {"id":"F1","path":"reports/portfolio-world-rebuild/evidence/fourth-visitable-point-foundation-upgrade/upgraded-foundation/f1-premium-limestone-paving.png","canvas":[512,256],"sha256":"f265f132a280a02f"},
+    {"id":"F2","path":"reports/portfolio-world-rebuild/evidence/fourth-visitable-point-foundation-upgrade/upgraded-foundation/f2-continuous-quay-surface.png","canvas":[512,256],"sha256":"00c93f7c5d77b9c6"},
+    {"id":"F3","path":"reports/portfolio-world-rebuild/evidence/fourth-visitable-point-foundation-upgrade/upgraded-foundation/f3-quay-wall-edge.png","canvas":[512,96],"sha256":"02bcd880ad78ecd6"},
+    {"id":"F4","path":"reports/portfolio-world-rebuild/evidence/fourth-visitable-point-foundation-upgrade/upgraded-foundation/f4-limestone-main-stairs.png","canvas":[300,180],"sha256":"7808ca5f38fb8208"},
+    {"id":"F5","path":"reports/portfolio-world-rebuild/evidence/fourth-visitable-point-foundation-upgrade/upgraded-foundation/f5-terrace-retaining-wall.png","canvas":[512,128],"sha256":"1501d6bad0c6d87c"},
+    {"id":"W1","path":"reports/portfolio-world-rebuild/evidence/fourth-visitable-point-foundation-upgrade/upgraded-foundation/w1-sheltered-turquoise-water.png","canvas":[512,256],"sha256":"0f9210d25b908dbd"}
+  ],
+  "waterUpgrade": "calm sheltered turquoise gradient, soft caustic suggestion, small rounded ripples, berth-depth shadow and separate hull-contact layers",
+  "humanStatus": {"HARBOR_OFFICE_SELECTION":"PENDING_HUMAN","HARBOR_OFFICE_PLACEMENT":"PENDING_HUMAN","FOUNDATION_VISUAL_APPROVAL":"PENDING_HUMAN"}
+}

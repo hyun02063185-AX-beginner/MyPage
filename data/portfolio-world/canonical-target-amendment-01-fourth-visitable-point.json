@@ -1,0 +1,24 @@
+{
+  "amendmentId": "CANONICAL_AMENDMENT_01_FOURTH_VISITABLE_POINT",
+  "status": "PENDING_HUMAN",
+  "preserves": ["approvedBlueprintValues", "hallPlacement", "workshopPlacement", "heroPlacement", "fleetHierarchy", "waterLandBalance", "elevatedObliqueCamera", "asymmetricHarborSilhouette"],
+  "harborOffice": {
+    "role": "visitable Harbor Office; future About / Lecture-Teaching / Contact-Inquiry endpoint",
+    "assetAction": "GENERATE_NEW",
+    "depthLayer": "L3-rear-architecture",
+    "candidates": {
+      "office-a": {"visualBounds": {"width": 310, "height": 230}, "status": "PENDING_HUMAN"},
+      "office-b": {"visualBounds": {"width": 280, "height": 205}, "status": "RECOMMENDED_PENDING_HUMAN"}
+    },
+    "placementOptions": {
+      "A": {"visualBounds": {"x": 700, "y": 505, "width": 280, "height": 205}, "candidate": "office-b", "rationale": "Offset Lower Plaza/Central Quay join; Workshop-to-Office read before Hall/Hero branch.", "status": "RECOMMENDED_PENDING_HUMAN"},
+      "B": {"visualBounds": {"x": 760, "y": 410, "width": 310, "height": 230}, "candidate": "office-a", "rationale": "Hall-facing Central Quay edge; strongest harbor-guidance read.", "status": "ALTERNATE"},
+      "C": {"visualBounds": {"x": 1080, "y": 545, "width": 280, "height": 205}, "candidate": "office-b", "rationale": "Waterfront alternate; weakest separation from Hero berth.", "status": "ALTERNATE"}
+    },
+    "recommended": "A + office-b",
+    "interactionAnchor": {"id": "P8", "name": "Harbor Office Interaction Point", "x": 815, "y": 735, "level": 0, "localWalkableWidth": 150, "connectsTo": ["P2", "P3", "P4"], "collisionBoundaries": ["harbor-office-body", "harbor-office-step"], "collisionIntent": "Future explicit visual-footprint collision only; no collision is implemented by this amendment."},
+    "interactionApron": {"kind": "polygon", "points": [[750,700],[925,700],[950,775],[770,790]], "level": 0, "meaning": "Proposed clear approach zone; does not replace any approved walkable polygon."},
+    "routeIntent": ["P1→P2→P8", "P8→P4→P5→P6", "P8→P3→P7"],
+    "geometryChange": "NONE; future implementation may add only a local Lower Plaza access-pocket trim after human approval."
+  }
+}
