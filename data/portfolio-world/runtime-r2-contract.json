@@ -1,5 +1,5 @@
 {
-  "status": "R2_3_COMPLETE_PENDING_HUMAN_VISUAL_GATE",
+  "status": "R2_4_FOUNDATION_MASTER_B_RUNTIME_COMPLETE_PENDING_HUMAN_VISUAL_GATE",
   "scene": "CanonicalRuntimeR2Scene",
   "entry": "?canonical=2",
   "debug": "?canonical=2&debug=1",
@@ -10,13 +10,14 @@
   "anchors": ["P1","P2","P3","P4","P5","P6","P7","P8"],
   "visitablePoints": ["exhibition-hall","workshop","hero-ship","harbor-office"],
   "player": { "visual": [28,56], "body": [28,16], "bodyOffset": [0,40], "fixedScale": true, "baseline": "TEMPORARY_VISUAL_BASELINE", "selected": "player-a" },
-  "foundation": { "hallPlaza": "F1", "lowerPlaza": "F1", "centralQuay": ["F2","F3"], "heroQuay": ["F2","F3"], "retainingWall": "F5", "mainStairs": "F4", "gangway": "F6" },
+  "foundation": { "master": "foundation-master-b", "verticalStructure": "foundation-master-b-vertical-structure", "legacyZoneAssembly": "DISABLED_RUNTIME" },
   "water": { "asset": "W1", "treatment": "two bounded low-energy scrolling layers plus berth contact shadows", "collision": "R1_VECTOR_UNCHANGED" },
   "landmarks": { "hall": "hall-b", "workshop": "workshop-c", "office": "office-b" },
   "fleet": { "hero": "hero-b", "secondary": "secondary-b", "workboat": "workboat-a" },
   "depth": { "bands": ["L0 scenic","L1 water","L2 foundation","L3 architecture","L4 support vessels","L5 actors","L6 front props","L7 hero foreground","L8 UI"], "player": "50 + ground-anchor-y / 1000" },
-  "foundationRendering": { "revision": "R2_1_EXACT_TRANSPARENT_ZONE_ASSETS", "boundingBoxTileSprites": false, "collision": "R1_VECTOR_UNCHANGED", "heroForegroundCrop": false },
-  "visualRevision": "R2_3_FOUNDATION_CLEANUP",
+  "foundationRendering": { "revision": "R2_4_FOUNDATION_MASTER_B", "boundingBoxTileSprites": false, "collision": "R1_VECTOR_UNCHANGED", "heroForegroundCrop": false, "legacyFoundationVisual": "DISABLED_RUNTIME" },
+  "visualRevision": "R2_4_FOUNDATION_MASTER_B",
+  "foundationMaster": { "selected": "foundation-master-b", "humanApproved": true, "collisionSource": false, "runtimeIntegrated": true },
   "visualCleanup": "COMPLETE_PENDING_HUMAN",
   "r23": {
     "preserves": "R2_2_VISUAL_SURFACE_CONTINUITY_APPROVED_BASELINE",
@@ -57,7 +58,7 @@
     "runtimeR3": "BLOCKED"
   },
   "evidence": ["01-workshop-runtime.png", "02-harbor-office-runtime.png", "03-hall-runtime.png", "04-hero-ship-runtime.png", "05-r2-overview.png", "06-r2-debug.png", "07-canonical-vs-runtime-r2.png", "08-r1-vs-r2.png"],
-  "knownLimitations": ["R2.1 avoids the historic WebGL geometry-mask limitation by loading build-time exact transparent polygon assets, not by using bounded tile envelopes or a scene plate.", "Player-a is a temporary generated visual baseline, not final character approval.", "Human visual-gate approval remains outstanding."],
-  "gate": "READY_FOR_R2_3_HUMAN_VISUAL_GATE",
-  "runtimeAssets": ["architecture/hall-b.png","architecture/workshop-c.png","architecture/office-b.png","architecture/retaining-wall.png","architecture/main-stairs.png","architecture/quay-edge-central.png","architecture/quay-edge-hero.png","ships/hero-b.png","ships/secondary-b.png","ships/workboat-a.png","environment/f1-premium-limestone-paving.png","environment/f2-continuous-quay-surface.png","environment/f3-quay-wall-edge.png","environment/f4-limestone-main-stairs.png","environment/f5-terrace-retaining-wall.png","environment/f6-gangway-foundation.png","environment/w1-sheltered-turquoise-water.png","foundation/hall-plaza.png","foundation/hall-entrance-apron.png","foundation/workshop-forecourt.png","foundation/lower-plaza.png","foundation/central-quay.png","foundation/hero-quay.png","foundation/stair-entry.png","foundation/stair-exit.png","foundation/harbor-office-apron.png","foundation/hero-gangway-access.png","water/inner-harbor.png","water/hero-berth.png","water/secondary-berth.png","water/workboat-water.png","water/outer-scenic-water.png","visual-land-coverage.json","visual-water-coverage.json","player/player-a.png"]
+  "knownLimitations": ["R2.1 fallback assets remain preserved but R2.4 renders the approved Foundation Master B instead of zone assembly.", "Player-a is a temporary generated visual baseline, not final character approval.", "R2.4 runtime human visual-gate approval remains outstanding."],
+  "gate": "READY_FOR_R2_4_RUNTIME_HUMAN_VISUAL_GATE",
+  "runtimeAssets": ["architecture/hall-b.png","architecture/workshop-c.png","architecture/office-b.png","ships/hero-b.png","ships/secondary-b.png","ships/workboat-a.png","environment/w1-sheltered-turquoise-water.png","candidates/runtime-r24-foundation-master/foundation-master-b.png","candidates/runtime-r24-foundation-master/foundation-master-b-vertical-structure.png","water/inner-harbor.png","water/hero-berth.png","water/secondary-berth.png","water/workboat-water.png","water/outer-scenic-water.png","visual-water-coverage.json","player/player-a.png"]
 }

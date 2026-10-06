@@ -1,6 +1,6 @@
 {
   "schema": "portfolio-world.runtime-r24-foundation-master-candidates.v1",
-  "phase": "R2.4 Phase A \u2014 candidate production only",
+  "phase": "R2.4 Phase B \u2014 selected Foundation Master B runtime integration",
   "designSpace": {
     "width": 1920,
     "height": 1080
@@ -8,7 +8,7 @@
   "generation": {
     "method": "ImageGen environment-art studies + deterministic alpha cleanup, design-space calibration, and preview compositing",
     "collisionSource": "never",
-    "runtimeImported": false
+    "runtimeImported": true
   },
   "candidates": [
     {
@@ -81,5 +81,7 @@
     }
   ],
   "recommendedCandidate": "foundation-master-b",
-  "humanSelection": "PENDING"
+  "humanSelection": "foundation-master-b",
+  "selectionStatus": "APPROVED",
+  "runtimeIntegration": "COMPLETE_PENDING_HUMAN_GATE"
 }

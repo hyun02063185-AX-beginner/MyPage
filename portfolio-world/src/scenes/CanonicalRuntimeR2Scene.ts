@@ -51,9 +51,7 @@ export class CanonicalRuntimeR2Scene extends Phaser.Scene {
   private lastSafe = { x: 430, y: 763 };
   private readonly params = new URLSearchParams(window.location.search);
   private readonly debug = this.params.get("debug") === "1";
-  // QA-only baseline switch for the required R2.1/R2.2 comparison capture; it never reaches collision.
-  private readonly r22Coverage = this.params.get("r22") !== "0";
-  private readonly visualRevision = "R2_3_FOUNDATION_CLEANUP";
+  private readonly visualRevision = "R2_4_FOUNDATION_MASTER_B";
 
   public constructor() { super("CanonicalRuntimeR2Scene"); }
   public create(): void {
@@ -70,7 +68,7 @@ export class CanonicalRuntimeR2Scene extends Phaser.Scene {
   private points(polygon: Polygon): Phaser.Math.Vector2[] { return polygon.map(([x, y]) => new Phaser.Math.Vector2(x, y)); }
   private zone(key: string, x: number, y: number, depth: number, alpha = 1): Phaser.GameObjects.Image { return this.add.image(x, y, key).setOrigin(0, 0).setDepth(depth).setAlpha(alpha); }
   /** Coverage assets are a render-only input. They are never supplied to enforceGeometry. */
-  private coverage(key: "r22-visual-land-coverage" | "r22-visual-water-coverage"): VisualCoverage {
+  private coverage(key: "r22-visual-water-coverage"): VisualCoverage {
     const asset = this.cache.json.get(key) as VisualCoverage | undefined;
     if (!asset || asset.collision !== "none") throw new Error(`Invalid R2.2 visual coverage asset: ${key}`);
     return asset;
@@ -88,64 +86,23 @@ export class CanonicalRuntimeR2Scene extends Phaser.Scene {
     // Large, low-contrast currents keep the basin continuous without becoming a busy pattern.
     water.fillStyle(0x51a9ae, .09).fillPoints(this.points([[1100,480],[1580,435],[1815,560],[1690,690],[1260,675]]), true);
     water.fillStyle(0x51a9ae, .07).fillPoints(this.points([[1340,700],[1790,665],[1900,840],[1680,970],[1450,900]]), true);
+    // Master B is intentionally transparent around its lower quay silhouette. This render-only
+    // underlay preserves sheltered-water continuity in those negative spaces; collision stays R1.
+    water.fillStyle(0x189ab1, 1).fillPoints(this.points([[390,650],[850,545],[1320,560],[1720,650],[1920,600],[1920,1080],[430,1080],[315,875]]), true);
+    water.fillStyle(0x8bc5be, .08).fillPoints(this.points([[520,770],[970,675],[1495,720],[1800,870],[1670,1010],[690,995]]), true);
     water.lineStyle(2, 0xd0e5d4, .12);
     for (let y = 355; y < 930; y += 94) water.strokeLineShape(new Phaser.Geom.Line(1080, y, 1870, y - 12));
   }
-  private drawVisualLandCoverage(): void {
-    // This low substrate is intentionally beneath visual water; it is a continuous harbor landmass, not a mask.
-    const land = this.add.graphics().setDepth(3);
-    this.fillCoverage(land, this.coverage("r22-visual-land-coverage"), {
-      "quiet-harbor-substrate": 0xcbbd9d,
-      "refined-limestone": 0xd9c9a7,
-      "retaining-stone": 0xb8a27f,
-      "practical-limestone": 0xc6b38d,
-      "heavy-quay-stone": 0xac9674,
-      "transition-stone": 0xbfac8a,
-    });
-    // Low-opacity, irregular tonal drift replaces the former circular placeholder-like patches.
-    land.fillStyle(0xf1e6ca, .055).fillPoints(this.points([[285,330],[640,290],[760,380],[670,450],[360,435]]), true);
-    land.fillStyle(0xf1e6ca, .045).fillPoints(this.points([[245,735],[565,670],[790,750],[650,850],[315,835]]), true);
-    land.fillStyle(0x745f46, .035).fillPoints(this.points([[875,565],[1160,535],[1260,620],[1050,690],[900,655]]), true);
-    land.fillStyle(0x745f46, .03).fillPoints(this.points([[1190,710],[1510,650],[1605,760],[1440,845],[1260,810]]), true);
-  }
-  /** R2.3's structural reading pass; all coordinates are visual-only overlays on the locked R2.2 coverage. */
-  private drawR23StructuralDepth(): void {
-    const structure = this.add.graphics().setDepth(28);
-    // Retaining wall: cap, shaded face, and an intentional stair aperture make the terrace height legible.
-    structure.fillStyle(0x9b8464, .9).fillPoints(this.points([[235,510],[790,510],[790,568],[235,568]]), true);
-    structure.fillStyle(0xd0bc95, .72).fillPoints(this.points([[235,503],[790,503],[790,514],[235,514]]), true);
-    structure.fillStyle(0x5f4e3d, .16).fillPoints(this.points([[235,557],[790,557],[790,568],[235,568]]), true);
-    structure.fillStyle(0x9b8464, .9).fillPoints(this.points([[975,510],[1085,510],[1085,568],[975,568]]), true);
-    structure.fillStyle(0xd0bc95, .72).fillPoints(this.points([[975,503],[1085,503],[1085,514],[975,514]]), true);
-    structure.fillStyle(0x5f4e3d, .16).fillPoints(this.points([[975,557],[1085,557],[1085,568],[975,568]]), true);
-    // Main stair: restrained risers and two side reveals, terminating in the lower landing rather than floating.
-    structure.lineStyle(2, 0x725e47, .3);
-    for (let step = 0; step < 6; step += 1) structure.strokeLineShape(new Phaser.Geom.Line(806 + step * 14, 484 + step * 30, 952 - step * 8, 475 + step * 29));
-    structure.lineStyle(4, 0x755f47, .35).strokeLineShape(new Phaser.Geom.Line(793,472,850,620)).strokeLineShape(new Phaser.Geom.Line(930,459,1007,678));
-    structure.fillStyle(0x42362c, .12).fillPoints(this.points([[845,676],[1020,676],[1004,695],[862,705]]), true);
-    // Central Quay: cap lip → vertical face → soft water-side underside shadow.
-    structure.lineStyle(3, 0xc1aa80, .28).strokeLineShape(new Phaser.Geom.Line(1010,342,1243,309)).strokeLineShape(new Phaser.Geom.Line(1243,309,1468,428));
-    structure.fillStyle(0x796249, .34).fillPoints(this.points([[1013,349],[1242,316],[1467,435],[1467,446],[1240,327],[1020,360]]), true);
-    structure.fillStyle(0x244f5d, .1).fillPoints(this.points([[1020,360],[1240,327],[1467,446],[1457,454],[1238,338],[1028,369]]), true);
-    // Hero Quay carries the same construction family, strengthened just enough to anchor Hero-B.
-    structure.lineStyle(3, 0xc1aa80, .25).strokeLineShape(new Phaser.Geom.Line(1420,438,1918,358));
-    structure.fillStyle(0x756049, .34).fillPoints(this.points([[1425,465],[1920,385],[1920,398],[1432,478]]), true);
-    structure.fillStyle(0x244f5d, .1).fillPoints(this.points([[1432,478],[1920,398],[1920,407],[1440,487]]), true);
-  }
   private drawFoundation(): void {
-    // R2.1 uses only exact, transparent polygon-zone assets.  No TileSprite bounding boxes or runtime masks.
     this.add.rectangle(960, 540, WORLD.width, WORLD.height, 0x405852).setDepth(0);
-    // R2.2 sits beneath the exact R2.1 zone assets, filling visual seams only. It has no gameplay role.
-    if (this.r22Coverage) { this.drawVisualLandCoverage(); this.drawVisualWaterCoverage(); }
+    // Continuity water is render-only and remains under the selected master art.
+    this.drawVisualWaterCoverage();
     const water = [["r21-outer-water",1245,0],["r21-secondary-berth",1015,220],["r21-inner-harbor",1010,300],["r21-workboat-water",1100,445],["r21-hero-berth",1420,350]] as const;
     water.forEach(([key, x, y]) => this.waterLayers.push(this.zone(key, x, y, 10)));
-    const foundation = [["r21-hall-plaza",235,235],["r21-hall-entrance",405,105],["r21-workshop-forecourt",165,635],["r21-lower-plaza",485,570],["r21-central-quay",850,465],["r21-hero-quay",1090,550],["r21-stair-entry",850,580],["r21-stair-exit",790,455],["r21-office-apron",750,700],["r21-hero-gangway",1325,610]] as const;
-    foundation.forEach(([key, x, y]) => this.zone(key, x, y, 20));
-    this.zone("r21-retaining-wall",235,505,24); this.zone("r21-main-stairs",790,455,26);
-    // Exact R2.1 silhouette assets remain; their face treatment is softened so R2.3's depth pass, not a hard strip, carries the reading.
-    this.zone("r21-central-edge",1005,300,27).setAlpha(.56); this.zone("r21-hero-edge",1415,349,27).setAlpha(.56);
-    this.zone("r2-gangway",1335,607,28).setDisplaySize(190,112);
-    this.drawR23StructuralDepth();
+    // Human-selected, native-size 1920×1080 RGBA foundation. It is a visual layer, never collision.
+    this.zone("r24-foundation-master-b", 0, 0, 20);
+    // Prepared vertical slice supplies wall/quay weight without the retired R2.3 procedural overlays.
+    this.zone("r24-foundation-master-b-vertical", 0, 0, 25).setAlpha(.32);
   }
   private contactShadow(x: number, y: number, w: number, h: number, alpha: number, depth: number): void { const shadow=this.add.graphics().setDepth(depth); shadow.fillStyle(0x263a35,alpha).fillRoundedRect(x-w/2,y-h/2,w,h,Math.min(5,h/2)); }
   private waterContact(x: number, y: number, w: number, h: number, depth: number): void { const contact=this.add.graphics().setDepth(depth); contact.fillStyle(0x176f7e,.2).fillRoundedRect(x-w/2,y-h/2,w,h,Math.min(5,h/2)); contact.lineStyle(1,0xa8d3cf,.22).strokeLineShape(new Phaser.Geom.Line(x-w*.32,y+h*.15,x+w*.28,y+h*.15)); }

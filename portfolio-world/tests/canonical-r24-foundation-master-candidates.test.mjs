@@ -11,14 +11,18 @@ const evidence = new URL("reports/portfolio-world-rebuild/evidence/runtime-r24-f
 
 const digest = (url) => createHash("sha256").update(readFileSync(url)).digest("hex");
 
-test("R2.4 Phase A candidate assets are transparent, calibrated, and not runtime imports", () => {
-  assert.equal(manifest.phase, "R2.4 Phase A — candidate production only");
+test("R2.4 selected candidate assets are transparent, calibrated, and B is the runtime import", () => {
+  assert.equal(manifest.phase, "R2.4 Phase B — selected Foundation Master B runtime integration");
   assert.equal(manifest.generation.collisionSource, "never");
-  assert.equal(manifest.generation.runtimeImported, false);
-  assert.equal(manifest.humanSelection, "PENDING");
+  assert.equal(manifest.generation.runtimeImported, true);
+  assert.equal(manifest.humanSelection, "foundation-master-b");
+  assert.equal(manifest.selectionStatus, "APPROVED");
+  assert.equal(manifest.runtimeIntegration, "COMPLETE_PENDING_HUMAN_GATE");
   assert.equal(manifest.recommendedCandidate, "foundation-master-b");
-  assert.doesNotMatch(runtime, /runtime-r24-foundation-master|foundation-master-[ab]/);
-  assert.doesNotMatch(boot, /runtime-r24-foundation-master|foundation-master-[ab]/);
+  assert.match(runtime, /r24-foundation-master-b/);
+  assert.match(boot, /r24-foundation-master-b/);
+  assert.doesNotMatch(runtime, /r24-foundation-master-a/);
+  assert.doesNotMatch(boot, /r24-foundation-master-a/);
   assert.equal(manifest.candidates.length, 2);
   for (const candidate of manifest.candidates) {
     assert.deepEqual(candidate.dimensions, { width: 1920, height: 1080 });

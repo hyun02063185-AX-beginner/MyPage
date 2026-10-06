@@ -12,10 +12,11 @@ const required = [
   "architecture/retaining-wall.png", "architecture/main-stairs.png", "architecture/quay-edge-central.png", "architecture/quay-edge-hero.png",
 ];
 
-test("R2.1 uses transparent exact-zone assets instead of bounding-box foundation tiles", () => {
+test("R2.1 transparent exact-zone assets remain preserved as fallback after R2.4 master replacement", () => {
   const source = readFileSync(new URL("../src/scenes/CanonicalRuntimeR2Scene.ts", import.meta.url), "utf8");
   assert.doesNotMatch(source, /polygonTile|tileSprite|setCrop\(/);
-  assert.match(source, /R2\.1 uses only exact, transparent polygon-zone assets/);
+  assert.match(source, /R2_4_FOUNDATION_MASTER_B/);
+  assert.doesNotMatch(source, /r21-hall-plaza|r21-lower-plaza|r21-main-stairs/);
   for (const file of required) assert.ok(existsSync(new URL(file, assetRoot)), `${file} is required`);
   const verification = spawnSync("python", ["-c", "from PIL import Image; import sys; [(_ for _ in ()).throw(AssertionError(p)) if Image.open(p).convert('RGBA').getchannel('A').getextrema() != (0,255) else None for p in sys.argv[1:]]", ...required.map((file) => fileURLToPath(new URL(file, assetRoot)))], { encoding: "utf8" });
   assert.equal(verification.status, 0, verification.stderr || verification.stdout);

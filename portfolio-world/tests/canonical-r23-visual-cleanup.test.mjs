@@ -8,20 +8,20 @@ const generator = readFileSync(new URL("../../scripts/portfolio-world/build-r21-
 const contract = JSON.parse(readFileSync(new URL("../../data/portfolio-world/runtime-r2-contract.json", import.meta.url), "utf8"));
 const evidence = new URL("reports/portfolio-world-rebuild/evidence/runtime-r23-visual-cleanup/", root);
 
-test("R2.3 removes stamped circular tonal treatment while retaining render-only structural cleanup", () => {
+test("R2.3 cleanup remains archived while R2.4 retires its procedural structure", () => {
   assert.doesNotMatch(generator, /ellipse/i);
   assert.doesNotMatch(source, /fillEllipse|\.ellipse\(/);
-  assert.match(source, /R2_3_FOUNDATION_CLEANUP/);
-  assert.match(source, /drawR23StructuralDepth/);
+  assert.match(source, /R2_4_FOUNDATION_MASTER_B/);
+  assert.doesNotMatch(source, /drawR23StructuralDepth/);
   assert.match(source, /Coverage assets are a render-only input/);
 });
 
-test("R2.3 contract preserves R2.2 coverage and records the visual-only cleanup gate", () => {
-  assert.equal(contract.visualRevision, "R2_3_FOUNDATION_CLEANUP");
+test("R2.3 contract history preserves the unchanged geometry audit beneath R2.4", () => {
+  assert.equal(contract.visualRevision, "R2_4_FOUNDATION_MASTER_B");
   assert.equal(contract.r23.geometryRevision, "UNCHANGED");
   assert.equal(contract.r23.routes, "UNCHANGED_PASS");
   assert.equal(contract.r23.runtimeR3, "BLOCKED");
-  assert.equal(contract.gate, "READY_FOR_R2_3_HUMAN_VISUAL_GATE");
+  assert.equal(contract.gate, "READY_FOR_R2_4_RUNTIME_HUMAN_VISUAL_GATE");
 });
 
 test("R2.3 browser evidence set is complete", () => {

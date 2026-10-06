@@ -27,13 +27,14 @@ test("R2.2 coverage assets exist, name all required continuity zones, and declar
   assert.ok(water.zones.some(({ id }) => id === "outer-sea-continuity"));
 });
 
-test("R2.2 preserves canonical collision literals and uses coverage only from drawFoundation", () => {
+test("R2.2 coverage remains collision-free after R2.4 retires it from final land rendering", () => {
   // R1/R2 use different line wrapping in one historic literal; parsed vector data must stay identical.
   for (const name of ["WALKABLE", "WATER", "OBSTACLES"]) {
     assert.deepEqual(JSON.parse(literal(r2, name).replace(/,\s*\]$/, "]")), JSON.parse(literal(r1, name).replace(/,\s*\]$/, "]")), `${name} must remain semantically equivalent to R1`);
   }
   const enforcement = r2.slice(r2.indexOf("private enforceGeometry"), r2.indexOf("private updateInteraction"));
   assert.doesNotMatch(enforcement, /coverage|r22-visual|VisualCoverage/);
-  assert.match(r2, /if \(this\.r22Coverage\) \{ this\.drawVisualLandCoverage\(\); this\.drawVisualWaterCoverage\(\); \}/);
+  assert.match(r2, /this\.drawVisualWaterCoverage\(\);/);
+  assert.doesNotMatch(r2, /drawVisualLandCoverage|r22-visual-land-coverage/);
   assert.match(r2, /Coverage assets are a render-only input/);
 });
