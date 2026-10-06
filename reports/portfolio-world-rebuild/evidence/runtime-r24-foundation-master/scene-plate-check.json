@@ -1,0 +1,16 @@
+{
+  "automated": {
+    "dimensions": "PASS",
+    "transparentCanvas": "PASS",
+    "runtimeImports": "PASS (checked by test)",
+    "forbiddenAssetComposite": "PASS (pipeline allowlist contains only source art and review-only locked overlays)"
+  },
+  "manual": {
+    "noBuildings": "PASS",
+    "noShips": "PASS",
+    "noPlayer": "PASS",
+    "noSkyTownMountainsLighthouseUI": "PASS",
+    "noCompleteWaterIllustration": "PASS"
+  },
+  "note": "Capstones and structural corner piers are quay/retaining construction, not props."
+}

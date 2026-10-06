@@ -1,0 +1,85 @@
+{
+  "schema": "portfolio-world.runtime-r24-foundation-master-candidates.v1",
+  "phase": "R2.4 Phase A \u2014 candidate production only",
+  "designSpace": {
+    "width": 1920,
+    "height": 1080
+  },
+  "generation": {
+    "method": "ImageGen environment-art studies + deterministic alpha cleanup, design-space calibration, and preview compositing",
+    "collisionSource": "never",
+    "runtimeImported": false
+  },
+  "candidates": [
+    {
+      "id": "foundation-master-a",
+      "files": {
+        "base": "portfolio-world/public/assets/canonical-r2/candidates/runtime-r24-foundation-master/foundation-master-a.png",
+        "verticalStructure": "portfolio-world/public/assets/canonical-r2/candidates/runtime-r24-foundation-master/foundation-master-a-vertical-structure.png"
+      },
+      "source": "portfolio-world/art-source/runtime-r24-foundation-master/foundation-master-a-imagegen-source.png",
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "transparency": {
+        "mode": "RGBA",
+        "outsideFoundation": "transparent",
+        "alphaVerified": true
+      },
+      "calibration": {
+        "placement": "deterministic 1920\u00d71080 placement; geometry untouched",
+        "localizedWarp": "not required after source review"
+      },
+      "hashes": {
+        "baseSha256": "77ee63c5efdbef31fe585f43bca0e5c8fbce51293d425fadd4e3bc623ee75d7e",
+        "verticalStructureSha256": "4878d29b619fabb52a17c8550a6b9b530106017c672b6db3d920d1c1d7527e73"
+      },
+      "scores": {
+        "canonicalResemblance": 4,
+        "architecturalContinuity": 4,
+        "limestoneQuality": 4,
+        "hallLowerDepth": 5,
+        "quayQuality": 3,
+        "runtimeSuitability": 4,
+        "total": 24
+      }
+    },
+    {
+      "id": "foundation-master-b",
+      "files": {
+        "base": "portfolio-world/public/assets/canonical-r2/candidates/runtime-r24-foundation-master/foundation-master-b.png",
+        "verticalStructure": "portfolio-world/public/assets/canonical-r2/candidates/runtime-r24-foundation-master/foundation-master-b-vertical-structure.png"
+      },
+      "source": "portfolio-world/art-source/runtime-r24-foundation-master/foundation-master-b-imagegen-source.png",
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "transparency": {
+        "mode": "RGBA",
+        "outsideFoundation": "transparent",
+        "alphaVerified": true
+      },
+      "calibration": {
+        "placement": "deterministic 1920\u00d71080 placement; geometry untouched",
+        "localizedWarp": "not required after source review"
+      },
+      "hashes": {
+        "baseSha256": "b866a890836f83663f5431186cc8669728351fd285fad049d6a5bf224a255215",
+        "verticalStructureSha256": "598fb995ffbf40f2f705720bf9c94038e4f02cde85ae64dbabe21acddc553a06"
+      },
+      "scores": {
+        "canonicalResemblance": 4,
+        "architecturalContinuity": 5,
+        "limestoneQuality": 4,
+        "hallLowerDepth": 5,
+        "quayQuality": 5,
+        "runtimeSuitability": 4,
+        "total": 27
+      }
+    }
+  ],
+  "recommendedCandidate": "foundation-master-b",
+  "humanSelection": "PENDING"
+}
