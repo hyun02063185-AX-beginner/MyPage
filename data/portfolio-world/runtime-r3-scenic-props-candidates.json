@@ -1,0 +1,202 @@
+{
+  "schema": "portfolio-world.runtime-r3-scenic-props-candidates.v1",
+  "phase": "R3 Phase A \u2014 art direction and static composition candidates only",
+  "runtimeImported": false,
+  "generationMethod": "ImageGen source studies + deterministic alpha cleanup, crop, scale normalization, and static compositing",
+  "dimensions": {
+    "world": [
+      1920,
+      1080
+    ],
+    "player": [
+      28,
+      56
+    ]
+  },
+  "scenicCandidates": [
+    {
+      "id": "scenic-a",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/scenic/scenic-a.png",
+      "hash": "5d302059e451d2a2161ca13918e1f1839b2cf2bdcf1bb8ce65d62ee5fa742bf8",
+      "depthIntent": "L0 distant mountains/town/outer sea",
+      "collisionIntent": "none",
+      "score": {
+        "canonicalAtmosphere": 5,
+        "depth": 5,
+        "gameplaySubordination": 4,
+        "styleMatch": 4,
+        "total": 18
+      }
+    },
+    {
+      "id": "scenic-b",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/scenic/scenic-b.png",
+      "hash": "326599041695011fb13e1762ccfb565db0ad62098bbacd8ee37e070d56a41860",
+      "depthIntent": "L0 distant mountains/town/outer sea",
+      "collisionIntent": "none",
+      "score": {
+        "canonicalAtmosphere": 3,
+        "depth": 4,
+        "gameplaySubordination": 4,
+        "styleMatch": 3,
+        "total": 14
+      }
+    }
+  ],
+  "fountainCandidates": [
+    {
+      "id": "fountain-a",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/fountain-a.png",
+      "hash": "8c8a5d0e0a5f680a2e12edd382919876117093d9d1b6e3e9a835224baab2d722",
+      "scale": "168\u00d7150 candidate canvas; display target 120\u2013150px",
+      "collisionIntent": "future-small-obstacle",
+      "occlusionIntent": "grounded-prop"
+    },
+    {
+      "id": "fountain-b",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/fountain-b.png",
+      "hash": "4a6ac18d41abf518f94ee9b9ed62ee3cf095623272d23dd2fbe8f8f04f75b4b1",
+      "scale": "168\u00d7150 candidate canvas; display target 110\u2013145px",
+      "collisionIntent": "future-small-obstacle",
+      "occlusionIntent": "grounded-prop"
+    }
+  ],
+  "propFamilies": [
+    {
+      "id": "banner",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/banner.png",
+      "hash": "5944db260fb13b39bd1ee6878566ad8128fb7ed2d7b1e3382ea167acd0cea284",
+      "collisionIntent": "decorative-no-collision",
+      "occlusionIntent": "grounded-dressing"
+    },
+    {
+      "id": "barrels",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/barrels.png",
+      "hash": "a3be34f4327312c215503d11a6c98b1b46ceefefa3da7ddee38e63e6bd7a7127",
+      "collisionIntent": "decorative-no-collision",
+      "occlusionIntent": "grounded-dressing"
+    },
+    {
+      "id": "bench",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/bench.png",
+      "hash": "5e7b99229676750d764015a790981877c913352749fd54ef3594c6cd0f29e860",
+      "collisionIntent": "decorative-no-collision",
+      "occlusionIntent": "grounded-dressing"
+    },
+    {
+      "id": "bollard",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/bollard.png",
+      "hash": "9a842dd2f5583d4bf6d79b62667473ba7c7ee16cb074e75d5d518e9b6e7ee25f",
+      "collisionIntent": "future-small-obstacle",
+      "occlusionIntent": "foreground-candidate"
+    },
+    {
+      "id": "crate-stack",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/crate-stack.png",
+      "hash": "4700b148dc06480926aa0bb08ecf0ad8af85b32b4862d3c4fdbe709aec2aaaaa",
+      "collisionIntent": "decorative-no-collision",
+      "occlusionIntent": "grounded-dressing"
+    },
+    {
+      "id": "cypress-planter",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/cypress-planter.png",
+      "hash": "db1d66fc4336f20f5fa03f6d113728e5ea75688d10a3f0b6ceda92d7c790bb82",
+      "collisionIntent": "decorative-no-collision",
+      "occlusionIntent": "foreground-candidate"
+    },
+    {
+      "id": "flower-planter",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/flower-planter.png",
+      "hash": "7dd80c651bbaaa1ee07d4ed1875c3384c5bb662be9b10012e43407a3074ee203",
+      "collisionIntent": "decorative-no-collision",
+      "occlusionIntent": "foreground-candidate"
+    },
+    {
+      "id": "handcart",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/handcart.png",
+      "hash": "698e82b3585fd913197f64d79244178be586dd1fdf6340e7c5787ac3321aaf5e",
+      "collisionIntent": "decorative-no-collision",
+      "occlusionIntent": "grounded-dressing"
+    },
+    {
+      "id": "lamp",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/lamp.png",
+      "hash": "31354f2d417d607692436f795cf22b519bce2984b2eb13cbfda7106c0147938e",
+      "collisionIntent": "future-small-obstacle",
+      "occlusionIntent": "foreground-candidate"
+    },
+    {
+      "id": "mooring-rope",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/mooring-rope.png",
+      "hash": "bae4a3e6f2095c6e3b262fe1e5fda4dbd7b66c95d246eca8f2f14b9ecc9b2808",
+      "collisionIntent": "decorative-no-collision",
+      "occlusionIntent": "grounded-dressing"
+    },
+    {
+      "id": "notice-board",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/notice-board.png",
+      "hash": "690b670d74f1c896d0374ad975ccb7880f9e5d1c30d49d0a63c395dafac39671",
+      "collisionIntent": "future-small-obstacle",
+      "occlusionIntent": "grounded-dressing"
+    },
+    {
+      "id": "rope-coil",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/rope-coil.png",
+      "hash": "e520bbd21e63b268843a770a4d53156b95733ea365398138eb5c8f23d16f97c3",
+      "collisionIntent": "decorative-no-collision",
+      "occlusionIntent": "grounded-dressing"
+    },
+    {
+      "id": "urn",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/props/urn.png",
+      "hash": "4f020a97c93e5f4622dee205cafbb6ddf51177cd7d29a5542106c68d8e554650",
+      "collisionIntent": "decorative-no-collision",
+      "occlusionIntent": "grounded-dressing"
+    }
+  ],
+  "compositionCandidates": [
+    {
+      "id": "composition-a",
+      "scenic": "scenic-a",
+      "props": "rich-canonical-inspired",
+      "score": {
+        "canonicalConvergence": 5,
+        "attractiveness": 5,
+        "gameplayReadability": 3,
+        "asymmetry": 4,
+        "runtimeSuitability": 3,
+        "total": 20
+      }
+    },
+    {
+      "id": "composition-b",
+      "scenic": "scenic-b",
+      "props": "restrained-gameplay-first",
+      "score": {
+        "canonicalConvergence": 3,
+        "attractiveness": 3,
+        "gameplayReadability": 5,
+        "asymmetry": 4,
+        "runtimeSuitability": 5,
+        "total": 20
+      }
+    },
+    {
+      "id": "composition-c",
+      "scenic": "scenic-a",
+      "props": "selective-mix",
+      "score": {
+        "canonicalConvergence": 5,
+        "attractiveness": 5,
+        "gameplayReadability": 5,
+        "asymmetry": 5,
+        "runtimeSuitability": 5,
+        "total": 25
+      }
+    }
+  ],
+  "recommendedComposition": "composition-c",
+  "recommendedFountain": "fountain-b",
+  "humanSelection": "PENDING",
+  "selectionStatus": "PENDING"
+}
