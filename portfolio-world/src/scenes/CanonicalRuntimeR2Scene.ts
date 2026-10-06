@@ -3,6 +3,12 @@ import Phaser from "phaser";
 type Point = readonly [number, number];
 type Polygon = readonly Point[];
 type Anchor = Readonly<{ id: string; label: string; x: number; y: number; level: 0 | 1 }>;
+type VisualCoverage = Readonly<{
+  schema: string;
+  purpose: string;
+  collision: "none";
+  zones: ReadonlyArray<Readonly<{ id: string; material: string; polygons: ReadonlyArray<ReadonlyArray<readonly [number, number]>> }>>;
+}>;
 
 // Geometry is deliberately copied verbatim from R1. R2 changes only render layers.
 const WORLD = { width: 1920, height: 1080 } as const;
@@ -45,6 +51,8 @@ export class CanonicalRuntimeR2Scene extends Phaser.Scene {
   private lastSafe = { x: 430, y: 763 };
   private readonly params = new URLSearchParams(window.location.search);
   private readonly debug = this.params.get("debug") === "1";
+  // QA-only baseline switch for the required R2.1/R2.2 comparison capture; it never reaches collision.
+  private readonly r22Coverage = this.params.get("r22") !== "0";
 
   public constructor() { super("CanonicalRuntimeR2Scene"); }
   public create(): void {
@@ -60,9 +68,47 @@ export class CanonicalRuntimeR2Scene extends Phaser.Scene {
   }
   private points(polygon: Polygon): Phaser.Math.Vector2[] { return polygon.map(([x, y]) => new Phaser.Math.Vector2(x, y)); }
   private zone(key: string, x: number, y: number, depth: number, alpha = 1): Phaser.GameObjects.Image { return this.add.image(x, y, key).setOrigin(0, 0).setDepth(depth).setAlpha(alpha); }
+  /** Coverage assets are a render-only input. They are never supplied to enforceGeometry. */
+  private coverage(key: "r22-visual-land-coverage" | "r22-visual-water-coverage"): VisualCoverage {
+    const asset = this.cache.json.get(key) as VisualCoverage | undefined;
+    if (!asset || asset.collision !== "none") throw new Error(`Invalid R2.2 visual coverage asset: ${key}`);
+    return asset;
+  }
+  private fillCoverage(graphics: Phaser.GameObjects.Graphics, coverage: VisualCoverage, colors: Readonly<Record<string, number>>): void {
+    coverage.zones.forEach((zone) => {
+      graphics.fillStyle(colors[zone.material] ?? 0x6b8171, 1);
+      zone.polygons.forEach((polygon) => graphics.fillPoints(this.points(polygon), true));
+    });
+  }
+  private drawVisualWaterCoverage(): void {
+    const water = this.add.graphics().setDepth(4);
+    // Match the R2.1 berth material's middle tone so the underlay cannot read as a dark water gap.
+    this.fillCoverage(water, this.coverage("r22-visual-water-coverage"), { "calm-turquoise-water": 0x189ab1 });
+    // Large, low-contrast currents keep the basin continuous without becoming a busy pattern.
+    water.fillStyle(0x51a9ae, .12).fillEllipse(1470, 590, 760, 280).fillEllipse(1660, 835, 580, 270);
+    water.lineStyle(2, 0xd0e5d4, .12);
+    for (let y = 355; y < 930; y += 94) water.strokeLineShape(new Phaser.Geom.Line(1080, y, 1870, y - 12));
+  }
+  private drawVisualLandCoverage(): void {
+    // This low substrate is intentionally beneath visual water; it is a continuous harbor landmass, not a mask.
+    const land = this.add.graphics().setDepth(3);
+    this.fillCoverage(land, this.coverage("r22-visual-land-coverage"), {
+      "quiet-harbor-substrate": 0xcbbd9d,
+      "refined-limestone": 0xd9c9a7,
+      "retaining-stone": 0xb8a27f,
+      "practical-limestone": 0xc6b38d,
+      "heavy-quay-stone": 0xac9674,
+      "transition-stone": 0xbfac8a,
+    });
+    // Broad tonal patches deliberately sit below the exact zone art: quieter than landmark silhouettes.
+    land.fillStyle(0xf1e6ca, .09).fillEllipse(570, 390, 420, 135).fillEllipse(650, 765, 480, 190);
+    land.fillStyle(0x745f46, .055).fillEllipse(1080, 625, 400, 145).fillEllipse(1400, 755, 470, 180);
+  }
   private drawFoundation(): void {
     // R2.1 uses only exact, transparent polygon-zone assets.  No TileSprite bounding boxes or runtime masks.
     this.add.rectangle(960, 540, WORLD.width, WORLD.height, 0x405852).setDepth(0);
+    // R2.2 sits beneath the exact R2.1 zone assets, filling visual seams only. It has no gameplay role.
+    if (this.r22Coverage) { this.drawVisualLandCoverage(); this.drawVisualWaterCoverage(); }
     const water = [["r21-outer-water",1245,0],["r21-secondary-berth",1015,220],["r21-inner-harbor",1010,300],["r21-workboat-water",1100,445],["r21-hero-berth",1420,350]] as const;
     water.forEach(([key, x, y]) => this.waterLayers.push(this.zone(key, x, y, 10)));
     const foundation = [["r21-hall-plaza",235,235],["r21-hall-entrance",405,105],["r21-workshop-forecourt",165,635],["r21-lower-plaza",485,570],["r21-central-quay",850,465],["r21-hero-quay",1090,550],["r21-stair-entry",850,580],["r21-stair-exit",790,455],["r21-office-apron",750,700],["r21-hero-gangway",1325,610]] as const;

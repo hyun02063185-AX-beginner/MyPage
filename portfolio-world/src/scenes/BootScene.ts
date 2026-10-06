@@ -41,6 +41,10 @@ export class BootScene extends Phaser.Scene {
         "r21-central-edge": "architecture/quay-edge-central.png", "r21-hero-edge": "architecture/quay-edge-hero.png",
       };
       for (const [key, file] of Object.entries(assets)) this.load.image(key, `${base}assets/canonical-r2/${file}`);
+      // R2.2 continuity definitions are loaded as render-only data. They are deliberately
+      // separate from the canonical R1 collision vectors held by CanonicalRuntimeR2Scene.
+      this.load.json("r22-visual-land-coverage", `${base}assets/canonical-r2/visual-land-coverage.json`);
+      this.load.json("r22-visual-water-coverage", `${base}assets/canonical-r2/visual-water-coverage.json`);
       return;
     }
     // A/B/C/D remain explicit development comparison loads; normal play loads D, the Exhibition,

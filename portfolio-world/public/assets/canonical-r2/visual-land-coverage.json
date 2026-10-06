@@ -1,0 +1,57 @@
+{
+  "schema": "canonical-r2.2-visual-land-coverage",
+  "purpose": "Rendering-only land continuity coverage. This data is not collision, walkability, routing, anchor, or interaction geometry.",
+  "collision": "none",
+  "zones": [
+    {
+      "id": "harbor-continuity-substrate",
+      "material": "quiet-harbor-substrate",
+      "polygons": [[[0,0],[1245,0],[1245,180],[925,180],[925,450],[1085,610],[1220,715],[1435,705],[1510,855],[1600,1025],[1510,1080],[0,1080]]]
+    },
+    {
+      "id": "hall-upper-terrace",
+      "material": "refined-limestone",
+      "polygons": [[[105,0],[740,0],[770,170],[874,385],[802,575],[420,580],[205,475],[105,285]]]
+    },
+    {
+      "id": "hall-to-retaining-transition",
+      "material": "retaining-stone",
+      "polygons": [[[205,500],[1087,500],[1087,570],[975,570],[975,615],[850,615],[790,645],[600,655],[405,640],[205,570]]]
+    },
+    {
+      "id": "workshop-lower-ground",
+      "material": "practical-limestone",
+      "polygons": [[[120,675],[425,620],[700,665],[755,875],[565,1035],[230,995],[120,870]]]
+    },
+    {
+      "id": "central-harbor-ground",
+      "material": "practical-limestone",
+      "polygons": [[[455,595],[840,545],[1045,635],[1000,900],[745,1010],[455,880]]]
+    },
+    {
+      "id": "harbor-office-ground",
+      "material": "practical-limestone",
+      "polygons": [[[735,685],[935,685],[965,780],[760,800]]]
+    },
+    {
+      "id": "central-quay-structure",
+      "material": "heavy-quay-stone",
+      "polygons": [[[840,475],[1120,450],[1265,550],[1220,715],[945,720],[835,625]]]
+    },
+    {
+      "id": "hero-quay-structure",
+      "material": "heavy-quay-stone",
+      "polygons": [[[1075,560],[1505,535],[1685,685],[1615,945],[1270,920],[1125,730]]]
+    },
+    {
+      "id": "connecting-stone-fill-regions",
+      "material": "transition-stone",
+      "polygons": [
+        [[760,545],[930,440],[995,555],[955,625],[845,610]],
+        [[835,600],[1010,570],[1040,685],[880,735]],
+        [[940,620],[1125,555],[1160,690],[1010,725]],
+        [[1245,685],[1465,620],[1545,710],[1425,790],[1310,720]]
+      ]
+    }
+  ]
+}

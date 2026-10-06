@@ -1,0 +1,22 @@
+{
+  "schema": "canonical-r2.2-visual-water-coverage",
+  "purpose": "Continuous sheltered-harbor rendering surface behind berth art. This data is visual-only and must never be used as water collision geometry.",
+  "collision": "none",
+  "zones": [
+    {
+      "id": "sheltered-harbor-surface",
+      "material": "calm-turquoise-water",
+      "polygons": [[[925,180],[1335,180],[1450,315],[1920,270],[1920,1055],[1600,1025],[1510,855],[1435,705],[1220,715],[1085,610],[980,450]]]
+    },
+    {
+      "id": "outer-sea-continuity",
+      "material": "calm-turquoise-water",
+      "polygons": [[[1230,0],[1920,0],[1920,500],[1570,470],[1400,380]]]
+    },
+    {
+      "id": "berth-joining-water",
+      "material": "calm-turquoise-water",
+      "polygons": [[[1000,320],[1250,285],[1490,410],[1460,640],[1240,715],[1090,605]]]
+    }
+  ]
+}

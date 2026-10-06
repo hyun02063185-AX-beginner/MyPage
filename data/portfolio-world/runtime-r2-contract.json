@@ -1,5 +1,5 @@
 {
-  "status": "COMPLETE_PENDING_HUMAN_VISUAL_GATE",
+  "status": "R2_2_COMPLETE_PENDING_HUMAN_VISUAL_GATE",
   "scene": "CanonicalRuntimeR2Scene",
   "entry": "?canonical=2",
   "debug": "?canonical=2&debug=1",
@@ -16,6 +16,23 @@
   "fleet": { "hero": "hero-b", "secondary": "secondary-b", "workboat": "workboat-a" },
   "depth": { "bands": ["L0 scenic","L1 water","L2 foundation","L3 architecture","L4 support vessels","L5 actors","L6 front props","L7 hero foreground","L8 UI"], "player": "50 + ground-anchor-y / 1000" },
   "foundationRendering": { "revision": "R2_1_EXACT_TRANSPARENT_ZONE_ASSETS", "boundingBoxTileSprites": false, "collision": "R1_VECTOR_UNCHANGED", "heroForegroundCrop": false },
+  "r22": {
+    "status": "COMPLETE_PENDING_HUMAN_VISUAL_GATE",
+    "visualCoverage": ["visual-land-coverage.json", "visual-water-coverage.json"],
+    "collision": "R1_VECTOR_UNCHANGED",
+    "foundation": "QUIET_LARGE_SCALE_TONAL_VARIATION",
+    "water": "CONTINUOUS_SHELTERED_VISUAL_SURFACE",
+    "evidence": ["01-r22-overview.png","02-r22-hall-transition.png","03-r22-workshop-office.png","04-r22-central-quay.png","05-r22-hero-quay-water.png","06-r22-debug.png","07-canonical-vs-r22.png","08-r21-vs-r22.png"],
+    "final": {
+      "R2_2_VISUAL_SURFACE_CONTINUITY": "COMPLETE",
+      "COLLISION_GEOMETRY": "UNCHANGED",
+      "LAND_VISUAL_CONTINUITY": "IMPLEMENTED",
+      "WATER_VISUAL_CONTINUITY": "IMPLEMENTED",
+      "FOUNDATION_NOISE_REDUCED": "IMPLEMENTED"
+    },
+    "runtimeR3": "BLOCKED",
+    "next": "R2_2_HUMAN_VISUAL_GATE"
+  },
   "heroDecomposition": { "implemented": ["hull-main","water-contact","gangway"], "limitation": "The source remains one approved Hero-B image; R2.1 removes the duplicate foreground crop rather than reconstructing a new Hero asset." },
   "anchorSafetyRepair": { "P1": [443,785], "P4": [905,688], "P5": [670,453], "P6": [505,318], "P7": [1405,770] },
   "routes": { "A": "PASS", "B": "PASS", "C": "PASS", "D": "PASS" },
@@ -30,6 +47,6 @@
   },
   "evidence": ["01-workshop-runtime.png", "02-harbor-office-runtime.png", "03-hall-runtime.png", "04-hero-ship-runtime.png", "05-r2-overview.png", "06-r2-debug.png", "07-canonical-vs-runtime-r2.png", "08-r1-vs-r2.png"],
   "knownLimitations": ["R2.1 avoids the historic WebGL geometry-mask limitation by loading build-time exact transparent polygon assets, not by using bounded tile envelopes or a scene plate.", "Player-a is a temporary generated visual baseline, not final character approval.", "Human visual-gate approval remains outstanding."],
-  "gate": "READY_FOR_RUNTIME_R2_1_HUMAN_VISUAL_GATE",
-  "runtimeAssets": ["architecture/hall-b.png","architecture/workshop-c.png","architecture/office-b.png","architecture/retaining-wall.png","architecture/main-stairs.png","architecture/quay-edge-central.png","architecture/quay-edge-hero.png","ships/hero-b.png","ships/secondary-b.png","ships/workboat-a.png","environment/f1-premium-limestone-paving.png","environment/f2-continuous-quay-surface.png","environment/f3-quay-wall-edge.png","environment/f4-limestone-main-stairs.png","environment/f5-terrace-retaining-wall.png","environment/f6-gangway-foundation.png","environment/w1-sheltered-turquoise-water.png","foundation/hall-plaza.png","foundation/hall-entrance-apron.png","foundation/workshop-forecourt.png","foundation/lower-plaza.png","foundation/central-quay.png","foundation/hero-quay.png","foundation/stair-entry.png","foundation/stair-exit.png","foundation/harbor-office-apron.png","foundation/hero-gangway-access.png","water/inner-harbor.png","water/hero-berth.png","water/secondary-berth.png","water/workboat-water.png","water/outer-scenic-water.png","player/player-a.png"]
+  "gate": "READY_FOR_R2_2_HUMAN_VISUAL_GATE",
+  "runtimeAssets": ["architecture/hall-b.png","architecture/workshop-c.png","architecture/office-b.png","architecture/retaining-wall.png","architecture/main-stairs.png","architecture/quay-edge-central.png","architecture/quay-edge-hero.png","ships/hero-b.png","ships/secondary-b.png","ships/workboat-a.png","environment/f1-premium-limestone-paving.png","environment/f2-continuous-quay-surface.png","environment/f3-quay-wall-edge.png","environment/f4-limestone-main-stairs.png","environment/f5-terrace-retaining-wall.png","environment/f6-gangway-foundation.png","environment/w1-sheltered-turquoise-water.png","foundation/hall-plaza.png","foundation/hall-entrance-apron.png","foundation/workshop-forecourt.png","foundation/lower-plaza.png","foundation/central-quay.png","foundation/hero-quay.png","foundation/stair-entry.png","foundation/stair-exit.png","foundation/harbor-office-apron.png","foundation/hero-gangway-access.png","water/inner-harbor.png","water/hero-berth.png","water/secondary-berth.png","water/workboat-water.png","water/outer-scenic-water.png","visual-land-coverage.json","visual-water-coverage.json","player/player-a.png"]
 }

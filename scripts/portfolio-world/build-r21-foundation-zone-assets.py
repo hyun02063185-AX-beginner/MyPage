@@ -88,22 +88,29 @@ def variation(size, seed, water=False):
     return overlay
 
 def stone_material(quay=False):
-    """A non-repeating-looking 512px material with no broad decorative ovals."""
+    """R2.2's quiet, large-scale stone material; it must recede behind landmarks."""
     randomizer = random.Random(81 if quay else 43)
-    image = Image.new("RGBA", (512, 256), (191, 173, 135, 255) if quay else (219, 202, 165, 255))
+    # The material is wider than every individual R2 foundation zone, removing the
+    # visible repeat cadence of the earlier 512px pattern.
+    image = Image.new("RGBA", (1024, 640), (188, 174, 149, 255) if quay else (218, 205, 178, 255))
     draw = ImageDraw.Draw(image)
-    course = 22 if quay else 17
-    palette = ([(211, 194, 155, 255), (197, 177, 137, 255), (222, 204, 165, 255), (187, 167, 128, 255)] if quay
-               else [(232, 217, 184, 255), (222, 204, 166, 255), (213, 195, 157, 255), (239, 224, 193, 255)])
-    for y in range(-course, 270, course):
-        x = -60 + ((y // course) % 2) * (21 if quay else 13)
-        while x < 540:
-            width = randomizer.randint(42, 77) if quay else randomizer.randint(28, 53)
+    course = 42 if quay else 34
+    palette = ([(200, 187, 162, 255), (193, 179, 153, 255), (207, 193, 167, 255), (184, 170, 145, 255)] if quay
+               else [(226, 213, 186, 255), (220, 207, 180, 255), (212, 199, 172, 255), (231, 218, 191, 255)])
+    for y in range(-course, 680, course):
+        x = -90 + ((y // course) % 2) * (38 if quay else 24)
+        while x < 1060:
+            width = randomizer.randint(82, 142) if quay else randomizer.randint(64, 118)
             color = randomizer.choice(palette)
-            draw.polygon([(x + 2, y + 2), (x + width - 2, y), (x + width, y + course - 4), (x, y + course - 2)], fill=color, outline=(122, 104, 76, 85))
-            if randomizer.random() < .18:
-                draw.line((x + 7, y + course - 5, x + width - 7, y + 4), fill=(126, 106, 79, 34), width=1)
-            x += width + 2
+            draw.polygon([(x + 3, y + 3), (x + width - 3, y + 1), (x + width - 1, y + course - 4), (x + 1, y + course - 2)], fill=color)
+            # A nearly imperceptible join preserves masonry structure without dark outlining.
+            draw.line((x + 8, y + course - 3, x + width - 8, y + course - 4), fill=(113, 98, 76, 17), width=1)
+            x += width + 5
+    # Non-periodic, broad tonal shifts make plazas read as material, not a repeated tile texture.
+    for _ in range(18):
+        x, y = randomizer.randrange(-160, 1024), randomizer.randrange(-90, 640)
+        w, h = randomizer.randrange(140, 360), randomizer.randrange(55, 150)
+        draw.ellipse((x, y, x + w, y + h), fill=randomizer.choice([(255, 245, 218, 8), (110, 91, 67, 7), (245, 230, 198, 9)]))
     return image
 
 def water_material():
