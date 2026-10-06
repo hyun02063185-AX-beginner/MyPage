@@ -73,44 +73,52 @@ def variation(size, seed, water=False):
     randomizer = random.Random(seed)
     overlay = Image.new("RGBA", size)
     draw = ImageDraw.Draw(overlay)
-    count = max(6, (size[0] * size[1]) // 26000)
+    count = max(4, (size[0] * size[1]) // 42000)
     for _ in range(count):
         x = randomizer.randrange(-40, max(1, size[0]))
         y = randomizer.randrange(-24, max(1, size[1]))
-        width = randomizer.randrange(35, 130)
-        height = randomizer.randrange(8, 34)
+        width = randomizer.randrange(70, 180)
+        height = randomizer.randrange(14, 42)
         if water:
             color = randomizer.choice([(190,244,232,18), (12,92,122,20), (240,255,240,13)])
             draw.arc((x, y, x + width, y + height), 185, 352, fill=color, width=2)
         else:
-            color = randomizer.choice([(255,244,213,15), (111,85,54,12), (246,225,183,14)])
-            draw.ellipse((x, y, x + width, y + height), fill=color)
+            # Low-opacity, angular drift avoids the old stamped round-patch reading.
+            color = randomizer.choice([(255,244,213,8), (111,85,54,6), (246,225,183,8)])
+            skew = randomizer.randrange(-22, 23)
+            draw.polygon([(x, y + 6), (x + width // 3, y), (x + width, y + skew + 8), (x + width - 20, y + height), (x + 12, y + height - 5)], fill=color)
     return overlay
 
-def stone_material(quay=False):
+def stone_material(style="practical"):
     """R2.2's quiet, large-scale stone material; it must recede behind landmarks."""
-    randomizer = random.Random(81 if quay else 43)
+    quay = style in {"quay", "edge"}
+    edge = style == "edge"
+    refined = style == "refined"
+    randomizer = random.Random({"refined": 31, "practical": 43, "quay": 81, "edge": 97}[style])
     # The material is wider than every individual R2 foundation zone, removing the
     # visible repeat cadence of the earlier 512px pattern.
-    image = Image.new("RGBA", (1024, 640), (188, 174, 149, 255) if quay else (218, 205, 178, 255))
+    image = Image.new("RGBA", (1024, 640), (125, 104, 78, 255) if edge else (188, 174, 149, 255) if quay else (218, 205, 178, 255))
     draw = ImageDraw.Draw(image)
-    course = 42 if quay else 34
-    palette = ([(200, 187, 162, 255), (193, 179, 153, 255), (207, 193, 167, 255), (184, 170, 145, 255)] if quay
-               else [(226, 213, 186, 255), (220, 207, 180, 255), (212, 199, 172, 255), (231, 218, 191, 255)])
+    course = 44 if quay else (38 if refined else 36)
+    palette = ([(139, 118, 91, 255), (130, 108, 82, 255), (146, 124, 96, 255), (120, 100, 76, 255)] if edge
+               else [(200, 187, 162, 255), (193, 179, 153, 255), (207, 193, 167, 255), (184, 170, 145, 255)] if quay
+               else ([(224, 214, 193, 255), (220, 209, 187, 255), (216, 205, 183, 255), (228, 217, 196, 255)] if refined
+                     else [(225, 213, 188, 255), (220, 207, 181, 255), (215, 201, 176, 255), (228, 216, 190, 255)]))
     for y in range(-course, 680, course):
         x = -90 + ((y // course) % 2) * (38 if quay else 24)
         while x < 1060:
-            width = randomizer.randint(82, 142) if quay else randomizer.randint(64, 118)
+            width = randomizer.randint(94, 160) if quay else randomizer.randint(78, 138)
             color = randomizer.choice(palette)
             draw.polygon([(x + 3, y + 3), (x + width - 3, y + 1), (x + width - 1, y + course - 4), (x + 1, y + course - 2)], fill=color)
             # A nearly imperceptible join preserves masonry structure without dark outlining.
-            draw.line((x + 8, y + course - 3, x + width - 8, y + course - 4), fill=(113, 98, 76, 17), width=1)
-            x += width + 5
+            draw.line((x + 10, y + course - 3, x + width - 10, y + course - 4), fill=(113, 98, 76, 10), width=1)
+            x += width + 7
     # Non-periodic, broad tonal shifts make plazas read as material, not a repeated tile texture.
     for _ in range(18):
         x, y = randomizer.randrange(-160, 1024), randomizer.randrange(-90, 640)
-        w, h = randomizer.randrange(140, 360), randomizer.randrange(55, 150)
-        draw.ellipse((x, y, x + w, y + h), fill=randomizer.choice([(255, 245, 218, 8), (110, 91, 67, 7), (245, 230, 198, 9)]))
+        w, h = randomizer.randrange(180, 420), randomizer.randrange(60, 150)
+        tilt = randomizer.randrange(-45, 46)
+        draw.polygon([(x, y + h // 3), (x + w // 4, y), (x + w, y + tilt + h // 3), (x + w - 35, y + h), (x + 25, y + h - 10)], fill=randomizer.choice([(255, 245, 218, 6), (110, 91, 67, 5), (245, 230, 198, 7)]))
     return image
 
 def water_material():
@@ -126,7 +134,8 @@ def water_material():
         draw.arc((x, y, x + width, y + randomizer.randrange(5, 11)), 188, 348, fill=(177, 228, 220, 88), width=1)
     for _ in range(18):
         x, y = randomizer.randrange(0, 490), randomizer.randrange(0, 250)
-        draw.ellipse((x, y, x + randomizer.randrange(10, 28), y + randomizer.randrange(2, 6)), fill=(118, 207, 207, 30))
+        width = randomizer.randrange(10, 28)
+        draw.polygon([(x, y + 2), (x + width // 3, y), (x + width, y + 2), (x + width - 4, y + 4), (x + 3, y + 4)], fill=(118, 207, 207, 24))
     return image
 
 def build_zone(name, polygons, material, output_dir, seed, water=False):
@@ -147,17 +156,18 @@ def main():
     # F1/F2/W1 establish the approved material family. The derived zone material
     # keeps their limestone/turquoise palette while omitting their old broad oval
     # overlays, which became visible when repeated across exact polygon assets.
-    paving = stone_material()
-    quay = stone_material(quay=True)
+    paving = stone_material("practical")
+    refined = stone_material("refined")
+    quay = stone_material("quay")
     water = water_material()
     # Architecture zones likewise receive opaque material inside their vector
     # silhouette; forcing alpha on the old cutout source tiles created black holes.
-    wall = stone_material(quay=True)
-    stairs = stone_material()
-    edge = stone_material(quay=True)
+    wall = stone_material("quay")
+    stairs = stone_material("refined")
+    edge = stone_material("edge")
     zones = {"foundation": {}, "water": {}, "architecture": {}}
     for name, polygon in WALKABLE.items():
-        material = quay if name in {"central-quay", "hero-quay", "hero-gangway-access"} else paving
+        material = quay if name in {"central-quay", "hero-quay", "hero-gangway-access"} else refined if name in {"hall-plaza", "hall-entrance-apron", "stair-entry", "stair-exit"} else paving
         zones["foundation"][name] = build_zone(name, [polygon], material, OUT_FOUNDATION, 210 + len(name))
     for name, polygon in WATER.items():
         zones["water"][name] = build_zone(name, [polygon], water, OUT_WATER, 610 + len(name), water=True)

@@ -53,6 +53,7 @@ export class CanonicalRuntimeR2Scene extends Phaser.Scene {
   private readonly debug = this.params.get("debug") === "1";
   // QA-only baseline switch for the required R2.1/R2.2 comparison capture; it never reaches collision.
   private readonly r22Coverage = this.params.get("r22") !== "0";
+  private readonly visualRevision = "R2_3_FOUNDATION_CLEANUP";
 
   public constructor() { super("CanonicalRuntimeR2Scene"); }
   public create(): void {
@@ -85,7 +86,8 @@ export class CanonicalRuntimeR2Scene extends Phaser.Scene {
     // Match the R2.1 berth material's middle tone so the underlay cannot read as a dark water gap.
     this.fillCoverage(water, this.coverage("r22-visual-water-coverage"), { "calm-turquoise-water": 0x189ab1 });
     // Large, low-contrast currents keep the basin continuous without becoming a busy pattern.
-    water.fillStyle(0x51a9ae, .12).fillEllipse(1470, 590, 760, 280).fillEllipse(1660, 835, 580, 270);
+    water.fillStyle(0x51a9ae, .09).fillPoints(this.points([[1100,480],[1580,435],[1815,560],[1690,690],[1260,675]]), true);
+    water.fillStyle(0x51a9ae, .07).fillPoints(this.points([[1340,700],[1790,665],[1900,840],[1680,970],[1450,900]]), true);
     water.lineStyle(2, 0xd0e5d4, .12);
     for (let y = 355; y < 930; y += 94) water.strokeLineShape(new Phaser.Geom.Line(1080, y, 1870, y - 12));
   }
@@ -100,9 +102,35 @@ export class CanonicalRuntimeR2Scene extends Phaser.Scene {
       "heavy-quay-stone": 0xac9674,
       "transition-stone": 0xbfac8a,
     });
-    // Broad tonal patches deliberately sit below the exact zone art: quieter than landmark silhouettes.
-    land.fillStyle(0xf1e6ca, .09).fillEllipse(570, 390, 420, 135).fillEllipse(650, 765, 480, 190);
-    land.fillStyle(0x745f46, .055).fillEllipse(1080, 625, 400, 145).fillEllipse(1400, 755, 470, 180);
+    // Low-opacity, irregular tonal drift replaces the former circular placeholder-like patches.
+    land.fillStyle(0xf1e6ca, .055).fillPoints(this.points([[285,330],[640,290],[760,380],[670,450],[360,435]]), true);
+    land.fillStyle(0xf1e6ca, .045).fillPoints(this.points([[245,735],[565,670],[790,750],[650,850],[315,835]]), true);
+    land.fillStyle(0x745f46, .035).fillPoints(this.points([[875,565],[1160,535],[1260,620],[1050,690],[900,655]]), true);
+    land.fillStyle(0x745f46, .03).fillPoints(this.points([[1190,710],[1510,650],[1605,760],[1440,845],[1260,810]]), true);
+  }
+  /** R2.3's structural reading pass; all coordinates are visual-only overlays on the locked R2.2 coverage. */
+  private drawR23StructuralDepth(): void {
+    const structure = this.add.graphics().setDepth(28);
+    // Retaining wall: cap, shaded face, and an intentional stair aperture make the terrace height legible.
+    structure.fillStyle(0x9b8464, .9).fillPoints(this.points([[235,510],[790,510],[790,568],[235,568]]), true);
+    structure.fillStyle(0xd0bc95, .72).fillPoints(this.points([[235,503],[790,503],[790,514],[235,514]]), true);
+    structure.fillStyle(0x5f4e3d, .16).fillPoints(this.points([[235,557],[790,557],[790,568],[235,568]]), true);
+    structure.fillStyle(0x9b8464, .9).fillPoints(this.points([[975,510],[1085,510],[1085,568],[975,568]]), true);
+    structure.fillStyle(0xd0bc95, .72).fillPoints(this.points([[975,503],[1085,503],[1085,514],[975,514]]), true);
+    structure.fillStyle(0x5f4e3d, .16).fillPoints(this.points([[975,557],[1085,557],[1085,568],[975,568]]), true);
+    // Main stair: restrained risers and two side reveals, terminating in the lower landing rather than floating.
+    structure.lineStyle(2, 0x725e47, .3);
+    for (let step = 0; step < 6; step += 1) structure.strokeLineShape(new Phaser.Geom.Line(806 + step * 14, 484 + step * 30, 952 - step * 8, 475 + step * 29));
+    structure.lineStyle(4, 0x755f47, .35).strokeLineShape(new Phaser.Geom.Line(793,472,850,620)).strokeLineShape(new Phaser.Geom.Line(930,459,1007,678));
+    structure.fillStyle(0x42362c, .12).fillPoints(this.points([[845,676],[1020,676],[1004,695],[862,705]]), true);
+    // Central Quay: cap lip → vertical face → soft water-side underside shadow.
+    structure.lineStyle(3, 0xc1aa80, .28).strokeLineShape(new Phaser.Geom.Line(1010,342,1243,309)).strokeLineShape(new Phaser.Geom.Line(1243,309,1468,428));
+    structure.fillStyle(0x796249, .34).fillPoints(this.points([[1013,349],[1242,316],[1467,435],[1467,446],[1240,327],[1020,360]]), true);
+    structure.fillStyle(0x244f5d, .1).fillPoints(this.points([[1020,360],[1240,327],[1467,446],[1457,454],[1238,338],[1028,369]]), true);
+    // Hero Quay carries the same construction family, strengthened just enough to anchor Hero-B.
+    structure.lineStyle(3, 0xc1aa80, .25).strokeLineShape(new Phaser.Geom.Line(1420,438,1918,358));
+    structure.fillStyle(0x756049, .34).fillPoints(this.points([[1425,465],[1920,385],[1920,398],[1432,478]]), true);
+    structure.fillStyle(0x244f5d, .1).fillPoints(this.points([[1432,478],[1920,398],[1920,407],[1440,487]]), true);
   }
   private drawFoundation(): void {
     // R2.1 uses only exact, transparent polygon-zone assets.  No TileSprite bounding boxes or runtime masks.
@@ -114,11 +142,13 @@ export class CanonicalRuntimeR2Scene extends Phaser.Scene {
     const foundation = [["r21-hall-plaza",235,235],["r21-hall-entrance",405,105],["r21-workshop-forecourt",165,635],["r21-lower-plaza",485,570],["r21-central-quay",850,465],["r21-hero-quay",1090,550],["r21-stair-entry",850,580],["r21-stair-exit",790,455],["r21-office-apron",750,700],["r21-hero-gangway",1325,610]] as const;
     foundation.forEach(([key, x, y]) => this.zone(key, x, y, 20));
     this.zone("r21-retaining-wall",235,505,24); this.zone("r21-main-stairs",790,455,26);
-    this.zone("r21-central-edge",1005,300,27); this.zone("r21-hero-edge",1415,349,27);
+    // Exact R2.1 silhouette assets remain; their face treatment is softened so R2.3's depth pass, not a hard strip, carries the reading.
+    this.zone("r21-central-edge",1005,300,27).setAlpha(.56); this.zone("r21-hero-edge",1415,349,27).setAlpha(.56);
     this.zone("r2-gangway",1335,607,28).setDisplaySize(190,112);
+    this.drawR23StructuralDepth();
   }
-  private contactShadow(x: number, y: number, w: number, h: number, alpha: number, depth: number): void { this.add.ellipse(x, y, w, h, 0x263a35, alpha).setDepth(depth); }
-  private waterContact(x: number, y: number, w: number, h: number, depth: number): void { this.add.ellipse(x, y, w, h, 0x176f7e, .34).setDepth(depth); }
+  private contactShadow(x: number, y: number, w: number, h: number, alpha: number, depth: number): void { const shadow=this.add.graphics().setDepth(depth); shadow.fillStyle(0x263a35,alpha).fillRoundedRect(x-w/2,y-h/2,w,h,Math.min(5,h/2)); }
+  private waterContact(x: number, y: number, w: number, h: number, depth: number): void { const contact=this.add.graphics().setDepth(depth); contact.fillStyle(0x176f7e,.2).fillRoundedRect(x-w/2,y-h/2,w,h,Math.min(5,h/2)); contact.lineStyle(1,0xa8d3cf,.22).strokeLineShape(new Phaser.Geom.Line(x-w*.32,y+h*.15,x+w*.28,y+h*.15)); }
   private drawLandmarks(): void {
     const place = (key: string, x: number, y: number, w: number, h: number, depth: number) => this.add.image(x, y, key).setOrigin(0, 0).setDisplaySize(w, h).setDepth(depth);
     this.contactShadow(442, 315, 290, 18, .16, 29); place("r2-hall", 135, 0, 605, 320, 30);
