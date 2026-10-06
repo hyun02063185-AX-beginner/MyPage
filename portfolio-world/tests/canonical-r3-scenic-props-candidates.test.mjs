@@ -17,7 +17,7 @@ test("R3 Phase A candidates are static-only and preserve the selected R2.4 found
   assert.equal(manifest.selectionStatus, "PENDING");
   assert.equal(manifest.recommendedComposition, "composition-c");
   assert.equal(manifest.recommendedFountain, "fountain-b");
-  assert.equal(manifest.scenicCandidates.length, 2);
+  assert.ok(manifest.scenicCandidates.length >= 2);
   assert.equal(manifest.compositionCandidates.length, 3);
   assert.doesNotMatch(runtime, /canonical-r3|scenic-a|scenic-b|fountain-[ab]/);
   assert.doesNotMatch(boot, /canonical-r3|scenic-a|scenic-b|fountain-[ab]/);

@@ -1,6 +1,6 @@
 {
   "schema": "portfolio-world.runtime-r3-scenic-props-candidates.v1",
-  "phase": "R3 Phase A \u2014 art direction and static composition candidates only",
+  "phase": "R3 Phase A.1 \u2014 selected Scenic A bounded correction and static Composition C.1 preview only",
   "runtimeImported": false,
   "generationMethod": "ImageGen source studies + deterministic alpha cleanup, crop, scale normalization, and static compositing",
   "dimensions": {
@@ -40,6 +40,21 @@
         "gameplaySubordination": 4,
         "styleMatch": 3,
         "total": 14
+      }
+    },
+    {
+      "id": "scenic-a-corrected",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/scenic/scenic-a-corrected.png",
+      "hash": "8cc0d429fdd2dbd991def790ff6e84113435e40d70c94eac30d332686f529981",
+      "source": "scenic-a + ImageGen bounded correction + deterministic color/alpha normalization",
+      "depthIntent": "L0 pale sky / distant mountains / hillside town / cliffs / outer sea",
+      "collisionIntent": "none",
+      "score": {
+        "canonicalAtmosphere": 5,
+        "depth": 5,
+        "gameplaySubordination": 5,
+        "styleMatch": 5,
+        "total": 20
       }
     }
   ],
@@ -198,5 +213,11 @@
   "recommendedComposition": "composition-c",
   "recommendedFountain": "fountain-b",
   "humanSelection": "PENDING",
-  "selectionStatus": "PENDING"
+  "selectionStatus": "PENDING",
+  "selectedScenic": "scenic-a-corrected",
+  "selectedPropComposition": "composition-c-selective-mix",
+  "selectedFountain": "fountain-b",
+  "correctedComposition": "composition-c1",
+  "humanDirectionApproval": true,
+  "finalHumanSelection": "PENDING"
 }
