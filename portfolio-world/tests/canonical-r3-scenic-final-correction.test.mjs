@@ -11,17 +11,17 @@ const boot = new URL("../src/scenes/BootScene.ts", import.meta.url);
 const evidence = new URL("reports/portfolio-world-rebuild/evidence/runtime-r3-scenic-final-correction/", root);
 const hash = (path) => createHash("sha256").update(readFileSync(path)).digest("hex");
 
-test("R3 Phase A.2 final scenic stays static and preserves locked runtime assets", () => {
-  assert.equal(manifest.runtimeImported, false);
+test("R3 Phase B retains the final scenic provenance and preserves locked R2 assets", () => {
+  assert.equal(manifest.runtimeImported, true);
   assert.equal(manifest.selectedScenic, "scenic-a-final");
   assert.equal(manifest.selectedPropComposition, "composition-c-selective-mix");
   assert.equal(manifest.selectedFountain, "fountain-b");
   assert.ok(["composition-c2", "composition-c3"].includes(manifest.correctedComposition));
   assert.equal(manifest.scenicTownStatus, "COMPLETE");
   assert.ok(["COMPLETE", "PASS"].includes(manifest.waterTransitionStatus));
-  assert.equal(manifest.finalHumanSelection, "PENDING");
+  assert.equal(manifest.finalHumanSelection, "composition-c3");
   assert.equal(hash(runtime), "209cfcbf355d96617fb6aaabb28c7a9fd6dec098c5777aa7a8cd27c181130dec");
-  assert.equal(hash(boot), "6b968448dcb5aa005de046fb18bc15741b1989f40f5e517b4a0ce8c218535bab");
+  assert.match(readFileSync(boot, "utf8"), /CanonicalRuntimeR3Scene/);
   const base = r24Manifest.candidates.find(({ id }) => id === "foundation-master-b");
   assert.equal(hash(new URL(`../../${base.files.base}`, import.meta.url)), base.hashes.baseSha256);
   const fountain = manifest.fountainCandidates.find(({ id }) => id === "fountain-b");

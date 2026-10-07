@@ -11,22 +11,23 @@ const boot = readFileSync(new URL("../src/scenes/BootScene.ts", import.meta.url)
 const evidence = new URL("reports/portfolio-world-rebuild/evidence/runtime-r3-scenic-props-candidates/", root);
 const hash = (path) => createHash("sha256").update(readFileSync(path)).digest("hex");
 
-test("R3 Phase A candidates are static-only and preserve the selected R2.4 foundation", () => {
-  assert.equal(manifest.runtimeImported, false);
-  assert.equal(manifest.humanSelection, "PENDING");
-  assert.equal(manifest.selectionStatus, "PENDING");
+test("R3 Phase B promotes the approved candidate selection while preserving the selected R2.4 foundation", () => {
+  assert.equal(manifest.runtimeImported, true);
+  assert.equal(manifest.humanSelection, "composition-c3");
+  assert.equal(manifest.selectionStatus, "APPROVED");
   assert.equal(manifest.recommendedComposition, "composition-c");
   assert.equal(manifest.recommendedFountain, "fountain-b");
   assert.ok(manifest.scenicCandidates.length >= 2);
   assert.equal(manifest.compositionCandidates.length, 3);
-  assert.doesNotMatch(runtime, /canonical-r3|scenic-a|scenic-b|fountain-[ab]/);
-  assert.doesNotMatch(boot, /canonical-r3|scenic-a|scenic-b|fountain-[ab]/);
+  assert.match(boot, /assets\/canonical-r3\/runtime\/\$\{file\}/);
+  assert.match(boot, /"r3-scenic-a-final": "scenic\/scenic-a-final\.png"/);
+  assert.match(boot, /"r3-fountain-b": "props\/fountain-b\.png"/);
   const base = r24Manifest.candidates.find(({ id }) => id === "foundation-master-b");
   const source = new URL(`../../${base.files.base}`, import.meta.url);
   assert.equal(hash(source), base.hashes.baseSha256, "Foundation Master B must be unchanged");
 });
 
-test("R3 Phase A candidate assets and evidence are complete", () => {
+test("R3 source candidates and historic selection evidence remain complete", () => {
   for (const scenic of manifest.scenicCandidates) assert.ok(existsSync(new URL(`../../${scenic.file}`, import.meta.url)), scenic.id);
   for (const prop of [...manifest.propFamilies, ...manifest.fountainCandidates]) assert.ok(existsSync(new URL(`../../${prop.file}`, import.meta.url)), prop.id);
   for (const name of [

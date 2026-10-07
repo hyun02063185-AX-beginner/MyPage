@@ -11,18 +11,18 @@ const boot = new URL("../src/scenes/BootScene.ts", import.meta.url);
 const evidence = new URL("reports/portfolio-world-rebuild/evidence/runtime-r3-scenic-props-correction/", root);
 const hash = (path) => createHash("sha256").update(readFileSync(path)).digest("hex");
 
-test("R3 Phase A.1 remains a selected static preview and leaves the R2.4 runtime intact", () => {
-  assert.equal(manifest.runtimeImported, false);
+test("R3 Phase B preserves the R2.4 runtime while retaining the approved correction provenance", () => {
+  assert.equal(manifest.runtimeImported, true);
   assert.ok(manifest.scenicCandidates.some(({ id }) => id === "scenic-a-corrected"));
   assert.equal(manifest.selectedPropComposition, "composition-c-selective-mix");
   assert.equal(manifest.selectedFountain, "fountain-b");
   assert.ok(["composition-c1", "composition-c2", "composition-c3"].includes(manifest.correctedComposition));
   assert.equal(manifest.humanDirectionApproval, true);
-  assert.equal(manifest.finalHumanSelection, "PENDING");
+  assert.equal(manifest.finalHumanSelection, "composition-c3");
   assert.equal(hash(runtime), "209cfcbf355d96617fb6aaabb28c7a9fd6dec098c5777aa7a8cd27c181130dec");
-  assert.equal(hash(boot), "6b968448dcb5aa005de046fb18bc15741b1989f40f5e517b4a0ce8c218535bab");
+  assert.match(readFileSync(boot, "utf8"), /CanonicalRuntimeR3Scene/);
   assert.doesNotMatch(readFileSync(runtime, "utf8"), /canonical-r3|scenic-a-corrected|fountain-b/);
-  assert.doesNotMatch(readFileSync(boot, "utf8"), /canonical-r3|scenic-a-corrected|fountain-b/);
+  assert.match(readFileSync(boot, "utf8"), /"r3-fountain-b": "props\/fountain-b\.png"/);
   const base = r24Manifest.candidates.find(({ id }) => id === "foundation-master-b");
   assert.equal(hash(new URL(`../../${base.files.base}`, import.meta.url)), base.hashes.baseSha256);
 });

@@ -1,7 +1,7 @@
 {
   "schema": "portfolio-world.runtime-r3-scenic-props-candidates.v1",
-  "phase": "R3 Phase A.3 \u2014 final static compositing fix only",
-  "runtimeImported": false,
+  "phase": "R3 Phase B \u2014 actual runtime integration",
+  "runtimeImported": true,
   "generationMethod": "ImageGen source studies + deterministic alpha cleanup, crop, scale normalization, and static compositing",
   "dimensions": {
     "world": [
@@ -227,14 +227,14 @@
   ],
   "recommendedComposition": "composition-c",
   "recommendedFountain": "fountain-b",
-  "humanSelection": "PENDING",
-  "selectionStatus": "PENDING",
+  "humanSelection": "composition-c3",
+  "selectionStatus": "APPROVED",
   "selectedScenic": "scenic-a-final",
   "selectedPropComposition": "composition-c-selective-mix",
   "selectedFountain": "fountain-b",
   "correctedComposition": "composition-c3",
   "humanDirectionApproval": true,
-  "finalHumanSelection": "PENDING",
+  "finalHumanSelection": "composition-c3",
   "scenicTownStatus": "COMPLETE",
   "waterTransitionStatus": "PASS",
   "fountainGrounding": "PASS",
@@ -244,5 +244,11 @@
     "hash": "c1b5e14ca490f02b598867911bf5800b85c055813f1f8136921c0ce292e1ae1d",
     "collisionIntent": "none",
     "runtimeImported": false
+  },
+  "runtimeIntegration": "COMPLETE_PENDING_HUMAN_GATE",
+  "runtimeAssets": {
+    "root": "portfolio-world/public/assets/canonical-r3/runtime/",
+    "scenic": ["scenic/scenic-a-final.png"],
+    "props": ["props/fountain-b.png", "props/flower-planter.png", "props/cypress-planter.png", "props/bench.png", "props/lamp.png", "props/banner.png", "props/crate-stack.png", "props/barrels.png", "props/notice-board.png", "props/bollard.png", "props/rope-coil.png", "props/mooring-rope.png"]
   }
 }

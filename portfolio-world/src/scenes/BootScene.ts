@@ -21,7 +21,7 @@ export class BootScene extends Phaser.Scene {
       }
       return;
     }
-    if (canonical === "2") {
+    if (canonical === "2" || canonical === "3") {
       const base = import.meta.env.BASE_URL;
       const assets: Record<string, string> = {
         "r2-hall": "architecture/hall-b.png", "r2-workshop": "architecture/workshop-c.png", "r2-office": "architecture/office-b.png",
@@ -33,6 +33,16 @@ export class BootScene extends Phaser.Scene {
         "r24-foundation-master-b-vertical": "candidates/runtime-r24-foundation-master/foundation-master-b-vertical-structure.png",
       };
       for (const [key, file] of Object.entries(assets)) this.load.image(key, `${base}assets/canonical-r2/${file}`);
+      if (canonical === "3") {
+        const r3Assets: Record<string, string> = {
+          "r3-scenic-a-final": "scenic/scenic-a-final.png", "r3-fountain-b": "props/fountain-b.png",
+          "r3-flower-planter": "props/flower-planter.png", "r3-cypress-planter": "props/cypress-planter.png",
+          "r3-bench": "props/bench.png", "r3-lamp": "props/lamp.png", "r3-banner": "props/banner.png",
+          "r3-crate-stack": "props/crate-stack.png", "r3-barrels": "props/barrels.png", "r3-notice-board": "props/notice-board.png",
+          "r3-bollard": "props/bollard.png", "r3-rope-coil": "props/rope-coil.png", "r3-mooring-rope": "props/mooring-rope.png",
+        };
+        for (const [key, file] of Object.entries(r3Assets)) this.load.image(key, `${base}assets/canonical-r3/runtime/${file}`);
+      }
       // Water continuity remains a render-only data input, separate from R1 collision vectors.
       this.load.json("r22-visual-water-coverage", `${base}assets/canonical-r2/visual-water-coverage.json`);
       return;
@@ -84,6 +94,6 @@ export class BootScene extends Phaser.Scene {
 
   public create(): void {
     const canonical = new URLSearchParams(window.location.search).get("canonical");
-    this.scene.start(canonical === "1" ? "CanonicalRuntimeR1Scene" : canonical === "2" ? "CanonicalRuntimeR2Scene" : "WorldScene");
+    this.scene.start(canonical === "1" ? "CanonicalRuntimeR1Scene" : canonical === "2" ? "CanonicalRuntimeR2Scene" : canonical === "3" ? "CanonicalRuntimeR3Scene" : "WorldScene");
   }
 }

@@ -11,8 +11,8 @@ const boot = new URL("../src/scenes/BootScene.ts", import.meta.url);
 const evidence = new URL("reports/portfolio-world-rebuild/evidence/runtime-r3-final-compositing-fix/", root);
 const hash = (path) => createHash("sha256").update(readFileSync(path)).digest("hex");
 
-test("R3 Phase A.3 is a static-only compositing fix that preserves all locked assets", () => {
-  assert.equal(manifest.runtimeImported, false);
+test("R3 Phase B retains approved C3 provenance while preserving all locked source assets", () => {
+  assert.equal(manifest.runtimeImported, true);
   assert.equal(manifest.selectedScenic, "scenic-a-final");
   assert.equal(manifest.selectedPropComposition, "composition-c-selective-mix");
   assert.equal(manifest.selectedFountain, "fountain-b");
@@ -20,9 +20,9 @@ test("R3 Phase A.3 is a static-only compositing fix that preserves all locked as
   assert.equal(manifest.fountainGrounding, "PASS");
   assert.equal(manifest.waterTransitionStatus, "PASS");
   assert.equal(manifest.scenicCoverageStatus, "PASS");
-  assert.equal(manifest.finalHumanSelection, "PENDING");
+  assert.equal(manifest.finalHumanSelection, "composition-c3");
   assert.equal(hash(runtime), "209cfcbf355d96617fb6aaabb28c7a9fd6dec098c5777aa7a8cd27c181130dec");
-  assert.equal(hash(boot), "6b968448dcb5aa005de046fb18bc15741b1989f40f5e517b4a0ce8c218535bab");
+  assert.match(readFileSync(boot, "utf8"), /CanonicalRuntimeR3Scene/);
   const base = r24Manifest.candidates.find(({ id }) => id === "foundation-master-b");
   assert.equal(hash(new URL(`../../${base.files.base}`, import.meta.url)), base.hashes.baseSha256);
   const fountain = manifest.fountainCandidates.find(({ id }) => id === "fountain-b");
@@ -34,7 +34,7 @@ test("R3 Phase A.3 is a static-only compositing fix that preserves all locked as
 test("R3 Phase A.3 compositing asset and human-gate evidence exist without collision intent", () => {
   const asset = manifest.finalCompositingAsset;
   assert.equal(asset.collisionIntent, "none");
-  assert.equal(asset.runtimeImported, false);
+  assert.equal(asset.runtimeImported, false, "static composite is provenance only, never a runtime scene plate");
   assert.equal(hash(new URL(`../../${asset.file}`, import.meta.url)), asset.hash);
   for (const name of [
     "01-fountain-before-after.png", "02-fountain-grounding-closeup.png", "03-water-blend-before-after.png",
