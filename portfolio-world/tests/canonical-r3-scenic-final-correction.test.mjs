@@ -8,33 +8,33 @@ const manifest = JSON.parse(readFileSync(new URL("../../data/portfolio-world/run
 const r24Manifest = JSON.parse(readFileSync(new URL("../../data/portfolio-world/runtime-r24-foundation-master-candidates.json", import.meta.url), "utf8"));
 const runtime = new URL("../src/scenes/CanonicalRuntimeR2Scene.ts", import.meta.url);
 const boot = new URL("../src/scenes/BootScene.ts", import.meta.url);
-const evidence = new URL("reports/portfolio-world-rebuild/evidence/runtime-r3-scenic-props-correction/", root);
+const evidence = new URL("reports/portfolio-world-rebuild/evidence/runtime-r3-scenic-final-correction/", root);
 const hash = (path) => createHash("sha256").update(readFileSync(path)).digest("hex");
 
-test("R3 Phase A.1 remains a selected static preview and leaves the R2.4 runtime intact", () => {
+test("R3 Phase A.2 final scenic stays static and preserves locked runtime assets", () => {
   assert.equal(manifest.runtimeImported, false);
-  assert.ok(manifest.scenicCandidates.some(({ id }) => id === "scenic-a-corrected"));
+  assert.equal(manifest.selectedScenic, "scenic-a-final");
   assert.equal(manifest.selectedPropComposition, "composition-c-selective-mix");
   assert.equal(manifest.selectedFountain, "fountain-b");
-  assert.ok(["composition-c1", "composition-c2"].includes(manifest.correctedComposition));
-  assert.equal(manifest.humanDirectionApproval, true);
+  assert.equal(manifest.correctedComposition, "composition-c2");
+  assert.equal(manifest.scenicTownStatus, "COMPLETE");
+  assert.equal(manifest.waterTransitionStatus, "COMPLETE");
   assert.equal(manifest.finalHumanSelection, "PENDING");
   assert.equal(hash(runtime), "209cfcbf355d96617fb6aaabb28c7a9fd6dec098c5777aa7a8cd27c181130dec");
   assert.equal(hash(boot), "6b968448dcb5aa005de046fb18bc15741b1989f40f5e517b4a0ce8c218535bab");
-  assert.doesNotMatch(readFileSync(runtime, "utf8"), /canonical-r3|scenic-a-corrected|fountain-b/);
-  assert.doesNotMatch(readFileSync(boot, "utf8"), /canonical-r3|scenic-a-corrected|fountain-b/);
   const base = r24Manifest.candidates.find(({ id }) => id === "foundation-master-b");
   assert.equal(hash(new URL(`../../${base.files.base}`, import.meta.url)), base.hashes.baseSha256);
+  const fountain = manifest.fountainCandidates.find(({ id }) => id === "fountain-b");
+  assert.equal(fountain.hash, "4a6ac18d41abf518f94ee9b9ed62ee3cf095623272d23dd2fbe8f8f04f75b4b1");
 });
 
-test("R3 Phase A.1 corrected scenic source and human-gate evidence are complete", () => {
-  const scenic = manifest.scenicCandidates.find(({ id }) => id === "scenic-a-corrected");
+test("R3 Phase A.2 final scenic and complete Human Gate evidence exist", () => {
+  const scenic = manifest.scenicCandidates.find(({ id }) => id === "scenic-a-final");
   assert.ok(scenic);
   assert.equal(scenic.collisionIntent, "none");
   assert.ok(existsSync(new URL(`../../${scenic.file}`, import.meta.url)));
   for (const name of [
-    "01-scenic-a-original.png", "02-scenic-a-corrected.png", "03-scenic-before-after.png",
-    "04-fountain-placement-review.png", "05-composition-c1-corrected.png", "06-canonical-vs-c1.png",
-    "07-c1-route-legibility.png",
+    "01-town-before.png", "02-town-after.png", "03-water-transition-before.png", "04-water-transition-after.png",
+    "05-composition-c2-final.png", "06-canonical-vs-c2.png", "07-c1-vs-c2.png", "08-c2-route-legibility.png",
   ]) assert.ok(existsSync(new URL(name, evidence)), `${name} is required`);
 });

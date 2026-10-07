@@ -1,6 +1,6 @@
 {
   "schema": "portfolio-world.runtime-r3-scenic-props-candidates.v1",
-  "phase": "R3 Phase A.1 \u2014 selected Scenic A bounded correction and static Composition C.1 preview only",
+  "phase": "R3 Phase A.2 \u2014 selected Scenic A final town and sea-to-harbor static correction only",
   "runtimeImported": false,
   "generationMethod": "ImageGen source studies + deterministic alpha cleanup, crop, scale normalization, and static compositing",
   "dimensions": {
@@ -48,6 +48,21 @@
       "hash": "8cc0d429fdd2dbd991def790ff6e84113435e40d70c94eac30d332686f529981",
       "source": "scenic-a + ImageGen bounded correction + deterministic color/alpha normalization",
       "depthIntent": "L0 pale sky / distant mountains / hillside town / cliffs / outer sea",
+      "collisionIntent": "none",
+      "score": {
+        "canonicalAtmosphere": 5,
+        "depth": 5,
+        "gameplaySubordination": 5,
+        "styleMatch": 5,
+        "total": 20
+      }
+    },
+    {
+      "id": "scenic-a-final",
+      "file": "portfolio-world/public/assets/canonical-r3/candidates/scenic/scenic-a-final.png",
+      "hash": "dee06c67a1f012713f1f56672fb0c48ecb1c4030d931897a1aff7409a5506d25",
+      "source": "scenic-a-corrected + ImageGen bounded town completion + deterministic alpha feather / water bridge preview",
+      "depthIntent": "L0 bright sky / blue-gray mountains / subdued hillside town / limestone cliffs / outer sea",
       "collisionIntent": "none",
       "score": {
         "canonicalAtmosphere": 5,
@@ -214,10 +229,12 @@
   "recommendedFountain": "fountain-b",
   "humanSelection": "PENDING",
   "selectionStatus": "PENDING",
-  "selectedScenic": "scenic-a-corrected",
+  "selectedScenic": "scenic-a-final",
   "selectedPropComposition": "composition-c-selective-mix",
   "selectedFountain": "fountain-b",
-  "correctedComposition": "composition-c1",
+  "correctedComposition": "composition-c2",
   "humanDirectionApproval": true,
-  "finalHumanSelection": "PENDING"
+  "finalHumanSelection": "PENDING",
+  "scenicTownStatus": "COMPLETE",
+  "waterTransitionStatus": "COMPLETE"
 }
