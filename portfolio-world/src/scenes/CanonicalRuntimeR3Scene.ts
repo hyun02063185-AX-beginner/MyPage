@@ -3,12 +3,6 @@ import Phaser from "phaser";
 type Point = readonly [number, number];
 type Polygon = readonly Point[];
 type Anchor = Readonly<{ id: string; label: string; x: number; y: number; level: 0 | 1 }>;
-type VisualCoverage = Readonly<{
-  schema: string;
-  purpose: string;
-  collision: "none";
-  zones: ReadonlyArray<Readonly<{ id: string; material: string; polygons: ReadonlyArray<ReadonlyArray<readonly [number, number]>> }>>;
-}>;
 
 // Geometry is deliberately copied verbatim from R1. R2 changes only render layers.
 const WORLD = { width: 1920, height: 1080 } as const;
@@ -54,7 +48,7 @@ export class CanonicalRuntimeR3Scene extends Phaser.Scene {
   private lastSafe = { x: 430, y: 763 };
   private readonly params = new URLSearchParams(window.location.search);
   private readonly debug = this.params.get("debug") === "1";
-  private readonly visualRevision = "R3_C3_RUNTIME";
+  private readonly visualRevision = "R3_C3_RUNTIME_PARITY_REPAIR";
 
   public constructor() { super("CanonicalRuntimeR3Scene"); }
   public create(): void {
@@ -66,57 +60,25 @@ export class CanonicalRuntimeR3Scene extends Phaser.Scene {
     const up = this.keys.UP.isDown || this.keys.W.isDown; const down = this.keys.DOWN.isDown || this.keys.S.isDown;
     const velocity = new Phaser.Math.Vector2((right ? 1 : 0) - (left ? 1 : 0), (down ? 1 : 0) - (up ? 1 : 0)).normalize().scale(210);
     this.body.setVelocity(velocity.x, velocity.y); this.enforceGeometry(); this.updateInteraction();
-    this.waterLayers.forEach((layer, index) => layer.setAlpha(.96 + Math.sin((this.time.now / 2400) + index) * .025));
+    // C3 owns the water colour and transition. Runtime water is motion-only.
+    this.waterLayers.forEach((layer, index) => layer.setAlpha(.065 + Math.sin((this.time.now / 4200) + index) * .01));
   }
   private points(polygon: Polygon): Phaser.Math.Vector2[] { return polygon.map(([x, y]) => new Phaser.Math.Vector2(x, y)); }
   private zone(key: string, x: number, y: number, depth: number, alpha = 1): Phaser.GameObjects.Image { return this.add.image(x, y, key).setOrigin(0, 0).setDepth(depth).setAlpha(alpha); }
-  /** Coverage assets are a render-only input. They are never supplied to enforceGeometry. */
-  private coverage(key: "r22-visual-water-coverage"): VisualCoverage {
-    const asset = this.cache.json.get(key) as VisualCoverage | undefined;
-    if (!asset || asset.collision !== "none") throw new Error(`Invalid R2.2 visual coverage asset: ${key}`);
-    return asset;
-  }
-  private fillCoverage(graphics: Phaser.GameObjects.Graphics, coverage: VisualCoverage, colors: Readonly<Record<string, number>>): void {
-    coverage.zones.forEach((zone) => {
-      graphics.fillStyle(colors[zone.material] ?? 0x6b8171, 1);
-      zone.polygons.forEach((polygon) => graphics.fillPoints(this.points(polygon), true));
-    });
-  }
-  private drawVisualWaterCoverage(): void {
-    const water = this.add.graphics().setDepth(4);
-    // Match the R2.1 berth material's middle tone so the underlay cannot read as a dark water gap.
-    this.fillCoverage(water, this.coverage("r22-visual-water-coverage"), { "calm-turquoise-water": 0x189ab1 });
-    // Large, low-contrast currents keep the basin continuous without becoming a busy pattern.
-    water.fillStyle(0x51a9ae, .09).fillPoints(this.points([[1100,480],[1580,435],[1815,560],[1690,690],[1260,675]]), true);
-    water.fillStyle(0x51a9ae, .07).fillPoints(this.points([[1340,700],[1790,665],[1900,840],[1680,970],[1450,900]]), true);
-    // Master B is intentionally transparent around its lower quay silhouette. This render-only
-    // underlay preserves sheltered-water continuity in those negative spaces; collision stays R1.
-    water.fillStyle(0x189ab1, 1).fillPoints(this.points([[390,650],[850,545],[1320,560],[1720,650],[1920,600],[1920,1080],[430,1080],[315,875]]), true);
-    water.fillStyle(0x8bc5be, .08).fillPoints(this.points([[520,770],[970,675],[1495,720],[1800,870],[1670,1010],[690,995]]), true);
-    water.lineStyle(2, 0xd0e5d4, .12);
-    for (let y = 355; y < 930; y += 94) water.strokeLineShape(new Phaser.Geom.Line(1080, y, 1870, y - 12));
-  }
   private drawFoundation(): void {
-    this.add.rectangle(960, 540, WORLD.width, WORLD.height, 0x405852).setDepth(0);
-    // Continuity water is render-only and remains under the selected master art.
-    this.drawVisualWaterCoverage();
-    const water = [["r21-outer-water",1245,0],["r21-secondary-berth",1015,220],["r21-inner-harbor",1010,300],["r21-workboat-water",1100,445],["r21-hero-berth",1420,350]] as const;
-    water.forEach(([key, x, y]) => this.waterLayers.push(this.zone(key, x, y, 10)));
+    // Fallback only: the approved C3 scenic composite covers every camera-visible scenic gap.
+    this.add.rectangle(960, 540, WORLD.width, WORLD.height, 0x315e73).setDepth(0);
+    // One full-world, low-alpha texture supplies only imperceptible harbor movement.
+    // The approved C3 composite remains the visible water-color and transition source.
+    this.waterLayers.push(this.zone("r2-water", 0, 0, 10, .065));
     // Human-selected, native-size 1920×1080 RGBA foundation. It is a visual layer, never collision.
     this.zone("r24-foundation-master-b", 0, 0, 20);
     // Prepared vertical slice supplies wall/quay weight without the retired R2.3 procedural overlays.
     this.zone("r24-foundation-master-b-vertical", 0, 0, 25).setAlpha(.32);
   }
-  /** R3 Scenic A Final is a scenic-only, collision-free underlay. */
+  /** Approved C3 scenic-only composite; it is never collision or a full-scene plate. */
   private drawScenic(): void {
-    // These broad bands sit beneath foundation art and keep the approved scenic alpha edge
-    // from exposing R2's retired dark-green fallback during camera movement.
-    const sea = this.add.graphics().setDepth(1);
-    sea.fillStyle(0x9ac3d7, 1).fillRect(0, 0, WORLD.width, 310);
-    sea.fillStyle(0x236a93, 1).fillRect(0, 300, WORLD.width, 110);
-    sea.fillStyle(0x218ea6, 1).fillRect(0, 390, WORLD.width, 180);
-    sea.fillStyle(0x2099ad, 1).fillRect(0, 550, WORLD.width, 530);
-    this.zone("r3-scenic-a-final", 0, 0, 2);
+    this.zone("r3-scenic-a-final-composite", 0, 0, 2);
   }
   private contactShadow(x: number, y: number, w: number, h: number, alpha: number, depth: number): void { const shadow=this.add.graphics().setDepth(depth); shadow.fillStyle(0x263a35,alpha).fillRoundedRect(x-w/2,y-h/2,w,h,Math.min(5,h/2)); }
   private waterContact(x: number, y: number, w: number, h: number, depth: number): void { const contact=this.add.graphics().setDepth(depth); contact.fillStyle(0x176f7e,.2).fillRoundedRect(x-w/2,y-h/2,w,h,Math.min(5,h/2)); contact.lineStyle(1,0xa8d3cf,.22).strokeLineShape(new Phaser.Geom.Line(x-w*.32,y+h*.15,x+w*.28,y+h*.15)); }

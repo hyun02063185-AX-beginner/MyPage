@@ -229,7 +229,7 @@
   "recommendedFountain": "fountain-b",
   "humanSelection": "composition-c3",
   "selectionStatus": "APPROVED",
-  "selectedScenic": "scenic-a-final",
+  "selectedScenic": "scenic-a-final-composite",
   "selectedPropComposition": "composition-c-selective-mix",
   "selectedFountain": "fountain-b",
   "correctedComposition": "composition-c3",
@@ -243,12 +243,12 @@
     "file": "portfolio-world/public/assets/canonical-r3/candidates/scenic/scenic-a-final-composite.png",
     "hash": "c1b5e14ca490f02b598867911bf5800b85c055813f1f8136921c0ce292e1ae1d",
     "collisionIntent": "none",
-    "runtimeImported": false
+    "runtimeImported": true
   },
   "runtimeIntegration": "COMPLETE_PENDING_HUMAN_GATE",
   "runtimeAssets": {
     "root": "portfolio-world/public/assets/canonical-r3/runtime/",
-    "scenic": ["scenic/scenic-a-final.png"],
+    "scenic": ["scenic/scenic-a-final-composite.png"],
     "props": ["props/fountain-b.png", "props/flower-planter.png", "props/cypress-planter.png", "props/bench.png", "props/lamp.png", "props/banner.png", "props/crate-stack.png", "props/barrels.png", "props/notice-board.png", "props/bollard.png", "props/rope-coil.png", "props/mooring-rope.png"]
   }
 }

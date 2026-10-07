@@ -14,12 +14,18 @@ test("canonical=3 registers the selected R3 scene and loads only promoted approv
   assert.match(boot, /canonical === "3"/);
   assert.match(boot, /CanonicalRuntimeR3Scene/);
   assert.match(boot, /assets\/canonical-r3\/runtime\/\$\{file\}/);
-  assert.match(boot, /"r3-scenic-a-final": "scenic\/scenic-a-final\.png"/);
+  assert.match(boot, /"r3-scenic-a-final-composite": "scenic\/scenic-a-final-composite\.png"/);
   assert.match(boot, /"r3-fountain-b": "props\/fountain-b\.png"/);
   assert.doesNotMatch(boot, /canonical-r3\/candidates/);
   assert.doesNotMatch(boot, /scenic-b\.png|fountain-a\.png/);
+  assert.doesNotMatch(r3.slice(r3.indexOf("private drawScenic"), r3.indexOf("private contactShadow")), /fillRect|fillPoints|r3-scenic-a-final"/);
+  assert.doesNotMatch(r3.slice(r3.indexOf("private enforceGeometry"), r3.indexOf("private updateInteraction")), /scenic-a-final-composite|water-soft-mask/);
+  assert.match(r3, /this\.zone\("r2-water", 0, 0, 10, \.065\)/);
+  assert.doesNotMatch(r3, /r21-outer-water|r21-secondary-berth|r21-inner-harbor|r21-workboat-water|r21-hero-berth/);
   assert.equal(manifest.selectionStatus, "APPROVED");
   assert.equal(manifest.runtimeIntegration, "COMPLETE_PENDING_HUMAN_GATE");
+  assert.equal(contract.scenic.selected, "scenic-a-final-composite");
+  assert.equal(contract.water.hardBands, false);
 });
 
 test("R3 preserves locked R2 geometry and adds Fountain B as explicit vector-only collision", () => {

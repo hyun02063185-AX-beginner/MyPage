@@ -13,7 +13,7 @@ const hash = (path) => createHash("sha256").update(readFileSync(path)).digest("h
 
 test("R3 Phase B retains approved C3 provenance while preserving all locked source assets", () => {
   assert.equal(manifest.runtimeImported, true);
-  assert.equal(manifest.selectedScenic, "scenic-a-final");
+  assert.equal(manifest.selectedScenic, "scenic-a-final-composite");
   assert.equal(manifest.selectedPropComposition, "composition-c-selective-mix");
   assert.equal(manifest.selectedFountain, "fountain-b");
   assert.equal(manifest.correctedComposition, "composition-c3");
@@ -34,7 +34,7 @@ test("R3 Phase B retains approved C3 provenance while preserving all locked sour
 test("R3 Phase A.3 compositing asset and human-gate evidence exist without collision intent", () => {
   const asset = manifest.finalCompositingAsset;
   assert.equal(asset.collisionIntent, "none");
-  assert.equal(asset.runtimeImported, false, "static composite is provenance only, never a runtime scene plate");
+  assert.equal(asset.runtimeImported, true, "the scenic-only composite is a runtime background layer, never a full-scene plate");
   assert.equal(hash(new URL(`../../${asset.file}`, import.meta.url)), asset.hash);
   for (const name of [
     "01-fountain-before-after.png", "02-fountain-grounding-closeup.png", "03-water-blend-before-after.png",

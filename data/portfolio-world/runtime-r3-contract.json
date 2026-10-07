@@ -3,17 +3,17 @@
   "scene": "CanonicalRuntimeR3Scene",
   "entry": "?canonical=3",
   "debug": "?canonical=3&debug=1",
-  "visualRevision": "R3_C3_RUNTIME",
+  "visualRevision": "R3_C3_RUNTIME_PARITY_REPAIR",
   "staticComposition": "composition-c3",
   "foundation": { "selected": "foundation-master-b", "unchanged": true, "collisionSource": false },
-  "scenic": { "selected": "scenic-a-final", "layers": ["sky", "mountains", "town", "cliffs", "lighthouse", "outer-sea"], "collision": "none", "candidateFallbacksLoaded": false },
-  "water": { "transition": "deep-coastal-blue_to_turquoise_to_protected-harbor", "animation": "R2 low-energy alpha pulse", "seam": "visual-review-required" },
+  "scenic": { "selected": "scenic-a-final-composite", "layers": ["sky", "mountains", "town", "cliffs", "lighthouse", "outer-sea", "static-c3-transition", "scenic-edge-coverage"], "collision": "none", "candidateFallbacksLoaded": false, "runtimeParity": "PENDING_HUMAN" },
+  "water": { "transition": "STATIC_C3_BASE_PLUS_SOFT_DYNAMIC_OVERLAY", "animation": "low-alpha full-world R2 water motion only", "dynamicOverlayAlpha": "0.065 +/- 0.01", "hardBands": false, "mask": "approved scenic composite alpha; visual only", "seam": "PENDING_HUMAN" },
   "props": { "approvedOnly": true, "hall": ["fountain-b", "flower-planter", "cypress-planter", "bench", "lamp", "banner"], "workshop": ["crate-stack", "barrels"], "office": ["notice-board", "lamp"], "centralQuay": ["bollard", "rope-coil"], "heroQuay": ["bollard", "mooring-rope"] },
   "fountain": { "asset": "fountain-b", "groundAnchor": [585, 425], "collision": { "kind": "convex-polygon", "vertices": [[542,402],[628,402],[650,425],[628,448],[542,448],[520,425]], "rasterAlpha": false } },
   "collisions": { "source": "explicit-vector-geometry-only", "visualAssetsUsed": false, "geometryRevision": "R1_UNCHANGED" },
   "depth": { "architecture": "L0_scenic,L2_water,L3_foundation,L5_props,L6_fleet_player,L7_selected_foreground,L8_UI", "player": "ground-anchor-y", "occlusion": "selected lamps,cypress,bollards" },
   "routes": { "A": "PASS", "B": "PASS", "C": "PASS", "D": "PASS" },
   "interactions": { "visitablePoints": ["exhibition-hall", "workshop", "hero-ship", "harbor-office"], "status": "UNCHANGED" },
-  "qa": { "requiredEvidence": "reports/portfolio-world-rebuild/evidence/runtime-r3-actual-integration/", "console": "PENDING_BROWSER_CAPTURE" },
-  "humanGate": "READY_FOR_R3_ACTUAL_RUNTIME_HUMAN_VISUAL_GATE"
+  "qa": { "requiredEvidence": "reports/portfolio-world-rebuild/evidence/runtime-r31-scenic-parity-repair/", "console": "PENDING_BROWSER_CAPTURE" },
+  "humanGate": "READY_FOR_R3_1_ACTUAL_RUNTIME_HUMAN_VISUAL_GATE"
 }

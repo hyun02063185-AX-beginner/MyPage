@@ -35,7 +35,7 @@ export class BootScene extends Phaser.Scene {
       for (const [key, file] of Object.entries(assets)) this.load.image(key, `${base}assets/canonical-r2/${file}`);
       if (canonical === "3") {
         const r3Assets: Record<string, string> = {
-          "r3-scenic-a-final": "scenic/scenic-a-final.png", "r3-fountain-b": "props/fountain-b.png",
+          "r3-scenic-a-final-composite": "scenic/scenic-a-final-composite.png", "r3-fountain-b": "props/fountain-b.png",
           "r3-flower-planter": "props/flower-planter.png", "r3-cypress-planter": "props/cypress-planter.png",
           "r3-bench": "props/bench.png", "r3-lamp": "props/lamp.png", "r3-banner": "props/banner.png",
           "r3-crate-stack": "props/crate-stack.png", "r3-barrels": "props/barrels.png", "r3-notice-board": "props/notice-board.png",

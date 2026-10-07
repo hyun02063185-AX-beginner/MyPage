@@ -20,7 +20,7 @@ test("R3 Phase B promotes the approved candidate selection while preserving the 
   assert.ok(manifest.scenicCandidates.length >= 2);
   assert.equal(manifest.compositionCandidates.length, 3);
   assert.match(boot, /assets\/canonical-r3\/runtime\/\$\{file\}/);
-  assert.match(boot, /"r3-scenic-a-final": "scenic\/scenic-a-final\.png"/);
+  assert.match(boot, /"r3-scenic-a-final-composite": "scenic\/scenic-a-final-composite\.png"/);
   assert.match(boot, /"r3-fountain-b": "props\/fountain-b\.png"/);
   const base = r24Manifest.candidates.find(({ id }) => id === "foundation-master-b");
   const source = new URL(`../../${base.files.base}`, import.meta.url);

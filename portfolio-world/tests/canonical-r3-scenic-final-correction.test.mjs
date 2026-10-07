@@ -13,7 +13,7 @@ const hash = (path) => createHash("sha256").update(readFileSync(path)).digest("h
 
 test("R3 Phase B retains the final scenic provenance and preserves locked R2 assets", () => {
   assert.equal(manifest.runtimeImported, true);
-  assert.equal(manifest.selectedScenic, "scenic-a-final");
+  assert.equal(manifest.selectedScenic, "scenic-a-final-composite");
   assert.equal(manifest.selectedPropComposition, "composition-c-selective-mix");
   assert.equal(manifest.selectedFountain, "fountain-b");
   assert.ok(["composition-c2", "composition-c3"].includes(manifest.correctedComposition));
