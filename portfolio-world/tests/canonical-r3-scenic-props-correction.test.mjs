@@ -16,7 +16,7 @@ test("R3 Phase A.1 remains a selected static preview and leaves the R2.4 runtime
   assert.ok(manifest.scenicCandidates.some(({ id }) => id === "scenic-a-corrected"));
   assert.equal(manifest.selectedPropComposition, "composition-c-selective-mix");
   assert.equal(manifest.selectedFountain, "fountain-b");
-  assert.ok(["composition-c1", "composition-c2"].includes(manifest.correctedComposition));
+  assert.ok(["composition-c1", "composition-c2", "composition-c3"].includes(manifest.correctedComposition));
   assert.equal(manifest.humanDirectionApproval, true);
   assert.equal(manifest.finalHumanSelection, "PENDING");
   assert.equal(hash(runtime), "209cfcbf355d96617fb6aaabb28c7a9fd6dec098c5777aa7a8cd27c181130dec");
