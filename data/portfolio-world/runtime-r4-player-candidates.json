@@ -1,0 +1,166 @@
+{
+  "phase": "R4_PHASE_A_PLAYER_CANDIDATES",
+  "runtimeImported": false,
+  "candidateA": {
+    "name": "MODERN_HARBOR_EXPLORER",
+    "concept": "cream shirt, navy vest, practical shoes, small crossbody satchel",
+    "files": {
+      "front": {
+        "source": "art-source/runtime-r4-player-candidates/player-a-front-imagegen-source.png",
+        "sourceDimensions": [
+          1024,
+          1536
+        ],
+        "sha256": "d7a378a8bcebfbc0503fef3f971d834819c3f59fbd6990dd25d0edc49580dc11"
+      },
+      "back": {
+        "source": "art-source/runtime-r4-player-candidates/player-a-back-imagegen-source.png",
+        "sourceDimensions": [
+          1025,
+          1535
+        ],
+        "sha256": "2dab9b4de8463f50f380ab548a7d009f2f57425c51975a4310953024f60d806d"
+      },
+      "side": {
+        "source": "art-source/runtime-r4-player-candidates/player-a-side-imagegen-source.png",
+        "sourceDimensions": [
+          1024,
+          1536
+        ],
+        "sha256": "b98fe03ba0363e9af38ea67694101d5c094058ac9d7bc4bd6f9752bb036050fc"
+      },
+      "rightMirror": {
+        "source": "player-a-side.png",
+        "sha256": "e4fc0a2a28f4f670a0f9fccb95ca2391fb28097514042065b26107f82ac69dc3"
+      }
+    },
+    "palette": [
+      "#24364B",
+      "#E9DEC5",
+      "#30333A",
+      "#8A5A32",
+      "#C99B43"
+    ],
+    "scores": {
+      "environmentStyleMatch": 4,
+      "native28x56Readability": 4,
+      "professionalPortfolioIdentity": 4,
+      "movementDirectionReadability": 4,
+      "fourLocationScaleFit": 4,
+      "animationProductionSuitability": 4,
+      "total": 24
+    }
+  },
+  "candidateB": {
+    "name": "REFINED_PORTFOLIO_GUIDE",
+    "concept": "navy overshirt, cream inner layer, tailored casual trousers, small notebook",
+    "files": {
+      "front": {
+        "source": "art-source/runtime-r4-player-candidates/player-b-front-imagegen-source.png",
+        "sourceDimensions": [
+          1024,
+          1536
+        ],
+        "sha256": "1c25363e0039b8e972fbebb5be8e383c6cb2b734471fef13195ebaa05c7997e5"
+      },
+      "back": {
+        "source": "art-source/runtime-r4-player-candidates/player-b-back-imagegen-source.png",
+        "sourceDimensions": [
+          1024,
+          1536
+        ],
+        "sha256": "7c7463da63253c2c2c8301e1696ca74a5f20d2c1cbd2a74656697573e3187ade"
+      },
+      "side": {
+        "source": "art-source/runtime-r4-player-candidates/player-b-side-imagegen-source.png",
+        "sourceDimensions": [
+          1024,
+          1536
+        ],
+        "sha256": "fc9b771550fd9e60ca823ab73d9353f8d97061c363b9f94e136f19039c900cd8"
+      },
+      "rightMirror": {
+        "source": "player-b-side.png",
+        "sha256": "bc69839bf65982a78bd08a9d8ea754c26cd9fba446de8f3d124d86db04df6061"
+      }
+    },
+    "palette": [
+      "#21364C",
+      "#ECE0C8",
+      "#30333A",
+      "#5C4631",
+      "#BE954B"
+    ],
+    "scores": {
+      "environmentStyleMatch": 5,
+      "native28x56Readability": 4,
+      "professionalPortfolioIdentity": 5,
+      "movementDirectionReadability": 4,
+      "fourLocationScaleFit": 5,
+      "animationProductionSuitability": 4,
+      "total": 27
+    }
+  },
+  "dimensions": {
+    "target": [
+      28,
+      56
+    ],
+    "source": [
+      1024,
+      1536
+    ]
+  },
+  "groundAnchor": {
+    "origin": "bottom-center",
+    "feetMidpoint": [
+      14,
+      56
+    ],
+    "bodyContract": [
+      28,
+      16
+    ],
+    "bodyOffset": [
+      0,
+      40
+    ]
+  },
+  "directions": {
+    "visual": [
+      "DOWN_FRONT",
+      "UP_BACK",
+      "LEFT_SIDE",
+      "RIGHT_MIRROR"
+    ],
+    "input": "8-direction unchanged",
+    "diagonal": "dominant axis or last-facing direction"
+  },
+  "animationPlan": {
+    "idleFrames": "1-2 per direction",
+    "walkFrames": 4,
+    "requiredRuntimeFamilies": [
+      "front",
+      "back",
+      "side",
+      "right=mirror(side)"
+    ],
+    "phaseAStatus": "key-pose/plan only; no runtime sheet"
+  },
+  "lockedAssetHashes": {
+    "public/assets/canonical-r2/candidates/runtime-r24-foundation-master/foundation-master-b.png": "b866a890836f83663f5431186cc8669728351fd285fad049d6a5bf224a255215",
+    "public/assets/canonical-r3/runtime/scenic/scenic-a-final-composite.png": "c1b5e14ca490f02b598867911bf5800b85c055813f1f8136921c0ce292e1ae1d"
+  },
+  "recommendedCandidate": "B",
+  "humanSelection": "PENDING",
+  "evidence": [
+    "reports/portfolio-world-rebuild/evidence/runtime-r4-player-candidates/01-player-a-direction-sheet.png",
+    "reports/portfolio-world-rebuild/evidence/runtime-r4-player-candidates/02-player-b-direction-sheet.png",
+    "reports/portfolio-world-rebuild/evidence/runtime-r4-player-candidates/03-player-native-scale-review.png",
+    "reports/portfolio-world-rebuild/evidence/runtime-r4-player-candidates/04-player-a-four-location-preview.png",
+    "reports/portfolio-world-rebuild/evidence/runtime-r4-player-candidates/05-player-b-four-location-preview.png",
+    "reports/portfolio-world-rebuild/evidence/runtime-r4-player-candidates/06-player-a-vs-b.png",
+    "reports/portfolio-world-rebuild/evidence/runtime-r4-player-candidates/07-player-silhouette-review.png",
+    "reports/portfolio-world-rebuild/evidence/runtime-r4-player-candidates/08-player-movement-direction-plan.png"
+  ]
+}
