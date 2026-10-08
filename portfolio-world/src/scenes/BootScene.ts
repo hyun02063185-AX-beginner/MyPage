@@ -21,7 +21,7 @@ export class BootScene extends Phaser.Scene {
       }
       return;
     }
-    if (canonical === "2" || canonical === "3") {
+    if (canonical === "2" || canonical === "3" || canonical === "4") {
       const base = import.meta.env.BASE_URL;
       const assets: Record<string, string> = {
         "r2-hall": "architecture/hall-b.png", "r2-workshop": "architecture/workshop-c.png", "r2-office": "architecture/office-b.png",
@@ -33,7 +33,7 @@ export class BootScene extends Phaser.Scene {
         "r24-foundation-master-b-vertical": "candidates/runtime-r24-foundation-master/foundation-master-b-vertical-structure.png",
       };
       for (const [key, file] of Object.entries(assets)) this.load.image(key, `${base}assets/canonical-r2/${file}`);
-      if (canonical === "3") {
+      if (canonical === "3" || canonical === "4") {
         const r3Assets: Record<string, string> = {
           "r3-scenic-a-final-composite": "scenic/scenic-a-final-composite.png", "r3-fountain-b": "props/fountain-b.png",
           "r3-flower-planter": "props/flower-planter.png", "r3-cypress-planter": "props/cypress-planter.png",
@@ -42,6 +42,13 @@ export class BootScene extends Phaser.Scene {
           "r3-bollard": "props/bollard.png", "r3-rope-coil": "props/rope-coil.png", "r3-mooring-rope": "props/mooring-rope.png",
         };
         for (const [key, file] of Object.entries(r3Assets)) this.load.image(key, `${base}assets/canonical-r3/runtime/${file}`);
+      }
+      if (canonical === "4") {
+        const r4Assets: Record<string, string> = {
+          "r4-idle-front": "idle-front.png", "r4-idle-back": "idle-back.png", "r4-idle-side": "idle-side.png",
+        };
+        for (const [key, file] of Object.entries(r4Assets)) this.load.image(key, `${base}assets/canonical-r4/runtime/player/${file}`);
+        for (const direction of ["front", "back", "side"]) this.load.spritesheet(`r4-walk-${direction}`, `${base}assets/canonical-r4/runtime/player/walk-${direction}.png`, { frameWidth: 28, frameHeight: 56 });
       }
       // Water continuity remains a render-only data input, separate from R1 collision vectors.
       this.load.json("r22-visual-water-coverage", `${base}assets/canonical-r2/visual-water-coverage.json`);
@@ -94,6 +101,6 @@ export class BootScene extends Phaser.Scene {
 
   public create(): void {
     const canonical = new URLSearchParams(window.location.search).get("canonical");
-    this.scene.start(canonical === "1" ? "CanonicalRuntimeR1Scene" : canonical === "2" ? "CanonicalRuntimeR2Scene" : canonical === "3" ? "CanonicalRuntimeR3Scene" : "WorldScene");
+    this.scene.start(canonical === "1" ? "CanonicalRuntimeR1Scene" : canonical === "2" ? "CanonicalRuntimeR2Scene" : canonical === "3" ? "CanonicalRuntimeR3Scene" : canonical === "4" ? "CanonicalRuntimeR4Scene" : "WorldScene");
   }
 }

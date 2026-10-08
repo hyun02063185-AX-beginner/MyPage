@@ -1,6 +1,21 @@
 {
   "phase": "R4_PHASE_A_PLAYER_CANDIDATES",
-  "runtimeImported": false,
+  "runtimeImported": true,
+  "selectionStatus": "APPROVED",
+  "selectedCandidate": "REFINED_PORTFOLIO_GUIDE",
+  "runtimeAssets": [
+    "canonical-r4/runtime/player/idle-front.png",
+    "canonical-r4/runtime/player/idle-back.png",
+    "canonical-r4/runtime/player/idle-side.png",
+    "canonical-r4/runtime/player/walk-front.png",
+    "canonical-r4/runtime/player/walk-back.png",
+    "canonical-r4/runtime/player/walk-side.png"
+  ],
+  "animationFrames": { "front": 4, "back": 4, "side": 4, "right": "MIRROR_SIDE" },
+  "walkFps": 8,
+  "idleStrategy": "1-frame neutral passing pose per source direction",
+  "scene": "CanonicalRuntimeR4Scene",
+  "runtimeGate": "PENDING_HUMAN",
   "candidateA": {
     "name": "MODERN_HARBOR_EXPLORER",
     "concept": "cream shirt, navy vest, practical shoes, small crossbody satchel",
@@ -152,7 +167,7 @@
     "public/assets/canonical-r3/runtime/scenic/scenic-a-final-composite.png": "c1b5e14ca490f02b598867911bf5800b85c055813f1f8136921c0ce292e1ae1d"
   },
   "recommendedCandidate": "B",
-  "humanSelection": "PENDING",
+  "humanSelection": "B",
   "evidence": [
     "reports/portfolio-world-rebuild/evidence/runtime-r4-player-candidates/01-player-a-direction-sheet.png",
     "reports/portfolio-world-rebuild/evidence/runtime-r4-player-candidates/02-player-b-direction-sheet.png",

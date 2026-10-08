@@ -22,9 +22,7 @@ function sha256(path) {
   return createHash("sha256").update(readFileSync(path)).digest("hex");
 }
 
-test("R4 candidates are 28×56 PNGs and stay outside runtime imports", () => {
-  assert.equal(manifest.runtimeImported, false);
-  assert.equal(manifest.humanSelection, "PENDING");
+test("R4 candidate sources remain 28×56 PNGs while R3 retains its temporary player", () => {
   for (const candidate of ["a", "b"]) {
     for (const direction of ["front", "back", "side", "right-mirror"]) {
       const path = resolve(candidateDir, `player-${candidate}-${direction}.png`);
@@ -34,7 +32,9 @@ test("R4 candidates are 28×56 PNGs and stay outside runtime imports", () => {
   }
   const boot = readFileSync(resolve(world, "src/scenes/BootScene.ts"), "utf8");
   assert.match(boot, /r2-player.*player\/player-a\.png/);
-  assert.doesNotMatch(boot, /canonical-r4/);
+  const r3 = readFileSync(resolve(world, "src/scenes/CanonicalRuntimeR3Scene.ts"), "utf8");
+  assert.match(r3, /"r2-player"/);
+  assert.doesNotMatch(r3, /r4-(?:idle|walk)/);
 });
 
 test("R3 locked runtime art and player baseline remain unmodified", () => {
@@ -42,7 +42,7 @@ test("R3 locked runtime art and player baseline remain unmodified", () => {
     "portfolio-world/public/assets/canonical-r2/candidates/runtime-r24-foundation-master/foundation-master-b.png",
     "portfolio-world/public/assets/canonical-r3/runtime/scenic/scenic-a-final-composite.png",
     "portfolio-world/public/assets/canonical-r2/player/player-a.png",
-    "portfolio-world/src/scenes/BootScene.ts",
+    "portfolio-world/src/scenes/CanonicalRuntimeR3Scene.ts",
   ];
   const diff = execFileSync("git", ["diff", "--quiet", baseline, "--", ...protectedPaths], { cwd: repo, encoding: "utf8" });
   assert.equal(diff, "");

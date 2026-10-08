@@ -1,0 +1,52 @@
+{
+  "status": "R4_RUNTIME_IMPLEMENTED_PENDING_HUMAN_VISUAL_GATE",
+  "scene": "CanonicalRuntimeR4Scene",
+  "entry": "?canonical=4",
+  "debug": "?canonical=4&debug=1",
+  "overview": "?canonical=4&overview=1",
+  "selectedPlayer": "REFINED_PORTFOLIO_GUIDE",
+  "display": [
+    28,
+    56
+  ],
+  "physicsBody": [
+    28,
+    16
+  ],
+  "bodyOffset": [
+    0,
+    40
+  ],
+  "groundAnchor": "bottom-center",
+  "scaleMode": "FIXED",
+  "visualDirections": 4,
+  "inputDirections": 8,
+  "rightMode": "MIRROR_SIDE",
+  "idleFrames": 1,
+  "idleStrategy": "single neutral passing frame per source direction",
+  "walkFrames": 4,
+  "walkFps": 8,
+  "runtimeAssets": [
+    "canonical-r4/runtime/player/idle-front.png",
+    "canonical-r4/runtime/player/idle-back.png",
+    "canonical-r4/runtime/player/idle-side.png",
+    "canonical-r4/runtime/player/walk-front.png",
+    "canonical-r4/runtime/player/walk-back.png",
+    "canonical-r4/runtime/player/walk-side.png"
+  ],
+  "environmentRevision": "R3_C3_RUNTIME_PARITY_REPAIR",
+  "geometryRevision": "UNCHANGED",
+  "routes": {
+    "A": "PASS",
+    "B": "PASS",
+    "C": "PASS",
+    "D": "PASS"
+  },
+  "interactions": [
+    "exhibition-hall",
+    "workshop",
+    "hero-ship",
+    "harbor-office"
+  ],
+  "humanGate": "PENDING_HUMAN"
+}
