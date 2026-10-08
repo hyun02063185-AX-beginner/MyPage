@@ -1,0 +1,122 @@
+{
+  "status": "DRAFT_SPATIAL_FEASIBILITY_ONLY",
+  "referenceMaster": {
+    "candidate": "B_ORGANIC_COASTAL_HARBOR_PROVISIONAL",
+    "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+    "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b",
+    "size": [1280, 720],
+    "interpretation": "Human-reviewed painted reference; never a collision mask or scene plate."
+  },
+  "coordinateTransform": {
+    "status": "DRAFT",
+    "sourceImage": "top-left origin, x right, y down, pixels",
+    "world": "top-left origin, x right, y down, draft design units",
+    "sourceToWorld": { "scale": [1, 1], "translate": [0, 0], "formula": "world = source" },
+    "worldToScreen": {
+      "canvas": [1280, 720],
+      "current": "screen = (world - cameraCenter) * 1.0 + canvasCenter",
+      "closer": "screen = (world - cameraCenter) * 1.25 + canvasCenter"
+    },
+    "note": "Identity transform is deliberate for an image-derived draft. Final asset dimensions and world scale are blocked pending Human selection."
+  },
+  "draftWorldBounds": { "x": 0, "y": 0, "width": 1280, "height": 720, "status": "DRAFT" },
+  "walkableZones": [
+    { "id": "G_HALL_UPPER", "kind": "GROUND", "elevation": "L2", "polygon": [[55,70],[420,65],[460,145],[380,205],[190,195],[85,165]], "status": "DRAFT" },
+    { "id": "G_HALL_APPROACH", "kind": "GROUND", "elevation": "L1", "polygon": [[105,285],[205,255],[315,275],[300,345],[215,370],[125,335]], "status": "DRAFT" },
+    { "id": "S_MAIN_STAIRS", "kind": "STAIR", "elevation": "L0_TO_L2", "polygon": [[150,175],[230,180],[330,330],[245,370],[140,310],[105,245]], "status": "DRAFT" },
+    { "id": "G_WORKSHOP_FORECOURT", "kind": "GROUND", "elevation": "L1", "polygon": [[150,330],[305,315],[430,345],[470,405],[390,450],[230,445],[125,405]], "status": "DRAFT" },
+    { "id": "G_ARCHIVE_APPROACH", "kind": "GROUND", "elevation": "L0", "polygon": [[75,430],[150,410],[215,445],[185,535],[80,555],[45,500]], "status": "DRAFT" },
+    { "id": "G_LOWER_PROMENADE", "kind": "GROUND", "elevation": "L0", "polygon": [[240,440],[400,430],[525,405],[650,415],[760,385],[850,390],[835,445],[705,465],[600,485],[450,505],[290,495]], "status": "DRAFT" },
+    { "id": "G_SHORE_PIER", "kind": "PIER", "elevation": "L0", "polygon": [[500,360],[625,370],[760,355],[895,320],[920,385],[770,420],[630,420],[520,405]], "status": "DRAFT" },
+    { "id": "G_SIDE_DOCK", "kind": "DOCK", "elevation": "L0", "polygon": [[830,300],[1020,315],[1035,370],[920,400],[860,380]], "status": "DRAFT" },
+    { "id": "G_GANGWAY", "kind": "GANGWAY", "elevation": "L0_TO_SHIP", "polygon": [[985,335],[1070,345],[1060,378],[975,365]], "status": "DRAFT" }
+  ],
+  "blockedZones": [
+    { "id": "B_HALL_BUILDING", "kind": "BUILDING", "polygon": [[55,15],[420,15],[440,125],[375,155],[215,145],[75,125]], "status": "DRAFT" },
+    { "id": "B_WORKSHOP_BUILDING", "kind": "BUILDING", "polygon": [[185,215],[520,225],[555,330],[435,360],[300,330],[175,350]], "status": "DRAFT" },
+    { "id": "B_ARCHIVE_INTERIOR", "kind": "BUILDING", "polygon": [[65,465],[150,445],[180,500],[155,530],[75,535]], "status": "DRAFT" },
+    { "id": "B_HERO_HULL", "kind": "SHIP_HULL", "polygon": [[1080,205],[1275,230],[1275,470],[1080,445],[1065,385]], "status": "DRAFT" },
+    { "id": "B_CLIFF_WALL", "kind": "CLIFF_OR_RETAINING_WALL", "polygon": [[430,80],[650,120],[600,315],[500,335],[440,235]], "status": "DRAFT" },
+    { "id": "B_SEA", "kind": "SEA", "polygon": [[510,105],[1280,90],[1280,720],[355,720],[405,610],[465,520],[500,430]], "status": "DRAFT", "exception": "PIER, DOCK, and GANGWAY zones explicitly bridge this blocked water." }
+  ],
+  "elevationLevels": [
+    { "id": "L0", "name": "Harbor promenade / pier / dock", "relativeHeight": 0, "status": "DRAFT" },
+    { "id": "L1", "name": "Workshop forecourt / Hall approach", "relativeHeight": 1, "status": "DRAFT" },
+    { "id": "L2", "name": "Hall upper terrace", "relativeHeight": 2, "status": "DRAFT" },
+    { "id": "SHIP", "name": "Hero Ship boarding deck", "relativeHeight": 1, "status": "DRAFT_UNRESOLVED_DECK_INTERIOR" }
+  ],
+  "stairConnectors": [
+    { "id": "S_MAIN", "from": "N_HALL_STAIR_BASE", "to": "N_HALL", "zone": "S_MAIN_STAIRS", "fromElevation": "L0", "toElevation": "L2", "status": "DRAFT" },
+    { "id": "S_WORKSHOP_LOWER", "from": "N_WORKSHOP", "to": "N_PROMENADE", "zone": "G_WORKSHOP_FORECOURT", "fromElevation": "L1", "toElevation": "L0", "status": "DRAFT" }
+  ],
+  "navigationNodes": [
+    { "id": "N_WORKSHOP", "role": "VISITABLE_WORKSHOP", "point": [255,400], "zone": "G_WORKSHOP_FORECOURT", "elevation": "L1", "status": "DRAFT" },
+    { "id": "N_HALL_STAIR_BASE", "role": "STAIR_BASE", "point": [195,320], "zone": "S_MAIN_STAIRS", "elevation": "L0", "status": "DRAFT" },
+    { "id": "N_HALL", "role": "VISITABLE_HALL", "point": [240,170], "zone": "G_HALL_UPPER", "elevation": "L2", "status": "DRAFT" },
+    { "id": "N_PROMENADE", "role": "HARBOR_HUB", "point": [460,460], "zone": "G_LOWER_PROMENADE", "elevation": "L0", "status": "DRAFT" },
+    { "id": "N_ARCHIVE", "role": "VISITABLE_ARCHIVE", "point": [125,480], "zone": "G_ARCHIVE_APPROACH", "elevation": "L0", "status": "DRAFT" },
+    { "id": "N_PIER_ENTRY", "role": "PIER_ENTRY", "point": [545,395], "zone": "G_SHORE_PIER", "elevation": "L0", "status": "DRAFT" },
+    { "id": "N_SIDE_DOCK", "role": "SIDE_DOCK", "point": [890,355], "zone": "G_SIDE_DOCK", "elevation": "L0", "status": "DRAFT" },
+    { "id": "N_GANGWAY", "role": "GANGWAY", "point": [1015,355], "zone": "G_GANGWAY", "elevation": "L0_TO_SHIP", "status": "DRAFT" },
+    { "id": "N_HERO", "role": "VISITABLE_HERO_BOARDING_THRESHOLD", "point": [1040,355], "zone": "G_GANGWAY", "elevation": "SHIP", "status": "DRAFT" }
+  ],
+  "navigationEdges": [
+    { "id": "E_WORKSHOP_HALL_BASE", "from": "N_WORKSHOP", "to": "N_HALL_STAIR_BASE", "type": "GROUND", "polyline": [[255,400],[220,370],[195,320]], "status": "DRAFT" },
+    { "id": "E_HALL_STAIRS", "from": "N_HALL_STAIR_BASE", "to": "N_HALL", "type": "STAIR", "connector": "S_MAIN", "polyline": [[195,320],[210,280],[230,225],[240,170]], "status": "DRAFT" },
+    { "id": "E_WORKSHOP_PROMENADE", "from": "N_WORKSHOP", "to": "N_PROMENADE", "type": "GROUND", "polyline": [[255,400],[330,435],[460,460]], "status": "DRAFT" },
+    { "id": "E_WORKSHOP_ARCHIVE", "from": "N_WORKSHOP", "to": "N_ARCHIVE", "type": "GROUND", "polyline": [[255,400],[190,435],[125,480]], "status": "DRAFT" },
+    { "id": "E_PROMENADE_PIER", "from": "N_PROMENADE", "to": "N_PIER_ENTRY", "type": "GROUND", "polyline": [[460,460],[510,430],[545,395]], "status": "DRAFT" },
+    { "id": "E_PIER_DOCK", "from": "N_PIER_ENTRY", "to": "N_SIDE_DOCK", "type": "PIER", "polyline": [[545,395],[630,395],[760,380],[890,355]], "status": "DRAFT" },
+    { "id": "E_DOCK_GANGWAY", "from": "N_SIDE_DOCK", "to": "N_GANGWAY", "type": "GANGWAY", "polyline": [[890,355],[950,350],[1015,355]], "status": "DRAFT" },
+    { "id": "E_GANGWAY_HERO", "from": "N_GANGWAY", "to": "N_HERO", "type": "GANGWAY", "polyline": [[1015,355],[1040,355]], "status": "DRAFT" }
+  ],
+  "candidateInteractionAnchors": {
+    "hall": "N_HALL", "workshop": "N_WORKSHOP", "harborArchive": "N_ARCHIVE", "heroShip": "N_HERO",
+    "status": "DRAFT_NOT_RUNTIME_ANCHORS"
+  },
+  "heroShipBerth": {
+    "status": "DRAFT",
+    "sequence": ["N_PROMENADE", "N_PIER_ENTRY", "N_SIDE_DOCK", "N_GANGWAY", "N_HERO"],
+    "shoreToPier": "GROUND_TO_PIER", "pierToDock": "PIER", "dockToShip": "GANGWAY",
+    "hullZone": "B_HERO_HULL", "waterZone": "B_SEA", "heroVisitBoundary": "N_HERO",
+    "shipDeckInterior": "UNRESOLVED — do not infer unseen deck walkable area from Beauty Master."
+  },
+  "playerScaleOptions": [
+    { "id": "A_CURRENT", "visual": [28,56], "physicsFootprint": [28,16], "minimumWidth": 42, "recommendedWidth": 56, "status": "DRAFT" },
+    { "id": "B_LARGER", "visual": [32,64], "physicsFootprintProposal": [32,18], "minimumWidth": 48, "recommendedWidth": 64, "status": "DRAFT_NOT_APPROVED" }
+  ],
+  "cameraOptions": [
+    { "id": "CURRENT", "zoom": 1.0, "visibleWorld": [1280,720], "status": "DRAFT" },
+    { "id": "CLOSER", "zoom": 1.25, "visibleWorld": [1024,576], "status": "DRAFT_RECOMMENDED_FIRST_TEST" }
+  ],
+  "groundContactReview": [
+    { "place": "Workshop", "feetAnchor": [255,400], "zone": "G_WORKSHOP_FORECOURT", "status": "GROUND_CONFIRMED_DRAFT" },
+    { "place": "Central promenade", "feetAnchor": [460,460], "zone": "G_LOWER_PROMENADE", "status": "GROUND_CONFIRMED_DRAFT" },
+    { "place": "Hall approach", "feetAnchor": [240,170], "zone": "G_HALL_UPPER", "status": "GROUND_CONFIRMED_DRAFT" },
+    { "place": "Main stairs", "feetAnchor": [195,320], "zone": "S_MAIN_STAIRS", "status": "STAIR_CONFIRMED_DRAFT" },
+    { "place": "Hero dock", "feetAnchor": [890,355], "zone": "G_SIDE_DOCK", "status": "DOCK_CONFIRMED_DRAFT_NOT_WATER" }
+  ],
+  "widthChecks": [
+    { "id": "W_HALL_STAIRS", "location": "Main Hall stair", "width": 76, "status": "PASS_A_AND_B" },
+    { "id": "W_WORKSHOP_HALL", "location": "Workshop-Hall threshold", "width": 62, "status": "PASS_MINIMUM_REVIEW_B_RECOMMENDED" },
+    { "id": "W_LOWER_PROMENADE", "location": "Lower harbor promenade", "width": 96, "status": "PASS_A_AND_B" },
+    { "id": "W_SHORE_PIER", "location": "Shore pier", "width": 72, "status": "PASS_A_AND_B" },
+    { "id": "W_SIDE_DOCK", "location": "Hero side dock", "width": 84, "status": "PASS_A_AND_B" },
+    { "id": "W_GANGWAY", "location": "Hero gangway", "width": 54, "status": "PASS_MINIMUM_REVIEW_B_RECOMMENDED" },
+    { "id": "W_ARCHIVE_SPUR", "location": "Archive approach", "width": 54, "status": "PASS_MINIMUM_REVIEW_B_RECOMMENDED" }
+  ],
+  "unresolvedIssues": [
+    { "id": "U_ARCHIVE_CUE", "severity": "MINOR", "text": "Archive approach is spatially reachable but needs a small emblem/sign/forecourt cue; do not add a central building." },
+    { "id": "U_WORKSHOP_HALL_WIDTH", "severity": "MINOR", "text": "62-unit threshold passes the draft minimum but is below the proposed 32×64 recommended width; verify with real asset footprints." },
+    { "id": "U_GANGWAY_WIDTH", "severity": "MINOR", "text": "54-unit gangway and Archive spur meet draft 32×64 minimum but not recommended width; final collision and railing clearance are unresolved." },
+    { "id": "U_SHIP_DECK", "severity": "UNRESOLVED", "text": "Beauty Master does not expose a reliable ship-deck walkable surface. Only the boarding threshold is proposed." },
+    { "id": "U_ASSET_DECOMPOSITION", "severity": "UNRESOLVED", "text": "Occluded back faces, continuous paving behind buildings, and exact cliff/water seams require authored modular assets, not image extraction." }
+  ],
+  "evidence": { "status": "DRAFT", "folder": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-c" },
+  "humanGate": {
+    "workingReference": "CANDIDATE_B_PROVISIONAL",
+    "humanDesignSelection": "PENDING", "fourthVisitableSelection": "PENDING", "playerCameraSelection": "PENDING",
+    "finalSpatialBlueprint": "NOT_APPROVED", "runtimeImplementation": "BLOCKED",
+    "gate": "READY_FOR_R5_SPATIAL_FEASIBILITY_HUMAN_GATE"
+  }
+}
