@@ -1,0 +1,37 @@
+{
+  "phase": "R5_PHASE_A_WORLD_LAYOUT_RECOVERY",
+  "baselineHead": "a829f907c6a579e7c1f171fdc4d2669b1b7fda20",
+  "branch": "design/world-layout-recovery-r5",
+  "humanSelection": "PENDING",
+  "runtimeIntegration": "BLOCKED",
+  "runtimeModified": false,
+  "existingR4Preserved": true,
+  "candidateStatus": "CANDIDATE_PENDING_HUMAN",
+  "recommendedMaster": "B_ORGANIC_COASTAL_HARBOR",
+  "fourthVisitableRecommendation": "A_WORKSHOP_LINKED_HARBOR_ARCHIVE",
+  "playerCameraRecommendation": "CLOSER_CAMERA_OR_32x64_COMPARATIVE_BLUEPRINT",
+  "requiredDeliverables": [
+    "01-design-failure-audit.md",
+    "02-world-layout-requirements.md",
+    "03-layout-candidate-a.png",
+    "04-layout-candidate-b.png",
+    "05-layout-beauty-comparison.png",
+    "06-navigation-comparison.png",
+    "07-player-camera-scale-review.png",
+    "08-ship-water-berth-review.png",
+    "09-fourth-visitable-point-options.png",
+    "10-human-gate-review.md"
+  ],
+  "supportingGameplayCameraBoards": [
+    "11-candidate-a-gameplay-views.png",
+    "12-candidate-b-gameplay-views.png"
+  ],
+  "sourceProvenance": {
+    "generator": "built-in ImageGen",
+    "candidateA": "reports/portfolio-world-rebuild/r5-world-layout-recovery/source/candidate-a-imagegen-source.png",
+    "candidateBInitial": "reports/portfolio-world-rebuild/r5-world-layout-recovery/source/candidate-b-imagegen-source.png",
+    "candidateBFinal": "reports/portfolio-world-rebuild/r5-world-layout-recovery/source/candidate-b-berth-repair-imagegen-source.png",
+    "candidateBRepair": "shore-to-dock continuity; no runtime asset"
+  },
+  "gate": "READY_FOR_R5_FULL_WORLD_DESIGN_HUMAN_GATE"
+}
