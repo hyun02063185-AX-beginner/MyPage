@@ -33,5 +33,44 @@
     "candidateBFinal": "reports/portfolio-world-rebuild/r5-world-layout-recovery/source/candidate-b-berth-repair-imagegen-source.png",
     "candidateBRepair": "shore-to-dock continuity; no runtime asset"
   },
-  "gate": "READY_FOR_R5_FULL_WORLD_DESIGN_HUMAN_GATE"
+  "phaseB": {
+    "status": "DESIGN_VALIDATION_COMPLETE_PENDING_HUMAN",
+    "candidateB2Created": false,
+    "candidateB2Reason": "No new structural correction was observed after opening the preserved B Beauty Master; create no speculative third composition.",
+    "phaseAOriginalHashes": {
+      "candidateA": "b19f430192caed987a5d7e9548b3ce5d3d4193f392fa58cedcfe68f08e019d4d",
+      "candidateB": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b"
+    },
+    "routes": {
+      "workshopToHall": "VISIBLE_CONTINUITY_CONFIRMED_CONCEPT_ONLY",
+      "workshopToHeroShip": "VISIBLE_PIER_AND_GANGWAY_CONTINUITY_CONFIRMED_CONCEPT_ONLY",
+      "workshopToArchive": "VISIBLE_CONTINUITY_CONFIRMED_CONCEPT_ONLY_NEEDS_WAYFINDING_CUE",
+      "hallToHeroShip": "VISIBLE_CONTINUITY_CONFIRMED_CONCEPT_ONLY"
+    },
+    "shipWater": "NO_CONCEPT_CRITICAL_FAIL_OBSERVED",
+    "remainingMinorChecks": [
+      "Workshop-Hall minimum playable width at spatial-blueprint stage",
+      "Archive emblem/sign/forecourt cue without central building mass"
+    ],
+    "recommendedPlayerCamera": "28x56_CLOSER_CAMERA_FIRST_BLUEPRINT_TEST",
+    "humanSelections": {
+      "design": "PENDING",
+      "fourthVisitable": "PENDING",
+      "playerCamera": "PENDING"
+    },
+    "spatialBlueprint": "BLOCKED",
+    "runtimeImplementation": "BLOCKED",
+    "deliverables": [
+      "phase-b/01-candidate-a-original.png",
+      "phase-b/02-candidate-b-original.png",
+      "phase-b/04-full-world-design-comparison.png",
+      "phase-b/05-navigation-routes-review.png",
+      "phase-b/06-hero-ship-water-dock-review.png",
+      "phase-b/07-fourth-point-layout-comparison.png",
+      "phase-b/08-player-camera-scale-comparison.png",
+      "phase-b/09-gameplay-view-comparison.png",
+      "phase-b/10-final-human-review.md"
+    ]
+  },
+  "gate": "READY_FOR_R5_FINAL_WORLD_DESIGN_HUMAN_GATE"
 }
