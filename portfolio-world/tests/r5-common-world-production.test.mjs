@@ -41,7 +41,7 @@ test('camera, native player, motion evidence, and human-review artifacts use E.1
   assert.deepEqual(data.cameraContract.visibleWorld, [819.2, 460.8]);
   assert.deepEqual(data.playerContract.worldSize, [28, 56]);
   assert.deepEqual(data.playerContract.groundAnchor, 'bottom-center');
-  assert.equal(data.motionValidation.length, 2);
+  assert.equal(data.motionValidation.length, 3);
   for (const route of data.motionValidation) {
     assert.equal(route.frames.length, 12);
     assert.ok(route.frames.every((frame) => frame.walkable && !frame.waterWalk));

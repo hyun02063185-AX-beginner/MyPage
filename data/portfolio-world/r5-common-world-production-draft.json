@@ -395,7 +395,7 @@
   },
   "motionValidation": [
     {
-      "route": "workshop-hall-archive",
+      "route": "workshop-hall",
       "polyline": [
         [
           245,
@@ -428,18 +428,194 @@
         [
           175,
           190
+        ]
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "feet": [
+            245.0,
+            440.0
+          ],
+          "camera": [
+            0.0,
+            209.6
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall/frame-00.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 1,
+          "feet": [
+            219.622,
+            422.236
+          ],
+          "camera": [
+            0.0,
+            191.8357
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall/frame-01.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 2,
+          "feet": [
+            194.083,
+            404.908
+          ],
+          "camera": [
+            0.0,
+            174.5083
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall/frame-02.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 3,
+          "feet": [
+            163.259,
+            401.826
+          ],
+          "camera": [
+            0.0,
+            171.4259
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall/frame-03.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 4,
+          "feet": [
+            141.437,
+            387.886
+          ],
+          "camera": [
+            0.0,
+            157.486
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall/frame-04.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 5,
+          "feet": [
+            132.696,
+            358.167
+          ],
+          "camera": [
+            0.0,
+            127.7675
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall/frame-05.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 6,
+          "feet": [
+            123.956,
+            328.449
+          ],
+          "camera": [
+            0.0,
+            98.0489
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall/frame-06.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 7,
+          "feet": [
+            120.0,
+            298.041
+          ],
+          "camera": [
+            0.0,
+            67.6413
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall/frame-07.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 8,
+          "feet": [
+            126.418,
+            268.768
+          ],
+          "camera": [
+            0.0,
+            38.3684
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall/frame-08.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 9,
+          "feet": [
+            141.611,
+            241.778
+          ],
+          "camera": [
+            0.0,
+            11.3782
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall/frame-09.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 10,
+          "feet": [
+            155.649,
+            214.189
+          ],
+          "camera": [
+            0.0,
+            0.0
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall/frame-10.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 11,
+          "feet": [
+            175.0,
+            190.0
+          ],
+          "camera": [
+            0.0,
+            0.0
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall/frame-11.png",
+          "walkable": true,
+          "waterWalk": false
+        }
+      ],
+      "gif": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall.gif"
+    },
+    {
+      "route": "workshop-archive",
+      "polyline": [
+        [
+          245,
+          440
         ],
         [
-          155,
-          215
+          210,
+          495
         ],
         [
-          140,
-          245
-        ],
-        [
-          120,
-          315
+          200,
+          540
         ],
         [
           180,
@@ -457,147 +633,147 @@
             0.0,
             209.6
           ],
-          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-00.png",
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-archive/frame-00.png",
           "walkable": true,
           "waterWalk": false
         },
         {
           "frame": 1,
           "feet": [
-            189.574,
-            404.457
+            238.188,
+            450.705
           ],
           "camera": [
             0.0,
-            174.0574
+            220.3048
           ],
-          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-01.png",
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-archive/frame-01.png",
           "walkable": true,
           "waterWalk": false
         },
         {
           "frame": 2,
           "feet": [
-            138.88,
-            379.191
+            231.376,
+            461.41
           ],
           "camera": [
             0.0,
-            148.7912
+            231.0097
           ],
-          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-02.png",
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-archive/frame-02.png",
           "walkable": true,
           "waterWalk": false
         },
         {
           "frame": 3,
           "feet": [
-            120.12,
-            315.407
+            224.563,
+            472.115
           ],
           "camera": [
             0.0,
-            85.0066
+            241.7145
           ],
-          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-03.png",
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-archive/frame-03.png",
           "walkable": true,
           "waterWalk": false
         },
         {
           "frame": 4,
           "feet": [
-            135.411,
-            253.03
+            217.751,
+            482.819
           ],
           "camera": [
             0.0,
-            22.6303
+            252.4194
           ],
-          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-04.png",
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-archive/frame-04.png",
           "walkable": true,
           "waterWalk": false
         },
         {
           "frame": 5,
           "feet": [
-            169.803,
-            196.496
+            210.939,
+            493.524
           ],
           "camera": [
             0.0,
-            0.0
+            259.2
           ],
-          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-05.png",
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-archive/frame-05.png",
           "walkable": true,
           "waterWalk": false
         },
         {
           "frame": 6,
           "feet": [
-            143.305,
-            238.39
+            207.627,
+            505.679
           ],
           "camera": [
             0.0,
-            7.9903
+            259.2
           ],
-          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-06.png",
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-archive/frame-06.png",
           "walkable": true,
           "waterWalk": false
         },
         {
           "frame": 7,
           "feet": [
-            123.765,
-            301.823
+            204.874,
+            518.065
           ],
           "camera": [
             0.0,
-            71.4225
+            259.2
           ],
-          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-07.png",
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-archive/frame-07.png",
           "walkable": true,
           "waterWalk": false
         },
         {
           "frame": 8,
           "feet": [
-            132.555,
-            366.266
+            202.122,
+            530.452
           ],
           "camera": [
             0.0,
-            135.8664
+            259.2
           ],
-          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-08.png",
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-archive/frame-08.png",
           "walkable": true,
           "waterWalk": false
         },
         {
           "frame": 9,
           "feet": [
-            148.37,
-            430.844
+            197.944,
+            542.056
           ],
           "camera": [
             0.0,
-            200.4443
+            259.2
           ],
-          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-09.png",
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-archive/frame-09.png",
           "walkable": true,
           "waterWalk": false
         },
         {
           "frame": 10,
           "feet": [
-            164.185,
-            495.422
+            188.972,
+            551.028
           ],
           "camera": [
             0.0,
             259.2
           ],
-          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-10.png",
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-archive/frame-10.png",
           "walkable": true,
           "waterWalk": false
         },
@@ -611,12 +787,12 @@
             0.0,
             259.2
           ],
-          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-11.png",
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-archive/frame-11.png",
           "walkable": true,
           "waterWalk": false
         }
       ],
-      "gif": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive.gif"
+      "gif": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-archive.gif"
     },
     {
       "route": "hero-route",
