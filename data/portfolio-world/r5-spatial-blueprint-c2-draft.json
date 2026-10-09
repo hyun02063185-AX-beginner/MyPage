@@ -1,0 +1,75 @@
+{
+  "status": "DRAFT_MINIMUM_CORRIDOR_REPAIRED_PENDING_HUMAN_REVIEW",
+  "baseBlueprint": {
+    "path": "data/portfolio-world/r5-spatial-blueprint-c1-draft.json",
+    "status": "PRESERVED_UNCHANGED",
+    "reason": "C.2 is a geometry overlay; it inherits C.1 Hall stairs, collision footprints, visual-silhouette separation, and all unlisted surfaces."
+  },
+  "referenceMaster": {
+    "candidate": "B_ORGANIC_COASTAL_HARBOR_PROVISIONAL",
+    "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+    "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b",
+    "interpretation": "Visual reference only; neither collision nor a source from which to invent new dock structures."
+  },
+  "invariants": {
+    "collisionFootprints": "UNCHANGED_FROM_C1",
+    "candidateBeautyMaster": "UNCHANGED",
+    "r4Runtime": "UNCHANGED",
+    "player": "32-unit physics width / 48-unit minimum / 64-unit recommended",
+    "heroDeck": "UNDECLARED; boarding threshold only"
+  },
+  "geometryOverrides": {
+    "walkableZones": [
+      {
+        "id": "G_PIER_APRON",
+        "kind": "PIER",
+        "elevation": "L0",
+        "polygon": [[445,420],[505,385],[575,380],[605,415],[500,485]],
+        "basis": "C.2 traces the already-visible broad timber shore-to-pier platform in Candidate B; it does not introduce a new pier or reduce a collision footprint.",
+        "status": "DRAFT_C2_CORRECTED"
+      },
+      {
+        "id": "G_SHORE_PIER",
+        "kind": "PIER",
+        "elevation": "L0",
+        "polygon": [[500,360],[625,370],[760,355],[895,320],[920,385],[770,435],[630,440],[520,425]],
+        "basis": "C.2 aligns the declared walkable band with the existing broad pier planks; collision footprints are unchanged.",
+        "status": "DRAFT_C2_CORRECTED"
+      }
+    ],
+    "navigationNodes": [
+      { "id": "N_PIER_ENTRY", "role": "PIER_ENTRY", "point": [565,400], "zone": "G_SHORE_PIER", "elevation": "L0", "status": "DRAFT_C2_CORRECTED" },
+      { "id": "N_HERO", "role": "VISITABLE_HERO_BOARDING_THRESHOLD", "point": [1028,355], "zone": "G_GANGWAY", "elevation": "SHIP", "basis": "Moved left to the end of the verified-width gangway surface; this remains a threshold, not ship-deck access.", "status": "DRAFT_C2_CORRECTED" }
+    ],
+    "navigationEdges": [
+      { "id": "E_PROMENADE_PIER", "from": "N_PROMENADE", "to": "N_PIER_ENTRY", "type": "PIER", "polyline": [[455,470],[495,450],[530,425],[565,400]], "surfaceIds": ["G_LOWER_PROMENADE","G_PIER_APRON","G_SHORE_PIER"], "clearanceHalfWidth": 24, "minimumCorridorWidth": 48, "status": "DRAFT_C2_CENTERED_ON_EXISTING_PIER" },
+      { "id": "E_PIER_DOCK", "from": "N_PIER_ENTRY", "to": "N_SIDE_DOCK", "type": "PIER", "polyline": [[565,400],[650,400],[770,380],[890,355]], "surfaceIds": ["G_SHORE_PIER","G_SIDE_DOCK"], "clearanceHalfWidth": 24, "minimumCorridorWidth": 48, "status": "DRAFT_C2_CENTERED_ON_EXISTING_PIER" },
+      { "id": "E_GANGWAY_HERO", "from": "N_GANGWAY", "to": "N_HERO", "type": "GANGWAY", "polyline": [[1015,355],[1028,355]], "surfaceIds": ["G_GANGWAY"], "clearanceHalfWidth": 24, "minimumCorridorWidth": 48, "status": "DRAFT_C2_THRESHOLD_RELOCATED" }
+    ]
+  },
+  "clearanceContract": {
+    "sampleSpacingMax": 2,
+    "physicsHalfWidth": 16,
+    "minimumHalfWidth": 24,
+    "recommendedHalfWidth": 32,
+    "minimumResult": "PASS_BY_GEOMETRY",
+    "recommendedResult": "PASS_OR_WARN_BY_GEOMETRY",
+    "rule": "Classification is computed from sampled geometry, not declared width labels."
+  },
+  "requiredHeroChain": ["N_PROMENADE","N_PIER_ENTRY","N_SIDE_DOCK","N_GANGWAY","N_HERO"],
+  "unresolvedIssues": [
+    { "id": "U_64_RECOMMENDED", "severity": "WARNING", "text": "Some existing surfaces cannot establish ±32u along their full declared route. They pass 48u only; C.2 does not invent wider structures." },
+    { "id": "U_CAMERA_EXTENT", "severity": "UNRESOLVED", "text": "C.1 camera/world-range finding is inherited; C.2 does not select final world extents." },
+    { "id": "U_SHIP_DECK", "severity": "UNRESOLVED", "text": "Hero deck interior remains undeclared." }
+  ],
+  "evidence": { "folder": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-c2", "status": "DRAFT" },
+  "humanGate": {
+    "geometryIntegrity": "PASS",
+    "minimumCorridor48": "PASS",
+    "recommendedCorridor64": "PASS_OR_WARN",
+    "fullWorldDesign": "PENDING_HUMAN",
+    "finalBlueprint": "NOT_APPROVED",
+    "runtime": "BLOCKED",
+    "gate": "READY_FOR_R5_C2_FINAL_SPATIAL_HUMAN_REVIEW"
+  }
+}
