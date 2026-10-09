@@ -60,3 +60,16 @@ test("the four approved content mappings remain preview-only and debug exposes t
   assert.match(source, /COLLISION_FOOTPRINTS/);
   assert.match(source, /POI \$\{activePoi/);
 });
+
+test("E2.1 constrains visual pier geometry and uses swept A* navigation with a manual override", () => {
+  const collision = read("src/prototypes/r5-hybrid/hybridCollision.ts");
+  const navigation = read("src/prototypes/r5-hybrid/hybridNavigation.ts");
+  assert.match(collision, /Pilot-only visual-alignment overlay/);
+  assert.match(collision, /isMovementSegmentSafe/);
+  assert.match(navigation, /A\*/);
+  assert.match(navigation, /invalid-target/);
+  assert.match(source, /findPilotPath/);
+  assert.match(source, /Manual control/);
+  assert.match(source, /setDisplaySize\(PLAYER\.width, PLAYER\.height\)\.setOrigin\(\.5, 1\)/);
+  assert.match(source, /hybrid:poi/);
+});

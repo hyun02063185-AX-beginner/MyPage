@@ -16,6 +16,9 @@
       #r5-hybrid-status { top: 10px; left: 10px; }
       #r5-hybrid-prompt { bottom: 12px; left: 50%; transform: translateX(-50%); }
       #r5-hybrid-notice { top: 44px; left: 50%; transform: translateX(-50%); text-align: center; }
+      .r5-hybrid-controls { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+      .r5-hybrid-controls button { border: 1px solid #507583; border-radius: 4px; background: #173846; color: #fff8d2; cursor: pointer; font: 12px ui-monospace, monospace; padding: 7px 9px; }
+      .r5-hybrid-controls button:hover, .r5-hybrid-controls button:focus-visible { background: #28586a; outline: 2px solid #f5c96a; outline-offset: 2px; }
       @media (max-width: 700px) { .r5-hybrid-shell { padding: 10px; } .r5-hybrid-hud { font-size: 11px; } }
     </style>
   </head>
@@ -31,6 +34,9 @@
           <p id="r5-hybrid-status"></p><p id="r5-hybrid-prompt"></p><p id="r5-hybrid-notice"></p>
         </div>
       </div>
+      <nav class="r5-hybrid-controls" aria-label="Pilot destinations">
+        <button data-poi="hall">Exhibition Hall</button><button data-poi="workshop">Workshop</button><button data-poi="archive">Harbor Archive</button><button data-poi="hero">Hero Ship</button><button data-guide="toggle">Route guide</button>
+      </nav>
     </main>
     <script type="module" src="/src/prototypes/r5-hybrid/hybridPilot.ts"></script>
   </body>

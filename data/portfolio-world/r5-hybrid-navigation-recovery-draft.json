@@ -1,0 +1,12 @@
+{
+  "id": "R5-E2.1-NAVIGATION-RECOVERY",
+  "scope": "HYBRID_PILOT_ONLY",
+  "preserves": ["Candidate B original", "C1/C2 originals", "R4 Runtime", "four POIs", "approved mappings", "future reserve", "Hero interior blocked"],
+  "walkableAlignment": { "method": "pilot-only polygons contracted to visible stone, timber dock and painted gangway", "notPixelCollision": true, "changes": ["lower promenade contracted to Workshop-to-apron forecourt", "shore pier contracted to timber band", "side dock/gangway overlap supplies a full 28x16 safe body join", "Hero threshold moved from C2 [1028,355] to pilot [1020,364]"] },
+  "collision": { "body": [28,16], "sweepPx": 2, "water": "blocked outside corrected walkable union", "heroDeck": "blocked" },
+  "playerAnimationAudit": { "logicalFrame": [28,56], "idleSource": [28,56], "walkSourceSheet": [112,56], "walkFrame": [28,56], "anchor": "bottom-center", "fix": "display size, origin and feet body reapplied after every animation switch" },
+  "navigation": { "method": "8px A* grid over corrected polygons, smoothed only by collision-swept segments", "targetOutsideWalkable": "reject without teleport", "manualOverride": "WASD/arrows cancel auto route", "poiRoutes": ["hall", "workshop", "archive", "hero"] },
+  "guidance": { "normal": "subtle amber dashed path during auto navigation", "debug": ["walkable", "blockers", "feet body", "POI", "A* waypoints", "active surface"], "toggle": "Route guide button" },
+  "mobile": "Touch uses Phaser pointer path request; physical mobile QA pending.",
+  "humanGate": "CONDITIONAL_REWORK_REQUIRED"
+}
