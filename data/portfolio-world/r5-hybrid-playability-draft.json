@@ -1,0 +1,15 @@
+{
+  "id": "R5-E2-HYBRID-PLAYABILITY-GATE",
+  "status": "INDEPENDENT_PILOT_NOT_R5_RUNTIME",
+  "entrypoint": "portfolio-world/r5-hybrid-pilot.html",
+  "runtimeIsolation": { "worldSceneModified": false, "canonicalR4Modified": false, "formalR5RuntimeCreated": false },
+  "scenicPlate": { "candidate": "B_ORGANIC_COASTAL_HARBOR_PROVISIONAL", "path": "portfolio-world/public/assets/r5-hybrid/candidate-b-scenic-plate.png", "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b", "collisionSource": "NEVER" },
+  "independentForegroundOccluders": ["hall-stairs-retaining", "workshop-foreground", "archive-approach-foreground", "dock-piles", "gangway"],
+  "heroShip": { "treatment": "SCENIC_PLATE_ONLY", "walkable": "N_HERO_THRESHOLD_ONLY", "deck": "BLOCKED_UNDECLARED" },
+  "camera": { "logicalViewport": [1024,576], "world": [1280,720], "zoom": 1.25 },
+  "player": { "visual": [28,56], "feetBody": [28,16], "source": "R4 selected Refined Portfolio Guide", "input": ["WASD", "ARROWS"] },
+  "collision": { "basis": ["r5-spatial-blueprint-c1-draft.json", "r5-spatial-blueprint-c2-draft.json"], "method": "whole 28x16 feet footprint against explicit walkable polygons and authored collision footprints", "pixelDerived": false },
+  "poiMappings": { "hall": "teaching.html", "workshop": "making.html", "archive": "gallery.html", "hero_ship": "career.html", "execution": "TEST_INFO_ONLY_NO_NAVIGATION" },
+  "debug": ["walkable zones", "collision footprints", "player feet", "world/camera bounds", "active POI", "occlusion coordinate assets"],
+  "humanGate": { "gate": "CONDITIONAL_REWORK_REQUIRED", "reason": "Playable geometry and interaction pilot pass, but Candidate B remains a provisional scenic plate and its painterly projection still needs human approval before any R5 runtime promotion." }
+}

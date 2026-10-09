@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>R5 E2 — Hybrid Playability Pilot</title>
+    <style>
+      .r5-hybrid-body { overflow: auto; }
+      .r5-hybrid-shell { display: grid; gap: 12px; max-width: 1080px; margin: 0 auto; padding: 18px; }
+      .r5-hybrid-shell header p, .r5-hybrid-shell h1 { margin: 0 0 8px; }
+      .r5-hybrid-shell .eyebrow { color: #f5c96a; font-size: .75rem; letter-spacing: .08em; }
+      #r5-hybrid-root { position: relative; width: 1024px; max-width: 100%; margin: auto; }
+      #r5-hybrid-root canvas { display: block; width: 100%; image-rendering: pixelated; }
+      .r5-hybrid-hud { position: absolute; inset: 0; z-index: 2; pointer-events: none; color: #fff8d2; font: 14px ui-monospace, monospace; }
+      .r5-hybrid-hud p { position: absolute; margin: 0; padding: 5px 7px; background: #102d36dd; }
+      #r5-hybrid-status { top: 10px; left: 10px; }
+      #r5-hybrid-prompt { bottom: 12px; left: 50%; transform: translateX(-50%); }
+      #r5-hybrid-notice { top: 44px; left: 50%; transform: translateX(-50%); text-align: center; }
+      @media (max-width: 700px) { .r5-hybrid-shell { padding: 10px; } .r5-hybrid-hud { font-size: 11px; } }
+    </style>
+  </head>
+  <body class="r5-hybrid-body">
+    <main class="r5-hybrid-shell">
+      <header>
+        <p class="eyebrow">R5 E2 · INDEPENDENT PILOT · NOT R5 RUNTIME</p>
+        <h1>Candidate B hybrid playability</h1>
+        <p>WASD / arrow keys move · <kbd>E</kbd> previews a destination · <kbd>F2</kbd> toggles geometry debug.</p>
+      </header>
+      <div id="r5-hybrid-root" aria-label="R5 hybrid playability game">
+        <div class="r5-hybrid-hud" aria-live="polite">
+          <p id="r5-hybrid-status"></p><p id="r5-hybrid-prompt"></p><p id="r5-hybrid-notice"></p>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/prototypes/r5-hybrid/hybridPilot.ts"></script>
+  </body>
+</html>
