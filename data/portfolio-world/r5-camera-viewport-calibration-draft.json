@@ -1,0 +1,71 @@
+{
+  "status": "DRAFT_CAMERA_VIEWPORT_REVIEW_PENDING_HUMAN",
+  "phase": "R5 Phase D.1",
+  "approvedContentMapping": {
+    "id": "A_STORYTELLING",
+    "status": "HUMAN_APPROVED",
+    "decisionMaker": "Human",
+    "implementation": "NOT_IMPLEMENTED",
+    "mapping": { "hall": "teaching.html", "workshop": "making.html", "archive": "gallery.html", "hero_ship": "career.html" }
+  },
+  "preservedInputs": [
+    { "path": "data/portfolio-world/r5-spatial-blueprint-c2-draft.json", "sha256": "7329b5489541c48c5e7a1027cd6fe52d0a3ca8516dde87d2bb17ecec15602d17", "status": "UNCHANGED" },
+    { "path": "data/portfolio-world/r5-future-expansion-reserve-draft.json", "sha256": "950b73ad113182238bd9559e9317f5f602ab1b46d3304c46784dbe9e0829d127", "status": "UNCHANGED" },
+    { "path": "portfolio-world/src/scenes/CanonicalRuntimeR4Scene.ts", "sha256": "909c16d2a061262c5c2cc39f00fcf334b48ec96543ed6282256dae07d570686f", "status": "UNCHANGED" }
+  ],
+  "referenceMaster": { "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png", "sourceImageSize": [1280, 720], "status": "PROVISIONAL_NO_NEW_MASTER" },
+  "coordinateContract": {
+    "SOURCE_IMAGE_SIZE": "1280×720 pixels; a visual source, not an automatic world-size approval",
+    "WORLD_BOUNDS": "Candidate review bounds are 1280×720 only; larger bounds require separately authored art and geometry",
+    "LOGICAL_VIEWPORT": "runtime viewport under comparison: 1024×576 or 1280×720 logical pixels",
+    "CSS_DISPLAY_SIZE": "presentation size is separate and does not change logical positions",
+    "CAMERA_ZOOM": "world-to-logical-screen multiplier",
+    "VISIBLE_WORLD_AREA": "logicalViewport / cameraZoom",
+    "formula": "logicalScreen = (worldPosition - clampedCameraPosition) × zoom; previewScreen = logicalScreen × previewScale",
+    "cameraClamp": "cameraPosition = clamp(target - visibleWorldArea/2, 0, worldBounds - visibleWorldArea)",
+    "playerAnchor": "bottom-center feet remain at the ground anchor; sprite top-left = feetScreen - (playerWidth×zoom×previewScale/2, playerHeight×zoom×previewScale)",
+    "bugFix": "Do not multiply player size by zoom after tileScale already derives from visibleWorldArea. Use playerWorldSize × zoom × previewScale exactly once."
+  },
+  "worldBoundsAlternatives": [
+    { "id": "COMPACT_HARBOR", "bounds": [1280, 720], "status": "OPTION_PENDING_HUMAN", "note": "Candidate review bounds only; source composition stays intact." },
+    { "id": "EXPLORATION_HARBOR", "bounds": [1600, 900], "status": "OPTION_PENDING_HUMAN", "note": "All area beyond the master needs new terrain, water, background, walkability, collision, and camera-safe art." },
+    { "id": "CONNECTED_SCENES", "bounds": [1280, 720], "status": "OPTION_PENDING_HUMAN", "note": "Keep harbor bounded; future Hero interior/offshore content loads through approved seams." }
+  ],
+  "viewportConfigurations": [
+    { "id": "A_1024x576_Z1", "viewport": [1024, 576], "zoom": 1.0, "visibleWorld": [1024, 576], "cameraTravel": [256, 144] },
+    { "id": "B_1024x576_Z125", "viewport": [1024, 576], "zoom": 1.25, "visibleWorld": [819.2, 460.8], "cameraTravel": [460.8, 259.2] },
+    { "id": "C_1280x720_Z1", "viewport": [1280, 720], "zoom": 1.0, "visibleWorld": [1280, 720], "cameraTravel": [0, 0] },
+    { "id": "D_1280x720_Z125", "viewport": [1280, 720], "zoom": 1.25, "visibleWorld": [1024, 576], "cameraTravel": [256, 144] }
+  ],
+  "playerScaleOptions": [
+    { "id": "A_28x56_Z1", "worldSize": [28, 56], "zoom": 1.0, "logicalScreenSize": [28, 56], "status": "OPTION_PENDING_HUMAN" },
+    { "id": "B_28x56_Z125", "worldSize": [28, 56], "zoom": 1.25, "logicalScreenSize": [35, 70], "status": "OPTION_PENDING_HUMAN" },
+    { "id": "C_32x64_Z1", "worldSize": [32, 64], "zoom": 1.0, "logicalScreenSize": [32, 64], "status": "OPTION_PENDING_HUMAN" }
+  ],
+  "groundAnchors": [
+    { "id": "N_HALL", "point": [175, 190], "surface": "G_HALL_TERRACE", "purpose": "Exhibition Hall / main stairs" },
+    { "id": "N_WORKSHOP", "point": [245, 440], "surface": "G_WORKSHOP_FORECOURT", "purpose": "Workshop" },
+    { "id": "N_ARCHIVE", "point": [180, 560], "surface": "G_ARCHIVE_APPROACH", "purpose": "Harbor Archive" },
+    { "id": "N_PROMENADE", "point": [455, 470], "surface": "G_LOWER_PROMENADE", "purpose": "Central Promenade" },
+    { "id": "N_HALL_STAIR_BASE", "point": [120, 315], "surface": "S_MAIN_LOWER", "purpose": "Hall stair base" },
+    { "id": "N_HALL_MID", "point": [140, 245], "surface": "S_MAIN_UPPER", "purpose": "Hall stair middle" },
+    { "id": "N_PIER_ENTRY", "point": [565, 400], "surface": "G_SHORE_PIER", "purpose": "Pier entry (C.2 override)" },
+    { "id": "N_SIDE_DOCK", "point": [890, 355], "surface": "G_SIDE_DOCK", "purpose": "Side dock" },
+    { "id": "N_HERO", "point": [1028, 355], "surface": "G_GANGWAY", "purpose": "Hero Ship boarding threshold (C.2 override)" }
+  ],
+  "visualReviewScores": {
+    "scale": "1–5 planning-readability score; not a runtime acceptance score",
+    "A_28x56_Z1": { "characterRead": 3, "routeRead": 5, "landmarkDiscovery": 5, "mobileRead": 2, "heroStability": 4 },
+    "B_28x56_Z125": { "characterRead": 4, "routeRead": 4, "landmarkDiscovery": 4, "mobileRead": 4, "heroStability": 4 },
+    "C_32x64_Z1": { "characterRead": 4, "routeRead": 5, "landmarkDiscovery": 5, "mobileRead": 3, "heroStability": 4 }
+  },
+  "rightExpansionReserve": { "status": "APPROVED_STRATEGY_PRESERVED", "current": "visual-only, non-walkable water/horizon; four POI only", "futureSeams": ["Hero Ship Interior", "East Auxiliary Berth", "Offshore Scene"] },
+  "remainingIssues": [
+    "CONTENT_ENTRY_UX remains PENDING_HUMAN.",
+    "Explicit World return, previous-location restoration, mobile Back behavior, refresh, and direct-entry policy remain unimplemented UX decisions.",
+    "CAMERA_VIEWPORT and WORLD_BOUNDS remain PENDING_HUMAN; comparative review is not a lock.",
+    "Candidate B final design and final spatial blueprint remain unapproved."
+  ],
+  "humanGate": { "CONTENT_MAPPING": "HUMAN_APPROVED_A_STORYTELLING_NOT_IMPLEMENTED", "RIGHT_SIDE_RESERVE_STRATEGY": "APPROVED", "CONTENT_ENTRY_UX": "PENDING_HUMAN", "CAMERA_VIEWPORT": "PENDING_HUMAN", "WORLD_BOUNDS": "PENDING_HUMAN", "CANDIDATE_B_FINAL_DESIGN": "PENDING_HUMAN", "FINAL_SPATIAL_BLUEPRINT": "NOT_APPROVED", "R5_RUNTIME": "BLOCKED", "gate": "READY_FOR_R5_D1_CAMERA_WORLD_HUMAN_REVIEW" },
+  "evidence": { "folder": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-d1", "files": ["01-content-mapping-human-closeout.md", "02-camera-calculation-bug-audit.md", "03-viewport-coordinate-contract.md", "04-corrected-camera-comparison.png", "05-player-native-scale-review.png", "06-five-location-gameplay-review.png", "07-camera-boundary-and-travel.png", "08-world-size-feasibility.md", "09-content-return-ux-contract.md", "10-final-human-gate-review.md", "11-human-decision-board.png"] }
+}

@@ -21,14 +21,15 @@ test('audits exactly four existing content pages and four active POI', () => {
   assert.deepEqual(data.currentActivePoi.map((poi) => poi.id), ['hall', 'workshop', 'archive', 'hero_ship']);
 });
 
-test('records two distinct mapping options without treating either as approval', () => {
+test('retains two distinct mapping options while recording the later Human approval of Option A', () => {
   assert.equal(data.mappingOptions.length, 2);
   for (const option of data.mappingOptions) {
     assert.equal(option.status, 'OPTION_PENDING_HUMAN');
     assert.deepEqual(Object.keys(option.mapping), ['hall', 'workshop', 'archive', 'hero_ship']);
     for (const page of Object.values(option.mapping)) assert.ok(existsSync(path.join(root, page)));
   }
-  assert.equal(data.preferredMapping.status, 'RECOMMENDED_PENDING_HUMAN');
+  assert.equal(data.preferredMapping.status, 'HUMAN_APPROVED');
+  assert.equal(data.preferredMapping.implementation, 'NOT_IMPLEMENTED');
 });
 
 test('separates implemented World routing from event-only Canonical R4 and unimplemented R5', () => {

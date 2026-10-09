@@ -28,7 +28,7 @@ def wrap(d, xy, text, width, color=MUTED, size=16, gap=4):
 def getnodes():
     by={x['id']:x for x in C1['navigationNodes']};by.update({x['id']:x for x in C2['geometryOverrides']['navigationNodes']});return by
 def content_map():
-    src=master(); im,d=board('R5 Phase D — Content Destination Alternatives','Both alternatives use the same four active POI. Green is Option A; violet is Option B. Neither is approved.',(1600,1020)); im.paste(src.resize((960,540),Image.Resampling.LANCZOS),(30,125));
+    src=master(); im,d=board('R5 Phase D — Content Destination Alternatives','Both alternatives use the same four active POI. Green Option A is Human-approved for content meaning; violet Option B remains comparison history. No routing is implemented.',(1600,1020)); im.paste(src.resize((960,540),Image.Resampling.LANCZOS),(30,125));
     points={'hall':(165,145),'workshop':(235,350),'archive':(170,445),'hero_ship':(790,285)}
     a=DATA['mappingOptions'][0]['mapping']; b=DATA['mappingOptions'][1]['mapping']
     for poi,(x,y) in points.items():
@@ -52,7 +52,7 @@ def gameplay():
     for r,cam in enumerate(DATA['cameraOptions']):
         y=120+r*330;d.text((25,y),cam['id'].replace('_',' '),font=ft(20,True),fill=(255,233,189));d.text((25,y+30),f"player {cam['playerVisual'][0]}×{cam['playerVisual'][1]} · zoom {cam['zoom']} · visible {cam['visibleWorld'][0]:.1f}×{cam['visibleWorld'][1]:.1f} · on-screen {cam['screenPlayerHeight']}px",font=ft(14),fill=MUTED)
         for c,(name,nid) in enumerate(views):
-            p=nodes[nid]['point']; vw,vh=map(round,cam['visibleWorld']);left=max(0,min(src.width-vw,round(p[0]-vw/2)));top=max(0,min(src.height-vh,round(p[1]-vh/2)));tile=src.crop((left,top,left+vw,top+vh)).resize((400,225),Image.Resampling.LANCZOS).convert('RGBA');sx=400/vw;sy=225/vh;sw=max(1,round(cam['playerVisual'][0]*cam['zoom']*sx));sh=max(1,round(cam['playerVisual'][1]*cam['zoom']*sy));sprite=player.resize((sw,sh),Image.Resampling.NEAREST);px=round((p[0]-left)*sx);py=round((p[1]-top)*sy);ImageDraw.Draw(tile).ellipse((px-4,py-4,px+4,py+4),fill=GOLD);tile.alpha_composite(sprite,(px-sw//2,py-sh));x=390+c*425;im.paste(tile.convert('RGB'),(x,y));d.rectangle((x,y,x+400,y+225),outline=GOLD,width=2);d.text((x,y+234),name,font=ft(15,True),fill=INK)
+            p=nodes[nid]['point']; vw,vh=map(round,cam['visibleWorld']);left=max(0,min(src.width-vw,round(p[0]-vw/2)));top=max(0,min(src.height-vh,round(p[1]-vh/2)));tile=src.crop((left,top,left+vw,top+vh)).resize((400,225),Image.Resampling.LANCZOS).convert('RGBA');sx=400/vw;sy=225/vh;sw=max(1,round(cam['playerVisual'][0]*sx));sh=max(1,round(cam['playerVisual'][1]*sy));sprite=player.resize((sw,sh),Image.Resampling.NEAREST);px=round((p[0]-left)*sx);py=round((p[1]-top)*sy);ImageDraw.Draw(tile).ellipse((px-4,py-4,px+4,py+4),fill=GOLD);tile.alpha_composite(sprite,(px-sw//2,py-sh));x=390+c*425;im.paste(tile.convert('RGB'),(x,y));d.rectangle((x,y,x+400,y+225),outline=GOLD,width=2);d.text((x,y+234),name,font=ft(15,True),fill=INK)
     d.text((30,1120),'Read: 28×56 at 1.25 is proposed for first gameplay test. Overview must remain a separate affordance; it is not the normal play view.',font=ft(17,True),fill=CYAN);return im
 def expansion():
     src=master(); im,d=board('R5 Phase D — Future Expansion Models','Current right-side reserve stays water/horizon and non-walkable. These diagrams compare future production choices.',(1700,980)); im.paste(src.resize((760,428),Image.Resampling.LANCZOS),(35,135));d.rectangle((35+570,135,795,563),outline=VIOLET,width=4);d.text((58,582),'ACTIVE HARBOR CORE',font=ft(16,True),fill=GREEN);d.text((610,582),'VISUAL RESERVE ONLY',font=ft(16,True),fill=VIOLET)
@@ -63,13 +63,13 @@ def expansion():
     for i,seam in enumerate(DATA['expansionSeams']):d.text((60,792+i*44),f"{seam['id']}: {seam['current']}",font=ft(16),fill=INK)
     return im
 def decisions():
-    im,d=board('R5 Phase D — Human Decision Board','A planning package only. No candidate, mapping, UX, world size, camera value, or runtime has been approved.',(1600,940)); src=master().resize((650,366),Image.Resampling.LANCZOS);im.paste(src,(30,130));d.rectangle((30,130,680,496),outline=GOLD,width=3)
-    decisions=[('A · CONTENT MAPPING','Option A storytelling / Option B semantic'),('B · CONTENT ENTRY UX','HTML page / overlay panel / content scene'),('C · WORLD AND CAMERA','single-screen / larger exploration / connected areas'),('D · EXPANSION MODEL','World Extension / Scene Transition')]
+    im,d=board('R5 Phase D — Human Decision Board','A Storytelling content mapping is approved; entry UX, world/camera, Candidate B, and Runtime remain pending or blocked.',(1600,940)); src=master().resize((650,366),Image.Resampling.LANCZOS);im.paste(src,(30,130));d.rectangle((30,130,680,496),outline=GOLD,width=3)
+    decisions=[('A · CONTENT MAPPING','A Storytelling · HUMAN APPROVED'),('B · CONTENT ENTRY UX','HTML page / overlay panel / content scene'),('C · WORLD AND CAMERA','single-screen / larger exploration / connected areas'),('D · EXPANSION MODEL','World Extension / Scene Transition')]
     for i,(a,b) in enumerate(decisions):
         x=750;y=130+i*125;d.rounded_rectangle((x,y,x+790,y+94),14,fill=(17,47,59),outline=CYAN,width=3);d.text((x+20,y+13),a,font=ft(19,True),fill=(255,233,189));d.text((x+20,y+47),b,font=ft(17),fill=INK)
     checks=['FOUR ACTIVE POI — PRESERVED','C.2 GEOMETRY — PRESERVED','RIGHT RESERVE — VISUAL ONLY','CANDIDATE B — PENDING HUMAN','R4/R5 RUNTIME — NOT MODIFIED / BLOCKED']
     for i,text in enumerate(checks):d.text((40,570+i*42),text,font=ft(18,True),fill=GREEN if i<3 else GOLD)
-    d.text((40,830),DATA['gate'],font=ft(22,True),fill=CYAN);return im
+    d.text((40,830),'READY_FOR_R5_D1_CAMERA_WORLD_HUMAN_REVIEW',font=ft(22,True),fill=CYAN);return im
 def main():
     OUT.mkdir(parents=True,exist_ok=True)
     for name,func in [('10-content-destination-map.png',content_map),('11-world-size-camera-comparison.png',world_size),('12-gameplay-view-comparison.png',gameplay),('13-future-expansion-models.png',expansion),('14-human-decision-board.png',decisions)]: func().save(OUT/name)
