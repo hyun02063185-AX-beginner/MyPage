@@ -1,0 +1,399 @@
+{
+  "status": "CONDITIONAL_REWORK_REQUIRED",
+  "scope": "E.1 independent visual-production pilot only; no R4/R5 runtime integration",
+  "referenceMaster": {
+    "path": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+    "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b",
+    "preserved": true
+  },
+  "cleanPlateMethod": "Image-generation edit, normalized to 1280\u00d7720. Generated/estimated areas are clean bases, not source truth.",
+  "coordinateContract": {
+    "worldSize": [
+      1280,
+      720
+    ],
+    "player": [
+      28,
+      56
+    ],
+    "cameraZoom": 1.25,
+    "groundAnchor": "bottom-center",
+    "heroThreshold": [
+      1028,
+      355
+    ],
+    "workshopAnchor": [
+      245,
+      440
+    ]
+  },
+  "assets": [
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\hall_facade_rgba.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "Candidate B pixel extraction with feathered alpha segmentation",
+      "size": [
+        470,
+        190
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        0,
+        0
+      ],
+      "groundAnchor": [
+        175,
+        190
+      ],
+      "depthOrder": 30,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "21c276eb6366bee2db19da8845dad7d8982b266c5a738c6882953f447cc92c8d"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\hall_stairs_retaining_rgba.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "Candidate B pixel extraction with feathered alpha segmentation",
+      "size": [
+        310,
+        285
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        0,
+        120
+      ],
+      "groundAnchor": [
+        120,
+        315
+      ],
+      "depthOrder": 70,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "147a763870f7fb18223eafa9ee02485e502db98a1018552e076c2e9fb40faec5"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\hero_dock_piles_rgba.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "Candidate B pixel extraction with feathered alpha segmentation",
+      "size": [
+        680,
+        190
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        420,
+        285
+      ],
+      "groundAnchor": [
+        890,
+        355
+      ],
+      "depthOrder": 55,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "bc73b7497b528ed5604d077623b9a5ba47b2baf961ca9697ff36f42bed4e622c"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\hero_foreground_rgba.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "Candidate B pixel extraction with feathered alpha segmentation",
+      "size": [
+        680,
+        190
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        420,
+        285
+      ],
+      "groundAnchor": [
+        1028,
+        355
+      ],
+      "depthOrder": 70,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "bc73b7497b528ed5604d077623b9a5ba47b2baf961ca9697ff36f42bed4e622c"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\hero_gangway_rgba.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "Candidate B pixel extraction with feathered alpha segmentation",
+      "size": [
+        175,
+        110
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        925,
+        285
+      ],
+      "groundAnchor": [
+        1015,
+        355
+      ],
+      "depthOrder": 45,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "394da096f57e7cc8ed3dd43f5e205dbec8613bbddd718979e826303064ca89e8"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\hero_ship_dock_reconstruction_bundle_rgba.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "Candidate B pixel extraction with feathered alpha segmentation",
+      "size": [
+        870,
+        435
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        410,
+        80
+      ],
+      "groundAnchor": [
+        1028,
+        355
+      ],
+      "depthOrder": 50,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "608aaaaadcc9eda20160a3861fd994938a6a837c30f16bb0000d74b4de3c0f37"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\hero_ship_hull_rgba.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "Candidate B pixel extraction with feathered alpha segmentation",
+      "size": [
+        460,
+        420
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        820,
+        80
+      ],
+      "groundAnchor": [
+        1028,
+        355
+      ],
+      "depthOrder": 50,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "4f0934fc50e31766aa2afc2bd8164f9332e4c13ea3b5abdcd1f5e28a120102d4"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\hero_side_dock_rgba.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "Candidate B pixel extraction with feathered alpha segmentation",
+      "size": [
+        690,
+        190
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        410,
+        285
+      ],
+      "groundAnchor": [
+        890,
+        355
+      ],
+      "depthOrder": 35,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "aa3a668c39db37b70134f8e0a6c34916ffe8120bf9d8153a239b85297414826b"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\hero_water_base.png",
+      "sourcePath": "generated clean-plate edit source",
+      "method": "generated clean plate",
+      "size": [
+        1280,
+        720
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        0,
+        0
+      ],
+      "groundAnchor": [
+        1028,
+        355
+      ],
+      "depthOrder": 0,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "95efaf62793907d3cb3b5603024687770dc2a16d8e42f7958b7f43a40625f7e9"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\hero_water_contact_rgba.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "Candidate B pixel extraction with feathered alpha segmentation",
+      "size": [
+        295,
+        110
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        985,
+        405
+      ],
+      "groundAnchor": [
+        1028,
+        355
+      ],
+      "depthOrder": 45,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "e6676932ff3bdb29f60547fea88a87d5ad1e6cdf919285a6498862df4b798140"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\hero_water_foreground_rgba.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "Candidate B pixel extraction with feathered alpha segmentation",
+      "size": [
+        295,
+        110
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        985,
+        405
+      ],
+      "groundAnchor": [
+        1028,
+        355
+      ],
+      "depthOrder": 70,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "e6676932ff3bdb29f60547fea88a87d5ad1e6cdf919285a6498862df4b798140"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\source-hero-clean-generation.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "generated clean plate",
+      "size": [
+        1672,
+        941
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        0,
+        0
+      ],
+      "groundAnchor": null,
+      "depthOrder": 0,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "b3ac34e94b9d62f9b2ee656121f4a667fe3cd0c3ce7dedfcdffa4c0810284f65"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\source-workshop-clean-generation.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "generated clean plate",
+      "size": [
+        1672,
+        941
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        0,
+        0
+      ],
+      "groundAnchor": null,
+      "depthOrder": 0,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "06c93bb9241b291b5b96c9f9645ea85a36cd41a91946af80a7968f7351f58362"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\workshop_clean_plate_rgba.png",
+      "sourcePath": "generated clean-plate edit source",
+      "method": "generated clean plate",
+      "size": [
+        1280,
+        720
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        0,
+        0
+      ],
+      "groundAnchor": [
+        245,
+        440
+      ],
+      "depthOrder": 0,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "939c280144c5b0690fb8c5ce3865551d64f3255fbe4db52773391b4bd99ba402"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\workshop_foreground_rail_planters_rgba.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "Candidate B pixel extraction with feathered alpha segmentation",
+      "size": [
+        710,
+        320
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        0,
+        400
+      ],
+      "groundAnchor": [
+        245,
+        440
+      ],
+      "depthOrder": 70,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "5f767e54cad8a5461b008fde7d91a77783365a3a6ce20b3ab27ff993a7845df3"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\workshop_front_rgba.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "Candidate B pixel extraction with feathered alpha segmentation",
+      "size": [
+        500,
+        213
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        70,
+        185
+      ],
+      "groundAnchor": [
+        245,
+        440
+      ],
+      "depthOrder": 40,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "ef533d5c94bec3816d618fd7f35453d7feb55f521315e6e1b14b44165f9c9657"
+    },
+    {
+      "file": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e1\\production-pilot-assets\\workshop_hall_reconstruction_bundle_rgba.png",
+      "sourcePath": "reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-b\\02-candidate-b-original.png",
+      "method": "Candidate B pixel extraction with feathered alpha segmentation",
+      "size": [
+        710,
+        720
+      ],
+      "alphaChannel": true,
+      "placementWorld": [
+        0,
+        0
+      ],
+      "groundAnchor": [
+        245,
+        440
+      ],
+      "depthOrder": 40,
+      "visualValidation": "CONDITIONAL \u2014 visible in independent E.1 composite; requires Human art-direction review",
+      "sha256": "81f4f45d4930bb04756264db332f520ebe46a47038af7a400257093858a740a7"
+    }
+  ],
+  "depthOrder": [
+    "clean base/water",
+    "structure bundle",
+    "player ground anchor",
+    "foreground rail/hull as applicable"
+  ],
+  "verdict": {
+    "workshopHall": "CONDITIONAL",
+    "heroShip": "CONDITIONAL",
+    "productionArtGate": "CONDITIONAL_REWORK_REQUIRED"
+  },
+  "limitations": [
+    "Clean plates are generated estimates where Candidate B concealed source information.",
+    "Extraction masks are a production-pilot segmentation, not approved final source art.",
+    "Generated clean plates have style/perspective drift under inspection and cannot be promoted without human art-direction approval."
+  ]
+}
