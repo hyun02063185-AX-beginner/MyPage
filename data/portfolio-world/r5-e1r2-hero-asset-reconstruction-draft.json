@@ -1,0 +1,387 @@
+{
+  "status": "CONDITIONAL_REWORK_REQUIRED",
+  "sourceMaster": {
+    "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+    "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b"
+  },
+  "inputs": [
+    {
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+      "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b"
+    },
+    {
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/11-common-clean-base-repaired.png",
+      "sha256": "d62bbcd2a584d77ad2107a90e419ca828cb739fae141cc0649737a5e021c0429"
+    },
+    {
+      "path": "portfolio-world/public/assets/canonical-r4/candidates/player/player-b-front.png",
+      "sha256": "1c25363e0039b8e972fbebb5be8e383c6cb2b734471fef13195ebaa05c7997e5"
+    },
+    {
+      "path": "data/portfolio-world/r5-spatial-blueprint-c2-draft.json",
+      "sha256": "7329b5489541c48c5e7a1027cd6fe52d0a3ca8516dde87d2bb17ecec15602d17"
+    },
+    {
+      "path": "data/portfolio-world/r5-future-expansion-reserve-draft.json",
+      "sha256": "950b73ad113182238bd9559e9317f5f602ab1b46d3304c46784dbe9e0829d127"
+    },
+    {
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/production-assets/option-b-unapproved/generated-hero-reference.png",
+      "sha256": "887e1b57891795a526d2cf2725bee6af48623cecd74d35661765977ce23cf857"
+    }
+  ],
+  "segmentation": {
+    "method": "manually authored component masks (hull planes, deck, sails, mast/rigging strokes), not ownership-order subtraction",
+    "hiddenHull": "small documented continuity patch behind gangway",
+    "optionBGeneratedReference": {
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/production-assets/option-b-unapproved/generated-hero-reference.png",
+      "usedInFinal": false,
+      "reason": "orientation/proportion diverges from Candidate B"
+    }
+  },
+  "assets": [
+    {
+      "role": "hero_ship_group",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/production-assets/hero_ship/group.png",
+      "placement": [
+        849,
+        92
+      ],
+      "alphaBounds": [
+        849,
+        92,
+        1280,
+        479
+      ],
+      "sha256": "01ddd265f7f54d67131507158c23d26fa49b3ddd0f9a5bcaeae10976393a7472",
+      "source": "Candidate B extraction"
+    },
+    {
+      "role": "group-internal continuity patch",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/production-assets/hero_ship/hidden_hull_patch.png",
+      "placement": [
+        922,
+        309
+      ],
+      "alphaBounds": [
+        922,
+        309,
+        1016,
+        351
+      ],
+      "sha256": "8cd75858d0593eb3d4bcd088544916b6250917e8bcc3378e0613c22c0b185f4a",
+      "source": "hand-authored local hull continuity"
+    },
+    {
+      "role": "gangway",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/production-assets/gangway/gangway.png",
+      "placement": [
+        912,
+        302
+      ],
+      "alphaBounds": [
+        912,
+        302,
+        1008,
+        352
+      ],
+      "sha256": "57711ea76006987c1789cbd6d0e9a5423f0fbeef030ccd05ec973d002ef521ad",
+      "source": "Candidate B extraction"
+    },
+    {
+      "role": "dock",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/production-assets/dock/dock_surface_piles.png",
+      "placement": [
+        420,
+        304
+      ],
+      "alphaBounds": [
+        420,
+        304,
+        928,
+        467
+      ],
+      "sha256": "d92e41237dd4aaff0027cd1cefbdbdd75eaa5c73c59517ac8e674bfada27ea53",
+      "source": "Candidate B extraction"
+    },
+    {
+      "role": "contact",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/production-assets/water-contact/contact.png",
+      "placement": [
+        1050,
+        486
+      ],
+      "alphaBounds": [
+        1050,
+        486,
+        1215,
+        497
+      ],
+      "sha256": "d9a4bc2d871795038bbbcb8af114912b6b1ff31fbe85a1c9f431a6cd3d9b8f39",
+      "source": "hand-authored translucent ripple"
+    }
+  ],
+  "toggleIntegrity": {
+    "shipGroupOffOutsideGroupPixels": 0,
+    "gangwayOffOutsideGangwayAndContactPixels": 0,
+    "dockOffOutsideDockPixels": 0,
+    "result": "PASS"
+  },
+  "camera": {
+    "logicalViewport": [
+      1024,
+      576
+    ],
+    "zoom": 1.25,
+    "visibleWorld": [
+      819.2,
+      460.8
+    ],
+    "player": [
+      28,
+      56
+    ],
+    "anchor": "bottom-center"
+  },
+  "motion": {
+    "route": [
+      [
+        565,
+        400
+      ],
+      [
+        650,
+        400
+      ],
+      [
+        770,
+        380
+      ],
+      [
+        890,
+        355
+      ],
+      [
+        950,
+        350
+      ],
+      [
+        1015,
+        355
+      ],
+      [
+        1028,
+        355
+      ]
+    ],
+    "frames": [
+      {
+        "frame": 0,
+        "feet": [
+          565.0,
+          400.0
+        ],
+        "camera": [
+          155.4,
+          169.6
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-00.png"
+      },
+      {
+        "frame": 1,
+        "feet": [
+          596.18,
+          400.0
+        ],
+        "camera": [
+          186.575,
+          169.6
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-01.png"
+      },
+      {
+        "frame": 2,
+        "feet": [
+          627.35,
+          400.0
+        ],
+        "camera": [
+          217.751,
+          169.6
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-02.png"
+      },
+      {
+        "frame": 3,
+        "feet": [
+          658.41,
+          398.6
+        ],
+        "camera": [
+          248.81,
+          168.198
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-03.png"
+      },
+      {
+        "frame": 4,
+        "feet": [
+          689.16,
+          393.47
+        ],
+        "camera": [
+          279.562,
+          163.073
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-04.png"
+      },
+      {
+        "frame": 5,
+        "feet": [
+          719.91,
+          388.35
+        ],
+        "camera": [
+          310.313,
+          157.948
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-05.png"
+      },
+      {
+        "frame": 6,
+        "feet": [
+          750.66,
+          383.22
+        ],
+        "camera": [
+          341.064,
+          152.823
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-06.png"
+      },
+      {
+        "frame": 7,
+        "feet": [
+          781.33,
+          377.64
+        ],
+        "camera": [
+          371.73,
+          147.24
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-07.png"
+      },
+      {
+        "frame": 8,
+        "feet": [
+          811.85,
+          371.28
+        ],
+        "camera": [
+          402.25,
+          140.881
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-08.png"
+      },
+      {
+        "frame": 9,
+        "feet": [
+          842.37,
+          364.92
+        ],
+        "camera": [
+          432.77,
+          134.523
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-09.png"
+      },
+      {
+        "frame": 10,
+        "feet": [
+          872.89,
+          358.56
+        ],
+        "camera": [
+          460.8,
+          128.165
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-10.png"
+      },
+      {
+        "frame": 11,
+        "feet": [
+          903.65,
+          353.86
+        ],
+        "camera": [
+          460.8,
+          123.462
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-11.png"
+      },
+      {
+        "frame": 12,
+        "feet": [
+          934.72,
+          351.27
+        ],
+        "camera": [
+          460.8,
+          120.873
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-12.png"
+      },
+      {
+        "frame": 13,
+        "feet": [
+          965.79,
+          351.21
+        ],
+        "camera": [
+          460.8,
+          120.815
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-13.png"
+      },
+      {
+        "frame": 14,
+        "feet": [
+          996.88,
+          353.61
+        ],
+        "camera": [
+          460.8,
+          123.206
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-14.png"
+      },
+      {
+        "frame": 15,
+        "feet": [
+          1028.0,
+          355.0
+        ],
+        "camera": [
+          460.8,
+          124.6
+        ],
+        "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-frames/frame-15.png"
+      }
+    ],
+    "gif": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r2/motion-evidence/hero-boarding-sequence.gif",
+    "environmentHash": "3db7dea7d504b03b09938316bf270d0262d551608c861a4f035da9497b1d8d38",
+    "environmentStable": true
+  },
+  "visualQa": {
+    "groupOff": "PASS \u2014 no group pixels are rendered",
+    "gangwayOff": "CONDITIONAL \u2014 local continuity patch is visible by design, no source gangway remains",
+    "straightWaterCut": "CONDITIONAL \u2014 source extraction is close but final art retouch is needed",
+    "r4RuntimeModified": false,
+    "r5RuntimeImplemented": false
+  },
+  "productionDecision": {
+    "recommended": "Option A \u2014 source-led hand mask plus artist retouch",
+    "optionB": "Not approved; generated reference is not Candidate-B-faithful enough"
+  },
+  "humanGate": "CONDITIONAL_REWORK_REQUIRED"
+}
