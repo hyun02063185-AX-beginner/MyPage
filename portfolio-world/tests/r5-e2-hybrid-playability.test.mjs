@@ -53,9 +53,9 @@ test("C2 routes pass a 28×16 whole-body walkability sample without entering bui
   assert.equal(canOccupy(1100, 355), false, "Hero deck/hull beyond N_HERO remains blocked");
 });
 
-test("the four approved content mappings remain preview-only and debug exposes the requested diagnostics", () => {
+test("the four approved content mappings retain the Hero threshold and expose required diagnostics", () => {
   for (const mapping of ["Exhibition Hall", "teaching.html", "Workshop", "making.html", "Harbor Archive", "gallery.html", "Hero Ship threshold", "career.html"]) assert.match(source, new RegExp(mapping.replace(".", "\\.")));
-  assert.match(source, /threshold only, deck blocked/);
+  assert.match(source, /thresholdOnly/);
   assert.match(source, /F2/);
   assert.match(source, /COLLISION_FOOTPRINTS/);
   assert.match(source, /POI \$\{activePoi/);
@@ -92,4 +92,23 @@ test("E2.2 normalizes only Pilot side art and keeps four accessible world-anchor
   assert.match(html, /data-world-marker="hero"/);
   assert.match(html, /항구의 네 공간을 탐험해 보세요/);
   assert.match(html, /r5-destination-marker/);
+});
+
+test("E2.3 depth-sorts existing alpha foreground and keeps content entry explicitly arrived and return-safe", () => {
+  const ux = JSON.parse(readFileSync(resolve(repo, "data/portfolio-world/r5-occlusion-content-ux-draft.json"), "utf8"));
+  assert.equal(ux.scope.candidateBModified, false);
+  assert.equal(ux.scope.r4RuntimeModified, false);
+  assert.equal(ux.foregroundOcclusionRules.collisionOrNavigationChanged, false);
+  assert.equal(ux.poiContentLinks.length, 4);
+  assert.equal(ux.foregroundOcclusionRules.layers.filter((layer) => layer.result === "PASS").length, 5);
+  assert.match(source, /FOREGROUND_LAYERS/);
+  assert.match(source, /occlusionFootY/);
+  assert.match(source, /updateForegroundOcclusion/);
+  assert.match(source, /new URL\(candidate\.content, window\.location\.href\)/);
+  assert.match(source, /hybrid:visit/);
+  assert.match(source, /hybrid:content-close/);
+  assert.match(source, /stopPropagation/);
+  assert.match(html, /r5-content-panel/);
+  assert.match(html, /target="_blank"/);
+  assert.match(html, /r5-visit-button/);
 });

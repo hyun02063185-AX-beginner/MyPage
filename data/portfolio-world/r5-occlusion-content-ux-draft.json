@@ -1,0 +1,48 @@
+{
+  "taskId": "R5-E2.3-OCCLUSION-CONTENT-UX",
+  "scope": {
+    "implementation": "independent R5 E2 Hybrid Pilot only",
+    "candidateBModified": false,
+    "c1c2Modified": false,
+    "r4RuntimeModified": false,
+    "formalR5RuntimeImplemented": false,
+    "existingContentPagesModified": false,
+    "activePoiCount": 4
+  },
+  "preservedHumanAccepted": ["28x56 directional scale", "character animation", "click A* movement", "keyboard manual control", "Hero dock route", "four destination markers", "destination descriptions"],
+  "foregroundOcclusionRules": {
+    "playerDepth": "30 + player.y / 1000",
+    "foregroundDepth": "30 + occlusionFootY / 1000",
+    "visibility": "foreground alpha sprites are always rendered; only draw order changes",
+    "collisionOrNavigationChanged": false,
+    "layers": [
+      { "id": "hall-stairs", "asset": "hall-stairs-retaining.png", "occlusionFootY": 242, "result": "PASS" },
+      { "id": "workshop-front", "asset": "workshop-foreground.png", "occlusionFootY": 430, "result": "PASS" },
+      { "id": "archive-approach", "asset": "archive-approach-foreground.png", "occlusionFootY": 552, "result": "PASS" },
+      { "id": "dock-rail", "asset": "dock-piles.png", "occlusionFootY": 382, "result": "PASS" },
+      { "id": "hero-gangway", "asset": "gangway.png", "occlusionFootY": 368, "result": "PASS" },
+      { "id": "shore-stone-wall", "asset": null, "result": "ART_OCCLUSION_REQUIRED", "reason": "No matching approved alpha foreground mask." }
+    ]
+  },
+  "poiContentLinks": [
+    { "id": "hall", "content": "teaching.html", "local": "http://127.0.0.1:5173/teaching.html", "githubPages": "https://hyun02063185-ax-beginner.github.io/MyPage/teaching.html" },
+    { "id": "workshop", "content": "making.html", "local": "http://127.0.0.1:5173/making.html", "githubPages": "https://hyun02063185-ax-beginner.github.io/MyPage/making.html" },
+    { "id": "archive", "content": "gallery.html", "local": "http://127.0.0.1:5173/gallery.html", "githubPages": "https://hyun02063185-ax-beginner.github.io/MyPage/gallery.html" },
+    { "id": "hero", "content": "career.html", "local": "http://127.0.0.1:5173/career.html", "githubPages": "https://hyun02063185-ax-beginner.github.io/MyPage/career.html", "thresholdOnly": true }
+  ],
+  "contentEntry": {
+    "pilotMode": "arrived POI -> explicit E or Visit -> panel -> direct user link opens target=_blank",
+    "panel": ["place name", "content description", "open content", "continue exploring", "Escape close"],
+    "returnState": "world tab never navigates; panel closes before content tab opens; player/camera are retained",
+    "inputSafety": ["no auto-open during movement", "movement frozen while panel open", "background pointer ignored", "panel pointer propagation stopped", "marker remains movement request"],
+    "options": {
+      "newTab": { "implemented": true, "recommendation": "pilot preferred" },
+      "sameTab": { "implemented": false, "risk": "requires serialized world restoration or Browser Back" },
+      "inGameOverlayContent": { "implemented": false, "risk": "requires content rendering/accessibility/loading implementation" }
+    }
+  },
+  "mobile": { "browserEmulation": "PASS at 450px", "androidHardware": "NOT_TESTED", "panel": "in-root, max-height scrollable, touchable controls" },
+  "browserQa": { "interactiveChrome": ["Workshop panel", "Escape close", "new tab making.html", "world state retained"], "edgeActualCaptures": ["Hall", "Workshop", "Archive", "Hero", "content panel", "mobile"], "localLinks": "4/4 HTTP 200", "githubPagesLinks": "4/4 HTTP 200" },
+  "remainingIssues": ["shore-stone-wall requires an authored exact alpha mask for full occlusion coverage", "Android hardware behavior awaits human/device test"],
+  "humanGate": "CONDITIONAL_REWORK_REQUIRED"
+}
