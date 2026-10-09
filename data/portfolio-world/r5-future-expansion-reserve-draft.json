@@ -1,0 +1,67 @@
+{
+  "status": "DRAFT_RESERVE_STRATEGY_PENDING_HUMAN_REVIEW",
+  "baseBlueprint": {
+    "path": "data/portfolio-world/r5-spatial-blueprint-c2-draft.json",
+    "status": "PRESERVED_UNCHANGED",
+    "reason": "Reserve strategy adds no walkable geometry, collision change, navigation edge, or point of interest to C.2."
+  },
+  "referenceMaster": {
+    "candidate": "B_ORGANIC_COASTAL_HARBOR_PROVISIONAL",
+    "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+    "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b",
+    "interpretation": "Composition reference only; no collision, expansion floor, or POI is inferred from painted pixels."
+  },
+  "currentCore": {
+    "active_poi": [
+      { "id": "hall", "node": "N_HALL", "role": "Upper civic landmark / primary arrival read" },
+      { "id": "workshop", "node": "N_WORKSHOP", "role": "Working forecourt / route hub" },
+      { "id": "archive", "node": "N_ARCHIVE", "role": "Workshop-linked exterior approach" },
+      { "id": "hero_ship", "node": "N_HERO", "role": "Hero destination / boarding threshold only" }
+    ],
+    "walkable_now": "Inherited C.2 walkable core: Hall approach and stairs, Workshop forecourt, Archive approach, promenade, pier apron/pier, side dock, and gangway.",
+    "collision_now": "Inherited C.1/C.2 building, cliff, hull, and sea collision footprints; unchanged.",
+    "visual_only_now": ["FUTURE_EXPANSION_RESERVE", "future_connection_seam"],
+    "rule": "Only the four active_poi above are current visitable destinations."
+  },
+  "futureExpansionReserve": {
+    "id": "FUTURE_EXPANSION_RESERVE",
+    "status": "VISUAL_ONLY_NOW_NON_WALKABLE",
+    "labels": ["FUTURE_EXPANSION_RESERVE", "NO_CURRENT_POI", "KEEP_OPEN_WATER_VIEW"],
+    "zones": [
+      { "id": "R_EAST_HORIZON_WATER", "polygon": [[1190,108],[1279,105],[1279,180],[1205,170]], "role": "Visible right-side open-water/horizon cue. The reserve continues conceptually beyond the east world boundary rather than claiming foreground plants or cliff projection as future floor." }
+    ],
+    "extent": "Starts at the east/northeast water outlook beside the Hero Ship and continues beyond the current 1280-unit east world boundary through SEAM_OFFSHORE_ROUTE; no in-frame ground is reserved as playable now.",
+    "collisionRelation": "Reserve occupies the existing blocked-water view context and excludes the Hero hull. It is not walkable now and creates no water-crossing exception.",
+    "currentVisualRole": ["calm water / horizon", "Hero Ship breathing room", "asymmetric harbor outlook", "right-frame relief without a new landmark"],
+    "currentGameplayRole": "No current movement, interaction, destination, collider exception, or camera target.",
+    "futureScenarios": [
+      { "id": "hero_ship_interior_hook", "description": "Promote the existing boarding threshold only after a separately authored interior map and interaction contract exist." },
+      { "id": "east_dock_extension", "description": "Attach a small auxiliary berth only after authored pier geometry, 48u clearance, collision, and route review." },
+      { "id": "offshore_route_gate", "description": "Add an island/open-sea travel transition only with a dedicated travel system; the visual horizon is not a current portal." }
+    ],
+    "prohibitions": ["No new building", "No new active POI", "No center fill", "No temporary test structure", "No water walkability", "No automatic Hero deck access"]
+  },
+  "futureConnectionSeams": [
+    { "id": "SEAM_HERO_INTERIOR_HOOK", "anchor": "N_HERO", "kind": "FUTURE_CONNECTION_SEAM", "state": "THRESHOLD_ONLY_NOW", "requires": ["Human approval", "authored interior", "interaction contract", "collision and loading review"] },
+    { "id": "SEAM_EAST_AUXILIARY_BERTH", "anchor": [930,400], "kind": "FUTURE_CONNECTION_SEAM", "state": "VISUAL_ONLY_NOW", "requires": ["authored dock", "48u clearance validation", "new route graph", "collision review"] },
+    { "id": "SEAM_OFFSHORE_ROUTE", "anchor": [1210,170], "kind": "FUTURE_CONNECTION_SEAM", "state": "VISUAL_ONLY_NOW", "requires": ["travel-system design", "destination design", "camera/world-boundary review"] }
+  ],
+  "compositionReview": {
+    "triangle": "Hall (upper left) → Workshop (left/middle) → Hero Ship (right) remains the primary asymmetric landmark read.",
+    "reserveRead": "Hero Ship mass plus water/horizon makes the right-side reserve an intentional harbor outlook, not an empty active gameplay lot.",
+    "navigationRead": "Hall↔Workshop, Workshop↔Archive, and Workshop/Promenade↔Hero retain priority; reserve produces no branch or false destination.",
+    "camera": "Inherited C.1 limitation remains: zoom 1.0 shows the draft world; zoom 1.25 yields limited travel. Reserve is framed as visual composition, not current playable acreage."
+  },
+  "acceptance": {
+    "activePoiCount": 4,
+    "newPoiAdded": false,
+    "newWalkableAdded": false,
+    "collisionChanged": false,
+    "heroDeckDeclared": false,
+    "humanDesignSelection": "PENDING",
+    "finalBlueprint": "NOT_APPROVED",
+    "runtime": "BLOCKED"
+  },
+  "evidence": { "folder": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-c2-reserve", "status": "DRAFT" },
+  "humanGate": { "recommendation": "Reserve the right side now; expand only through separately approved seams later.", "gate": "READY_FOR_R5_FUTURE_EXPANSION_RESERVE_HUMAN_REVIEW" }
+}
