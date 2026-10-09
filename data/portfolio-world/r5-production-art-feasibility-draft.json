@@ -1,0 +1,47 @@
+{
+  "status": "DRAFT_PRODUCTION_ART_FEASIBILITY_CONDITIONAL_REWORK_REQUIRED",
+  "phase": "R5 Phase E",
+  "sourceMaster": { "candidate": "B_ORGANIC_COASTAL_HARBOR_PROVISIONAL", "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png", "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b", "size": [1280,720], "preserved": true },
+  "preservedInputs": [
+    { "path": "data/portfolio-world/r5-spatial-blueprint-c2-draft.json", "sha256": "7329b5489541c48c5e7a1027cd6fe52d0a3ca8516dde87d2bb17ecec15602d17" },
+    { "path": "data/portfolio-world/r5-future-expansion-reserve-draft.json", "sha256": "950b73ad113182238bd9559e9317f5f602ab1b46d3304c46784dbe9e0829d127" },
+    { "path": "portfolio-world/src/scenes/CanonicalRuntimeR4Scene.ts", "sha256": "909c16d2a061262c5c2cc39f00fcf334b48ec96543ed6282256dae07d570686f" }
+  ],
+  "approvedContext": { "contentMapping": "HUMAN_APPROVED_A_STORYTELLING_NOT_IMPLEMENTED", "rightReserve": "APPROVED_VISUAL_ONLY", "activePoi": ["Exhibition Hall","Workshop","Harbor Archive","Hero Ship"], "newPoi": false, "firstPlayCandidate": { "player": [28,56], "zoom": 1.25, "scalePolicy": "fixed" } },
+  "productionApproachOptions": [
+    { "id": "A_FLATTENED_SCENIC_PLATE", "visualFidelity": "HIGH when camera static", "playability": "LOW", "risk": "Player cannot pass behind architecture/rails; camera reveals no hidden ground; static people remain.", "status": "NOT_RECOMMENDED_FOR_EXPLORATION" },
+    { "id": "B_HYBRID_AUTHORED_LAYERS", "visualFidelity": "HIGH after reauthoring", "playability": "MEDIUM_TO_HIGH", "risk": "Requires an authored terrain/base plate, major architecture, dock/ship, occluders, and repair of hidden regions.", "status": "RECOMMENDED_CONDITIONAL" },
+    { "id": "C_FULLY_MODULAR_WORLD_ASSETS", "visualFidelity": "HIGH after full art direction", "playability": "HIGH", "risk": "Largest cost and strongest perspective-drift risk without a rigorous asset kit.", "status": "FUTURE_OPTION" }
+  ],
+  "layerInventory": [
+    { "id": "L01_DISTANT_BACKGROUND", "classification": "REUSABLE_AS_FIXED_SCENIC_REFERENCE_ONLY", "reason": "Sky, mountains, distant coast and horizon do not need player occlusion in the pilot." },
+    { "id": "L02_WATER", "classification": "REAUTHOR_REQUIRED", "reason": "The plate cannot reveal water behind moving dock/ship layers or support seamless camera edges." },
+    { "id": "L03_GROUND_TERRAIN", "classification": "REAUTHOR_REQUIRED", "reason": "Walkable terrain behind Hall, Workshop, rails, trees and static people is absent from a separable source." },
+    { "id": "L04_ARCHITECTURE", "classification": "REAUTHOR_REQUIRED", "reason": "Hall, Workshop and Archive require depth split, ground-contact repair, and occlusion masks." },
+    { "id": "L05_PIER_DOCK", "classification": "REAUTHOR_REQUIRED", "reason": "Deck, piles and substructure must layer over water and accept player depth." },
+    { "id": "L06_HERO_SHIP", "classification": "REAUTHOR_REQUIRED", "reason": "Hull, waterline, gangway and shadow are inseparable in the plate; only boarding threshold is current gameplay." },
+    { "id": "L07_FOREGROUND_OCCLUSION", "classification": "REAUTHOR_REQUIRED_AND_PILOTED", "reason": "Actual generated RGBA rail/wall and dock/hull pilots prove alpha/depth mechanics, not final art compatibility." },
+    { "id": "L08_DECORATIVE_ELEMENTS", "classification": "UNRESOLVED", "reason": "Static people, planters, lights and boats require selective recreation or removal after gameplay framing is approved." }
+  ],
+  "reusableAssets": ["Candidate B color/composition reference", "distant background as a temporary fixed scenic plate", "existing Refined Portfolio Guide 28×56 sprite"],
+  "reauthorRequiredAssets": ["walkable terrain/base plate", "Hall/Workshop/Archive depth-separated architecture", "stairs and retaining walls", "water behind pier and ship", "dock/piles/gangway", "Hero hull/waterline/contact shadow", "foreground rails/vegetation", "static-person cleanup or replacement", "camera-edge extensions if world expands"],
+  "actualPilotAssets": [
+    { "id": "PILOT_WORKSHOP_HALL_FOREGROUND", "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e/pilot-assets/workshop-hall-foreground-occlusion-v1.png", "sha256": "023cf2b978bbbccadce121c579fe160a1801723e3c69fbe14061cb35148c3208", "size": [2142,734], "hasAlpha": true, "placementWorld": { "x": 30, "y": 356, "width": 420, "height": 144 }, "order": 70, "purpose": "foreground wall/rail/planter occlusion over player on Workshop/Hall approach", "origin": "Image generation pilot; standalone art, not cropped from Candidate B" },
+    { "id": "PILOT_HERO_DOCK_GANGWAY_HULL", "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e/pilot-assets/hero-dock-gangway-hull-v1.png", "sha256": "05ad25bbaa2db91ac90badc8c14d0ae9cd7848e444ba6e045b5c2e2e85b60981", "size": [1536,1024], "hasAlpha": true, "placementWorld": { "x": 760, "y": 180, "width": 520, "height": 347 }, "order": 80, "purpose": "dock/gangway/low hull visual depth and water-contact pilot at Hero threshold", "origin": "Image generation pilot; standalone art, not cropped from Candidate B" }
+  ],
+  "pilotLayerOrder": ["distant scenic reference", "water/base terrain (future authored)", "architecture/ground structures (future authored)", "player at bottom-center ground anchor", "foreground occlusion pilot", "interaction prompt (future UI)"],
+  "groundAnchors": { "workshop": [245,440], "hallStairBase": [120,315], "archive": [180,560], "promenade": [455,470], "heroThreshold": [1028,355] },
+  "playerOcclusionReview": { "player": [28,56], "zoom": 1.25, "anchorRule": "bottom-center feet at C.2 anchor", "pilotResult": "Foreground pilot can occlude the sprite after player draw; dock/hull pilot can sit in front of the Hero threshold without extending deck walkability.", "limitation": "Generated pilots do not exactly reproduce Candidate B geometry or all hidden background; final art must be reauthored." },
+  "cameraReview": { "viewport": [1024,576], "zoom": 1.25, "visibleWorld": [819.2,460.8], "candidateReviewBounds": [1280,720], "finding": "The camera can move within the compact review bounds, but all edge/reveal behavior beyond the finished plate requires authored layers; a single flat plate is not sufficient." },
+  "visualQaFindings": [
+    { "role": "Art Director", "severity": "MAJOR", "finding": "Pilot assets match warm coastal materials but differ from the exact Candidate B drawing and cannot be promoted as final visual replacements." },
+    { "role": "Game Environment Designer", "severity": "MAJOR", "finding": "Walkable ground hidden behind structures and foreground vegetation is unavailable in the flattened source." },
+    { "role": "Technical Artist", "severity": "ACCEPTABLE", "finding": "Both pilots are real RGBA assets with alpha and documented placement/order; the layering method is mechanically feasible." },
+    { "role": "UX Reviewer", "severity": "MINOR", "finding": "28×56 at 1.25 is readable in pilots; full destination discovery still needs real camera playtesting." },
+    { "role": "QA Reviewer", "severity": "BLOCKER", "finding": "A production pass cannot claim a fully playable Candidate B until terrain, architecture, water/ship depth, and static-person treatment are authored." }
+  ],
+  "unresolvedIssues": ["Static people in Candidate B can duplicate the moving player.", "Hidden terrain and water cannot be reconstructed by transparency alone.", "Pilot geometry/style is not a pixel-exact Candidate B match.", "World bounds, content-entry UX, final Candidate B design, and final spatial blueprint remain pending Human."],
+  "productionReadiness": "CONDITIONAL_REWORK_REQUIRED",
+  "humanGate": { "CONTENT_MAPPING": "HUMAN_APPROVED", "RIGHT_SIDE_RESERVE_STRATEGY": "APPROVED", "CANDIDATE_B_FINAL_DESIGN": "PENDING_HUMAN", "PRODUCTION_ART_METHOD": "PENDING_HUMAN", "WORLD_BOUNDS": "PENDING_HUMAN", "CONTENT_ENTRY_UX": "PENDING_HUMAN", "FINAL_SPATIAL_BLUEPRINT": "NOT_APPROVED", "R5_RUNTIME": "BLOCKED", "gate": "CONDITIONAL_REWORK_REQUIRED" },
+  "evidence": { "folder": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e", "files": ["01-production-art-source-audit.md", "02-layer-decomposition-plan.md", "03-art-production-method-comparison.md", "04-workshop-hall-pilot-report.md", "05-hero-ship-water-pilot-report.md", "06-player-perspective-and-occlusion-review.md", "07-camera-and-world-readiness.md", "08-independent-visual-qa.md", "09-production-asset-gap-list.md", "10-final-design-human-gate.md", "11-candidate-b-layer-breakdown.png", "12-workshop-hall-layer-pilot.png", "13-hero-ship-water-layer-pilot.png", "14-player-occlusion-comparison.png", "15-five-location-gameplay-composition.png", "16-beauty-master-vs-production-pilot.png", "17-final-human-review-board.png"] }
+}
