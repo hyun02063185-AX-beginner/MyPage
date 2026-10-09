@@ -1,0 +1,107 @@
+{
+  "status": "DRAFT_SPATIAL_INTEGRITY_REPAIRED_PENDING_HUMAN_REVIEW",
+  "supersedes": {
+    "path": "data/portfolio-world/r5-spatial-blueprint-draft.json",
+    "status": "PRESERVED_UNCHANGED",
+    "changeReason": "C.1 separates projected visual extent from ground/collision intent and repairs declared route geometry."
+  },
+  "referenceMaster": {
+    "candidate": "B_ORGANIC_COASTAL_HARBOR_PROVISIONAL",
+    "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+    "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b",
+    "size": [1280, 720],
+    "interpretation": "Visual reference only. It is not collision, ground, depth, or scene-layer source data."
+  },
+  "coordinateTransform": {
+    "status": "DRAFT",
+    "sourceImage": "top-left origin, x right, y down, pixels",
+    "world": "top-left origin, x right, y down, draft design units",
+    "sourceToWorld": { "scale": [1, 1], "translate": [0, 0], "formula": "world = source" },
+    "worldBounds": [0, 0, 1280, 720]
+  },
+  "cameraAssessment": {
+    "status": "UNRESOLVED_NOT_A_WORLD_SIZE_DECISION",
+    "world": [1280, 720],
+    "currentZoom": { "zoom": 1.0, "visibleWorld": [1280, 720], "availableCameraTravel": [0, 0], "finding": "No camera travel; whole draft world is visible." },
+    "closerZoom": { "zoom": 1.25, "visibleWorld": [1024, 576], "availableCameraTravel": [256, 144], "finding": "Camera travel exists but is limited for an exploration-oriented portfolio." },
+    "requiredHumanDecision": "Final authored world extents and camera policy remain open; C.1 does not choose them."
+  },
+  "visualSilhouettes": [
+    { "id": "V_HALL_PROJECTED", "kind": "PROJECTED_BUILDING_ART", "polygon": [[55,15],[420,15],[440,125],[375,155],[215,145],[75,125]], "status": "REFERENCE_ANNOTATION_NOT_COLLISION" },
+    { "id": "V_WORKSHOP_PROJECTED", "kind": "PROJECTED_BUILDING_ART", "polygon": [[175,215],[520,225],[555,330],[435,360],[300,330],[175,350]], "status": "REFERENCE_ANNOTATION_NOT_COLLISION" },
+    { "id": "V_ARCHIVE_PROJECTED", "kind": "PROJECTED_BUILDING_ART", "polygon": [[65,465],[150,445],[180,500],[155,530],[75,535]], "status": "REFERENCE_ANNOTATION_NOT_COLLISION" },
+    { "id": "V_HERO_PROJECTED", "kind": "PROJECTED_SHIP_ART", "polygon": [[1080,205],[1275,230],[1275,470],[1080,445],[1065,385]], "status": "REFERENCE_ANNOTATION_NOT_COLLISION" }
+  ],
+  "foregroundOcclusion": [
+    { "id": "O_FOREGROUND_TERRACE", "polygon": [[0,570],[1280,570],[1280,720],[0,720]], "status": "VISUAL_LAYER_CANDIDATE_NOT_COLLISION" }
+  ],
+  "collisionFootprints": [
+    { "id": "C_HALL_GROUND", "kind": "BUILDING_GROUND_FOOTPRINT", "polygon": [[70,35],[405,35],[425,122],[365,150],[220,140],[90,120]], "basis": "ground-contact envelope distinct from the projected facade/roof silhouette", "status": "DRAFT_AUTHORED_COLLISION_REQUIRED" },
+    { "id": "C_WORKSHOP_GROUND", "kind": "BUILDING_GROUND_FOOTPRINT", "polygon": [[180,285],[500,295],[525,350],[445,385],[310,365],[185,360]], "basis": "ground-contact envelope; preserves the visible workshop base rather than treating its roof projection as walkable", "status": "DRAFT_AUTHORED_COLLISION_REQUIRED" },
+    { "id": "C_ARCHIVE_GROUND", "kind": "BUILDING_GROUND_FOOTPRINT", "polygon": [[60,450],[140,430],[170,480],[150,525],[60,530]], "basis": "ground-contact envelope; destination interaction occurs on the exterior approach, never in the interior", "status": "DRAFT_AUTHORED_COLLISION_REQUIRED" },
+    { "id": "C_HERO_HULL", "kind": "SHIP_HULL", "polygon": [[1080,205],[1275,230],[1275,470],[1080,445],[1065,385]], "basis": "ship hull remains blocked; only named berth structures bridge the sea", "status": "DRAFT_AUTHORED_COLLISION_REQUIRED" },
+    { "id": "C_CLIFF", "kind": "CLIFF_OR_RETAINING_WALL", "polygon": [[430,80],[650,120],[600,315],[500,335],[440,235]], "basis": "non-traversable cliff/retaining mass", "status": "DRAFT_AUTHORED_COLLISION_REQUIRED" },
+    { "id": "C_SEA", "kind": "SEA", "polygon": [[510,105],[1280,90],[1280,720],[355,720],[405,610],[465,520],[500,430]], "basis": "blocked water; declared pier/dock/gangway surfaces are the only bridge exception", "status": "DRAFT" }
+  ],
+  "walkableZones": [
+    { "id": "G_HALL_TERRACE", "kind": "GROUND", "elevation": "L2", "polygon": [[65,150],[200,140],[385,150],[390,210],[175,225],[70,195]], "basis": "front terrace / interaction approach", "status": "DRAFT" },
+    { "id": "S_MAIN_LOWER", "kind": "STAIR", "elevation": "L0_TO_L1", "polygon": [[55,245],[125,220],[185,275],[170,370],[85,375],[50,280]], "basis": "visible lower run of Hall stair", "status": "DRAFT" },
+    { "id": "S_MAIN_UPPER", "kind": "STAIR", "elevation": "L1_TO_L2", "polygon": [[95,180],[150,160],[205,215],[185,285],[125,260],[75,210]], "basis": "visible upper run / landing of Hall stair", "status": "DRAFT" },
+    { "id": "G_WORKSHOP_FORECOURT", "kind": "GROUND", "elevation": "L0", "polygon": [[85,365],[170,350],[285,380],[445,395],[475,455],[365,485],[220,470],[100,440]], "basis": "continuous visible forecourt around, not through, Workshop ground footprint", "status": "DRAFT" },
+    { "id": "G_ARCHIVE_APPROACH", "kind": "GROUND", "elevation": "L0", "polygon": [[205,455],[260,465],[235,570],[180,600],[140,575],[150,500]], "basis": "exterior right-side approach; no interior collision claim", "status": "DRAFT" },
+    { "id": "G_LOWER_PROMENADE", "kind": "GROUND", "elevation": "L0", "polygon": [[210,425],[350,425],[470,430],[560,415],[650,415],[760,385],[850,390],[835,450],[705,470],[600,490],[450,510],[290,500]], "basis": "continuous lower harbor pavement", "status": "DRAFT" },
+    { "id": "G_PIER_APRON", "kind": "PIER", "elevation": "L0", "polygon": [[465,420],[535,390],[565,415],[490,455]], "basis": "visible shore-to-timber transition; bridge surface over blocked-water boundary", "status": "DRAFT" },
+    { "id": "G_SHORE_PIER", "kind": "PIER", "elevation": "L0", "polygon": [[500,360],[625,370],[760,355],[895,320],[920,385],[770,430],[630,435],[520,420]], "basis": "declared walkable timber pier over blocked sea", "status": "DRAFT" },
+    { "id": "G_SIDE_DOCK", "kind": "DOCK", "elevation": "L0", "polygon": [[830,300],[1020,315],[1035,370],[920,400],[860,380]], "basis": "declared walkable side dock over blocked sea", "status": "DRAFT" },
+    { "id": "G_GANGWAY", "kind": "GANGWAY", "elevation": "L0_TO_SHIP", "polygon": [[975,325],[1075,335],[1065,388],[970,375]], "basis": "declared boarding gangway; deck interior not declared", "status": "DRAFT" }
+  ],
+  "elevationLevels": [
+    { "id": "L0", "name": "Workshop forecourt / promenade / pier / dock", "relativeHeight": 0, "status": "DRAFT" },
+    { "id": "L1", "name": "Hall main-stair mid landing", "relativeHeight": 1, "status": "DRAFT" },
+    { "id": "L2", "name": "Hall front terrace", "relativeHeight": 2, "status": "DRAFT" },
+    { "id": "SHIP", "name": "Hero boarding threshold", "relativeHeight": 1, "status": "DRAFT_THRESHOLD_ONLY" }
+  ],
+  "removedCGeometry": [
+    { "id": "S_WORKSHOP_LOWER", "reason": "Removed: no separate visible stair was established between Workshop forecourt and lower promenade; both are now L0 continuous ground." },
+    { "id": "N_HALL_STAIR_BASE_OLD", "reason": "Removed: old point was inside old Workshop projected/collision envelope." },
+    { "id": "N_ARCHIVE_OLD", "reason": "Removed: old point was inside Archive ground footprint." }
+  ],
+  "stairConnectors": [
+    { "id": "S_MAIN_LOWER_CONNECTOR", "from": "N_HALL_STAIR_BASE", "to": "N_HALL_MID", "zone": "S_MAIN_LOWER", "fromElevation": "L0", "toElevation": "L1", "status": "DRAFT" },
+    { "id": "S_MAIN_UPPER_CONNECTOR", "from": "N_HALL_MID", "to": "N_HALL", "zone": "S_MAIN_UPPER", "fromElevation": "L1", "toElevation": "L2", "status": "DRAFT" }
+  ],
+  "navigationNodes": [
+    { "id": "N_WORKSHOP", "role": "VISITABLE_WORKSHOP_APPROACH", "point": [245,440], "zone": "G_WORKSHOP_FORECOURT", "elevation": "L0", "status": "DRAFT" },
+    { "id": "N_HALL_STAIR_BASE", "role": "STAIR_BASE", "point": [120,315], "zone": "S_MAIN_LOWER", "elevation": "L0", "status": "DRAFT" },
+    { "id": "N_HALL_MID", "role": "STAIR_LANDING", "point": [140,245], "zone": "S_MAIN_UPPER", "elevation": "L1", "status": "DRAFT" },
+    { "id": "N_HALL", "role": "VISITABLE_HALL_APPROACH", "point": [175,190], "zone": "G_HALL_TERRACE", "elevation": "L2", "status": "DRAFT" },
+    { "id": "N_ARCHIVE", "role": "VISITABLE_ARCHIVE_APPROACH", "point": [180,560], "zone": "G_ARCHIVE_APPROACH", "elevation": "L0", "status": "DRAFT" },
+    { "id": "N_PROMENADE", "role": "HARBOR_HUB", "point": [455,470], "zone": "G_LOWER_PROMENADE", "elevation": "L0", "status": "DRAFT" },
+    { "id": "N_PIER_ENTRY", "role": "PIER_ENTRY", "point": [545,395], "zone": "G_SHORE_PIER", "elevation": "L0", "status": "DRAFT" },
+    { "id": "N_SIDE_DOCK", "role": "SIDE_DOCK", "point": [890,355], "zone": "G_SIDE_DOCK", "elevation": "L0", "status": "DRAFT" },
+    { "id": "N_GANGWAY", "role": "GANGWAY", "point": [1015,355], "zone": "G_GANGWAY", "elevation": "L0_TO_SHIP", "status": "DRAFT" },
+    { "id": "N_HERO", "role": "VISITABLE_HERO_BOARDING_THRESHOLD", "point": [1040,355], "zone": "G_GANGWAY", "elevation": "SHIP", "status": "DRAFT" }
+  ],
+  "navigationEdges": [
+    { "id": "E_WORKSHOP_HALL_BASE", "from": "N_WORKSHOP", "to": "N_HALL_STAIR_BASE", "type": "GROUND", "polyline": [[245,440],[195,405],[145,400],[120,315]], "surfaceIds": ["G_WORKSHOP_FORECOURT","S_MAIN_LOWER"], "clearanceHalfWidth": 16, "minimumCorridorWidth": 48, "status": "DRAFT" },
+    { "id": "E_HALL_LOWER_STAIRS", "from": "N_HALL_STAIR_BASE", "to": "N_HALL_MID", "type": "STAIR", "connector": "S_MAIN_LOWER_CONNECTOR", "polyline": [[120,315],[120,280],[140,245]], "surfaceIds": ["S_MAIN_LOWER","S_MAIN_UPPER"], "clearanceHalfWidth": 16, "minimumCorridorWidth": 76, "status": "DRAFT" },
+    { "id": "E_HALL_UPPER_STAIRS", "from": "N_HALL_MID", "to": "N_HALL", "type": "STAIR", "connector": "S_MAIN_UPPER_CONNECTOR", "polyline": [[140,245],[155,215],[175,190]], "surfaceIds": ["S_MAIN_UPPER","G_HALL_TERRACE"], "clearanceHalfWidth": 16, "minimumCorridorWidth": 76, "status": "DRAFT" },
+    { "id": "E_WORKSHOP_PROMENADE", "from": "N_WORKSHOP", "to": "N_PROMENADE", "type": "GROUND", "polyline": [[245,440],[340,455],[455,470]], "surfaceIds": ["G_WORKSHOP_FORECOURT","G_LOWER_PROMENADE"], "clearanceHalfWidth": 16, "minimumCorridorWidth": 96, "status": "DRAFT" },
+    { "id": "E_WORKSHOP_ARCHIVE", "from": "N_WORKSHOP", "to": "N_ARCHIVE", "type": "GROUND", "polyline": [[245,440],[210,495],[200,540],[180,560]], "surfaceIds": ["G_WORKSHOP_FORECOURT","G_ARCHIVE_APPROACH"], "clearanceHalfWidth": 16, "minimumCorridorWidth": 54, "status": "DRAFT" },
+    { "id": "E_PROMENADE_PIER", "from": "N_PROMENADE", "to": "N_PIER_ENTRY", "type": "PIER", "polyline": [[455,470],[500,435],[525,415],[545,395]], "surfaceIds": ["G_LOWER_PROMENADE","G_PIER_APRON","G_SHORE_PIER"], "clearanceHalfWidth": 16, "minimumCorridorWidth": 72, "status": "DRAFT" },
+    { "id": "E_PIER_DOCK", "from": "N_PIER_ENTRY", "to": "N_SIDE_DOCK", "type": "PIER", "polyline": [[545,395],[630,395],[760,380],[890,355]], "surfaceIds": ["G_SHORE_PIER","G_SIDE_DOCK"], "clearanceHalfWidth": 16, "minimumCorridorWidth": 72, "status": "DRAFT" },
+    { "id": "E_DOCK_GANGWAY", "from": "N_SIDE_DOCK", "to": "N_GANGWAY", "type": "GANGWAY", "polyline": [[890,355],[950,350],[1015,355]], "surfaceIds": ["G_SIDE_DOCK","G_GANGWAY"], "clearanceHalfWidth": 16, "minimumCorridorWidth": 54, "status": "DRAFT" },
+    { "id": "E_GANGWAY_HERO", "from": "N_GANGWAY", "to": "N_HERO", "type": "GANGWAY", "polyline": [[1015,355],[1040,355]], "surfaceIds": ["G_GANGWAY"], "clearanceHalfWidth": 16, "minimumCorridorWidth": 54, "status": "DRAFT" }
+  ],
+  "candidateInteractionAnchors": { "hall": "N_HALL", "workshop": "N_WORKSHOP", "harborArchive": "N_ARCHIVE", "heroShip": "N_HERO", "status": "DRAFT_NOT_RUNTIME_ANCHORS" },
+  "playerClearance": { "candidate": "B_LARGER", "physicsFootprint": [32,18], "halfWidth": 16, "minimumCorridorWidth": 48, "recommendedCorridorWidth": 64, "status": "DRAFT" },
+  "unresolvedIssues": [
+    { "id": "U_GROUND_FOOTPRINT_AUTHORED", "severity": "UNRESOLVED", "text": "Ground/collision footprints are explicit draft design data, not extractable truth from the projected painting; final authored collision needs Human-approved source assets." },
+    { "id": "U_CAMERA_EXTENT", "severity": "UNRESOLVED", "text": "1280×720 draft world gives zero travel at zoom 1.0 and only 256×144 at zoom 1.25. Final exploration scale is not decided." },
+    { "id": "U_ARCHIVE_CUE", "severity": "MINOR", "text": "Archive is reachable by exterior approach, but visual destination cue remains a Human design decision." },
+    { "id": "U_NARROW_CORRIDORS", "severity": "MINOR", "text": "Archive approach and gangway are 54u: above 48u minimum, below 64u recommendation." },
+    { "id": "U_SHIP_DECK", "severity": "UNRESOLVED", "text": "Only Hero boarding threshold is declared; deck interior stays non-walkable and unresolved." }
+  ],
+  "evidence": { "folder": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-c1", "status": "DRAFT" },
+  "humanGate": { "humanDesignSelection": "PENDING", "finalSpatialBlueprint": "NOT_APPROVED", "runtimeImplementation": "BLOCKED", "gate": "READY_FOR_R5_C1_GEOMETRY_REVIEW" }
+}
