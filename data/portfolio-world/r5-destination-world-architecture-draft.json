@@ -1,0 +1,61 @@
+{
+  "status": "DRAFT_ARCHITECTURE_PENDING_HUMAN_DECISION",
+  "purpose": "R5 Phase D information architecture, world-scale, camera, and future-expansion comparison. This is not a runtime contract.",
+  "inherits": [
+    { "path": "data/portfolio-world/r5-spatial-blueprint-c2-draft.json", "status": "PRESERVED_UNCHANGED", "scope": "four POI, routes, collision and 48-unit clearance" },
+    { "path": "data/portfolio-world/r5-future-expansion-reserve-draft.json", "status": "PRESERVED_UNCHANGED", "scope": "right-side visual-only reserve and inactive seams" }
+  ],
+  "referenceMaster": { "candidate": "B_ORGANIC_COASTAL_HARBOR_PROVISIONAL", "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png", "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b", "approval": "PENDING_HUMAN" },
+  "contentInventory": [
+    { "path": "career.html", "title": "커리어 | 김현래", "purpose": "Professional career narrative", "coreContent": "2004–2022 maker, protector, operator roles; outcomes, leadership, and operations.", "visitorExpectation": "Assess professional depth and journey." },
+    { "path": "teaching.html", "title": "AX 강의 | 김현래", "purpose": "Teaching offer and inquiry route", "coreContent": "AX perspective, samples, formats, curriculum, exercises, credentials, history, and an inquiry CTA.", "visitorExpectation": "Understand teaching fit and proceed to an inquiry." },
+    { "path": "making.html", "title": "팀을 운영하듯 AI를 운영합니다 | 김현래", "purpose": "AI-enabled making method", "coreContent": "Human/AI roles, page-transition case, validation practice, and public work links.", "visitorExpectation": "Review method, execution, and outcomes." },
+    { "path": "gallery.html", "title": "AI·AX 개념 갤러리 | 김현래", "purpose": "Concept reference library", "coreContent": "Grouped, plain-language AI/AX/IT concepts with illustrated modal cases.", "visitorExpectation": "Browse accessible reference material." }
+  ],
+  "currentActivePoi": [
+    { "id": "hall", "name": "Exhibition Hall", "role": "representative landmark and upper terrace" },
+    { "id": "workshop", "name": "Workshop", "role": "making symbol and route hub" },
+    { "id": "archive", "name": "Harbor Archive", "role": "Workshop-linked supporting reference space" },
+    { "id": "hero_ship", "name": "Hero Ship", "role": "harbor landmark and boarding-threshold only" }
+  ],
+  "mappingOptions": [
+    { "id": "A_STORYTELLING", "status": "OPTION_PENDING_HUMAN", "mapping": { "hall": "teaching.html", "workshop": "making.html", "archive": "gallery.html", "hero_ship": "career.html" }, "strength": "A clear learning → making → reference → career journey, with the teaching inquiry CTA at the main public landmark.", "risk": "Hall is not mapped to the literal gallery page." },
+    { "id": "B_SEMANTIC", "status": "OPTION_PENDING_HUMAN", "mapping": { "hall": "gallery.html", "workshop": "making.html", "archive": "teaching.html", "hero_ship": "career.html" }, "strength": "Exhibition Hall → gallery is immediately literal.", "risk": "Archive → teaching weakens the archive/reference meaning and moves the primary inquiry path away from the landmark." }
+  ],
+  "preferredMapping": { "option": "A_STORYTELLING", "status": "RECOMMENDED_PENDING_HUMAN", "reason": "It makes the teaching offer discoverable at the public landmark while retaining a distinct concept-library role for Harbor Archive. It is neither implemented nor approved." },
+  "interactionModels": [
+    { "id": "A_PAGE_NAVIGATION", "status": "CURRENT_WORLD_SCENE_PATTERN / PROPOSED_R5_ONLY", "flow": "approach → named prompt → E/Enter or visible click/tap → existing HTML page → browser Back; explicit World return remains a later decision", "mobile": "visible prompt must provide a large touch target", "tradeoff": "Lowest content duplication and preserves existing pages; context switch and explicit return affordance need later approval." },
+    { "id": "B_OVERLAY_PANEL", "status": "PROPOSAL_ONLY", "flow": "approach → prompt → accessible panel summary → optional existing page → close returns to same place", "mobile": "bottom-sheet sized touch controls", "tradeoff": "Strong return continuity; needs content curation, accessibility work, and a new runtime UI." },
+    { "id": "C_CONTENT_SCENE", "status": "PROPOSAL_ONLY", "flow": "approach → prompt → separately loaded content scene/area → explicit return seam", "mobile": "scene entry CTA plus back control", "tradeoff": "Most spatially expressive; highest art/runtime cost and risks making navigation a barrier to portfolio content." }
+  ],
+  "currentRoutingEvidence": { "worldScene": "portfolio-world/src/world/destinationNavigation.mjs and WorldScene.ts use forecourt plus E/Enter or pointer activation and assign existing page URLs.", "canonicalR4": "portfolio-world/src/scenes/CanonicalRuntimeR4Scene.ts emits canonical-interaction only; it does not navigate to HTML.", "r5": "No R5 interaction, return UI, or page routing implementation exists." },
+  "viewport": { "logical": [1024, 576], "source": "portfolio-world/src/config/gameConfig.ts", "method": "Every comparison uses one world-coordinate transform for both scenery and player; boards are plans, not runtime captures." },
+  "worldScaleOptions": [
+    { "id": "A_SINGLE_SCREEN", "status": "OPTION_PENDING_HUMAN", "world": [1280, 720], "cameraTravelAtZoom1": [256, 144], "description": "Current source-sized, near-single-screen harbor.", "benefit": "Keeps the composed Candidate B view coherent and minimizes new authored terrain.", "risk": "Very limited camera travel; player can feel small and exploration shallow." },
+    { "id": "B_LARGER_EXPLORATION", "status": "OPTION_PENDING_HUMAN", "world": [1600, 900], "cameraTravelAtZoom1": [576, 324], "description": "Larger logical harbor around an authored 1280×720 core.", "benefit": "Meaningful following camera and stronger local exploration.", "risk": "Requires new edge terrain, water, walk surfaces, and camera-safe art; master must not simply be scaled." },
+    { "id": "C_CONNECTED_AREAS", "status": "OPTION_PENDING_HUMAN", "world": [1280, 720], "cameraTravelAtZoom1": [256, 144], "description": "Keep harbor core bounded; use approved seams for Hero interior or future areas as separate scenes.", "benefit": "Preserves current composition and makes future content additive.", "risk": "Transitions and state/return contracts are required; main harbor remains compact." }
+  ],
+  "cameraOptions": [
+    { "id": "A_28x56_NORMAL", "playerVisual": [28, 56], "zoom": 1.0, "visibleWorld": [1024, 576], "screenPlayerHeight": 56, "assessment": "Maximum context; player can lack presence." },
+    { "id": "B_28x56_CLOSER", "playerVisual": [28, 56], "zoom": 1.25, "visibleWorld": [819.2, 460.8], "screenPlayerHeight": 70, "assessment": "Preferred first gameplay test: player presence improves while a nearby route and landmark remain visible." },
+    { "id": "C_32x64_NORMAL", "playerVisual": [32, 64], "zoom": 1.0, "visibleWorld": [1024, 576], "screenPlayerHeight": 64, "assessment": "Improves player read without closer scenery but applies greater visual/corridor pressure." }
+  ],
+  "playerScaleOptions": { "current": [28, 56], "alternative": [32, 64], "status": "PENDING_HUMAN", "geometryNote": "C.2 validates 32-unit collision width and 48-unit minimum corridor clearance; a 64-unit recommended-width reading remains PASS_OR_WARN, not an automatic visual-scale approval." },
+  "futureExpansionModels": [
+    { "id": "A_WORLD_EXTENSION", "status": "OPTION_PENDING_HUMAN", "description": "Author new east world geometry, water/shore artwork, routes, and camera bounds beyond the current harbor.", "benefit": "Continuous sailing/harbor movement is possible later.", "risk": "Highest rework risk; must not imply current reserve is pre-existing land." },
+    { "id": "B_SCENE_TRANSITION", "status": "OPTION_PENDING_HUMAN", "description": "Keep harbor complete; enter separately authored Hero interior or offshore area from an approved threshold.", "benefit": "Protects Candidate B composition and contains future production scope.", "risk": "Requires loading, state, and return-location design." }
+  ],
+  "expansionSeams": [
+    { "id": "SEAM_HERO_INTERIOR_HOOK", "classification": "FUTURE_CONNECTION_SEAM", "current": "boarding threshold only; no deck/interior access", "activation": "Human approval plus authored interior, interaction, loading, collision, and return review" },
+    { "id": "SEAM_EAST_AUXILIARY_BERTH", "classification": "FUTURE_CONNECTION_SEAM", "current": "visual-only reserve coordinate", "activation": "authored dock, 48-unit clearance, collision, route graph, water treatment, and camera-boundary review" },
+    { "id": "SEAM_OFFSHORE_ROUTE", "classification": "FUTURE_CONNECTION_SEAM", "current": "visual-only horizon coordinate", "activation": "travel destination, boundary, state, and camera-transition design; separate scene preferred" }
+  ],
+  "worldClassification": { "ACTIVE_WORLD": "C.2 named walkable surfaces and four POI only", "VISUAL_RESERVE": "right-side water/horizon composition; non-walkable, no POI", "FUTURE_WORLD_EXTENT": "not authored or claimed in current data", "FUTURE_CONNECTION_SEAM": "inactive named hook requiring separate approval", "ACTIVE_POI": "Hall, Workshop, Harbor Archive, Hero Ship only" },
+  "unresolvedIssues": [
+    "Choose content mapping.", "Choose content entry UX and explicit return policy.", "Choose world scale and camera/player test after Human review.", "Choose future World Extension or Scene Transition priority.", "Candidate B and final blueprint remain unapproved."
+  ],
+  "humanDecisions": ["Decision A — content mapping", "Decision B — content-entry UX", "Decision C — world/camera", "Decision D — expansion model"],
+  "designImpact": { "newPoi": false, "newBuilding": false, "r4RuntimeModified": false, "r5RuntimeImplemented": false, "candidateBAutoApproved": false, "worldScaleLocked": false, "cameraLocked": false },
+  "evidence": { "folder": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-d", "files": ["01-current-content-audit.md", "02-four-destination-content-mapping.md", "03-visit-interaction-ux.md", "04-world-scale-options.md", "05-camera-player-options.md", "06-right-expansion-architecture.md", "07-user-journey-review.md", "08-integrated-recommendation.md", "09-human-gate-review.md", "10-content-destination-map.png", "11-world-size-camera-comparison.png", "12-gameplay-view-comparison.png", "13-future-expansion-models.png", "14-human-decision-board.png"] },
+  "gate": "READY_FOR_R5_PHASE_D_CONTENT_AND_WORLD_HUMAN_GATE"
+}
