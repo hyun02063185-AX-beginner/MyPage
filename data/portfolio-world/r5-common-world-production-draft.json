@@ -1,0 +1,885 @@
+{
+  "status": "CONDITIONAL_REWORK_REQUIRED",
+  "sourceMaster": {
+    "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+    "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b"
+  },
+  "commonBase": {
+    "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/11-common-clean-base.png",
+    "method": "Candidate B copied outside exact local edit mask; E.1 generated sources sampled only inside owned masks",
+    "sha256": "d486d1dca7ade26c79fd17cf77f90771a07c1cffdab4c932291cc27f91fdb537"
+  },
+  "localEditMasks": [
+    {
+      "id": "MASK_WORKSHOP_HALL",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/MASK_WORKSHOP_HALL.png",
+      "owner": "Hall, stairs, Workshop, archive foreground",
+      "featherPixels": 0
+    },
+    {
+      "id": "MASK_HERO_DOCK",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/MASK_HERO_DOCK.png",
+      "owner": "Dock, piles, gangway, Hero, water contact",
+      "featherPixels": 0
+    },
+    {
+      "id": "MASK_STATIC_FIGURES",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/MASK_STATIC_FIGURES.png",
+      "owner": "unused; no C.2 route overlap",
+      "featherPixels": 0
+    }
+  ],
+  "pixelIntegrity": {
+    "changedPixelsOutsideEditMask": 0,
+    "changedPixelsInsideEditMask": 491950,
+    "totalPixelCount": 921600,
+    "changedPercent": 53.38,
+    "status": "PASS"
+  },
+  "individualLayers": [
+    {
+      "assetId": "hall_facade",
+      "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/hall_facade.png",
+      "source": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+      "editMask": "MASK_WORKSHOP_HALL",
+      "placementWorld": [
+        0,
+        0
+      ],
+      "alphaBoundsWorld": [
+        0,
+        0,
+        455,
+        182
+      ],
+      "depthClassification": "STRUCTURE",
+      "occlusionRule": "behind player unless its foreground partner applies",
+      "groundRelation": "C.2 route aligned",
+      "validationStatus": "VALID_INDEPENDENT",
+      "sha256": "fae890dbbb3c903226361105e783e2f0bfcfb336e24e34decac7c34da3629a93"
+    },
+    {
+      "assetId": "hall_stairs_retaining",
+      "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/hall_stairs_retaining.png",
+      "source": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+      "editMask": "MASK_WORKSHOP_HALL",
+      "placementWorld": [
+        0,
+        155
+      ],
+      "alphaBoundsWorld": [
+        0,
+        155,
+        293,
+        398
+      ],
+      "depthClassification": "STRUCTURE",
+      "occlusionRule": "behind player unless its foreground partner applies",
+      "groundRelation": "C.2 route aligned",
+      "validationStatus": "VALID_INDEPENDENT",
+      "sha256": "d01959b795513f3cf65f92a40504692758ff9d59dee7f917dda415cf8f27abb9"
+    },
+    {
+      "assetId": "workshop_structure",
+      "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/workshop_structure.png",
+      "source": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+      "editMask": "MASK_WORKSHOP_HALL",
+      "placementWorld": [
+        182,
+        198
+      ],
+      "alphaBoundsWorld": [
+        182,
+        198,
+        561,
+        390
+      ],
+      "depthClassification": "STRUCTURE",
+      "occlusionRule": "behind player unless its foreground partner applies",
+      "groundRelation": "C.2 route aligned",
+      "validationStatus": "VALID_INDEPENDENT",
+      "sha256": "a4bff7b9b4fb402f938f67f536140ce70fa3b7c6e47d3adcf5c1a3694a4c2943"
+    },
+    {
+      "assetId": "workshop_foreground",
+      "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/workshop_foreground.png",
+      "source": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+      "editMask": "MASK_WORKSHOP_HALL",
+      "placementWorld": [
+        0,
+        408
+      ],
+      "alphaBoundsWorld": [
+        0,
+        408,
+        501,
+        571
+      ],
+      "depthClassification": "FOREGROUND_CONDITIONAL",
+      "occlusionRule": "conditional player-feet boundary",
+      "groundRelation": "C.2 route aligned",
+      "validationStatus": "VALID_INDEPENDENT",
+      "sha256": "5bb6d1685c30a7d1f5f977fb5418f0cae0923e80717b6d37c8e653e93f33b162"
+    },
+    {
+      "assetId": "archive_approach_foreground",
+      "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/archive_approach_foreground.png",
+      "source": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+      "editMask": "MASK_WORKSHOP_HALL",
+      "placementWorld": [
+        0,
+        536
+      ],
+      "alphaBoundsWorld": [
+        0,
+        536,
+        411,
+        720
+      ],
+      "depthClassification": "FOREGROUND_CONDITIONAL",
+      "occlusionRule": "conditional player-feet boundary",
+      "groundRelation": "C.2 route aligned",
+      "validationStatus": "VALID_INDEPENDENT",
+      "sha256": "04316ad998e78b2c8f7b05e484d78cc8ea48c165e9669702dc6e50e1437e17ed"
+    },
+    {
+      "assetId": "dock_surface",
+      "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/dock_surface.png",
+      "source": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+      "editMask": "MASK_HERO_DOCK",
+      "placementWorld": [
+        460,
+        299
+      ],
+      "alphaBoundsWorld": [
+        460,
+        299,
+        1006,
+        467
+      ],
+      "depthClassification": "STRUCTURE",
+      "occlusionRule": "behind player unless its foreground partner applies",
+      "groundRelation": "C.2 route aligned",
+      "validationStatus": "VALID_INDEPENDENT",
+      "sha256": "88ec62e1ebb5b8cc7b3bf1b91ec2e152b3de970d6cca9870d636cc14d2d6f2c9"
+    },
+    {
+      "assetId": "dock_piles",
+      "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/dock_piles.png",
+      "source": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+      "editMask": "MASK_HERO_DOCK",
+      "placementWorld": [
+        429,
+        289
+      ],
+      "alphaBoundsWorld": [
+        429,
+        289,
+        985,
+        465
+      ],
+      "depthClassification": "STRUCTURE",
+      "occlusionRule": "behind player unless its foreground partner applies",
+      "groundRelation": "C.2 route aligned",
+      "validationStatus": "VALID_INDEPENDENT",
+      "sha256": "c72a64bfaf8bde99f08322b9b6fe60870688a9a79aaea25852570b5d312bf26a"
+    },
+    {
+      "assetId": "gangway",
+      "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/gangway.png",
+      "source": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+      "editMask": "MASK_HERO_DOCK",
+      "placementWorld": [
+        938,
+        297
+      ],
+      "alphaBoundsWorld": [
+        938,
+        297,
+        1088,
+        381
+      ],
+      "depthClassification": "STRUCTURE",
+      "occlusionRule": "behind player unless its foreground partner applies",
+      "groundRelation": "C.2 route aligned",
+      "validationStatus": "VALID_INDEPENDENT",
+      "sha256": "16aa2352be01fa3f951b019cde06fdd9021ef06e90fa37e8a7f06dc0bbcfb7de"
+    },
+    {
+      "assetId": "hero_ship_hull",
+      "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/hero_ship_hull.png",
+      "source": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+      "editMask": "MASK_HERO_DOCK",
+      "placementWorld": [
+        836,
+        88
+      ],
+      "alphaBoundsWorld": [
+        836,
+        88,
+        1280,
+        451
+      ],
+      "depthClassification": "STRUCTURE",
+      "occlusionRule": "behind player unless its foreground partner applies",
+      "groundRelation": "non-walkable visual / contact",
+      "validationStatus": "VALID_INDEPENDENT",
+      "sha256": "c32c50aba0c56ca3aa8cc1170182d9b9603cc08b292abf759d3e32b71e49a289"
+    },
+    {
+      "assetId": "hero_ship_foreground",
+      "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/hero_ship_foreground.png",
+      "source": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+      "editMask": "MASK_HERO_DOCK",
+      "placementWorld": [
+        1080,
+        380
+      ],
+      "alphaBoundsWorld": [
+        1080,
+        380,
+        1280,
+        483
+      ],
+      "depthClassification": "FOREGROUND_CONDITIONAL",
+      "occlusionRule": "conditional player-feet boundary",
+      "groundRelation": "C.2 route aligned",
+      "validationStatus": "VALID_INDEPENDENT",
+      "sha256": "94ca0874b2f9659d891bf066db9a9832f88f9adcf462868b76a7d19e7998908c"
+    },
+    {
+      "assetId": "water_contact_foreground",
+      "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/water_contact_foreground.png",
+      "source": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+      "editMask": "MASK_HERO_DOCK",
+      "placementWorld": [
+        1000,
+        478
+      ],
+      "alphaBoundsWorld": [
+        1000,
+        478,
+        1280,
+        515
+      ],
+      "depthClassification": "FOREGROUND_CONDITIONAL",
+      "occlusionRule": "conditional player-feet boundary",
+      "groundRelation": "non-walkable visual / contact",
+      "validationStatus": "VALID_INDEPENDENT",
+      "sha256": "f74823da0fd34b03061ae61a058a929e1e6d54804d49313ddd5034d5d6f0a50a"
+    }
+  ],
+  "layerDependencies": {
+    "commonWorldBase": "required base",
+    "waterContactForeground": "independent contact-only visual; no duplicate water foreground",
+    "heroShipForeground": "independent stern foreground; ship hull remains separately toggleable"
+  },
+  "layerToggleTests": [
+    {
+      "off": "hall_facade",
+      "result": "PASS \u2014 owned geometry absent from base, other layers remain"
+    },
+    {
+      "off": "workshop_structure",
+      "result": "PASS \u2014 owned geometry absent from base, other layers remain"
+    },
+    {
+      "off": "workshop_foreground",
+      "result": "PASS \u2014 owned geometry absent from base, other layers remain"
+    },
+    {
+      "off": "dock_surface",
+      "result": "PASS \u2014 owned geometry absent from base, other layers remain"
+    },
+    {
+      "off": "gangway",
+      "result": "PASS \u2014 owned geometry absent from base, other layers remain"
+    },
+    {
+      "off": "hero_ship_hull",
+      "result": "PASS \u2014 owned geometry absent from base, other layers remain"
+    },
+    {
+      "off": "water_contact_foreground",
+      "result": "PASS \u2014 owned geometry absent from base, other layers remain"
+    }
+  ],
+  "cameraContract": {
+    "world": [
+      1280,
+      720
+    ],
+    "logicalViewport": [
+      1024,
+      576
+    ],
+    "zoom": 1.25,
+    "visibleWorld": [
+      819.2,
+      460.8
+    ],
+    "preview": [
+      1280,
+      720
+    ],
+    "playerLogicalScreen": [
+      35,
+      70
+    ],
+    "locations": [
+      {
+        "name": "Hall",
+        "feet": [
+          175,
+          190
+        ],
+        "camera": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "Workshop",
+        "feet": [
+          245,
+          440
+        ],
+        "camera": [
+          0.0,
+          209.6
+        ]
+      },
+      {
+        "name": "Archive",
+        "feet": [
+          180,
+          560
+        ],
+        "camera": [
+          0.0,
+          259.2
+        ]
+      },
+      {
+        "name": "Promenade",
+        "feet": [
+          455,
+          470
+        ],
+        "camera": [
+          45.4,
+          239.6
+        ]
+      },
+      {
+        "name": "Hero threshold",
+        "feet": [
+          1028,
+          355
+        ],
+        "camera": [
+          460.8,
+          124.6
+        ]
+      }
+    ]
+  },
+  "playerContract": {
+    "asset": "portfolio-world/public/assets/canonical-r4/candidates/player/player-b-front.png",
+    "sha256": "1c25363e0039b8e972fbebb5be8e383c6cb2b734471fef13195ebaa05c7997e5",
+    "worldSize": [
+      28,
+      56
+    ],
+    "groundAnchor": "bottom-center"
+  },
+  "motionValidation": [
+    {
+      "route": "workshop-hall-archive",
+      "polyline": [
+        [
+          245,
+          440
+        ],
+        [
+          195,
+          405
+        ],
+        [
+          145,
+          400
+        ],
+        [
+          120,
+          315
+        ],
+        [
+          120,
+          280
+        ],
+        [
+          140,
+          245
+        ],
+        [
+          155,
+          215
+        ],
+        [
+          175,
+          190
+        ],
+        [
+          155,
+          215
+        ],
+        [
+          140,
+          245
+        ],
+        [
+          120,
+          315
+        ],
+        [
+          180,
+          560
+        ]
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "feet": [
+            245.0,
+            440.0
+          ],
+          "camera": [
+            0.0,
+            209.6
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-00.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 1,
+          "feet": [
+            189.574,
+            404.457
+          ],
+          "camera": [
+            0.0,
+            174.0574
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-01.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 2,
+          "feet": [
+            138.88,
+            379.191
+          ],
+          "camera": [
+            0.0,
+            148.7912
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-02.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 3,
+          "feet": [
+            120.12,
+            315.407
+          ],
+          "camera": [
+            0.0,
+            85.0066
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-03.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 4,
+          "feet": [
+            135.411,
+            253.03
+          ],
+          "camera": [
+            0.0,
+            22.6303
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-04.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 5,
+          "feet": [
+            169.803,
+            196.496
+          ],
+          "camera": [
+            0.0,
+            0.0
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-05.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 6,
+          "feet": [
+            143.305,
+            238.39
+          ],
+          "camera": [
+            0.0,
+            7.9903
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-06.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 7,
+          "feet": [
+            123.765,
+            301.823
+          ],
+          "camera": [
+            0.0,
+            71.4225
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-07.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 8,
+          "feet": [
+            132.555,
+            366.266
+          ],
+          "camera": [
+            0.0,
+            135.8664
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-08.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 9,
+          "feet": [
+            148.37,
+            430.844
+          ],
+          "camera": [
+            0.0,
+            200.4443
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-09.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 10,
+          "feet": [
+            164.185,
+            495.422
+          ],
+          "camera": [
+            0.0,
+            259.2
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-10.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 11,
+          "feet": [
+            180.0,
+            560.0
+          ],
+          "camera": [
+            0.0,
+            259.2
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive/frame-11.png",
+          "walkable": true,
+          "waterWalk": false
+        }
+      ],
+      "gif": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/workshop-hall-archive.gif"
+    },
+    {
+      "route": "hero-route",
+      "polyline": [
+        [
+          245,
+          440
+        ],
+        [
+          340,
+          455
+        ],
+        [
+          455,
+          470
+        ],
+        [
+          500,
+          435
+        ],
+        [
+          565,
+          400
+        ],
+        [
+          650,
+          400
+        ],
+        [
+          770,
+          380
+        ],
+        [
+          890,
+          355
+        ],
+        [
+          950,
+          350
+        ],
+        [
+          1015,
+          355
+        ],
+        [
+          1028,
+          355
+        ]
+      ],
+      "frames": [
+        {
+          "frame": 0,
+          "feet": [
+            245.0,
+            440.0
+          ],
+          "camera": [
+            0.0,
+            209.6
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/hero-route/frame-00.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 1,
+          "feet": [
+            317.791,
+            451.493
+          ],
+          "camera": [
+            0.0,
+            221.0932
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/hero-route/frame-01.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 2,
+          "feet": [
+            390.778,
+            461.623
+          ],
+          "camera": [
+            0.0,
+            231.2232
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/hero-route/frame-02.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 3,
+          "feet": [
+            462.046,
+            464.52
+          ],
+          "camera": [
+            52.4457,
+            234.12
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/hero-route/frame-03.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 4,
+          "feet": [
+            522.548,
+            422.859
+          ],
+          "camera": [
+            112.9484,
+            192.4585
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/hero-route/frame-04.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 5,
+          "feet": [
+            590.478,
+            400.0
+          ],
+          "camera": [
+            180.8777,
+            169.6
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/hero-route/frame-05.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 6,
+          "feet": [
+            663.977,
+            397.67
+          ],
+          "camera": [
+            254.3773,
+            167.2705
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/hero-route/frame-06.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 7,
+          "feet": [
+            736.667,
+            385.556
+          ],
+          "camera": [
+            327.0669,
+            155.1555
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/hero-route/frame-07.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 8,
+          "feet": [
+            809.061,
+            371.862
+          ],
+          "camera": [
+            399.4608,
+            141.4623
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/hero-route/frame-08.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 9,
+          "feet": [
+            881.204,
+            356.832
+          ],
+          "camera": [
+            460.8,
+            126.4325
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/hero-route/frame-09.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 10,
+          "feet": [
+            954.486,
+            350.345
+          ],
+          "camera": [
+            460.8,
+            119.9451
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/hero-route/frame-10.png",
+          "walkable": true,
+          "waterWalk": false
+        },
+        {
+          "frame": 11,
+          "feet": [
+            1028.0,
+            355.0
+          ],
+          "camera": [
+            460.8,
+            124.6
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/hero-route/frame-11.png",
+          "walkable": true,
+          "waterWalk": false
+        }
+      ],
+      "gif": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/motion-evidence/hero-route.gif"
+    }
+  ],
+  "reproducibility": {
+    "command": "python portfolio-world/tools/build_r5_e1r_common_world.py",
+    "inputs": [
+      {
+        "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+        "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b"
+      },
+      {
+        "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1/production-pilot-assets/source-workshop-clean-generation.png",
+        "sha256": "06c93bb9241b291b5b96c9f9645ea85a36cd41a91946af80a7968f7351f58362"
+      },
+      {
+        "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1/production-pilot-assets/source-hero-clean-generation.png",
+        "sha256": "b3ac34e94b9d62f9b2ee656121f4a667fe3cd0c3ce7dedfcdffa4c0810284f65"
+      },
+      {
+        "path": "portfolio-world/public/assets/canonical-r4/candidates/player/player-b-front.png",
+        "sha256": "1c25363e0039b8e972fbebb5be8e383c6cb2b734471fef13195ebaa05c7997e5"
+      },
+      {
+        "path": "data/portfolio-world/r5-spatial-blueprint-c2-draft.json",
+        "sha256": "7329b5489541c48c5e7a1027cd6fe52d0a3ca8516dde87d2bb17ecec15602d17"
+      },
+      {
+        "path": "data/portfolio-world/r5-future-expansion-reserve-draft.json",
+        "sha256": "950b73ad113182238bd9559e9317f5f602ab1b46d3304c46784dbe9e0829d127"
+      }
+    ],
+    "externalApi": "none",
+    "deterministic": true
+  },
+  "visualQa": {
+    "duplicateSemanticPixels": 0,
+    "fullCompositeUsesBundles": false,
+    "cameraZoomAppliedOnce": true,
+    "rightReserve": "preserved from Candidate B outside masks"
+  },
+  "unresolvedIssues": [
+    "Generated repair pixels within local masks remain an estimated production-pilot background.",
+    "Hard ownership boundaries avoid duplicate pixels but need artist paint-over before final production art approval.",
+    "Motion evidence is an independent harness, not R5 Runtime."
+  ],
+  "humanGate": "CONDITIONAL_REWORK_REQUIRED"
+}
