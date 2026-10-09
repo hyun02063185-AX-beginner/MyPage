@@ -1,0 +1,686 @@
+{
+  "status": "CONDITIONAL_REWORK_REQUIRED",
+  "sourceMaster": {
+    "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+    "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b"
+  },
+  "inputs": [
+    {
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png",
+      "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b"
+    },
+    {
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1/production-pilot-assets/source-workshop-clean-generation.png",
+      "sha256": "06c93bb9241b291b5b96c9f9645ea85a36cd41a91946af80a7968f7351f58362"
+    },
+    {
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1/production-pilot-assets/source-hero-clean-generation.png",
+      "sha256": "b3ac34e94b9d62f9b2ee656121f4a667fe3cd0c3ce7dedfcdffa4c0810284f65"
+    },
+    {
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/11-common-clean-base.png",
+      "sha256": "d486d1dca7ade26c79fd17cf77f90771a07c1cffdab4c932291cc27f91fdb537"
+    },
+    {
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/16-hero-motion-sequence.png",
+      "sha256": "2ed2d6916c3f5f09bfae126d3deda670736dda2d6eb7390b3d7670e0c08c8b96"
+    },
+    {
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r/production-assets/MASK_WORKSHOP_HALL.png",
+      "sha256": "7c86708b68006a3e9061d823ce3c63e3d33ba70776bc726127202a169c171861"
+    },
+    {
+      "path": "portfolio-world/public/assets/canonical-r4/candidates/player/player-b-front.png",
+      "sha256": "1c25363e0039b8e972fbebb5be8e383c6cb2b734471fef13195ebaa05c7997e5"
+    },
+    {
+      "path": "data/portfolio-world/r5-spatial-blueprint-c2-draft.json",
+      "sha256": "7329b5489541c48c5e7a1027cd6fe52d0a3ca8516dde87d2bb17ecec15602d17"
+    },
+    {
+      "path": "data/portfolio-world/r5-future-expansion-reserve-draft.json",
+      "sha256": "950b73ad113182238bd9559e9317f5f602ab1b46d3304c46784dbe9e0829d127"
+    }
+  ],
+  "maskIntegrity": {
+    "outsideMaskChangedPixels": 0,
+    "heroClearMask": "broad complete ship/dock/mast footprint",
+    "semanticOverlapPixels": 0
+  },
+  "rootCause": {
+    "cleanBase": "Hero repair mask followed incomplete semantic polygons, leaving mast/dock/hull source pixels.",
+    "hullOff": "Hero foreground owned a lower hull/water polygon, so hull OFF was not semantic hull OFF.",
+    "motion": "The prior composite conditionally omitted/added an entire foreground layer by player X coordinate."
+  },
+  "layers": [
+    {
+      "assetId": "dock_piles",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/production-assets/dock_piles.png",
+      "placement": [
+        425,
+        300
+      ],
+      "alphaBounds": [
+        425,
+        300,
+        939,
+        466
+      ],
+      "sha256": "8f194653294c3204c44ffac77ff2fd766d72ba1d54520fe75330aa094cf3753d",
+      "semantic": "dock/occluder only"
+    },
+    {
+      "assetId": "gangway",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/production-assets/gangway.png",
+      "placement": [
+        930,
+        300
+      ],
+      "alphaBounds": [
+        930,
+        300,
+        1004,
+        366
+      ],
+      "sha256": "ca712b082532b6f2388b2950522be4d003a9d38df43b37d9abe11af8bd7840b1",
+      "semantic": "dock/occluder only"
+    },
+    {
+      "assetId": "dock_surface",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/production-assets/dock_surface.png",
+      "placement": [
+        410,
+        309
+      ],
+      "alphaBounds": [
+        410,
+        309,
+        944,
+        467
+      ],
+      "sha256": "e2d2e92861e6a7ccce24839c4aae74a7257b8695e3cba68ba39de8d3d3c354f5",
+      "semantic": "dock/occluder only"
+    },
+    {
+      "assetId": "hero_ship_foreground",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/production-assets/hero_ship_foreground.png",
+      "placement": [
+        750,
+        455
+      ],
+      "alphaBounds": [
+        750,
+        455,
+        881,
+        511
+      ],
+      "sha256": "f75ccecbfd645831314e88395c1bab97cbc9614d493a5e250c87bb8792c77ba1",
+      "semantic": "dock/occluder only"
+    },
+    {
+      "assetId": "hero_ship_hull",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/production-assets/hero_ship_hull.png",
+      "placement": [
+        836,
+        82
+      ],
+      "alphaBounds": [
+        836,
+        82,
+        1280,
+        487
+      ],
+      "sha256": "7fa29298e2374fc4c9b0ed553e2e5fa094390249a67e37cc21f81e8ed77f0047",
+      "semantic": "ship only"
+    },
+    {
+      "assetId": "water_contact_foreground",
+      "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/production-assets/water_contact_foreground.png",
+      "placement": [
+        1050,
+        486
+      ],
+      "alphaBounds": [
+        1050,
+        486,
+        1210,
+        497
+      ],
+      "sha256": "78dbde2ed1b8787836f5b6397230da5e47ec3bb6f7283aef2969625ec9ad34d7",
+      "semantic": "independent translucent water-contact ripple"
+    }
+  ],
+  "toggleValidation": {
+    "hullOff": "PASS \u2014 hull owner disabled only",
+    "dockOff": "PASS \u2014 dock owners disabled only",
+    "gangwayOff": "PASS \u2014 gangway owner disabled only",
+    "waterContactOff": "PASS \u2014 contact owner disabled only"
+  },
+  "motion": [
+    {
+      "route": "workshop-hall",
+      "frames": [
+        {
+          "frame": 0,
+          "feet": [
+            245.0,
+            440.0
+          ],
+          "camera": [
+            0,
+            209.6
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hall/frame-00.png"
+        },
+        {
+          "frame": 1,
+          "feet": [
+            219.622,
+            422.236
+          ],
+          "camera": [
+            0,
+            191.8357
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hall/frame-01.png"
+        },
+        {
+          "frame": 2,
+          "feet": [
+            194.083,
+            404.908
+          ],
+          "camera": [
+            0,
+            174.5083
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hall/frame-02.png"
+        },
+        {
+          "frame": 3,
+          "feet": [
+            163.259,
+            401.826
+          ],
+          "camera": [
+            0,
+            171.4259
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hall/frame-03.png"
+        },
+        {
+          "frame": 4,
+          "feet": [
+            141.437,
+            387.886
+          ],
+          "camera": [
+            0,
+            157.486
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hall/frame-04.png"
+        },
+        {
+          "frame": 5,
+          "feet": [
+            132.696,
+            358.167
+          ],
+          "camera": [
+            0,
+            127.7675
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hall/frame-05.png"
+        },
+        {
+          "frame": 6,
+          "feet": [
+            123.956,
+            328.449
+          ],
+          "camera": [
+            0,
+            98.0489
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hall/frame-06.png"
+        },
+        {
+          "frame": 7,
+          "feet": [
+            120.0,
+            298.041
+          ],
+          "camera": [
+            0,
+            67.6413
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hall/frame-07.png"
+        },
+        {
+          "frame": 8,
+          "feet": [
+            126.418,
+            268.768
+          ],
+          "camera": [
+            0,
+            38.3684
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hall/frame-08.png"
+        },
+        {
+          "frame": 9,
+          "feet": [
+            141.611,
+            241.778
+          ],
+          "camera": [
+            0,
+            11.3782
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hall/frame-09.png"
+        },
+        {
+          "frame": 10,
+          "feet": [
+            155.649,
+            214.189
+          ],
+          "camera": [
+            0,
+            0
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hall/frame-10.png"
+        },
+        {
+          "frame": 11,
+          "feet": [
+            175.0,
+            190.0
+          ],
+          "camera": [
+            0,
+            0
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hall/frame-11.png"
+        }
+      ],
+      "gif": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hall.gif",
+      "environmentStable": true
+    },
+    {
+      "route": "workshop-archive",
+      "frames": [
+        {
+          "frame": 0,
+          "feet": [
+            245.0,
+            440.0
+          ],
+          "camera": [
+            0,
+            209.6
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-archive/frame-00.png"
+        },
+        {
+          "frame": 1,
+          "feet": [
+            238.188,
+            450.705
+          ],
+          "camera": [
+            0,
+            220.3048
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-archive/frame-01.png"
+        },
+        {
+          "frame": 2,
+          "feet": [
+            231.376,
+            461.41
+          ],
+          "camera": [
+            0,
+            231.0097
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-archive/frame-02.png"
+        },
+        {
+          "frame": 3,
+          "feet": [
+            224.563,
+            472.115
+          ],
+          "camera": [
+            0,
+            241.7145
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-archive/frame-03.png"
+        },
+        {
+          "frame": 4,
+          "feet": [
+            217.751,
+            482.819
+          ],
+          "camera": [
+            0,
+            252.4194
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-archive/frame-04.png"
+        },
+        {
+          "frame": 5,
+          "feet": [
+            210.939,
+            493.524
+          ],
+          "camera": [
+            0,
+            259.2
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-archive/frame-05.png"
+        },
+        {
+          "frame": 6,
+          "feet": [
+            207.627,
+            505.679
+          ],
+          "camera": [
+            0,
+            259.2
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-archive/frame-06.png"
+        },
+        {
+          "frame": 7,
+          "feet": [
+            204.874,
+            518.065
+          ],
+          "camera": [
+            0,
+            259.2
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-archive/frame-07.png"
+        },
+        {
+          "frame": 8,
+          "feet": [
+            202.122,
+            530.452
+          ],
+          "camera": [
+            0,
+            259.2
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-archive/frame-08.png"
+        },
+        {
+          "frame": 9,
+          "feet": [
+            197.944,
+            542.056
+          ],
+          "camera": [
+            0,
+            259.2
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-archive/frame-09.png"
+        },
+        {
+          "frame": 10,
+          "feet": [
+            188.972,
+            551.028
+          ],
+          "camera": [
+            0,
+            259.2
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-archive/frame-10.png"
+        },
+        {
+          "frame": 11,
+          "feet": [
+            180.0,
+            560.0
+          ],
+          "camera": [
+            0,
+            259.2
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-archive/frame-11.png"
+        }
+      ],
+      "gif": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-archive.gif",
+      "environmentStable": true
+    },
+    {
+      "route": "workshop-hero",
+      "frames": [
+        {
+          "frame": 0,
+          "feet": [
+            245.0,
+            440.0
+          ],
+          "camera": [
+            0,
+            209.6
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-00.png"
+        },
+        {
+          "frame": 1,
+          "feet": [
+            298.38,
+            448.428
+          ],
+          "camera": [
+            0,
+            218.0284
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-01.png"
+        },
+        {
+          "frame": 2,
+          "feet": [
+            351.805,
+            456.54
+          ],
+          "camera": [
+            0,
+            226.1398
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-02.png"
+        },
+        {
+          "frame": 3,
+          "feet": [
+            405.392,
+            463.529
+          ],
+          "camera": [
+            0,
+            233.1294
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-03.png"
+        },
+        {
+          "frame": 4,
+          "feet": [
+            458.168,
+            467.536
+          ],
+          "camera": [
+            48.5678,
+            237.1362
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-04.png"
+        },
+        {
+          "frame": 5,
+          "feet": [
+            500.92,
+            434.504
+          ],
+          "camera": [
+            91.3204,
+            204.1044
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-05.png"
+        },
+        {
+          "frame": 6,
+          "feet": [
+            548.502,
+            408.884
+          ],
+          "camera": [
+            138.902,
+            178.4835
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-06.png"
+        },
+        {
+          "frame": 7,
+          "feet": [
+            600.303,
+            400.0
+          ],
+          "camera": [
+            190.7034,
+            169.6
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-07.png"
+        },
+        {
+          "frame": 8,
+          "feet": [
+            654.285,
+            399.286
+          ],
+          "camera": [
+            244.6853,
+            168.8858
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-08.png"
+        },
+        {
+          "frame": 9,
+          "feet": [
+            707.591,
+            390.401
+          ],
+          "camera": [
+            297.9911,
+            160.0015
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-09.png"
+        },
+        {
+          "frame": 10,
+          "feet": [
+            760.897,
+            381.517
+          ],
+          "camera": [
+            351.2968,
+            151.1172
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-10.png"
+        },
+        {
+          "frame": 11,
+          "feet": [
+            813.87,
+            370.86
+          ],
+          "camera": [
+            404.2704,
+            140.4603
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-11.png"
+        },
+        {
+          "frame": 12,
+          "feet": [
+            866.776,
+            359.838
+          ],
+          "camera": [
+            457.1755,
+            129.4384
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-12.png"
+        },
+        {
+          "frame": 13,
+          "feet": [
+            920.213,
+            352.482
+          ],
+          "camera": [
+            460.8,
+            122.0822
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-13.png"
+        },
+        {
+          "frame": 14,
+          "feet": [
+            974.08,
+            351.852
+          ],
+          "camera": [
+            460.8,
+            121.4523
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-14.png"
+        },
+        {
+          "frame": 15,
+          "feet": [
+            1028.0,
+            355.0
+          ],
+          "camera": [
+            460.8,
+            124.6
+          ],
+          "file": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero/frame-15.png"
+        }
+      ],
+      "gif": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-e1-r1/motion-evidence/workshop-hero.gif",
+      "environmentStable": true
+    }
+  ],
+  "environmentHashStable": true,
+  "camera": {
+    "logicalViewport": [
+      1024,
+      576
+    ],
+    "zoom": 1.25,
+    "visibleWorld": [
+      819.2,
+      460.8
+    ],
+    "player": [
+      28,
+      56
+    ],
+    "anchor": "bottom-center"
+  },
+  "visualQa": {
+    "bluePolygon": "ABSENT \u2014 no conditional environment switching",
+    "baseResidual": "ABSENT by repaired broad mask visual review",
+    "r4RuntimeModified": false,
+    "r5RuntimeImplemented": false
+  },
+  "humanGate": "CONDITIONAL_REWORK_REQUIRED"
+}
