@@ -1,0 +1,69 @@
+{
+  "status": "DRAFT_CONTENT_WORLD_CAMERA_PENDING_HUMAN_REVIEW",
+  "inherits": [
+    { "path": "data/portfolio-world/r5-spatial-blueprint-c2-draft.json", "status": "PRESERVED_UNCHANGED", "scope": "C.1/C.2 geometry, 48u clearance, four active POI" },
+    { "path": "data/portfolio-world/r5-future-expansion-reserve-draft.json", "status": "PRESERVED_UNCHANGED", "scope": "right-side visual-only reserve and three inactive seams" }
+  ],
+  "referenceMaster": { "candidate": "B_ORGANIC_COASTAL_HARBOR_PROVISIONAL", "path": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-b/02-candidate-b-original.png", "sha256": "07f5fff3e9765682a20f106bf58e65e201bcb59c10d1bf065ed45b94b596008b", "status": "PROVISIONAL_NO_NEW_MASTER" },
+  "contentInventory": [
+    { "path": "career.html", "exists": true, "title": "커리어 | 김현래", "scope": "2004–2022 career story: maker, protector, operator; outcomes and leadership/operations." },
+    { "path": "teaching.html", "exists": true, "title": "AX 강의 | 김현래", "scope": "AX perspective, public samples, formats, curriculum, exercises, credentials, teaching history, and inquiry CTA." },
+    { "path": "making.html", "exists": true, "title": "팀을 운영하듯 AI를 운영합니다 | 김현래", "scope": "Human/AI collaboration method, a concrete page-transition case, validation practice, and public work links." },
+    { "path": "gallery.html", "exists": true, "title": "AI·AX 개념 갤러리 | 김현래", "scope": "Illustrated, plain-language AI/AX/IT concept archive with grouped modal cases." }
+  ],
+  "poiContentMappingOptions": {
+    "recommended": {
+      "status": "RECOMMENDED_PENDING_HUMAN",
+      "mapping": [
+        { "poiId": "hall", "displayName": "Exhibition Hall", "spaceMeaning": "Public learning landmark", "contentType": "AX education direction and inquiry", "targetPath": "../teaching.html", "rationale": "Teaching has the strongest visitor-facing learning program and an existing inquiry CTA." },
+        { "poiId": "workshop", "displayName": "Workshop", "spaceMeaning": "Making / operating hub", "contentType": "AI-assisted making method and cases", "targetPath": "../making.html", "rationale": "The page explicitly describes roles, implementation, verification, and portfolio production." },
+        { "poiId": "archive", "displayName": "Harbor Archive", "spaceMeaning": "Reference shelf / concept library", "contentType": "Illustrated AI/AX/IT concept archive", "targetPath": "../gallery.html", "rationale": "The gallery is already structured as grouped, explainable concept material rather than a new destination." },
+        { "poiId": "hero_ship", "displayName": "Hero Ship", "spaceMeaning": "Career journey landmark", "contentType": "Career and professional journey", "targetPath": "../career.html", "rationale": "Career is a chronological journey, making a ship-threshold metaphor legible without declaring ship-deck exploration." }
+      ]
+    },
+    "alternative": {
+      "status": "OPTIONAL_REVIEW_ONLY",
+      "mapping": "Hall → gallery.html; Harbor Archive → teaching.html; Workshop → making.html; Hero Ship → career.html.",
+      "tradeoff": "Hall-as-gallery is visually literal, but Archive-as-teaching weakens the direct inquiry path and makes the archive less semantically distinct."
+    },
+    "principle": "A spatial POI is an orientation unit, not a one-page limit. One POI may later expose multiple subtopics/pages without requiring another building."
+  },
+  "destinationRoutingContract": {
+    "status": "DRAFT_NOT_IMPLEMENTED_IN_R5",
+    "currentWorldScene": { "status": "IMPLEMENTED_OUTSIDE_R5", "source": "portfolio-world/src/world/destinationNavigation.mjs + WorldScene.ts", "paths": ["../career.html", "../teaching.html", "../making.html", "../gallery.html"], "activation": "forecourt + E/Enter or pointer click" },
+    "canonicalR4": { "status": "EVENT_ONLY", "source": "CanonicalRuntimeR4Scene.ts", "activation": "E emits canonical-interaction; no HTML navigation in that scene" },
+    "r5RecommendedInteraction": { "status": "DRAFT", "approach": "named exterior approach / threshold; E and Enter show/open the mapped page; pointer or touch taps the visible prompt; no auto-navigation on proximity", "radius": 86, "mobile": "Large visible tap target and accessible text prompt; touch activation must use the same destination contract." },
+    "paths": {
+      "localVite": { "world": "http://localhost:5173/", "relativeTarget": "../career.html → http://localhost:5173/career.html", "status": "REVIEWED" },
+      "githubPages": { "world": "https://hyun02063185-ax-beginner.github.io/MyPage/world/", "relativeTarget": "../career.html → https://hyun02063185-ax-beginner.github.io/MyPage/career.html", "status": "REVIEWED_200" },
+      "directPage": { "paths": ["career.html", "teaching.html", "making.html", "gallery.html"], "status": "EXISTING_FILES" },
+      "returnToWorld": { "existing": "Browser Back returns to the prior World URL. The four current HTML pages have no direct world/ link.", "proposed": "Add an explicit relative world/ return link only in a later approved implementation pass; do not implement in Phase D." }
+    }
+  },
+  "worldExtentOptions": [
+    { "id": "A_COMPACT_EXPLORATION", "status": "OPTION_PREPARED", "world": [1600,960], "coreEnvelope": [1280,720], "currentUse": "Four POI core only; future content becomes a separately loaded area.", "cameraTravelAtZoom1": [576,384], "artRequirement": "Author edge continuation, off-core terrain/water transitions, and camera-safe background; do not scale/paste the 1280×720 Beauty Master." },
+    { "id": "B_EXPANDABLE_CONTINUOUS_HARBOR", "status": "RECOMMENDED_PLANNING_OPTION_PENDING_HUMAN", "world": [2048,1280], "coreEnvelope": [1536,960], "reservePolicy": "East/right reserve stays scenic water and inactive until a seam is separately approved.", "cameraTravelAtZoom1": [1024,704], "artRequirement": "Author a continuous core-to-water extension, east boundary scenery, parallax/background, and any later dock/shore geometry; no claim of pre-existing playable land." }
+  ],
+  "viewportContract": { "logicalViewport": [1024,576], "source": "portfolio-world/src/config/gameConfig.ts", "note": "All camera simulations apply the same world-to-screen transform to player and scenery; they are concept simulations, not runtime captures." },
+  "cameraOptions": [
+    { "id": "A_28x56_NORMAL", "playerVisual": [28,56], "zoom": 1.0, "visibleWorld": [1024,576], "screenHeight": 56, "read": "Most context; player may remain too small at dense landmarks." },
+    { "id": "B_28x56_CLOSER", "playerVisual": [28,56], "zoom": 1.25, "visibleWorld": [819.2,460.8], "screenHeight": 70, "read": "Recommended first gameplay test: stronger player/readability while preserving an adjacent route/landmark." },
+    { "id": "C_32x64_NORMAL", "playerVisual": [32,64], "zoom": 1.0, "visibleWorld": [1024,576], "screenHeight": 64, "read": "Improves player read but raises 64u corridor pressure without delivering closer scenery." }
+  ],
+  "playerScaleOptions": { "status": "PENDING_HUMAN", "current": [28,56], "alternative": [32,64], "physics": "C.2 geometry validates a 32u physics body and 48u minimum; 64u corridor remains PASS_OR_WARN." },
+  "expansionReserve": { "status": "STRATEGY_APPROVED_FROM_PREVIOUS_REVIEW", "current": "visual-only open-water/horizon; no POI, new building, water walkability, or camera target", "future": "Only separately authored seam activation may change this." },
+  "futureConnectionSeams": [
+    { "id": "SEAM_HERO_INTERIOR_HOOK", "current": "boarding threshold only", "activation": "Human approval + authored interior + interaction/loading/collision review", "cameraImpact": "May become a scene transition; no east land required." },
+    { "id": "SEAM_EAST_AUXILIARY_BERTH", "current": "visual-only coordinate", "activation": "Authored dock, 48u clearance, collision, route graph, and east camera-boundary review", "cameraImpact": "Needs Option B or a separately loaded harbor section." },
+    { "id": "SEAM_OFFSHORE_ROUTE", "current": "visual-only horizon coordinate", "activation": "Travel-system, destination, world-boundary, and camera transition design", "cameraImpact": "Prefer separate world/scene transition; no claim of continuous current land." }
+  ],
+  "designImpact": { "newPoi": false, "newBuilding": false, "newPhaserScene": false, "r4RuntimeModified": false, "r5RuntimeImplemented": false, "beautyMasterChanged": false },
+  "unresolvedIssues": [
+    { "id": "U_MAPPING", "severity": "PENDING_HUMAN", "text": "Recommended POI/page mapping is not an implementation or approval." },
+    { "id": "U_WORLD_EXTENT", "severity": "PENDING_HUMAN", "text": "Choose compact separate expansion vs expandable continuous harbor before art/runtime work." },
+    { "id": "U_CAMERA", "severity": "PENDING_HUMAN", "text": "Choose 28×56 closer test vs scale change, including optional overview affordance." },
+    { "id": "U_RETURN_LINK", "severity": "UNRESOLVED", "text": "Explicit return-to-world link is not present on current content pages; browser Back is the only existing return." }
+  ],
+  "evidence": { "folder": "reports/portfolio-world-rebuild/r5-world-layout-recovery/phase-d", "status": "DRAFT" },
+  "humanGate": { "fourActivePoi": "PRESERVED", "contentInventory": "VERIFIED", "poiContentMapping": "RECOMMENDED_PENDING_HUMAN", "rightExpansionReserve": "STRATEGY_APPROVED", "futureSeams": "DRAFT_NOT_ACTIVE", "worldExtents": "OPTIONS_PREPARED", "cameraPolicy": "OPTIONS_PREPARED", "playerScale": "PENDING_HUMAN", "candidateBDesign": "PROVISIONAL", "finalSpatialBlueprint": "NOT_APPROVED", "runtimeImplementation": "BLOCKED", "gate": "READY_FOR_R5_PHASE_D_CONTENT_WORLD_HUMAN_GATE" }
+}
