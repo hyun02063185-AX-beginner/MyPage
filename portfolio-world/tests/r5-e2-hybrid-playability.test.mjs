@@ -73,3 +73,23 @@ test("E2.1 constrains visual pier geometry and uses swept A* navigation with a m
   assert.match(source, /setDisplaySize\(PLAYER\.width, PLAYER\.height\)\.setOrigin\(\.5, 1\)/);
   assert.match(source, /hybrid:poi/);
 });
+
+test("E2.2 normalizes only Pilot side art and keeps four accessible world-anchored destination markers", () => {
+  const ux = JSON.parse(readFileSync(resolve(repo, "data/portfolio-world/r5-character-destination-ux-draft.json"), "utf8"));
+  for (const asset of ["side-idle-normalized.png", "side-walk-normalized.png"]) assert.equal(existsSync(resolve(root, "public/assets/r5-hybrid/pilot-player", asset)), true, `${asset} must ship as Pilot-only art`);
+  assert.equal(ux.scope.r4RuntimeModified, false);
+  assert.equal(ux.poiMetadata.length, 4);
+  for (const poi of ux.poiMetadata) {
+    assert.equal(poi.visualAnchor.length, 2);
+    assert.equal(poi.navigationTarget.length, 2);
+    assert.equal(poi.interactionTarget.range, 58);
+  }
+  assert.match(source, /visualAnchor/);
+  assert.match(source, /navigationTarget/);
+  assert.match(source, /interactionRange/);
+  assert.match(source, /stopPropagation/);
+  assert.match(html, /data-world-marker="hall"/);
+  assert.match(html, /data-world-marker="hero"/);
+  assert.match(html, /항구의 네 공간을 탐험해 보세요/);
+  assert.match(html, /r5-destination-marker/);
+});

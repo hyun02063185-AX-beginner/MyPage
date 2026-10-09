@@ -1,0 +1,52 @@
+{
+  "taskId": "R5-E2.2-CHARACTER-POI-UX",
+  "status": "READY_FOR_R5_E2_2_HUMAN_PLAYTEST",
+  "scope": {
+    "implementation": "independent R5 E2 Hybrid Pilot only",
+    "r4RuntimeModified": false,
+    "formalR5RuntimeImplemented": false,
+    "candidateBModified": false,
+    "c1c2Modified": false,
+    "futureReserveModified": false
+  },
+  "characterVisualValidation": {
+    "logicalFrame": { "width": 28, "height": 56, "origin": [0.5, 1], "body": { "width": 28, "height": 16, "offset": [0, 40] } },
+    "rawOpaqueBounds": {
+      "idleFront": { "width": 20, "height": 52, "bottomY": 54 },
+      "idleBack": { "width": 17, "height": 51, "bottomY": 54 },
+      "idleSide": { "width": 12, "height": 38, "bottomY": 54 },
+      "walkSideFrames": [{ "width": 24, "height": 38 }, { "width": 12, "height": 38 }, { "width": 24, "height": 38 }, { "width": 21, "height": 38 }]
+    },
+    "derivedAssets": {
+      "idle": "portfolio-world/public/assets/r5-hybrid/pilot-player/side-idle-normalized.png",
+      "walk": "portfolio-world/public/assets/r5-hybrid/pilot-player/side-walk-normalized.png",
+      "source": "portfolio-world/public/assets/canonical-r4/runtime/player/walk-side.png",
+      "method": "nearest-neighbour, aspect-preserving Pilot-only normalization; no raw overwrite or horizontal-only stretch",
+      "finalOpaqueEnvelope": { "width": 28, "height": 51, "bottomY": 54 },
+      "walkFrames": 4,
+      "leftRight": "same side sheet; FlipX only for right"
+    },
+    "visualQa": ["front", "back", "left", "right", "idle", "walk", "same-position Phaser capture"]
+  },
+  "poiMetadata": [
+    { "id": "hall", "name": "Exhibition Hall · 전시관", "content": "teaching.html", "description": "AX 강의와 교육 프로그램", "visualAnchor": [233, 175], "navigationTarget": [175, 190], "interactionTarget": { "center": [175, 190], "range": 58 } },
+    { "id": "workshop", "name": "Workshop · 작업실", "content": "making.html", "description": "AI 활용 및 제작 결과물", "visualAnchor": [310, 405], "navigationTarget": [245, 440], "interactionTarget": { "center": [245, 440], "range": 58 } },
+    { "id": "archive", "name": "Harbor Archive · 아카이브", "content": "gallery.html", "description": "AI·AX 개념과 교육 콘텐츠", "visualAnchor": [250, 528], "navigationTarget": [180, 560], "interactionTarget": { "center": [180, 560], "range": 58 } },
+    { "id": "hero", "name": "Hero Ship · 히어로십", "content": "career.html", "description": "경력과 전문성의 여정", "visualAnchor": [958, 303], "navigationTarget": [1020, 364], "interactionTarget": { "center": [1020, 364], "range": 58 }, "thresholdOnly": true }
+  ],
+  "markerStates": ["default compact icon/name", "hover or keyboard focus details and movement guidance", "selected highlighted with route", "moving selected retained", "arrival green accent and E preview"],
+  "clickInteraction": {
+    "entryPoints": ["world marker", "existing lower POI buttons", "route query"],
+    "event": "hybrid:poi",
+    "navigation": "existing findPilotPath A*",
+    "backgroundDeduplication": "marker click preventDefault plus stopPropagation",
+    "input": ["mouse", "touch", "keyboard focus", "WASD", "arrows"],
+    "manualOverride": "existing cancelAutoMove"
+  },
+  "browserQa": {
+    "engine": "local Edge headless actual Phaser capture plus Chrome interactive marker checks",
+    "T01": "pass", "T02": "pass", "T03": "pass", "T04": "pass", "T05": "pass", "T06": "pending human path watch", "T07": "pass", "T08": "pending human path watch", "T09": "pass", "T10": "pass regression", "T11": "pass", "T12": "pass"
+  },
+  "unresolvedIssues": ["Human visual approval remains required.", "Hall and Archive marker routes use the verified shared dispatcher but await a dedicated final human observation."],
+  "humanGate": "READY_FOR_R5_E2_2_HUMAN_PLAYTEST"
+}

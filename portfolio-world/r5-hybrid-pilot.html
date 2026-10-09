@@ -16,10 +16,27 @@
       #r5-hybrid-status { top: 10px; left: 10px; }
       #r5-hybrid-prompt { bottom: 12px; left: 50%; transform: translateX(-50%); }
       #r5-hybrid-notice { top: 44px; left: 50%; transform: translateX(-50%); text-align: center; }
+      .r5-destination-layer { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+      .r5-destination-marker { --marker-bg: #153b48ee; position: absolute; transform: translate(-50%, -100%); pointer-events: auto; display: grid; grid-template-columns: 22px auto; align-items: center; gap: 5px; max-width: 190px; padding: 5px 7px; border: 1px solid #78b9ca; border-radius: 5px; background: var(--marker-bg); color: #fff8d2; box-shadow: 0 2px 0 #06191f99; cursor: pointer; font: 11px/1.2 ui-monospace, monospace; text-align: left; }
+      .r5-destination-marker.is-right-edge { transform: translate(-100%, -100%); }
+      .r5-destination-marker.is-right-edge::after { left: calc(100% - 10px); }
+      .r5-destination-marker::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 10px; height: 10px; transform: translateX(-50%) rotate(45deg); border-right: 1px solid #78b9ca; border-bottom: 1px solid #78b9ca; background: var(--marker-bg); }
+      .r5-destination-marker__icon { position: relative; z-index: 1; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #f5c96a; color: #102d36; font-weight: 800; }
+      .r5-destination-marker__name, .r5-destination-marker__details { position: relative; z-index: 1; }
+      .r5-destination-marker__name { font-weight: 700; }
+      .r5-destination-marker__details { display: none; grid-column: 1 / -1; color: #d5f0f5; font-size: 10px; }
+      .r5-destination-marker:hover .r5-destination-marker__details, .r5-destination-marker:focus-visible .r5-destination-marker__details, .r5-destination-marker.is-selected .r5-destination-marker__details { display: block; }
+      .r5-destination-marker:hover, .r5-destination-marker:focus-visible, .r5-destination-marker.is-selected { --marker-bg: #28586aee; border-color: #f5c96a; outline: 2px solid #f5c96a; outline-offset: 2px; }
+      .r5-destination-marker.is-moving .r5-destination-marker__icon { animation: r5-marker-pulse .85s ease-in-out infinite alternate; }
+      .r5-destination-marker.is-arrived { --marker-bg: #215c4dee; border-color: #7af0b9; }
+      .r5-destination-marker.is-arrived .r5-destination-marker__icon { background: #7af0b9; }
+      .r5-first-visit-guide { position: absolute; z-index: 4; top: 80px; left: 50%; transform: translateX(-50%); max-width: min(420px, calc(100% - 28px)); padding: 8px 10px; border: 1px solid #f5c96a; border-radius: 5px; background: #102d36eb; color: #fff8d2; font: 12px/1.35 ui-monospace, monospace; pointer-events: auto; text-align: center; }
+      .r5-first-visit-guide button { margin-left: 8px; border: 0; background: transparent; color: #f5c96a; cursor: pointer; font: inherit; text-decoration: underline; }
+      @keyframes r5-marker-pulse { from { transform: scale(.9); } to { transform: scale(1.08); } }
       .r5-hybrid-controls { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
       .r5-hybrid-controls button { border: 1px solid #507583; border-radius: 4px; background: #173846; color: #fff8d2; cursor: pointer; font: 12px ui-monospace, monospace; padding: 7px 9px; }
       .r5-hybrid-controls button:hover, .r5-hybrid-controls button:focus-visible { background: #28586a; outline: 2px solid #f5c96a; outline-offset: 2px; }
-      @media (max-width: 700px) { .r5-hybrid-shell { padding: 10px; } .r5-hybrid-hud { font-size: 11px; } }
+      @media (max-width: 700px) { .r5-hybrid-shell { padding: 10px; } .r5-hybrid-hud { font-size: 11px; } .r5-hybrid-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; } .r5-hybrid-controls button:last-child { grid-column: 1 / -1; } }
     </style>
   </head>
   <body class="r5-hybrid-body">
@@ -33,6 +50,13 @@
         <div class="r5-hybrid-hud" aria-live="polite">
           <p id="r5-hybrid-status"></p><p id="r5-hybrid-prompt"></p><p id="r5-hybrid-notice"></p>
         </div>
+        <div class="r5-destination-layer" aria-label="World destinations">
+          <button class="r5-destination-marker" type="button" data-world-marker="hall" aria-label="Exhibition Hall, 전시관. AX 강의와 교육 프로그램. 클릭하면 이동합니다."><span class="r5-destination-marker__icon" aria-hidden="true">E</span><span class="r5-destination-marker__name">Exhibition Hall · 전시관</span><span class="r5-destination-marker__details">AX 강의와 교육 프로그램 · 클릭하여 이동</span></button>
+          <button class="r5-destination-marker" type="button" data-world-marker="workshop" aria-label="Workshop, 작업실. AI 활용 및 제작 결과물. 클릭하면 이동합니다."><span class="r5-destination-marker__icon" aria-hidden="true">W</span><span class="r5-destination-marker__name">Workshop · 작업실</span><span class="r5-destination-marker__details">AI 활용 및 제작 결과물 · 클릭하여 이동</span></button>
+          <button class="r5-destination-marker" type="button" data-world-marker="archive" aria-label="Harbor Archive, 아카이브. AI·AX 개념과 교육 콘텐츠. 클릭하면 이동합니다."><span class="r5-destination-marker__icon" aria-hidden="true">A</span><span class="r5-destination-marker__name">Harbor Archive · 아카이브</span><span class="r5-destination-marker__details">AI·AX 개념과 교육 콘텐츠 · 클릭하여 이동</span></button>
+          <button class="r5-destination-marker" type="button" data-world-marker="hero" aria-label="Hero Ship, 히어로십. 경력과 전문성의 여정. 클릭하면 이동합니다."><span class="r5-destination-marker__icon" aria-hidden="true">H</span><span class="r5-destination-marker__name">Hero Ship · 히어로십</span><span class="r5-destination-marker__details">경력과 전문성의 여정 · 클릭하여 이동</span></button>
+        </div>
+        <aside id="r5-first-visit-guide" class="r5-first-visit-guide" aria-live="polite">항구의 네 공간을 탐험해 보세요. 장소를 클릭하면 캐릭터가 이동합니다.<button type="button" data-guide-close>닫기</button></aside>
       </div>
       <nav class="r5-hybrid-controls" aria-label="Pilot destinations">
         <button data-poi="hall">Exhibition Hall</button><button data-poi="workshop">Workshop</button><button data-poi="archive">Harbor Archive</button><button data-poi="hero">Hero Ship</button><button data-guide="toggle">Route guide</button>
