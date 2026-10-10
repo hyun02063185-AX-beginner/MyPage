@@ -1,0 +1,19 @@
+{
+  "runtime": "actual Phaser/Vite page",
+  "viewport": [
+    1024,
+    576
+  ],
+  "walkSpeed": 170,
+  "frameIntervalMs": 90,
+  "captures": {
+    "sideBefore": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4\\motion-evidence\\side-before-frames",
+    "sideAfter": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4\\motion-evidence\\side-after-frames",
+    "frontBefore": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4\\motion-evidence\\front-before-frames",
+    "frontAfter": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4\\motion-evidence\\front-after-frames",
+    "backBefore": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4\\motion-evidence\\back-before-frames",
+    "backAfter": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4\\motion-evidence\\back-after-frames",
+    "directionTransition": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4\\motion-evidence\\direction-transition-frames",
+    "autoNavigation": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4\\motion-evidence\\auto-navigation-walk-frames"
+  }
+}

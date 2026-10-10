@@ -74,6 +74,8 @@ class HybridPilotScene extends Phaser.Scene {
   private qaFreeze = new URLSearchParams(window.location.search).get("qaFreeze") === "1";
   private overview = new URLSearchParams(window.location.search).get("overview") === "1";
   private rawSideQa = new URLSearchParams(window.location.search).get("rawSideQa") === "1";
+  // QA-only baseline; ordinary Pilot play always uses the E2.4 gait sheets.
+  private beforeWalkQa = new URLSearchParams(window.location.search).get("walkVersion") === "before";
   private contentPoi?: Poi;
 
   public constructor() { super("R5HybridPilotScene"); }
@@ -88,6 +90,9 @@ class HybridPilotScene extends Phaser.Scene {
     this.load.image("pilot-idle-side", "/assets/r5-hybrid/pilot-player/side-idle-normalized.png");
     for (const direction of ["front", "back", "side"]) this.load.spritesheet(`r4-walk-${direction}`, `/assets/canonical-r4/runtime/player/walk-${direction}.png`, { frameWidth: 28, frameHeight: 56 });
     this.load.spritesheet("pilot-walk-side", "/assets/r5-hybrid/pilot-player/side-walk-normalized.png", { frameWidth: 28, frameHeight: 56 });
+    this.load.spritesheet("pilot-walk-front-v2", "/assets/r5-hybrid/pilot-player/walk-front-v2.png", { frameWidth: 28, frameHeight: 56 });
+    this.load.spritesheet("pilot-walk-back-v2", "/assets/r5-hybrid/pilot-player/walk-back-v2.png", { frameWidth: 28, frameHeight: 56 });
+    this.load.spritesheet("pilot-walk-side-v2", "/assets/r5-hybrid/pilot-player/walk-side-v2.png", { frameWidth: 28, frameHeight: 56 });
   }
 
   public create(): void {
@@ -134,8 +139,14 @@ class HybridPilotScene extends Phaser.Scene {
 
   private createAnimations(): void {
     const idle = (key: string) => !this.anims.exists(key) && this.anims.create({ key, frames: [{ key }], frameRate: 1, repeat: -1 });
-    const walk = (key: string) => { if (!this.anims.exists(key)) this.anims.create({ key, frames: this.anims.generateFrameNumbers(key, { start: 0, end: 3 }), frameRate: 8, repeat: -1 }); };
-    idle("r4-idle-front"); idle("r4-idle-back"); idle("r4-idle-side"); idle("pilot-idle-side"); walk("r4-walk-front"); walk("r4-walk-back"); walk("r4-walk-side"); walk("pilot-walk-side");
+    const walk = (key: string, frameCount: number, frameRate: number) => {
+      if (!this.anims.exists(key)) this.anims.create({ key, frames: this.anims.generateFrameNumbers(key, { start: 0, end: frameCount - 1 }), frameRate, repeat: -1 });
+    };
+    idle("r4-idle-front"); idle("r4-idle-back"); idle("r4-idle-side"); idle("pilot-idle-side");
+    walk("r4-walk-front", 4, 8); walk("r4-walk-back", 4, 8); walk("r4-walk-side", 4, 8); walk("pilot-walk-side", 4, 8);
+    // 170 world px/s previously advanced 85px in one 0.5s cycle. These rates
+    // place a visibly alternating step roughly every 7px of world travel.
+    walk("pilot-walk-front-v2", 4, 24); walk("pilot-walk-back-v2", 4, 24); walk("pilot-walk-side-v2", 8, 48);
   }
 
   private createPlayer(): void {
@@ -153,9 +164,17 @@ class HybridPilotScene extends Phaser.Scene {
 
   private updateAnimation(vx: number, vy: number): void {
     const moving = vx !== 0 || vy !== 0;
-    if (moving) { if (Math.abs(vx) > Math.abs(vy)) this.facing = vx < 0 ? "left" : "right"; else this.facing = vy < 0 ? "back" : "front"; }
+    // A 20% dominance threshold keeps diagonal/corner paths from flickering
+    // between FRONT and SIDE on adjacent simulation frames.
+    if (moving) {
+      if (Math.abs(vx) > Math.abs(vy) * 1.2) this.facing = vx < 0 ? "left" : "right";
+      else if (Math.abs(vy) > Math.abs(vx) * 1.2) this.facing = vy < 0 ? "back" : "front";
+    }
     const direction = this.facing === "left" || this.facing === "right" ? "side" : this.facing;
-    const key = direction === "side" ? this.rawSideQa ? `r4-${moving ? "walk" : "idle"}-side` : `pilot-${moving ? "walk" : "idle"}-side` : `r4-${moving ? "walk" : "idle"}-${direction}`; this.player.setFlipX(this.facing === "right"); if (this.player.anims.currentAnim?.key !== key) this.player.play(key, true);
+    const key = moving
+      ? this.beforeWalkQa || (direction === "side" && this.rawSideQa) ? `r4-walk-${direction}` : `pilot-walk-${direction}-v2`
+      : `r4-idle-${direction}`;
+    this.player.setFlipX(this.facing === "right"); if (this.player.anims.currentAnim?.key !== key) this.player.play(key, true);
     // Texture changes do not own scale/origin/body: the logical player contract does.
     this.player.setDisplaySize(PLAYER.width, PLAYER.height).setOrigin(.5, 1);
     (this.player.body as Phaser.Physics.Arcade.Body).setSize(28, 16).setOffset(0, 40);

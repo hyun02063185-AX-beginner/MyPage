@@ -1,0 +1,42 @@
+{
+  "generatedReference": "C:\\Users\\hyun0\\MyPage\\portfolio-world\\art-source\\r5-e2-4-walk-animation\\side-walk-imagegen-reference.png",
+  "generatedReferenceSha256": "d0e736f3fd882eee99627dd1f8358d9e57f4a913468fce755635434b00cf41d9",
+  "assets": {
+    "walk-front-v2.png": {
+      "sha256": "46123feeab65483ae1b72df5e5d1d70477d8381703864601581ec3b50d40ddcf",
+      "size": [
+        112,
+        56
+      ]
+    },
+    "walk-back-v2.png": {
+      "sha256": "1c769335e71aa786691903592563aba2e1c8ea28d79d56ffdf2826a7d263931e",
+      "size": [
+        112,
+        56
+      ]
+    },
+    "walk-side-v2.png": {
+      "sha256": "d7cbe73e71060a0e23b528b53207aa4914d478dd2d446a49f3c5ec5312aeacd0",
+      "size": [
+        224,
+        56
+      ]
+    }
+  },
+  "frames": {
+    "front": 4,
+    "back": 4,
+    "side": 8
+  },
+  "sideFrameRoles": [
+    "left-contact",
+    "left-recoil",
+    "left-passing",
+    "right-contact",
+    "right-recoil",
+    "right-passing",
+    "left-contact-repeat",
+    "recovery"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "taskId": "R5-E2.4-FULL-WALK-ANIMATION-POLISH",
+  "originalAssets": [
+    "portfolio-world/public/assets/canonical-r4/runtime/player/walk-front.png",
+    "walk-back.png",
+    "walk-side.png"
+  ],
+  "newPilotAssets": [
+    "portfolio-world/public/assets/r5-hybrid/pilot-player/walk-front-v2.png",
+    "walk-back-v2.png",
+    "walk-side-v2.png"
+  ],
+  "walkFrameCounts": {
+    "front": 4,
+    "back": 4,
+    "side": 8
+  },
+  "animationFps": {
+    "original": 8,
+    "front": 24,
+    "back": 24,
+    "side": 48
+  },
+  "footContactAnalysis": {
+    "groundAnchor": "bottom-center",
+    "contactRows": [
+      52,
+      55
+    ],
+    "result": "PASS"
+  },
+  "movementSpeedComparison": {
+    "originalAndFinalWorldPxPerSecond": 170,
+    "originalCycleWorldPx": 85,
+    "finalCycleWorldPx": 28
+  },
+  "directionTransition": {
+    "dominanceRatio": 1.2,
+    "nearDiagonal": "retain last cardinal facing",
+    "result": "PASS"
+  },
+  "browserMotionQa": {
+    "runtime": "actual Phaser/Vite",
+    "result": "PASS",
+    "evidence": "motion-evidence"
+  },
+  "regressionResults": {
+    "r4RuntimeModified": false,
+    "candidateBModified": false,
+    "formalR5RuntimeImplemented": false,
+    "result": "PASS \u2014 npm test: 148 passed"
+  },
+  "humanGate": "READY_FOR_R5_E2_4_HUMAN_ANIMATION_REVIEW",
+  "remainingIssues": [
+    "Human subjective gameplay approval is still required before a final PASS gate."
+  ]
+}
