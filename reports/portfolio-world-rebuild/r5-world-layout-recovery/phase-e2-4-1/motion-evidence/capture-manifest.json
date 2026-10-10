@@ -1,0 +1,19 @@
+{
+  "runtime": "actual Phaser/Vite via CDP",
+  "viewport": [
+    1024,
+    576
+  ],
+  "defaultPreset": "B (20fps side / 10fps vertical)",
+  "defaultSpeed": 170,
+  "captures": {
+    "sideIdleToWalk": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4-1\\motion-evidence\\side-idle-to-walk-frames",
+    "sideWalkToIdle": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4-1\\motion-evidence\\side-walk-to-idle-frames",
+    "frontWalk": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4-1\\motion-evidence\\front-walk-frames",
+    "backWalk": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4-1\\motion-evidence\\back-walk-frames",
+    "sideWalk": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4-1\\motion-evidence\\side-walk-frames",
+    "directionalTransition": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4-1\\motion-evidence\\directional-transition-frames",
+    "autoNavigation": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4-1\\motion-evidence\\auto-navigation-frames",
+    "cadence": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4-1\\motion-evidence\\cadence-frames"
+  }
+}

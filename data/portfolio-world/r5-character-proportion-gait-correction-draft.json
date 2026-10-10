@@ -1,0 +1,113 @@
+{
+  "taskId": "R5-E2.4.1-CHARACTER-PROPORTION-NATURAL-GAIT",
+  "originalIdleWalkAssets": [
+    "side-idle-normalized.png",
+    "walk-side-v2.png",
+    "R4 front/back idle and walk"
+  ],
+  "visualProportionMeasurements": {
+    "frontIdle": {
+      "left": 4,
+      "top": 3,
+      "right": 23,
+      "bottom": 54,
+      "width": 20,
+      "height": 52
+    },
+    "frontWalk": {
+      "left": 4,
+      "top": 3,
+      "right": 23,
+      "bottom": 54,
+      "width": 20,
+      "height": 52
+    },
+    "backIdle": {
+      "left": 5,
+      "top": 4,
+      "right": 21,
+      "bottom": 54,
+      "width": 17,
+      "height": 51
+    },
+    "backWalk": {
+      "left": 5,
+      "top": 4,
+      "right": 21,
+      "bottom": 54,
+      "width": 17,
+      "height": 51
+    },
+    "sideIdleBefore": {
+      "left": 0,
+      "top": 4,
+      "right": 27,
+      "bottom": 54,
+      "width": 28,
+      "height": 51
+    },
+    "sideIdleAfter": {
+      "left": 3,
+      "top": 3,
+      "right": 23,
+      "bottom": 54,
+      "width": 21,
+      "height": 52
+    },
+    "sideWalk": {
+      "left": 6,
+      "top": 3,
+      "right": 21,
+      "bottom": 54,
+      "width": 16,
+      "height": 52
+    }
+  },
+  "newPilotAssets": [
+    "idle-side-v3.png"
+  ],
+  "fpsComparisonPresets": {
+    "fast": [
+      48,
+      24
+    ],
+    "A": [
+      24,
+      12
+    ],
+    "B": [
+      20,
+      10
+    ],
+    "C": [
+      16,
+      8
+    ],
+    "recommended": "B"
+  },
+  "movementSpeedCandidates": [
+    170,
+    150,
+    130
+  ],
+  "idleWalkConsistency": {
+    "side": "v3 uses v2 gait frame 7 directly",
+    "result": "PASS"
+  },
+  "directionTransition": {
+    "dominanceRatio": 1.2,
+    "result": "PASS"
+  },
+  "browserMotionEvidence": {
+    "format": "actual Phaser MP4",
+    "folder": "motion-evidence",
+    "result": "PASS"
+  },
+  "automatedQa": {
+    "result": "PASS \u2014 npm test: 151 passed"
+  },
+  "humanGate": "READY_FOR_R5_E2_4_1_HUMAN_PLAYTEST",
+  "remainingIssues": [
+    "Human visual preference between A/B/C cadence is required."
+  ]
+}

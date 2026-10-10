@@ -15,6 +15,7 @@ const foreground = {
 } as const;
 
 type Facing = "front" | "back" | "left" | "right";
+type AnimationPreset = "fast" | "a" | "b" | "c";
 type WorldPoint = Readonly<{ x: number; y: number }>;
 type ForegroundLayer = Readonly<{ id: string; key: string; x: number; y: number; occlusionFootY: number }>;
 type Poi = Readonly<{
@@ -57,6 +58,12 @@ const FOREGROUND_LAYERS: readonly ForegroundLayer[] = [
   { id: "dock-rail", key: "hybrid-fore-dock", x: 429, y: 289, occlusionFootY: 382 },
   { id: "hero-gangway", key: "hybrid-fore-gangway", x: 938, y: 297, occlusionFootY: 368 },
 ];
+const ANIMATION_PRESETS: Readonly<Record<AnimationPreset, Readonly<{ label: string; side: number; vertical: number }>>> = {
+  fast: { label: "E2.4 fast · side 48 / vertical 24", side: 48, vertical: 24 },
+  a: { label: "A · side 24 / vertical 12", side: 24, vertical: 12 },
+  b: { label: "B · side 20 / vertical 10 (recommended)", side: 20, vertical: 10 },
+  c: { label: "C · side 16 / vertical 8", side: 16, vertical: 8 },
+};
 
 class HybridPilotScene extends Phaser.Scene {
   private player!: Phaser.Physics.Arcade.Sprite;
@@ -76,6 +83,10 @@ class HybridPilotScene extends Phaser.Scene {
   private rawSideQa = new URLSearchParams(window.location.search).get("rawSideQa") === "1";
   // QA-only baseline; ordinary Pilot play always uses the E2.4 gait sheets.
   private beforeWalkQa = new URLSearchParams(window.location.search).get("walkVersion") === "before";
+  private animationQa = new URLSearchParams(window.location.search).get("animationQa") === "1";
+  private animationPreset: AnimationPreset = "b";
+  private moveSpeed: number = PLAYER.speed;
+  private qaPreview?: Readonly<{ facing: Facing; walking: boolean }>;
   private contentPoi?: Poi;
 
   public constructor() { super("R5HybridPilotScene"); }
@@ -88,6 +99,7 @@ class HybridPilotScene extends Phaser.Scene {
     // Raw R4 side sprites remain untouched. Pilot-only normalized copies retain pixel aspect ratio,
     // normalize the opaque silhouette, and remove the 12px / 24px walk-frame collapse.
     this.load.image("pilot-idle-side", "/assets/r5-hybrid/pilot-player/side-idle-normalized.png");
+    this.load.image("pilot-idle-side-v3", "/assets/r5-hybrid/pilot-player/idle-side-v3.png");
     for (const direction of ["front", "back", "side"]) this.load.spritesheet(`r4-walk-${direction}`, `/assets/canonical-r4/runtime/player/walk-${direction}.png`, { frameWidth: 28, frameHeight: 56 });
     this.load.spritesheet("pilot-walk-side", "/assets/r5-hybrid/pilot-player/side-walk-normalized.png", { frameWidth: 28, frameHeight: 56 });
     this.load.spritesheet("pilot-walk-front-v2", "/assets/r5-hybrid/pilot-player/walk-front-v2.png", { frameWidth: 28, frameHeight: 56 });
@@ -102,6 +114,7 @@ class HybridPilotScene extends Phaser.Scene {
     // compared to the player's feet so only their real opaque pixels occlude the player.
     this.foregroundLayers = FOREGROUND_LAYERS.map((layer) => ({ ...layer, sprite: this.add.image(layer.x, layer.y, layer.key).setOrigin(0) }));
     this.createAnimations(); this.createPlayer(); this.configureCamera(); this.routeGraphics = this.add.graphics().setDepth(29);
+    if (this.animationQa) this.createAnimationQaControls();
     this.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => { if (!this.contentPoi) this.requestAutoMove(pointer.worldX, pointer.worldY); });
     this.game.events.on("hybrid:poi", (id: string) => { const poi = POIS.find((entry) => entry.id === id); if (poi) this.requestAutoMove(poi.navigationTarget.x, poi.navigationTarget.y, poi); });
     this.game.events.on("hybrid:guide", () => { this.routeGuideEnabled = !this.routeGuideEnabled; this.drawRouteGuide(); });
@@ -126,8 +139,9 @@ class HybridPilotScene extends Phaser.Scene {
     }
     const horizontal = (this.keys.RIGHT.isDown || this.keys.D.isDown ? 1 : 0) - (this.keys.LEFT.isDown || this.keys.A.isDown ? 1 : 0);
     const vertical = (this.keys.DOWN.isDown || this.keys.S.isDown ? 1 : 0) - (this.keys.UP.isDown || this.keys.W.isDown ? 1 : 0);
-    if (horizontal || vertical) this.cancelAutoMove("Manual control");
-    const vector = this.qaFreeze ? new Phaser.Math.Vector2() : horizontal || vertical ? new Phaser.Math.Vector2(horizontal, vertical).normalize().scale(PLAYER.speed) : this.autoMoveVector();
+    if (horizontal || vertical) { this.qaPreview = undefined; this.cancelAutoMove("Manual control"); }
+    const previewVector = this.qaPreview?.walking ? this.vectorForFacing(this.qaPreview.facing) : undefined;
+    const vector = this.qaFreeze ? new Phaser.Math.Vector2() : horizontal || vertical ? new Phaser.Math.Vector2(horizontal, vertical).normalize().scale(this.moveSpeed) : previewVector ?? this.autoMoveVector();
     this.updateAnimation(vector.x, vector.y);
     const seconds = this.game.loop.delta / 1000;
     const next = { x: this.player.x + vector.x * seconds, y: this.player.y + vector.y * seconds };
@@ -144,9 +158,21 @@ class HybridPilotScene extends Phaser.Scene {
     };
     idle("r4-idle-front"); idle("r4-idle-back"); idle("r4-idle-side"); idle("pilot-idle-side");
     walk("r4-walk-front", 4, 8); walk("r4-walk-back", 4, 8); walk("r4-walk-side", 4, 8); walk("pilot-walk-side", 4, 8);
-    // 170 world px/s previously advanced 85px in one 0.5s cycle. These rates
-    // place a visibly alternating step roughly every 7px of world travel.
-    walk("pilot-walk-front-v2", 4, 24); walk("pilot-walk-back-v2", 4, 24); walk("pilot-walk-side-v2", 8, 48);
+    this.createPilotWalkAnimations(walk);
+  }
+
+  private createPilotWalkAnimations(walk: (key: string, frameCount: number, frameRate: number) => void): void {
+    const cadence = ANIMATION_PRESETS[this.animationPreset];
+    walk("pilot-walk-front-v2", 4, cadence.vertical); walk("pilot-walk-back-v2", 4, cadence.vertical); walk("pilot-walk-side-v2", 8, cadence.side);
+  }
+
+  private applyAnimationPreset(preset: AnimationPreset, speed = this.moveSpeed): void {
+    this.animationPreset = preset; this.moveSpeed = speed;
+    for (const key of ["pilot-walk-front-v2", "pilot-walk-back-v2", "pilot-walk-side-v2"]) if (this.anims.exists(key)) this.anims.remove(key);
+    const walk = (key: string, frameCount: number, frameRate: number) => this.anims.create({ key, frames: this.anims.generateFrameNumbers(key, { start: 0, end: frameCount - 1 }), frameRate, repeat: -1 });
+    this.createPilotWalkAnimations(walk);
+    this.player.stop(); this.updateAnimation(0, 0);
+    const cadence = ANIMATION_PRESETS[preset]; hud.notice.textContent = `QA preset ${preset.toUpperCase()} · side ${cadence.side}fps · front/back ${cadence.vertical}fps · ${speed}px/s`;
   }
 
   private createPlayer(): void {
@@ -173,7 +199,7 @@ class HybridPilotScene extends Phaser.Scene {
     const direction = this.facing === "left" || this.facing === "right" ? "side" : this.facing;
     const key = moving
       ? this.beforeWalkQa || (direction === "side" && this.rawSideQa) ? `r4-walk-${direction}` : `pilot-walk-${direction}-v2`
-      : `r4-idle-${direction}`;
+      : direction === "side" && !this.beforeWalkQa ? "pilot-idle-side-v3" : `r4-idle-${direction}`;
     this.player.setFlipX(this.facing === "right"); if (this.player.anims.currentAnim?.key !== key) this.player.play(key, true);
     // Texture changes do not own scale/origin/body: the logical player contract does.
     this.player.setDisplaySize(PLAYER.width, PLAYER.height).setOrigin(.5, 1);
@@ -184,7 +210,31 @@ class HybridPilotScene extends Phaser.Scene {
     if (!this.autoPath.length || this.waypointIndex >= this.autoPath.length) return new Phaser.Math.Vector2();
     const target = this.autoPath[this.waypointIndex]; const vector = new Phaser.Math.Vector2(target[0] - this.player.x, target[1] - this.player.y);
     if (vector.length() < 4) { this.waypointIndex += 1; if (this.waypointIndex >= this.autoPath.length) { this.autoPath = []; hud.notice.textContent = this.selectedPoi ? `Arrived: ${this.selectedPoi.label} · press E for preview` : "Arrived"; } return this.autoMoveVector(); }
-    return vector.normalize().scale(PLAYER.speed);
+    return vector.normalize().scale(this.moveSpeed);
+  }
+
+  private vectorForFacing(facing: Facing): Phaser.Math.Vector2 {
+    const vector = facing === "left" ? [-1, 0] : facing === "right" ? [1, 0] : facing === "back" ? [0, -1] : [0, 1];
+    return new Phaser.Math.Vector2(vector[0], vector[1]).scale(this.moveSpeed);
+  }
+
+  private createAnimationQaControls(): void {
+    const root = document.querySelector<HTMLElement>("#r5-hybrid-root")!;
+    const panel = document.createElement("aside");
+    panel.id = "r5-animation-qa";
+    panel.setAttribute("aria-label", "Animation QA controls");
+    panel.style.cssText = "position:absolute;z-index:8;right:10px;bottom:10px;width:250px;padding:9px;border:1px solid #f5c96a;border-radius:5px;background:#102d36ef;color:#fff8d2;font:11px/1.35 ui-monospace,monospace;pointer-events:auto";
+    panel.innerHTML = `<strong>Animation QA · actual Phaser</strong><label style="display:block;margin-top:6px">Preset <select data-qa-preset><option value="fast">E2.4 fast (48/24)</option><option value="a">A (24/12)</option><option value="b" selected>B (20/10) recommended</option><option value="c">C (16/8)</option></select></label><label style="display:block;margin-top:4px">Speed <select data-qa-speed><option value="170" selected>170px/s approved</option><option value="150">150px/s experiment</option><option value="130">130px/s experiment</option></select></label><div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:7px"><button data-qa-facing="left">SIDE L</button><button data-qa-facing="right">SIDE R</button><button data-qa-facing="front">FRONT</button><button data-qa-facing="back">BACK</button><button data-qa-state="idle">Idle</button><button data-qa-state="walk">Walk</button><button data-qa-reset>Restore B/170</button></div><p data-qa-readout style="margin:6px 0 0">B · side 20fps · vertical 10fps · 170px/s</p>`;
+    root.append(panel);
+    const selectPreset = panel.querySelector<HTMLSelectElement>("[data-qa-preset]")!;
+    const selectSpeed = panel.querySelector<HTMLSelectElement>("[data-qa-speed]")!;
+    const readout = panel.querySelector<HTMLElement>("[data-qa-readout]")!;
+    const refresh = () => { const preset = selectPreset.value as AnimationPreset; const speed = Number(selectSpeed.value); this.applyAnimationPreset(preset, speed); const config = ANIMATION_PRESETS[preset]; readout.textContent = `${preset.toUpperCase()} · side ${config.side}fps · vertical ${config.vertical}fps · ${speed}px/s`; };
+    selectPreset.addEventListener("change", refresh); selectSpeed.addEventListener("change", refresh);
+    panel.querySelectorAll<HTMLButtonElement>("[data-qa-facing]").forEach((button) => button.addEventListener("click", () => { this.facing = button.dataset.qaFacing as Facing; this.qaPreview = { facing: this.facing, walking: false }; this.updateAnimation(0, 0); }));
+    panel.querySelector<HTMLButtonElement>("[data-qa-state=idle]")!.addEventListener("click", () => { this.qaPreview = { facing: this.facing, walking: false }; this.updateAnimation(0, 0); });
+    panel.querySelector<HTMLButtonElement>("[data-qa-state=walk]")!.addEventListener("click", () => { this.cancelAutoMove(); this.qaPreview = { facing: this.facing, walking: true }; });
+    panel.querySelector<HTMLButtonElement>("[data-qa-reset]")!.addEventListener("click", () => { selectPreset.value = "b"; selectSpeed.value = "170"; this.qaPreview = undefined; refresh(); });
   }
 
   private requestAutoMove(x: number, y: number, poi?: Poi): void {

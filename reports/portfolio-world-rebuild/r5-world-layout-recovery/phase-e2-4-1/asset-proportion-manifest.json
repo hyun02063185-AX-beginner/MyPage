@@ -1,0 +1,76 @@
+{
+  "idleSideV3": {
+    "source": "walk-side-v2.png frame 7",
+    "sha256": "18d2e69c97e0bafb18cfad1c27632aa8b890b4d7a9fe1529778bef0af00b90c1",
+    "size": [
+      28,
+      56
+    ],
+    "bounds": {
+      "left": 3,
+      "top": 3,
+      "right": 23,
+      "bottom": 54,
+      "width": 21,
+      "height": 52
+    }
+  },
+  "measurements": {
+    "frontIdle": {
+      "left": 4,
+      "top": 3,
+      "right": 23,
+      "bottom": 54,
+      "width": 20,
+      "height": 52
+    },
+    "frontWalk": {
+      "left": 4,
+      "top": 3,
+      "right": 23,
+      "bottom": 54,
+      "width": 20,
+      "height": 52
+    },
+    "backIdle": {
+      "left": 5,
+      "top": 4,
+      "right": 21,
+      "bottom": 54,
+      "width": 17,
+      "height": 51
+    },
+    "backWalk": {
+      "left": 5,
+      "top": 4,
+      "right": 21,
+      "bottom": 54,
+      "width": 17,
+      "height": 51
+    },
+    "sideIdleBefore": {
+      "left": 0,
+      "top": 4,
+      "right": 27,
+      "bottom": 54,
+      "width": 28,
+      "height": 51
+    },
+    "sideIdleAfter": {
+      "left": 3,
+      "top": 3,
+      "right": 23,
+      "bottom": 54,
+      "width": 21,
+      "height": 52
+    },
+    "sideWalk": {
+      "left": 6,
+      "top": 3,
+      "right": 21,
+      "bottom": 54,
+      "width": 16,
+      "height": 52
+    }
+  }
+}
