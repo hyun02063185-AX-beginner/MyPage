@@ -1,0 +1,15 @@
+{
+  "runtime": "actual Phaser/Vite via CDP",
+  "viewport": [
+    1024,
+    576
+  ],
+  "defaultPreset": "B (20fps side / 16fps front-back)",
+  "defaultSpeed": 170,
+  "captures": {
+    "frontWalk": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4-2\\motion-evidence\\front-walk-frames",
+    "backWalk": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4-2\\motion-evidence\\back-walk-frames",
+    "sideWalk": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4-2\\motion-evidence\\side-walk-frames",
+    "directionTransition": "C:\\Users\\hyun0\\MyPage\\reports\\portfolio-world-rebuild\\r5-world-layout-recovery\\phase-e2-4-2\\motion-evidence\\direction-transition-frames"
+  }
+}

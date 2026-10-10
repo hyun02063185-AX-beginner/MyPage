@@ -60,9 +60,11 @@ const FOREGROUND_LAYERS: readonly ForegroundLayer[] = [
 ];
 const ANIMATION_PRESETS: Readonly<Record<AnimationPreset, Readonly<{ label: string; side: number; vertical: number }>>> = {
   fast: { label: "E2.4 fast · side 48 / vertical 24", side: 48, vertical: 24 },
-  a: { label: "A · side 24 / vertical 12", side: 24, vertical: 12 },
-  b: { label: "B · side 20 / vertical 10 (recommended)", side: 20, vertical: 10 },
-  c: { label: "C · side 16 / vertical 8", side: 16, vertical: 8 },
+  // Front/back now carry an 8-pose gait like Side.  Their cadence is slower
+  // than Side's contact rhythm, rather than replaying four sparse poses.
+  a: { label: "A · side 24 / vertical 18", side: 24, vertical: 18 },
+  b: { label: "B · side 20 / vertical 16 (recommended)", side: 20, vertical: 16 },
+  c: { label: "C · side 16 / vertical 12", side: 16, vertical: 12 },
 };
 
 class HybridPilotScene extends Phaser.Scene {
@@ -100,11 +102,15 @@ class HybridPilotScene extends Phaser.Scene {
     // normalize the opaque silhouette, and remove the 12px / 24px walk-frame collapse.
     this.load.image("pilot-idle-side", "/assets/r5-hybrid/pilot-player/side-idle-normalized.png");
     this.load.image("pilot-idle-side-v3", "/assets/r5-hybrid/pilot-player/idle-side-v3.png");
+    this.load.image("pilot-idle-front-v3", "/assets/r5-hybrid/pilot-player/idle-front-v3.png");
+    this.load.image("pilot-idle-back-v3", "/assets/r5-hybrid/pilot-player/idle-back-v3.png");
     for (const direction of ["front", "back", "side"]) this.load.spritesheet(`r4-walk-${direction}`, `/assets/canonical-r4/runtime/player/walk-${direction}.png`, { frameWidth: 28, frameHeight: 56 });
     this.load.spritesheet("pilot-walk-side", "/assets/r5-hybrid/pilot-player/side-walk-normalized.png", { frameWidth: 28, frameHeight: 56 });
     this.load.spritesheet("pilot-walk-front-v2", "/assets/r5-hybrid/pilot-player/walk-front-v2.png", { frameWidth: 28, frameHeight: 56 });
     this.load.spritesheet("pilot-walk-back-v2", "/assets/r5-hybrid/pilot-player/walk-back-v2.png", { frameWidth: 28, frameHeight: 56 });
     this.load.spritesheet("pilot-walk-side-v2", "/assets/r5-hybrid/pilot-player/walk-side-v2.png", { frameWidth: 28, frameHeight: 56 });
+    this.load.spritesheet("pilot-walk-front-v3", "/assets/r5-hybrid/pilot-player/walk-front-v3.png", { frameWidth: 28, frameHeight: 56 });
+    this.load.spritesheet("pilot-walk-back-v3", "/assets/r5-hybrid/pilot-player/walk-back-v3.png", { frameWidth: 28, frameHeight: 56 });
   }
 
   public create(): void {
@@ -157,18 +163,19 @@ class HybridPilotScene extends Phaser.Scene {
       if (!this.anims.exists(key)) this.anims.create({ key, frames: this.anims.generateFrameNumbers(key, { start: 0, end: frameCount - 1 }), frameRate, repeat: -1 });
     };
     idle("r4-idle-front"); idle("r4-idle-back"); idle("r4-idle-side"); idle("pilot-idle-side");
+    idle("pilot-idle-front-v3"); idle("pilot-idle-back-v3"); idle("pilot-idle-side-v3");
     walk("r4-walk-front", 4, 8); walk("r4-walk-back", 4, 8); walk("r4-walk-side", 4, 8); walk("pilot-walk-side", 4, 8);
     this.createPilotWalkAnimations(walk);
   }
 
   private createPilotWalkAnimations(walk: (key: string, frameCount: number, frameRate: number) => void): void {
     const cadence = ANIMATION_PRESETS[this.animationPreset];
-    walk("pilot-walk-front-v2", 4, cadence.vertical); walk("pilot-walk-back-v2", 4, cadence.vertical); walk("pilot-walk-side-v2", 8, cadence.side);
+    walk("pilot-walk-front-v3", 8, cadence.vertical); walk("pilot-walk-back-v3", 8, cadence.vertical); walk("pilot-walk-side-v2", 8, cadence.side);
   }
 
   private applyAnimationPreset(preset: AnimationPreset, speed = this.moveSpeed): void {
     this.animationPreset = preset; this.moveSpeed = speed;
-    for (const key of ["pilot-walk-front-v2", "pilot-walk-back-v2", "pilot-walk-side-v2"]) if (this.anims.exists(key)) this.anims.remove(key);
+    for (const key of ["pilot-walk-front-v3", "pilot-walk-back-v3", "pilot-walk-side-v2"]) if (this.anims.exists(key)) this.anims.remove(key);
     const walk = (key: string, frameCount: number, frameRate: number) => this.anims.create({ key, frames: this.anims.generateFrameNumbers(key, { start: 0, end: frameCount - 1 }), frameRate, repeat: -1 });
     this.createPilotWalkAnimations(walk);
     this.player.stop(); this.updateAnimation(0, 0);
@@ -198,8 +205,8 @@ class HybridPilotScene extends Phaser.Scene {
     }
     const direction = this.facing === "left" || this.facing === "right" ? "side" : this.facing;
     const key = moving
-      ? this.beforeWalkQa || (direction === "side" && this.rawSideQa) ? `r4-walk-${direction}` : `pilot-walk-${direction}-v2`
-      : direction === "side" && !this.beforeWalkQa ? "pilot-idle-side-v3" : `r4-idle-${direction}`;
+      ? this.beforeWalkQa || (direction === "side" && this.rawSideQa) ? `r4-walk-${direction}` : direction === "side" ? "pilot-walk-side-v2" : `pilot-walk-${direction}-v3`
+      : !this.beforeWalkQa && direction === "side" ? "pilot-idle-side-v3" : !this.beforeWalkQa ? `pilot-idle-${direction}-v3` : `r4-idle-${direction}`;
     this.player.setFlipX(this.facing === "right"); if (this.player.anims.currentAnim?.key !== key) this.player.play(key, true);
     // Texture changes do not own scale/origin/body: the logical player contract does.
     this.player.setDisplaySize(PLAYER.width, PLAYER.height).setOrigin(.5, 1);
@@ -224,7 +231,7 @@ class HybridPilotScene extends Phaser.Scene {
     panel.id = "r5-animation-qa";
     panel.setAttribute("aria-label", "Animation QA controls");
     panel.style.cssText = "position:absolute;z-index:8;right:10px;bottom:10px;width:250px;padding:9px;border:1px solid #f5c96a;border-radius:5px;background:#102d36ef;color:#fff8d2;font:11px/1.35 ui-monospace,monospace;pointer-events:auto";
-    panel.innerHTML = `<strong>Animation QA · actual Phaser</strong><label style="display:block;margin-top:6px">Preset <select data-qa-preset><option value="fast">E2.4 fast (48/24)</option><option value="a">A (24/12)</option><option value="b" selected>B (20/10) recommended</option><option value="c">C (16/8)</option></select></label><label style="display:block;margin-top:4px">Speed <select data-qa-speed><option value="170" selected>170px/s approved</option><option value="150">150px/s experiment</option><option value="130">130px/s experiment</option></select></label><div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:7px"><button data-qa-facing="left">SIDE L</button><button data-qa-facing="right">SIDE R</button><button data-qa-facing="front">FRONT</button><button data-qa-facing="back">BACK</button><button data-qa-state="idle">Idle</button><button data-qa-state="walk">Walk</button><button data-qa-reset>Restore B/170</button></div><p data-qa-readout style="margin:6px 0 0">B · side 20fps · vertical 10fps · 170px/s</p>`;
+    panel.innerHTML = `<strong>Animation QA · actual Phaser</strong><label style="display:block;margin-top:6px">Preset <select data-qa-preset><option value="fast">E2.4 fast (48/24)</option><option value="a">A (24/18)</option><option value="b" selected>B (20/16) recommended</option><option value="c">C (16/12)</option></select></label><label style="display:block;margin-top:4px">Speed <select data-qa-speed><option value="170" selected>170px/s approved</option><option value="150">150px/s experiment</option><option value="130">130px/s experiment</option></select></label><div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:7px"><button data-qa-facing="left">SIDE L</button><button data-qa-facing="right">SIDE R</button><button data-qa-facing="front">FRONT</button><button data-qa-facing="back">BACK</button><button data-qa-state="idle">Idle</button><button data-qa-state="walk">Walk</button><button data-qa-reset>Restore B/170</button></div><p data-qa-readout style="margin:6px 0 0">B · side 20fps · vertical 16fps · 170px/s</p>`;
     root.append(panel);
     const selectPreset = panel.querySelector<HTMLSelectElement>("[data-qa-preset]")!;
     const selectSpeed = panel.querySelector<HTMLSelectElement>("[data-qa-speed]")!;

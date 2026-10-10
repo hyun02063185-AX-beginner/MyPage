@@ -1,0 +1,258 @@
+{
+  "taskId": "R5-E2.4.2-FRONTBACK-GAIT-BODY-CONSISTENCY",
+  "assets": {
+    "front": [
+      "walk-front-v3.png",
+      "idle-front-v3.png"
+    ],
+    "back": [
+      "walk-back-v3.png",
+      "idle-back-v3.png"
+    ],
+    "side": [
+      "walk-side-v2.png",
+      "idle-side-v3.png"
+    ]
+  },
+  "bodyMeasurements": {
+    "front": [
+      {
+        "left": 3,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 22,
+        "height": 52
+      },
+      {
+        "left": 2,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 23,
+        "height": 52
+      },
+      {
+        "left": 2,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 23,
+        "height": 52
+      },
+      {
+        "left": 3,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 22,
+        "height": 52
+      },
+      {
+        "left": 3,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 22,
+        "height": 52
+      },
+      {
+        "left": 2,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 23,
+        "height": 52
+      },
+      {
+        "left": 3,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 22,
+        "height": 52
+      },
+      {
+        "left": 3,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 22,
+        "height": 52
+      }
+    ],
+    "back": [
+      {
+        "left": 2,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 23,
+        "height": 52
+      },
+      {
+        "left": 2,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 23,
+        "height": 52
+      },
+      {
+        "left": 3,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 22,
+        "height": 52
+      },
+      {
+        "left": 2,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 23,
+        "height": 52
+      },
+      {
+        "left": 2,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 23,
+        "height": 52
+      },
+      {
+        "left": 2,
+        "top": 3,
+        "right": 26,
+        "bottom": 55,
+        "width": 24,
+        "height": 52
+      },
+      {
+        "left": 3,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 22,
+        "height": 52
+      },
+      {
+        "left": 3,
+        "top": 3,
+        "right": 25,
+        "bottom": 55,
+        "width": 22,
+        "height": 52
+      }
+    ],
+    "side": [
+      {
+        "left": 1,
+        "top": 4,
+        "right": 27,
+        "bottom": 55,
+        "width": 26,
+        "height": 51
+      },
+      {
+        "left": 6,
+        "top": 3,
+        "right": 22,
+        "bottom": 55,
+        "width": 16,
+        "height": 52
+      },
+      {
+        "left": 5,
+        "top": 3,
+        "right": 23,
+        "bottom": 55,
+        "width": 18,
+        "height": 52
+      },
+      {
+        "left": 1,
+        "top": 3,
+        "right": 27,
+        "bottom": 55,
+        "width": 26,
+        "height": 52
+      },
+      {
+        "left": 5,
+        "top": 3,
+        "right": 23,
+        "bottom": 55,
+        "width": 18,
+        "height": 52
+      },
+      {
+        "left": 5,
+        "top": 4,
+        "right": 23,
+        "bottom": 55,
+        "width": 18,
+        "height": 51
+      },
+      {
+        "left": 1,
+        "top": 4,
+        "right": 27,
+        "bottom": 55,
+        "width": 26,
+        "height": 51
+      },
+      {
+        "left": 3,
+        "top": 3,
+        "right": 24,
+        "bottom": 55,
+        "width": 21,
+        "height": 52
+      }
+    ]
+  },
+  "bodyStandard": {
+    "logicalFrame": [
+      28,
+      56
+    ],
+    "groundContactY": 55,
+    "origin": [
+      0.5,
+      1
+    ],
+    "physics": [
+      28,
+      16,
+      0,
+      40
+    ]
+  },
+  "cadence": {
+    "fast": [
+      48,
+      24
+    ],
+    "a": [
+      24,
+      18
+    ],
+    "bRecommended": [
+      20,
+      16
+    ],
+    "c": [
+      16,
+      12
+    ],
+    "speed": 170
+  },
+  "protected": {
+    "candidateBModified": false,
+    "r4FormalRuntimeImplemented": false
+  },
+  "gate": "READY_FOR_R5_E2_4_2_HUMAN_PLAYTEST"
+}

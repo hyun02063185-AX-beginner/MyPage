@@ -25,15 +25,17 @@ test("E2.4.1 makes the Pilot side idle a same-master v2 support pose without per
 
 test("E2.4.1 defaults to natural candidate B and exposes a QA-only live cadence/speed comparator", () => {
   assert.match(source, /animationPreset: AnimationPreset = "b"/);
-  assert.match(source, /side: 20, vertical: 10/);
-  assert.match(source, /side: 24, vertical: 12/);
-  assert.match(source, /side: 16, vertical: 8/);
+  // E2.4.2 retains this live comparator while giving its 8-pose vertical
+  // sheets a matching cadence.
+  assert.match(source, /side: 20, vertical: 16/);
+  assert.match(source, /side: 24, vertical: 18/);
+  assert.match(source, /side: 16, vertical: 12/);
   assert.match(source, /animationQa/);
   assert.match(source, /applyAnimationPreset/);
   assert.match(source, /this\.anims\.remove\(key\)/);
   assert.match(source, /moveSpeed: number/);
   assert.match(source, /pilot-idle-side-v3/);
-  assert.match(source, /direction === "side" && !this\.beforeWalkQa \? "pilot-idle-side-v3"/);
+  assert.match(source, /!this\.beforeWalkQa && direction === "side" \? "pilot-idle-side-v3"/);
 });
 
 test("E2.4.1 ships all required review material and real multi-frame motion evidence", () => {

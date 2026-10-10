@@ -24,10 +24,10 @@ test("E2.4 binds the new sheets, synchronizes cadence, preserves the body contra
   assert.match(source, /pilot-walk-front-v2/);
   assert.match(source, /pilot-walk-back-v2/);
   assert.match(source, /pilot-walk-side-v2/);
-  // E2.4.1 preserves the original rapid cadence as a QA baseline while
-  // selecting a slower natural default through live Phaser presets.
+  // E2.4.2 keeps the rapid baseline as QA-only and promotes the denser
+  // eight-pose Front/Back cadence through the live Phaser presets.
   assert.match(source, /fast: \{ label: "E2\.4 fast · side 48 \/ vertical 24", side: 48, vertical: 24 \}/);
-  assert.match(source, /b: \{ label: "B · side 20 \/ vertical 10 \(recommended\)", side: 20, vertical: 10 \}/);
+  assert.match(source, /b: \{ label: "B · side 20 \/ vertical 16 \(recommended\)", side: 20, vertical: 16 \}/);
   assert.match(source, /Math\.abs\(vx\) > Math\.abs\(vy\) \* 1\.2/);
   assert.match(source, /walkVersion/);
   assert.match(source, /setSize\(28, 16\)\.setOffset\(0, 40\)/);
