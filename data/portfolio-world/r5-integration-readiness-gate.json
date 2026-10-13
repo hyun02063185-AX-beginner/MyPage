@@ -1,0 +1,15 @@
+{
+  "taskId": "R5-FINAL-INTEGRATION-READINESS-GATE",
+  "baselineCommit": "b4e67948d1c12b46784441cc752d1fad3c2bdb04",
+  "branch": "design/world-layout-recovery-r5",
+  "approvedAssets": {"world":"Candidate B — Organic Coastal Harbor","character":"E.2.4.2 V3 Front/Back; improved Side","normalPreset":{"sideFps":20,"verticalFps":16,"speed":170},"scenicPlateSha256":"07F5FFF3E9765682A20F106BF58E65E201BCB59C10D1BF065ED45B94B596008B"},
+  "approvedUserExperience": {"viewport":[1024,576],"zoom":1.25,"movement":["click A*","WASD","arrow keys"],"reserve":"right-side, visual-only","poiCount":4,"hero":"boarding threshold only"},
+  "contentRouting": [{"poi":"Exhibition Hall","target":[175,190],"file":"teaching.html"},{"poi":"Workshop","target":[245,440],"file":"making.html"},{"poi":"Harbor Archive","target":[180,560],"file":"gallery.html"},{"poi":"Hero Ship threshold","target":[1020,364],"file":"career.html"}],
+  "runtimeArchitectureOptions": {"recommended":"A: R5 Scene within existing Runtime","alternative":"B: promoted separate Hybrid entry","r4Preservation":"retain ?canonical=4 and do not modify CanonicalRuntimeR4Scene"},
+  "deploymentRisks": ["R5 Pilot is not emitted by current Vite build","root-relative Pilot source/assets are not Pages-safe","relative content files resolve under /MyPage/world/ instead of /MyPage/"],
+  "regressionTests": {"typecheck":"PASS","build":"PASS_WITH_CHUNK_WARNING","automated":"PASS 154/154","browser":{"r5Overview":"PASS","hallPanelAndReturn":"PASS","r4Entry":"PASS","workshopToHall":"FAIL_SAFE_ROUTE_BLOCKED","android":"NOT_TESTED","githubPages":"NOT_TESTED"}},
+  "deferredIssues": ["ART_OCCLUSION_REQUIRED history","Android physical-device QA","chunk-size assessment"],
+  "integrationStages": ["A: Runtime Entry & Asset Integration","B: Navigation & Destination UX","C: Content & Deployment"],
+  "humanDecisionRequired": ["authorize staged implementation only","retain new-tab content initially","require Android QA before production"],
+  "gate": "CONDITIONAL_INTEGRATION_READINESS"
+}
