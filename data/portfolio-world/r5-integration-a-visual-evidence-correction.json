@@ -1,0 +1,12 @@
+{
+  "taskId": "R5-INTEGRATION-A-VISUAL-EVIDENCE-CORRECTION",
+  "baselineCommit": "037f93ed83831b67bbf22c833eed4814a604ea49",
+  "finding": "Prior Integration A images 10, 11, and 13 reused Pilot/review imagery and were not actual R5WorldScene browser captures. Original files preserved; corrected evidence submitted separately.",
+  "captures": [
+    {"id":"DEV_R5","url":"http://127.0.0.1:4173/?r5=1","scene":"R5WorldScene","canvasCount":1,"assetErrors":0,"consoleErrors":0,"path":"reports/portfolio-world-rebuild/r5-world-layout-recovery/integration-a-visual-evidence-correction/10-dev-r5-runtime.png","sha256":"E895916258886BFDCFD24AE636573079C36A1DB7C1A866FE9B69D7942221C27E"},
+    {"id":"PREVIEW_R5","url":"http://127.0.0.1:4175/MyPage/world/?r5=1","scene":"R5WorldScene","canvasCount":1,"assetErrors":0,"consoleErrors":0,"path":"reports/portfolio-world-rebuild/r5-world-layout-recovery/integration-a-visual-evidence-correction/11-production-preview-r5-runtime.png","sha256":"00BCB5129BBE9B19A1754740AF0D7369F4828EC58CFE57D78060147F9E2A981B"},
+    {"id":"R4","url":"http://127.0.0.1:4173/?canonical=4&overview=1","scene":"CanonicalRuntimeR4Scene","canvasCount":1,"assetErrors":0,"consoleErrors":0,"path":"reports/portfolio-world-rebuild/r5-world-layout-recovery/integration-a-visual-evidence-correction/12-canonical-r4-regression.png","sha256":"D8421B985C7F03823D35A2DD5854A5D208A3370560C1FF0882C1C2D26054D6E0"},
+    {"id":"PILOT","url":"http://127.0.0.1:4173/r5-hybrid-pilot.html","scene":"R5HybridPilotScene","canvasCount":1,"assetErrors":0,"consoleErrors":0,"path":"reports/portfolio-world-rebuild/r5-world-layout-recovery/integration-a-visual-evidence-correction/13-hybrid-pilot-regression.png","sha256":"88B810158935A03323E0919413BA90B98B3EE409F68CC733752F6DD34F3EBEB7"}
+  ],
+  "gate": "READY_FOR_R5_INTEGRATION_A_HUMAN_GATE"
+}
