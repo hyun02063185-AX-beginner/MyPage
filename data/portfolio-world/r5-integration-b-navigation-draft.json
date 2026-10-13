@@ -1,0 +1,12 @@
+{
+  "taskId": "R5-INTEGRATION-B-NAVIGATION-DESTINATION-UX",
+  "baseline": {"integrationA":"6e647ae49b7e27685257aa5d2a4583c6f7994f33","world":"1280x720","zoom":1.25,"speed":170,"grid":8,"sweep":2,"body":"28x16"},
+  "approvedAssets": ["idle-front-v3","idle-back-v3","idle-side-v3","walk-front-v3","walk-back-v3","walk-side-v2"],
+  "navigationImplementation": {"aStar":"hybridNavigation.findPilotPath","collision":"hybridCollision","keyboardOverride":true,"routeGuideToggle":true},
+  "workshopHall": {"oldStop":[160,358],"validatedWaypoint":[160,360],"cause":"frame step overran a valid waypoint","fix":"cap step to remaining waypoint distance"},
+  "pois": {"hall":{"target":[175,190]},"workshop":{"target":[245,440]},"archive":{"target":[180,560]},"hero":{"target":[1020,364],"thresholdOnly":true}},
+  "browserTests": {"development":"http://127.0.0.1:30080/?r5=1","production":"http://127.0.0.1:30081/MyPage/world/?r5=1","renderedMarkers":4,"consoleErrors":0,"actualArrivalRecordings":false},
+  "regression": {"r4":"http://127.0.0.1:30080/?canonical=4","pilot":"http://127.0.0.1:30080/r5-hybrid-pilot.html","r4Modified":false,"candidateBModified":false},
+  "remainingIssues": ["Foreground actual-browser route recordings are required"],
+  "humanGate": "CONDITIONAL_INTEGRATION_B_REWORK_REQUIRED"
+}

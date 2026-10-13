@@ -41,10 +41,10 @@ test("Integration A reuses approved R5 assets through BASE_URL and preserves the
 
 test("R5 preview retains the approved world, camera, foreground and static-player contract", () => {
   assert.match(manifest, /width: 1280, height: 720, cameraZoom: 1\.25/);
-  assert.match(scene, /setBounds\(0, 0, R5_WORLD\.width, R5_WORLD\.height\)\.setZoom\(R5_WORLD\.cameraZoom\)/);
-  assert.match(scene, /setSize\(previewPlayer\.bodyWidth, previewPlayer\.bodyHeight\)\.setOffset\(0, previewPlayer\.bodyOffsetY\)/);
-  assert.match(scene, /Integration B\/C에서 연결 예정/);
+  assert.match(scene, /setBounds\(0, 0, R5_WORLD\.width, R5_WORLD\.height\).*setZoom\(R5_WORLD\.cameraZoom\)/);
+  assert.match(scene, /setSize\(p\.bodyWidth, p\.bodyHeight\)\.setOffset\(0, p\.bodyOffsetY\)/);
+  assert.match(scene, /Integration C에서 예정/);
   assert.match(scene, /Phaser\.Scenes\.Events\.SHUTDOWN/);
-  assert.doesNotMatch(scene, /pointerdown|findPilotPath|contentPanel|data-world-marker/);
+  assert.doesNotMatch(scene, /contentPanel|data-world-marker/);
   assert.equal(existsSync(resolve(repo, "portfolio-world/r5-hybrid-pilot.html")), true);
 });

@@ -88,6 +88,23 @@ body {
   pointer-events: none;
 }
 
+#r5-runtime-status, #r5-runtime-arrival {
+  position: absolute; z-index: 3; margin: 0; padding: .35rem .5rem;
+  background: #102d36dd; color: #fff8d2; font-size: .72rem; pointer-events: none;
+}
+#r5-runtime-status { top: .75rem; left: .75rem; }
+#r5-runtime-route-toggle { position: absolute; z-index: 5; top: 2.85rem; left: .75rem; border: 1px solid #78b9ca; border-radius: 4px; background: #153b48ee; color: #fff8d2; cursor: pointer; font: 11px/1.2 ui-monospace, monospace; padding: .35rem .5rem; }
+#r5-runtime-route-toggle:hover, #r5-runtime-route-toggle:focus-visible { border-color: #f5c96a; outline: 2px solid #f5c96a; outline-offset: 2px; }
+#r5-runtime-arrival { left: 50%; bottom: .75rem; max-width: calc(100% - 2rem); transform: translateX(-50%); border: 1px solid #7af0b9; text-align: center; }
+#r5-runtime-marker-layer { position: absolute; inset: 0; z-index: 4; pointer-events: none; overflow: hidden; }
+.r5-runtime-marker { position: absolute; transform: translate(-50%, -100%); display: flex; gap: .35rem; align-items: center; max-width: 190px; padding: .35rem .45rem; border: 1px solid #78b9ca; border-radius: 5px; background: #153b48ee; color: #fff8d2; box-shadow: 0 2px 0 #06191f99; font: 11px/1.2 ui-monospace, monospace; text-align: left; cursor: pointer; pointer-events: auto; }
+.r5-runtime-marker b { display: grid; width: 20px; height: 20px; place-items: center; border-radius: 50%; background: #f5c96a; color: #102d36; }
+.r5-runtime-marker small { display: block; margin-top: 2px; color: #d5f0f5; font-size: 9px; }
+.r5-runtime-marker:hover, .r5-runtime-marker:focus-visible, .r5-runtime-marker.is-selected { border-color: #f5c96a; background: #28586aee; outline: 2px solid #f5c96a; outline-offset: 2px; }
+.r5-runtime-marker.is-arrived { border-color: #7af0b9; background: #215c4eee; }
+.r5-runtime-marker.is-moving b { animation: r5-marker-pulse .85s ease-in-out infinite alternate; }
+@keyframes r5-marker-pulse { from { transform: scale(.9); } to { transform: scale(1.08); } }
+
 .touch-fallback {
   display: none;
 }
