@@ -1,0 +1,15 @@
+{
+  "taskId": "R5-INTEGRATION-A-RUNTIME-ENTRY-ASSETS",
+  "startCommit": "cd118b19769c2ae1d345707b7bf673de149a1a20",
+  "appliedScene": "R5WorldScene",
+  "entryUrls": {"development":"/?r5=1","productionPreview":"/MyPage/world/?r5=1","r4":"/?canonical=4"},
+  "entryPrecedence": "canonical parameter is authoritative when present; r5=1 applies only with no canonical parameter",
+  "approvedAssets": {"manifest":"portfolio-world/src/world/r5RuntimeAssets.ts","candidateB":"07F5FFF3E9765682A20F106BF58E65E201BCB59C10D1BF065ED45B94B596008B","player":"Front/Back V3; Side V2; 28x56; 28x16 body","foregroundLayers":5},
+  "cameraContract": {"viewport":[1024,576],"world":[1280,720],"zoom":1.25,"bounds":[0,0,1280,720],"staticPreviewPlayer":[245,440]},
+  "paths": {"developmentBase":"/assets/r5-hybrid/","productionBase":"/MyPage/world/assets/r5-hybrid/","resolver":"import.meta.env.BASE_URL"},
+  "r4Preservation": {"sourceModified":false,"browser":"PASS"},
+  "pilotPreservation": {"sourceModified":false,"browser":"PASS; four markers and panel present"},
+  "browserQa": {"devR5":"PASS","productionPreviewR5":"PASS port 4175","r4":"PASS","pilot":"PASS","consoleErrors":0},
+  "integrationBHandoff": ["navigation/collision/A*", "markers/destination UX", "Workshop to Hall route investigation"],
+  "humanGate": "READY_FOR_R5_INTEGRATION_A_HUMAN_GATE"
+}

@@ -5,6 +5,7 @@ import {
   WORLD_ASSETS,
   resolveWorldAssetUrl,
 } from "../world/worldAssetManifest";
+import { R5_RUNTIME_ASSETS, resolveR5RuntimeAssetUrl } from "../world/r5RuntimeAssets";
 
 /** Loads the explicit first art slice; later phases can keep this focused list small. */
 export class BootScene extends Phaser.Scene {
@@ -14,6 +15,16 @@ export class BootScene extends Phaser.Scene {
 
   public preload(): void {
     const canonical = new URLSearchParams(window.location.search).get("canonical");
+    // Canonical remains authoritative when both contracts are present; this preserves R1–R4 URLs.
+    const r5 = canonical === null && new URLSearchParams(window.location.search).get("r5") === "1";
+    if (r5) {
+      for (const asset of R5_RUNTIME_ASSETS) {
+        const url = resolveR5RuntimeAssetUrl(asset);
+        if (asset.kind === "spritesheet") this.load.spritesheet(asset.textureKey, url, { frameWidth: asset.width, frameHeight: asset.height });
+        else this.load.image(asset.textureKey, url);
+      }
+      return;
+    }
     if (canonical === "1") {
       const base = import.meta.env.BASE_URL;
       for (const [key, file] of Object.entries({ "r1-hall":"hall-b.png", "r1-workshop":"workshop-c.png", "r1-hero":"hero-b.png", "r1-secondary":"secondary-b.png", "r1-workboat":"workboat-a.png", "r1-office":"office-b.png" })) {
@@ -101,6 +112,7 @@ export class BootScene extends Phaser.Scene {
 
   public create(): void {
     const canonical = new URLSearchParams(window.location.search).get("canonical");
-    this.scene.start(canonical === "1" ? "CanonicalRuntimeR1Scene" : canonical === "2" ? "CanonicalRuntimeR2Scene" : canonical === "3" ? "CanonicalRuntimeR3Scene" : canonical === "4" ? "CanonicalRuntimeR4Scene" : "WorldScene");
+    const r5 = canonical === null && new URLSearchParams(window.location.search).get("r5") === "1";
+    this.scene.start(canonical === "1" ? "CanonicalRuntimeR1Scene" : canonical === "2" ? "CanonicalRuntimeR2Scene" : canonical === "3" ? "CanonicalRuntimeR3Scene" : canonical === "4" ? "CanonicalRuntimeR4Scene" : r5 ? "R5WorldScene" : "WorldScene");
   }
 }
