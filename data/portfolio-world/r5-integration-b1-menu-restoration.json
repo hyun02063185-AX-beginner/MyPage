@@ -1,0 +1,13 @@
+{
+  "taskId": "R5-INTEGRATION-B1-DESTINATION-NAV-RESTORE",
+  "baselineCommit": "c9abfe9b6cf06b05c89c5243ea28562407441ca8",
+  "bottomMenu": {"buttonCount": 5, "placement": "below Canvas", "r5Only": true, "responsive": "desktop flex; narrow two-column grid"},
+  "poiMapping": {"source": "R5_POIS", "ids": ["hall", "workshop", "archive", "hero"], "sharedRequest": "requestPoi -> requestRoute"},
+  "routeGuide": {"controlCount": 1, "initial": "ON", "ariaPressed": true},
+  "selectionStates": ["IDLE", "MOVING", "ARRIVED", "BLOCKED", "CANCELLED"],
+  "domLifecycle": {"create": "R5 Scene only", "cleanup": ["DOM removal", "pointerdown off", "resize off"]},
+  "browserQa": {"development": "http://127.0.0.1:30080/?r5=1", "production": "http://127.0.0.1:30081/MyPage/world/?r5=1", "menuDisplayed": true, "offscreenHeroSelected": true, "consoleErrors": 0, "assetLoadErrors": 0, "actualArrival": "NOT_VERIFIED_IN_BROWSER"},
+  "r4Regression": "PASS", "pilotRegression": "PASS",
+  "remainingIntegrationCItems": ["content navigation", "Android QA", "deployment"],
+  "humanGate": "READY_FOR_R5_INTEGRATION_B1_HUMAN_PLAYTEST"
+}

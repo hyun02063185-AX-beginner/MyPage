@@ -93,8 +93,6 @@ body {
   background: #102d36dd; color: #fff8d2; font-size: .72rem; pointer-events: none;
 }
 #r5-runtime-status { top: .75rem; left: .75rem; }
-#r5-runtime-route-toggle { position: absolute; z-index: 5; top: 2.85rem; left: .75rem; border: 1px solid #78b9ca; border-radius: 4px; background: #153b48ee; color: #fff8d2; cursor: pointer; font: 11px/1.2 ui-monospace, monospace; padding: .35rem .5rem; }
-#r5-runtime-route-toggle:hover, #r5-runtime-route-toggle:focus-visible { border-color: #f5c96a; outline: 2px solid #f5c96a; outline-offset: 2px; }
 #r5-runtime-arrival { left: 50%; bottom: .75rem; max-width: calc(100% - 2rem); transform: translateX(-50%); border: 1px solid #7af0b9; text-align: center; }
 #r5-runtime-marker-layer { position: absolute; inset: 0; z-index: 4; pointer-events: none; overflow: hidden; }
 .r5-runtime-marker { position: absolute; transform: translate(-50%, -100%); display: flex; gap: .35rem; align-items: center; max-width: 190px; padding: .35rem .45rem; border: 1px solid #78b9ca; border-radius: 5px; background: #153b48ee; color: #fff8d2; box-shadow: 0 2px 0 #06191f99; font: 11px/1.2 ui-monospace, monospace; text-align: left; cursor: pointer; pointer-events: auto; }
@@ -102,8 +100,15 @@ body {
 .r5-runtime-marker small { display: block; margin-top: 2px; color: #d5f0f5; font-size: 9px; }
 .r5-runtime-marker:hover, .r5-runtime-marker:focus-visible, .r5-runtime-marker.is-selected { border-color: #f5c96a; background: #28586aee; outline: 2px solid #f5c96a; outline-offset: 2px; }
 .r5-runtime-marker.is-arrived { border-color: #7af0b9; background: #215c4eee; }
+.r5-runtime-marker.is-blocked, .r5-runtime-bottom-nav__button.is-blocked { border-color: #f28b82; }
 .r5-runtime-marker.is-moving b { animation: r5-marker-pulse .85s ease-in-out infinite alternate; }
 @keyframes r5-marker-pulse { from { transform: scale(.9); } to { transform: scale(1.08); } }
+#r5-runtime-bottom-nav { display: flex; justify-content: center; min-width: 0; padding: .65rem 1rem; border-top: 1px solid #2d4966; background: #102031; }
+.r5-runtime-bottom-nav__controls { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; max-width: 100%; }
+.r5-runtime-bottom-nav__button { min-height: 34px; border: 1px solid #507583; border-radius: 4px; background: #173846; color: #fff8d2; cursor: pointer; font: 12px/1.2 ui-monospace, monospace; padding: .45rem .65rem; }
+.r5-runtime-bottom-nav__button:hover, .r5-runtime-bottom-nav__button:focus-visible, .r5-runtime-bottom-nav__button.is-selected { border-color: #f5c96a; background: #28586a; outline: 2px solid #f5c96a; outline-offset: 2px; }
+.r5-runtime-bottom-nav__button.is-arrived { border-color: #7af0b9; background: #215c4e; }
+.r5-runtime-bottom-nav__guide[aria-pressed="false"] { border-color: #507583; background: #172b35; color: #bed0df; }
 
 .touch-fallback {
   display: none;
@@ -131,4 +136,9 @@ body {
   .touch-fallback {
     display: block;
   }
+
+  #r5-runtime-bottom-nav { padding: .5rem; }
+  .r5-runtime-bottom-nav__controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(100%, 520px); }
+  .r5-runtime-bottom-nav__button { min-width: 0; }
+  .r5-runtime-bottom-nav__guide { grid-column: 1 / -1; }
 }
